@@ -1,0 +1,4 @@
+interface:
+  display_name: "Project Start Work"
+  short_description: "Start repo work with board and scope checks."
+  default_prompt: "Use $project-start-work to begin this repository task safely."
