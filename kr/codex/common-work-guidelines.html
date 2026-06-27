@@ -407,6 +407,13 @@
           <li>여러 저장소를 동시에 다룰 때는 저장소별로 독립 커밋한다.</li>
           <li><code>Design.html</code>과 <code>DesignAssets</code>는 기획 문서 작업이 명시된 경우에만 커밋에 포함한다.</li>
         </ul>
+
+        <h3>GitHub Projects 상태</h3>
+        <ul>
+          <li>GitHub 원격 저장소가 있는 프로젝트는 <code>origin</code>에서 <code>OWNER/REPO</code>를 확인하고, <code>gh repo view OWNER/REPO --json projectsV2</code>로 저장소에 연결된 Project를 확인한다.</li>
+          <li>연결된 Project가 있으면 태스크 시작, 진행, 완료 흐름에 맞춰 대응되는 issue, pull request, 또는 project item의 상태를 함께 갱신한다.</li>
+          <li>연결된 Project가 없거나 대응 item이 명확하지 않으면 임의로 만들거나 옮기지 말고, 작업 보고에 생략 사유나 확인 필요 사항을 남긴다.</li>
+        </ul>
       </div>
     </section>
 

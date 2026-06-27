@@ -70,6 +70,12 @@ Work that is hard to undo or changes external state proceeds immediately only wh
 - When multiple repositories are involved, commit each repository independently.
 - Include `Design.html` and `DesignAssets` only when planning-document work was explicitly requested.
 
+### GitHub Projects status
+
+- For projects with a GitHub remote, derive `OWNER/REPO` from `origin` and check linked Projects with `gh repo view OWNER/REPO --json projectsV2`.
+- When a repository has linked Projects, treat project-status maintenance as part of task execution: update the matching issue, pull request, or project item as work starts, changes state, or completes.
+- If no Project is linked or no matching item is clear, do not invent or move items silently; note the skipped update or the mapping that needs confirmation in the work report.
+
 ## Document responsibility {#documents}
 
 **Common work guidelines:** recurring operating rules, approval boundaries, Git rules, and validation principles are managed in this repository.
