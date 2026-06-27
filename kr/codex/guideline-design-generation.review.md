@@ -1,14 +1,14 @@
 ---
 layout: page
-lang: en
 title: "Design.html Planning Rules"
-alternate_url: /kr/codex/guideline-design-generation.review/
+lang: ko-KR
+alternate_url: /en/codex/guideline-design-generation.review.html
 category: "GUIDELINE"
 description: "Human-readable pointer to the minimal raw Design.html rules."
-permalink: /en/codex/guideline-design-generation.review.html
+permalink: /kr/codex/guideline-design-generation.review/
 ---
 
-[← Codex]({{ "/en/codex/" | relative_url }}) · [한국어]({{ "/kr/codex/guideline-design-generation.review/" | relative_url }})
+[← Codex]({{ "/kr/codex/" | relative_url }}) · [English]({{ "/en/codex/guideline-design-generation.review.html" | relative_url }})
 {: .article-backlink }
 
 Use the raw Markdown as the execution source: [`/codex/guideline-design-generation.review.md`]({{ "/codex/guideline-design-generation.review.md" | relative_url }}).
