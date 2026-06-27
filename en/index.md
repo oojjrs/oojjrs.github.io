@@ -23,29 +23,22 @@ alternate_url: /kr/
       <p>Design cost · Rebuilds</p>
       <span class="card-link">Read <span aria-hidden="true">→</span></span>
     </a>
-
-    <a class="collection-card collection-card-codex" href="{{ "/codex/common-work-guidelines.md" | relative_url }}">
-      <span class="card-index">03</span>
-      <span class="card-label">CODEX GUIDELINE</span>
-      <h3>Common Work Guidelines</h3>
-      <p>Work rules · Checks</p>
-      <span class="card-link">Read <span aria-hidden="true">→</span></span>
-    </a>
-
-    <a class="collection-card collection-card-codex" href="{{ "/codex/guideline-design-generation.review.md" | relative_url }}">
-      <span class="card-index">04</span>
-      <span class="card-label">DESIGN STANDARD</span>
-      <h3>Design.html Standard</h3>
-      <p>Planning · Review</p>
-      <span class="card-link">Read <span aria-hidden="true">→</span></span>
-    </a>
-
-    <a class="collection-card collection-card-unity" href="{{ "/en/unity/csharp-coding-convention.html" | relative_url }}">
-      <span class="card-index">05</span>
-      <span class="card-label">UNITY CONVENTION</span>
-      <h3>Unity C# Convention</h3>
-      <p>C# rules · Structure</p>
-      <span class="card-link">Read <span aria-hidden="true">→</span></span>
-    </a>
   </div>
+
+  <nav class="utility-link-row" aria-label="Private reference documents">
+    <a class="utility-link utility-link-codex" href="{{ "/codex/common-work-guidelines.md" | relative_url }}">
+      <span>CODEX</span>
+      <strong>Common Work Guidelines</strong>
+    </a>
+
+    <a class="utility-link utility-link-codex" href="{{ "/codex/guideline-design-generation.review.md" | relative_url }}">
+      <span>DESIGN</span>
+      <strong>Design.html Standard</strong>
+    </a>
+
+    <a class="utility-link utility-link-unity" href="{{ "/en/unity/csharp-coding-convention.html" | relative_url }}">
+      <span>UNITY</span>
+      <strong>Unity C# Convention</strong>
+    </a>
+  </nav>
 </section>

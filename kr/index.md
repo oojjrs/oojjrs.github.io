@@ -23,29 +23,22 @@ alternate_url: /en/
       <p>설계 비용 · 리빌딩</p>
       <span class="card-link">읽기 <span aria-hidden="true">→</span></span>
     </a>
-
-    <a class="collection-card collection-card-codex" href="{{ "/codex/common-work-guidelines.md" | relative_url }}">
-      <span class="card-index">03</span>
-      <span class="card-label">CODEX GUIDELINE</span>
-      <h3>공통 작업 지침</h3>
-      <p>작업 방식 · 검증</p>
-      <span class="card-link">읽기 <span aria-hidden="true">→</span></span>
-    </a>
-
-    <a class="collection-card collection-card-codex" href="{{ "/codex/guideline-design-generation.review.md" | relative_url }}">
-      <span class="card-index">04</span>
-      <span class="card-label">DESIGN STANDARD</span>
-      <h3>기획서 기준</h3>
-      <p>Design.html · 생성 원칙</p>
-      <span class="card-link">읽기 <span aria-hidden="true">→</span></span>
-    </a>
-
-    <a class="collection-card collection-card-unity" href="{{ "/kr/unity/csharp-coding-convention.html" | relative_url }}">
-      <span class="card-index">05</span>
-      <span class="card-label">UNITY CONVENTION</span>
-      <h3>Unity C# 컨벤션</h3>
-      <p>작성 규칙 · 구조</p>
-      <span class="card-link">읽기 <span aria-hidden="true">→</span></span>
-    </a>
   </div>
+
+  <nav class="utility-link-row" aria-label="관리용 문서">
+    <a class="utility-link utility-link-codex" href="{{ "/codex/common-work-guidelines.md" | relative_url }}">
+      <span>CODEX</span>
+      <strong>공통 작업 지침</strong>
+    </a>
+
+    <a class="utility-link utility-link-codex" href="{{ "/codex/guideline-design-generation.review.md" | relative_url }}">
+      <span>DESIGN</span>
+      <strong>기획서 기준</strong>
+    </a>
+
+    <a class="utility-link utility-link-unity" href="{{ "/kr/unity/csharp-coding-convention.html" | relative_url }}">
+      <span>UNITY</span>
+      <strong>Unity C# 컨벤션</strong>
+    </a>
+  </nav>
 </section>
