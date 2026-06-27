@@ -9,6 +9,6 @@ Read this before work. Keep it tiny.
 5. Preserve existing text encoding and line endings. New text: UTF-8 No-BOM + CRLF.
 6. If `Design.html` exists, read it before every task and update it when the task changes planning state.
 7. For `Design.html` work, also read `https://oojjrs.github.io/codex/guideline-design-generation.review.md`.
-8. Stage/commit only the requested scope. Push only when explicitly requested.
-9. Run practical validation when possible and report key results.
-10. Write feedback and documents in Korean.
+8. If the git repository is linked to a GitHub Project, update the relevant Project item while doing the task.
+9. Stage/commit only the requested scope. Push only when explicitly requested.
+10. Write feedback and documents in Korean; include relevant `git log` context when reporting work or choosing the next task.
