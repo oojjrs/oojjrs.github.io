@@ -9,7 +9,7 @@ permalink: /kr/codex/
 ---
 
 <div class="document-cards">
-  <a class="document-card" href="./common-work-guidelines.html">
+  <a class="document-card" href="./common-work-guidelines/">
     <span class="document-kind">GUIDELINE</span>
     <h2>Codex 공통 작업 지침</h2>
     <p>작업 계획, 파일 수정, 검증, 사용자 소통까지 Codex가 따라야 할 공통 실행 원칙을 정리합니다.</p>
