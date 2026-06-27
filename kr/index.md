@@ -12,7 +12,7 @@ alternate_url: /en/
       <span class="card-index">01</span>
       <span class="card-label">ENGINEERING ESSAY</span>
       <h3>Debuggingless</h3>
-      <p>디버깅 이전 · 설계</p>
+      <p>디버깅 전에 설계하기</p>
       <span class="card-link">읽기 <span aria-hidden="true">→</span></span>
     </a>
 
