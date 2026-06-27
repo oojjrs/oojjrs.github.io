@@ -14,7 +14,7 @@ Use this skill before editing a repository.
 3. Preserve unrelated dirty files. If they affect the task, work around them or report the conflict.
 4. If `Design.html` exists, read it before task work. For Design.html work, also use `$project-design-document-router`.
 5. Resolve the exact requested scope and avoid bundling nearby docs/assets/runtime files unless requested.
-6. Check whether the repository is linked 1:1 to a GitHub Project. If linked, use `$github-project-board` to find/create the task card, convert draft to issue when moving to In Progress, and update status/notes with real newlines.
+6. Check whether the repository is linked 1:1 to a GitHub Project. If linked, use `$github-project-board` to find/create the task card, convert draft to issue when moving to In Progress, assign issue-backed cards to `oojjrs`, and update status/notes with real newlines.
 7. If no linked board/card update is possible, say that explicitly before or during the work report.
 8. Start implementation only after these checks unless the user is only asking a question or review.
 
