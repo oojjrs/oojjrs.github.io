@@ -33,14 +33,14 @@ toc_items:
 This is the public standard for project-level `Design.html` documents.
 {: .article-lead }
 
-When Codex creates, extends, reviews, or edits `Design.html`, it must first check the [common work guidelines](https://oojjrs.github.io/engineering-notes/en/codex/common-work-guidelines.html), this planning-document standard, and the live project document.
+When Codex creates, extends, reviews, or edits `Design.html`, it must first check the [common work guidelines](https://oojjrs.github.io/en/codex/common-work-guidelines.html), this planning-document standard, and the live project document.
 {: .article-principle }
 
 ## Role separation {#roles}
 
 ### Codex execution rules
 
-Work-operation rules refer to the [Codex Common Work Guidelines](https://oojjrs.github.io/engineering-notes/en/codex/common-work-guidelines.html). Planning-document writing rules follow this document and the public standard referenced by the `project-design-document-router` skill.
+Work-operation rules refer to the [Codex Common Work Guidelines](https://oojjrs.github.io/en/codex/common-work-guidelines.html). Planning-document writing rules follow this document and the public standard referenced by the `project-design-document-router` skill.
 
 ### Human review surface
 
@@ -92,7 +92,7 @@ The planning document is not a history file for the full conversation or every i
 - The first structure of a new planning document may use the default categories below as candidates. Empty candidates should go into the later collapsed group so they do not interrupt the reading flow.
 - Do not collect category-specific implementation rules in one separate section. Place category standards and decision rationale next to the relevant data, image, table, or sound.
 - Do not place document signals, writing instructions, or category summaries immediately under the header. The first body section should begin with actual game or product content.
-- The `Design.html` header should contain only the document title and two external reference links: [Codex Common Work Guidelines](https://oojjrs.github.io/engineering-notes/en/codex/common-work-guidelines.html) and [Planning Document Standard](https://oojjrs.github.io/engineering-notes/en/codex/guideline-design-generation.review.html). The links are references, not a reason to mix operating rules into the `Design.html` body.
+- The `Design.html` header should contain only the document title and two external reference links: [Codex Common Work Guidelines](https://oojjrs.github.io/en/codex/common-work-guidelines.html) and [Planning Document Standard](https://oojjrs.github.io/en/codex/guideline-design-generation.review.html). The links are references, not a reason to mix operating rules into the `Design.html` body.
 
 ### Default game-planning categories
 
