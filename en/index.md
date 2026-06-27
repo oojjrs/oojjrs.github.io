@@ -24,7 +24,7 @@ alternate_url: /kr/
       <span class="card-link">Read <span aria-hidden="true">→</span></span>
     </a>
 
-    <a class="collection-card collection-card-codex" href="{{ "/en/codex/common-work-guidelines.html" | relative_url }}">
+    <a class="collection-card collection-card-codex" href="{{ "/codex/common-work-guidelines.md" | relative_url }}">
       <span class="card-index">03</span>
       <span class="card-label">CODEX GUIDELINE</span>
       <h3>Common Work Guidelines</h3>
@@ -32,7 +32,7 @@ alternate_url: /kr/
       <span class="card-link">Read <span aria-hidden="true">→</span></span>
     </a>
 
-    <a class="collection-card collection-card-codex" href="{{ "/en/codex/guideline-design-generation.review.html" | relative_url }}">
+    <a class="collection-card collection-card-codex" href="{{ "/codex/guideline-design-generation.review.md" | relative_url }}">
       <span class="card-index">04</span>
       <span class="card-label">DESIGN STANDARD</span>
       <h3>Design.html Standard</h3>
