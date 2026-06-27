@@ -1,0 +1,4 @@
+interface:
+  display_name: "GitHub Project Board"
+  short_description: "Manage repo-linked GitHub Project task boards."
+  default_prompt: "Use $github-project-board to update the repository-linked GitHub Project task board."
