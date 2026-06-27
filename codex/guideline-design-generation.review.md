@@ -8,7 +8,7 @@ Read this only for `Design.html` creation, review, cleanup, or update.
 4. Read the live `Design.html` first; current code/assets beat stale planning text.
 5. If code and planning disagree, reconcile the document to current implementation and user intent.
 6. Keep prose short. Prefer concrete screens, assets, tables, diagrams, audio/video references, and nearby rationale. Link images to their source files so clicks open the original size.
-7. Keep only assets referenced by the current document. Move drafts, rejected candidates, and temporary files out of final document assets.
+7. Keep only assets referenced by the current document. Put temporary files in `$Trash`; final document assets must use live project asset paths or `DesignAssets/...`, never ad-hoc `tmp` folders.
 8. Put complete/current sections first. Group unwritten candidates and future ideas near the end.
 9. Mark unknowns as unresolved. Ask before inventing project terms or rationale.
 10. Validate links, anchors, asset paths, encoding, line endings, and diff scope.
