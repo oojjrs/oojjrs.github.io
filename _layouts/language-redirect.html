@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="ko-KR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#101419">
+    <link rel="alternate" hreflang="ko-KR" href="{{ page.kr_url | default: '/kr/' | absolute_url }}">
+    <link rel="alternate" hreflang="en" href="{{ page.en_url | default: '/en/' | absolute_url }}">
+    <title>{{ site.title }}</title>
+    <script>
+      (function () {
+        var krUrl = "{{ page.kr_url | default: '/kr/' | relative_url }}";
+        var enUrl = "{{ page.en_url | default: '/en/' | relative_url }}";
+        var saved = null;
+
+        try {
+          saved = localStorage.getItem("preferred-language");
+        } catch (error) {
+          saved = null;
+        }
+
+        if (saved === "kr") {
+          location.replace(krUrl);
+          return;
+        }
+
+        if (saved === "en") {
+          location.replace(enUrl);
+          return;
+        }
+
+        var languages = navigator.languages || [navigator.language || navigator.userLanguage || ""];
+        var wantsKorean = languages.some(function (language) {
+          return String(language).toLowerCase().indexOf("ko") === 0;
+        });
+
+        location.replace(wantsKorean ? krUrl : enUrl);
+      })();
+    </script>
+  </head>
+  <body>
+    <main>
+      <p>
+        <a href="{{ page.kr_url | default: '/kr/' | relative_url }}" hreflang="ko-KR">한국어</a>
+        ·
+        <a href="{{ page.en_url | default: '/en/' | relative_url }}" hreflang="en">English</a>
+      </p>
+      <noscript>
+        <p>JavaScript is required for automatic language selection. Choose a language above.</p>
+      </noscript>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,498 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Design.html 기획서 작성 기준</title>
+  <link rel="alternate" hreflang="ko-KR" href="guideline-design-generation.review.html">
+  <link rel="alternate" hreflang="en" href="../../en/codex/guideline-design-generation.review.html">
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #d6dee8;
+      --panel: #e6ebf1;
+      --text: #182231;
+      --muted: #566273;
+      --line: #b5c0ce;
+      --accent: #1f6feb;
+      --accent-soft: #d8e4f3;
+      --warn: #946200;
+      --warn-soft: #e9ddc5;
+      --code: #162033;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", "Malgun Gothic", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    header {
+      border-bottom: 1px solid #0f172a;
+      background: #101820;
+      color: #fff;
+    }
+
+    .wrap {
+      width: min(1120px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .hero {
+      padding: 34px 0 26px;
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: 30px;
+      line-height: 1.25;
+      letter-spacing: 0;
+    }
+
+    .lead {
+      max-width: 840px;
+      margin: 0;
+      color: #b8c5d6;
+      font-size: 16px;
+    }
+
+    main {
+      padding: 26px 0 42px;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 20px;
+      align-items: start;
+    }
+
+    nav {
+      position: sticky;
+      top: 16px;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      border-radius: 8px;
+      padding: 12px;
+    }
+
+    nav a {
+      display: block;
+      padding: 8px 10px;
+      border-radius: 6px;
+      color: var(--text);
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    nav a:hover {
+      background: var(--accent-soft);
+      color: var(--accent);
+    }
+
+    section {
+      border: 1px solid var(--line);
+      background: var(--panel);
+      border-radius: 8px;
+      padding: 22px;
+      margin-bottom: 18px;
+    }
+
+    h2 {
+      margin: 0 0 14px;
+      font-size: 21px;
+      letter-spacing: 0;
+    }
+
+    h3 {
+      margin: 20px 0 10px;
+      font-size: 16px;
+      letter-spacing: 0;
+    }
+
+    p {
+      margin: 0 0 12px;
+    }
+
+    ul,
+    ol {
+      margin: 0 0 14px;
+      padding-left: 22px;
+    }
+
+    li + li {
+      margin-top: 5px;
+    }
+
+    code {
+      color: var(--code);
+      background: #d4dce6;
+      border: 1px solid #c1cad6;
+      border-radius: 5px;
+      padding: 1px 5px;
+      font-family: Consolas, "Cascadia Mono", monospace;
+      font-size: 0.95em;
+    }
+
+    .split {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .note {
+      border-left: 4px solid var(--accent);
+      background: var(--accent-soft);
+      padding: 12px 14px;
+      border-radius: 6px;
+      color: #12395f;
+    }
+
+    .warn {
+      border-left-color: var(--warn);
+      background: var(--warn-soft);
+      color: #5d4208;
+    }
+
+    .sample {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 14px;
+      background: #dce4ed;
+    }
+
+    .sample h4 {
+      margin: 0 0 8px;
+      font-size: 15px;
+    }
+
+    .badge {
+      display: inline-block;
+      margin-right: 6px;
+      padding: 2px 7px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .term-tip {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 17px;
+      height: 17px;
+      margin-left: 4px;
+      border-radius: 999px;
+      border: 1px solid #8190a3;
+      color: #2e4f78;
+      background: #d8e4f3;
+      font-size: 12px;
+      font-weight: 800;
+      cursor: help;
+      vertical-align: text-top;
+    }
+
+    .term-tip::before {
+      content: "?";
+    }
+
+    .term-tip-text {
+      position: absolute;
+      left: 50%;
+      bottom: calc(100% + 8px);
+      z-index: 10;
+      width: min(280px, 80vw);
+      transform: translateX(-50%);
+      padding: 8px 10px;
+      border: 1px solid #8d9caf;
+      border-radius: 6px;
+      background: #111827;
+      color: #e5edf6;
+      font-size: 12px;
+      line-height: 1.45;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 120ms ease;
+    }
+
+    .term-tip:hover .term-tip-text,
+    .term-tip:focus .term-tip-text {
+      opacity: 1;
+    }
+
+    .checklist {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      padding: 0;
+      list-style: none;
+    }
+
+    .checklist li {
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 10px 12px;
+      background: #dce4ed;
+    }
+
+    footer {
+      padding-top: 8px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    @media (max-width: 860px) {
+      .layout,
+      .split,
+      .checklist {
+        grid-template-columns: 1fr;
+      }
+
+      nav {
+        position: static;
+      }
+    }
+
+    /* Persistent document navigation */
+    header { position: sticky; top: 0; z-index: 30; box-shadow: 0 10px 28px rgba(15, 23, 42, .18); }
+    .hero { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 16px 0; }
+    .hero-copy { min-width: 0; }
+    .hero h1 { margin-bottom: 4px; font-size: clamp(24px, 3vw, 34px); }
+    .hero .lead { font-size: 13px; }
+    .header-actions { display: flex; flex: 0 0 auto; gap: 8px; align-items: center; }
+    .home-link { flex: 0 0 auto; padding: 8px 12px; border: 1px solid rgba(255,255,255,.34); border-radius: 8px; color: #fff; text-decoration: none; font-size: 13px; font-weight: 800; }
+    .home-link:hover { border-color: #fff; background: rgba(255,255,255,.08); }
+    .language-select { min-height: 34px; padding: 6px 9px; border: 1px solid rgba(255,255,255,.34); border-radius: 8px; background: rgba(255,255,255,.08); color: #fff; color-scheme: dark; font-size: 13px; font-weight: 800; }
+    .language-select:hover, .language-select:focus-visible { border-color: #fff; outline: none; }
+    .layout > nav { top: 110px; max-height: calc(100vh - 126px); overflow-y: auto; }
+    section { scroll-margin-top: 110px; }
+    @media (max-width: 860px) {
+      .hero .lead { display: none; }
+      .hero-copy { overflow: hidden; }
+      .hero h1 { overflow: hidden; font-size: 20px; text-overflow: ellipsis; white-space: nowrap; }
+      .layout > nav { position: sticky; top: 69px; z-index: 15; display: flex; overflow-x: auto; overflow-y: hidden; max-height: none; }
+      .layout > nav a { flex: 0 0 auto; white-space: nowrap; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap hero">
+      <div class="hero-copy">
+        <h1>Design.html 기획서 작성 기준</h1>
+        <p class="lead"><strong>필수 첫 규칙:</strong> Codex가 <code>Design.html</code>을 생성·추가·검토·수정할 때는 먼저 공통 작업 지침과 이 기획서 작성 기준을 확인하고 live 프로젝트 문서를 다시 열어야 합니다. 이 HTML은 사람이 확인하는 공개 리뷰 기준이며, <code>project-design-document-router</code> 스킬은 이 공개 URL과 공통 작업 지침 URL을 참조합니다.</p>
+      </div>
+      <div class="header-actions">
+        <select class="language-select" data-language-select aria-label="언어"><option value="" data-language="kr" selected>한국어</option><option value="../../en/codex/guideline-design-generation.review.html" data-language="en">English</option></select>
+        <a class="home-link" href="../">Home</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap layout">
+    <nav aria-label="문서 목차">
+      <a href="#roles">역할 분리</a>
+      <a href="#start">작업 시작 기준</a>
+      <a href="#duplication">중복 보존 기준</a>
+      <a href="#design-hierarchy">기획 위계</a>
+      <a href="#design">Design.html</a>
+      <a href="#samples">표본 파일</a>
+      <a href="#skills">스킬 정리</a>
+      <a href="#validation">검증 체크리스트</a>
+      <a href="#files">보관 위치</a>
+    </nav>
+
+    <div>
+      <section id="roles">
+        <h2>역할 분리</h2>
+        <div class="split">
+          <div class="sample">
+            <h4><span class="badge">.codex</span>Codex 실행 규칙</h4>
+            <p>작업 운영 규칙은 GitHub의 <a href="https://oojjrs.github.io/engineering-notes/kr/codex/common-work-guidelines.html" target="_blank" rel="noopener noreferrer">Codex 공통 작업 지침</a>을 참조합니다. 기획서 작성 규칙은 이 문서와 <code>project-design-document-router</code> 스킬이 가리키는 공개 기준을 따릅니다.</p>
+          </div>
+          <div class="sample">
+            <h4><span class="badge">Review</span>눈으로 보는 검토본</h4>
+            <p>이 HTML은 사용자가 브라우저에서 규칙, 표본, 검증 기준을 확인하기 위한 공개 문서입니다. 로컬 MD는 Codex 내부 참고용이며, 사용자가 직접 확인할 기준은 GitHub Pages의 이 HTML입니다.</p>
+          </div>
+        </div>
+        <p class="note">프로젝트 안에 <code>README.md</code>나 <code>AGENTS.md</code>가 항상 있다고 가정하지 않습니다. 현재 기준의 중심은 프로젝트의 <code>Design.html</code>과 GitHub의 <a href="https://oojjrs.github.io/engineering-notes/kr/codex/common-work-guidelines.html" target="_blank" rel="noopener noreferrer">공통 작업 지침</a>입니다.</p>
+        <p class="note warn"><strong>영역 분리:</strong> 작업 지침과 기획서 작성 지침은 서로 다른 문서 영역입니다. <a href="https://oojjrs.github.io/engineering-notes/kr/codex/common-work-guidelines.html" target="_blank" rel="noopener noreferrer">공통 작업 지침</a>은 Codex가 어떻게 작업하고 검증하고 커밋 범위를 지킬지 다루며, <code>Design.html</code>은 게임/제품의 현재 결정, 구현 기준, UX 사유만 다룹니다. 작업 절차, 큐 운영, 검증 명령, 커밋 규칙은 <code>Design.html</code> 본문에 넣지 않습니다.</p>
+      </section>
+
+      <section id="start">
+        <h2>작업 시작 기준</h2>
+        <ol>
+          <li>프로젝트의 live <code>Design.html</code>을 다시 열고, 작업 운영은 GitHub의 공통 작업 지침을 확인합니다.</li>
+          <li><code>README.md</code>는 보통 GitHub 공개용 문서로 취급합니다. 프로젝트가 명시하지 않는 한 작업 지침의 원본으로 보지 않습니다.</li>
+          <li><code>AGENTS.md</code>가 있으면 읽되, 새 프로젝트에 반드시 있어야 한다고 전제하지 않습니다.</li>
+          <li><code>git status --short --branch</code>로 기존 변경과 병렬 작업 흔적을 확인합니다.</li>
+          <li>현재 프로젝트 파일을 진실 기준으로 삼고, 오래된 메모리나 외부 초안만으로 판단하지 않습니다.</li>
+        </ol>
+      </section>
+
+      <section id="duplication">
+        <h2>중복 보존 기준</h2>
+        <p>개인별 Codex 설정은 중요하지만 여러 환경에서 동기화되지 않을 수 있습니다. 그래서 모든 개인 설정을 복사하지는 않되, 빠지면 손상이 생길 수 있는 규칙은 프로젝트 문서에 반복해서 남깁니다.</p>
+        <ul>
+          <li>되돌리기 어려운 작업은 직전 사용자 지시가 없으면 승인받습니다.</li>
+          <li>원본 인코딩과 줄바꿈을 보존하고, 새 텍스트는 UTF-8 No-BOM과 CRLF를 기본으로 합니다.</li>
+          <li>피드백과 문서 작성은 한국어를 우선합니다.</li>
+          <li><code>Design.html</code>이 있으면 작업 전에 읽고, 기획 상태가 바뀌면 갱신합니다. 작업 운영 규칙은 프로젝트 문서가 아니라 공통 작업 지침 URL을 기준으로 확인합니다.</li>
+          <li>마지막 기획 결과물 이후 코드가 직접 수정되어 <code>Design.html</code>과 다르면, 코드가 구현 기준입니다. 기획서는 코드와 최신 의도에 맞춰 갱신합니다.</li>
+          <li>관련 없는 dirty 변경은 되돌리지 않고 유지합니다.</li>
+        </ul>
+      </section>
+
+      <section id="design">
+        <h2>Design.html 생성 기준</h2>
+        <p><code>Design.html</code>은 사람도 읽고 Codex도 읽는 게임 내용 지침입니다. 무엇을 만들지뿐 아니라 왜 그렇게 정했는지를 보존해서, 나중 작업이 방향을 잃지 않게 합니다.</p>
+        <p class="note warn">기획서는 전체 대화나 모든 중간 결과를 보관하는 히스토리 문서가 아닙니다. 최종적으로 결정된 UX와 구현 기준, 현재 구현 상태, 그 결정을 택한 사유만 남깁니다.</p>
+        <ul>
+          <li>다음 버전이나 최종 결과물이 나오면 임시 비교안, 폐기된 후보, 중간 산출물 설명을 제거합니다.</li>
+          <li>기획서 작성 중 생긴 후보 이미지·영상·소리, 비교표, 접촉시트, 임시 변환물, 폐기 초안은 프로젝트 루트 <code>$Trash</code> 아래에만 둡니다. <code>DesignAssets</code>/<code>GuidelinesAssets</code>에는 현재 최종 문서가 실제 참조하는 확정 자료만 둡니다.</li>
+          <li>현재 구현과 100% 일치하는 기준 문서를 목표로 하며, 구현되지 않은 가정은 미해결 항목으로 분리합니다.</li>
+          <li>코드와 기획서가 충돌할 때, 코드가 더 최신 구현을 담고 있으면 코드를 우선하고 기획서를 코드에 맞춰 정리합니다.</li>
+          <li>글자 설명만 있는 기획서는 아직 완성본으로 보지 않습니다. 모든 기획 내용은 최종적으로 에셋, 화면, 동작, 사운드, 데이터 구조로 구현되어야 하므로 문서도 가능한 한 그 결과물의 형태로 보여줍니다.</li>
+          <li>이미지, 영상, 소리, 미리보기, 도형, 흐름도, 상태 전환 다이어그램처럼 바로 이해되는 자료를 본문 설명보다 우선합니다. 동작 설명도 긴 문단 대신 도형, 단계 그림, 상태표, 짧은 캡션으로 표현합니다.</li>
+          <li>글은 자료만으로 부족한 부분과 “왜 이 결정을 했는가”를 설명하는 데만 씁니다. 반드시 글이 필요할 때도 가장 짧게 쓰고, 사용자의 긴 설명을 그대로 옮기지 않습니다.</li>
+          <li>도메인 한정 용어, 고유 명사, 프로젝트 내부 이름, 약어, 아트/시스템 용어처럼 추가 설명이 필요한 항목은 <span class="term-tip" tabindex="0" aria-label="용어 설명"><span class="term-tip-text">문서 표면에는 물음표 아이콘만 두고, 마우스오버나 포커스 때 프로젝트 안에서의 의미를 짧게 보여줍니다.</span></span> 툴팁을 적극 사용합니다.</li>
+          <li>Codex가 용어의 프로젝트 내 의미를 모르면 임의로 정의하지 않고 사용자에게 물은 뒤 그 답을 툴팁에 반영합니다.</li>
+          <li>기획서 작성 규칙 자체는 이 리뷰 문서와 스킬에 두고, 실제 <code>Design.html</code> 본문에는 장황한 메타 규칙을 노출하지 않습니다.</li>
+          <li>섹션 링크는 본문 상단 카드가 아니라 왼쪽 floating 목차로 분리해, 긴 문서에서도 콘텐츠와 내비게이션이 서로 섞이지 않게 합니다.</li>
+          <li>작성 완료됐거나 현재 구현·결정이 들어 있는 섹션을 본문 앞쪽에 우선 배치합니다. 사용자는 먼저 읽을 가치가 있는 확정 내용을 보아야 합니다.</li>
+          <li>미작성 섹션 후보가 많을 때는 본문 중간에 우다다다 늘어놓지 않습니다. 뒤쪽에 <code>미작성 섹션</code> 또는 <code>추후 작성 후보</code> 같은 큰 접힘 섹션 하나로 모아 닫아두고, 그 안에서만 범주별 목록과 <code>작성 필요</code> 태그를 표시합니다.</li>
+          <li>floating 목차도 작성 완료 섹션을 먼저 보여주고, 미작성 묶음은 뒤쪽의 단일 링크나 접힘 그룹으로 둡니다. 필요하면 그룹 제목에 <code>작성 필요 N</code>처럼 남은 작성 상태를 표시합니다.</li>
+          <li>새 기획서의 첫 구조는 기본 범주를 후보로 삼되, 비어 있는 후보는 앞쪽 본문을 밀어내지 않게 뒤쪽 접힘 묶음에 둡니다. 사용자가 직접 열기 전까지 미작성 후보가 읽기 흐름을 방해하지 않아야 합니다.</li>
+          <li>범주별 구현 기준을 별도 섹션으로 모아두지 않습니다. 범주 기준과 결정 사유는 각 섹션 안에서 해당 데이터, 이미지, 표, 사운드와 붙여 둡니다.</li>
+          <li>헤더 바로 아래에 문서 신호, 작성 지침, 범주 요약 같은 메타 섹션을 두지 않습니다. 첫 본문 섹션부터 실제 게임/제품 내용을 다룹니다.</li>
+          <li><code>Design.html</code> 헤더에는 문서 제목과 외부 참조 링크 두 개만 둡니다. 링크는 <a href="https://oojjrs.github.io/engineering-notes/kr/codex/common-work-guidelines.html" target="_blank" rel="noopener noreferrer">Codex 공통 작업 지침</a>, <a href="https://oojjrs.github.io/engineering-notes/kr/codex/guideline-design-generation.review.html" target="_blank" rel="noopener noreferrer">기획서 작성 기준</a>을 가리키되, 링크 자체는 참조용 내비게이션일 뿐 <code>Design.html</code> 본문에 작업 지침 내용을 섞는 근거가 아닙니다.</li>
+          <li><code>Design.html</code> 헤더는 스크롤 중에도 상단에 유지되는 sticky 문서 크롬으로 둡니다. 헤더가 본문을 가리지 않도록 좌측 floating 목차의 top offset과 섹션 <code>scroll-margin</code>을 헤더 높이에 맞춰 조정합니다. 좌측 목차는 본문 바깥 여백이 충분한 넓은 화면에서만 표시하고, 좁은 화면에서는 숨겨 본문과 겹치지 않게 합니다.</li>
+          <li>현재 레이아웃 표본은 <code>H:\Mines\Design.html</code>입니다. 새 기획서나 기존 기획서 갱신은 Mines의 구조처럼 sticky 헤더, 좌측 floating 목차, 작성 완료 섹션 우선 배치, 뒤쪽 미작성 후보 접힘 묶음을 기본 골격으로 삼습니다.</li>
+        </ul>
+
+        <h3>게임 기획 기본 범주</h3>
+        <p>첫 <code>Design.html</code>을 만들 때는 아래 범주를 기본 얼개로 삼고, 프로젝트에 맞지 않는 항목은 삭제하거나 합칩니다. 퍼즐 스테이지, 공장 물류, 전략 외교 같은 장르 전용 항목은 처음부터 독립 대분류로 만들지 말고 가까운 일반 범주에 넣습니다.</p>
+        <ul>
+          <li>핵심 방향: 정체성, 장르, 진행 방식, 핵심 재미, 승패, 난이도, 숙련</li>
+          <li>세계와 공간: 세계관, 스토리, 세력, 월드/지역/던전, 배경, 이동과 발견</li>
+          <li>레벨과 콘텐츠 구조: 스테이지, 챕터, 미션, 캠페인, 난이도 곡선, 콘텐츠 주기</li>
+          <li>캐릭터와 성장: 캐릭터, 역할, 스탯, 스킬, 특성, 상태이상, 레벨, 동료와 적</li>
+          <li>규칙과 계산 모델: 턴/틱, 공식, 점수, 확률, 생성 규칙, AI, 경제/전투 해석</li>
+          <li>아이템과 경제: 아이템, 장비, 자원, 재화, 보상, 드롭, 인벤토리, 상점, 도안, 제작</li>
+          <li>퀘스트와 이벤트: 퀘스트, 의뢰, 이벤트, 업적, 랭킹 목표, 튜토리얼, 반복/엔드 콘텐츠</li>
+          <li>상호작용과 전투: 조작, 타겟팅, 보드/타일 규칙, 액션 피드백, 실패와 재도전</li>
+          <li>연출과 커뮤니케이션: 다이얼로그, 보이스, 컷신, 카메라, 사운드, UI 문구, 알림과 로그</li>
+          <li>UI와 편의 시스템: HUD, 메뉴, 설정창, 저장, 접근성, 입력, 현지화, 도움말과 툴팁</li>
+          <li>메타 시스템: 해금, 컬렉션, 진행도, 멀티플레이, 로비/매칭, 소셜, 서버 동기화, 라이브 운영</li>
+          <li>미결정 / 제외 기준: 열린 질문, 보류 항목, 제외 방향, 리스크, 다음 버전 후보</li>
+        </ul>
+      </section>
+
+      <section id="design-hierarchy">
+        <h2>기획 위계</h2>
+        <p><code>Design.html</code>은 위에서 아래로 내려갈수록 가장 큰 얼개에서 구체적인 디테일로 이동합니다. 첫 섹션은 펼쳐서 목표, 장르, 진행방식 같은 큰 답을 보여주고, 아래 섹션들은 같은 추상화 레벨끼리 묶어 접힌 상태로 둡니다.</p>
+        <ul>
+          <li>이 게임은 무엇이 목표인가: 목표, 장르, 진행방식, 표면 약속</li>
+          <li>어떻게 진행되는가: 진행 루프, 재미를 느끼는 지점, 잘하게 되는 방법</li>
+          <li>기획자는 무엇을 의도하는가: 유저가 배우거나 오해하거나 나중에 발견해야 하는 것</li>
+          <li>그 다음에 세계, 시스템, 콘텐츠, 표현, 예외, 미정, 변경 기록으로 내려갑니다.</li>
+        </ul>
+        <h3>특히 잘 적어야 하는 것</h3>
+        <ul>
+          <li>이 기능이나 시스템이 존재하는 이유</li>
+          <li>다른 선택지 대신 이 방향을 고른 이유</li>
+          <li>그 결정이 해결한 문제</li>
+          <li>결정을 제한한 기술, UX, 세계관, 제작 범위 조건</li>
+          <li>후속 작업자가 유지해야 하는 설계 의도</li>
+        </ul>
+        <h3>기본 포함 항목</h3>
+        <ul>
+          <li>현재 게임/제품 방향</li>
+          <li>사용자 경험 목표</li>
+          <li>핵심 시스템과 기능 영역</li>
+          <li>화면, 흐름, 콘텐츠, 규칙 계획</li>
+          <li>결정 이유가 포함된 결정 기록</li>
+          <li>선택된 방향을 설명하는 데 도움이 되는 기각된 대안</li>
+          <li>미해결 질문과 위험</li>
+          <li>에셋과 참고 자료 메모</li>
+          <li>변경 기록</li>
+        </ul>
+        <p class="note">작성자용 운영 규칙은 공통 작업 지침 문서에 두고, <code>Design.html</code>은 게임 내용과 결정 이유를 중심으로 유지합니다. 기획서 작성 규칙은 문서의 구조와 표현을 정하는 외부 기준이며, 실제 기획서 본문에 작업 운영 규칙처럼 복사하지 않습니다.</p>
+      </section>
+
+      <section id="samples">
+        <h2>표본 파일</h2>
+        <p class="note warn">표본은 고정된 프로젝트가 아니라 가장 최근에 공유 규칙을 적용해 편집·검증한 live 문서로 갱신됩니다. ImageStudio와 Overlord는 역사적 seed이며, 모든 문서에 규칙이 전파된 뒤에는 더 최신 편집본이 다음 표본이 됩니다.</p>
+        <div class="split">
+          <div class="sample">
+            <h4><span class="badge">Design</span>롤링 표본</h4>
+            <p>새 <code>Design.html</code> 작업은 현재 프로젝트 문서를 먼저 보고, 그 다음 최근 편집·검증된 live <code>Design.html</code>을 기준으로 삼습니다.</p>
+            <p>현재 live 표본: <code>H:\Mines\Design.html</code>. 역사적 seed: <code>H:\Overlord\Design.html</code>. 스냅샷: <code>samples\Overlord.Design.sample.html</code></p>
+          </div>
+        </div>
+        <p class="note">스냅샷은 이 리뷰 문서와 함께 보기 위한 참고본입니다. 실제 프로젝트 작업에서는 항상 live 경로의 최신 파일과 최근 편집 문서를 다시 열어야 합니다.</p>
+      </section>
+      <section id="skills">
+        <h2>스킬 정리</h2>
+        <ul>
+          <li><code>Design.html</code> 생성 규칙은 별도 스킬로 정돈하고, 범용 작업에서는 최신 편집·검증 live 문서를 롤링 표본으로 삼습니다. <code>overlord-design-document</code>는 Overlord 자체 작업의 전용 스킬입니다.</li>
+          <li>이미지 작업 규칙은 <code>image-first-art-workflow</code>가 담당하며, 사용자 검토본은 <code>C:\Users\oojjr\Documents\Codex\GlobalReviews\image-first-art-workflow.review.html</code>입니다.</li>
+          <li>스킬은 고정 표본 대신 최신 편집·검증 live 문서를 우선하는 롤링 표본 정책을 명시해야 합니다.</li>
+          <li>스킬은 현재 프로젝트 파일, 동봉 표본, 메모리의 우선순위를 분명히 해야 합니다.</li>
+        </ul>
+      </section>
+
+      <section id="validation">
+        <h2>검증 체크리스트</h2>
+        <ul class="checklist">
+          <li><code>git diff --check</code> 결과 확인</li>
+          <li>인코딩과 줄바꿈 보존 확인</li>
+          <li>HTML 핵심 마커와 태그 구조 확인</li>
+          <li>설명이 필요한 고유명사와 도메인 용어의 <code>?</code> 툴팁 적용 확인</li>
+          <li>프로젝트별 빌드/테스트 명령 실행</li>
+          <li>스킬 변경 시 스킬 검증기 실행</li>
+          <li>마지막 diff에서 광범위한 재작성 여부 확인</li>
+        </ul>
+      </section>
+
+      <section id="files">
+        <h2>보관 위치</h2>
+        <ul>
+          <li>사람이 보는 리뷰본: <code>C:\Users\oojjr\Documents\Codex\GlobalReviews\guideline-design-generation.review.html</code></li>
+          <li>이미지 작업 규칙 리뷰본: <code>C:\Users\oojjr\Documents\Codex\GlobalReviews\image-first-art-workflow.review.html</code></li>
+          <li>동봉 표본: <code>C:\Users\oojjr\Documents\Codex\GlobalReviews\samples\</code></li>
+          <li>기획서 라우팅 스킬: <code>C:\Users\oojjr\.codex\skills\project-design-document-router\SKILL.md</code></li>
+        </ul>
+        <footer>작성 기준: 2026-06-15 KST. 이 문서는 프로젝트가 없는 전역 채팅에서도 확인 가능한 기획서 작성 기준입니다.</footer>
+      </section>
+    </div>
+  </main>
+  <script>
+    document.querySelectorAll("[data-language-select]").forEach(function (select) {
+      select.addEventListener("change", function () {
+        var option = select.options[select.selectedIndex];
+        var language = option.getAttribute("data-language");
+        var href = option.value;
+
+        try {
+          localStorage.setItem("preferred-language", language);
+        } catch (error) {
+        }
+
+        if (href) {
+          location.href = href;
+        }
+      });
+    });
+  </script>
+</body>
+</html>

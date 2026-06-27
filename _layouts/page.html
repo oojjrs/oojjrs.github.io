@@ -1,0 +1,43 @@
+---
+layout: default
+---
+<article class="site-shell article" id="top">
+  <header class="article-header">
+    <p class="eyebrow">{{ page.category | default: "ENGINEERING NOTES" }}</p>
+    <h1>{{ page.title }}</h1>
+    {% if page.description %}
+      <p class="article-description">{{ page.description }}</p>
+    {% endif %}
+  </header>
+  {% if page.toc_items %}
+    <nav class="article-toc" aria-label="문서 목차">
+      <p class="article-toc-label">CONTENTS</p>
+      <ol>
+        {% for item in page.toc_items %}
+          <li><a href="#{{ item.id }}">{{ item.label }}</a></li>
+        {% endfor %}
+      </ol>
+    </nav>
+  {% endif %}
+  <div class="article-body">
+    {{ content }}
+  </div>
+  {% assign current_lang = page.lang | default: site.lang | default: 'ko-KR' %}
+  {% assign is_english = false %}
+  {% if current_lang contains 'en' %}
+    {% assign is_english = true %}
+  {% endif %}
+  {% if is_english %}
+    {% assign article_home_url = '/en/' %}
+    {% assign article_home_label = 'Home' %}
+    {% assign article_top_label = 'Top' %}
+  {% else %}
+    {% assign article_home_url = '/kr/' %}
+    {% assign article_home_label = '홈으로' %}
+    {% assign article_top_label = '맨 위로' %}
+  {% endif %}
+  <nav class="article-footer-nav" aria-label="{% if is_english %}Article navigation{% else %}문서 이동{% endif %}">
+    <a href="{{ article_home_url | relative_url }}">{{ article_home_label }}</a>
+    <a href="#top">{{ article_top_label }}</a>
+  </nav>
+</article>

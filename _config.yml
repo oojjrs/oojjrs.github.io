@@ -1,1 +1,15 @@
-theme: jekyll-theme-slate
+title: Engineering Notes
+description: Notes on software architecture, system design, and development philosophy.
+theme: minima
+lang: ko-KR
+author: Engineering Notes
+markdown: kramdown
+permalink: pretty
+
+plugins:
+  - jekyll-seo-tag
+
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock

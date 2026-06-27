@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="{{ page.lang | default: site.lang | default: 'ko-KR' }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="refresh" content="0; url={{ page.redirect_to | relative_url }}">
+    <link rel="canonical" href="{{ page.redirect_to | absolute_url }}">
+    <title>Redirecting · {{ site.title }}</title>
+  </head>
+  <body>
+    <p><a href="{{ page.redirect_to | relative_url }}">Redirecting</a></p>
+    <script>location.replace("{{ page.redirect_to | relative_url }}");</script>
+  </body>
+</html>

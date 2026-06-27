@@ -1,0 +1,1153 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Unity C# 코딩 컨벤션</title>
+  <link rel="alternate" hreflang="ko-KR" href="csharp-coding-convention.html">
+  <link rel="alternate" hreflang="en" href="../../en/unity/csharp-coding-convention.html">
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #070a0f;
+      --panel: #111824;
+      --panel-strong: #141d2b;
+      --line: #263244;
+      --line-soft: #1b2533;
+      --text: #e7edf5;
+      --muted: #94a3b8;
+      --accent: #7dd3fc;
+      --accent-strong: #38bdf8;
+      --bad-bg: #351515;
+      --bad-line: #b54747;
+      --bad-head: #fca5a5;
+      --good-bg: #10291f;
+      --good-line: #2f9465;
+      --good-head: #86efac;
+      --code-bg: rgba(0, 0, 0, 0.24);
+      --shadow: 0 22px 70px rgba(0, 0, 0, 0.38);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at 22% 0%, rgba(56, 189, 248, 0.14), transparent 30rem),
+        linear-gradient(180deg, #090d14 0%, var(--bg) 42rem);
+      color: var(--text);
+      font-family: "Segoe UI", "Malgun Gothic", Arial, sans-serif;
+      line-height: 1.58;
+    }
+
+    main {
+      width: min(1240px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 44px 0 72px;
+    }
+
+    header {
+      margin-bottom: 24px;
+      padding: 34px 36px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: linear-gradient(135deg, rgba(17, 24, 36, 0.96), rgba(11, 16, 24, 0.96));
+      box-shadow: var(--shadow);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(32px, 4vw, 56px);
+      line-height: 1.02;
+      letter-spacing: 0;
+    }
+
+    .scope-rule {
+      margin: 0 0 14px;
+      padding: 12px 16px;
+      border: 1px solid rgba(248, 113, 113, 0.28);
+      border-radius: 8px;
+      background: rgba(24, 11, 13, 0.88);
+      color: #fecaca;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .toc {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 0 0 24px;
+    }
+
+    .toc a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 34px;
+      padding: 6px 12px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(17, 24, 36, 0.72);
+      color: var(--text);
+      text-decoration: none;
+      font-size: 13px;
+    }
+
+    .toc a:hover {
+      border-color: var(--accent-strong);
+      color: #ffffff;
+    }
+
+    .reference-strip {
+      margin: 0 0 18px;
+      padding: 16px 18px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(17, 24, 36, 0.78);
+    }
+
+    .reference-strip strong {
+      display: block;
+      color: var(--accent);
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .priority-list {
+      margin: 10px 0 0;
+      padding-left: 22px;
+      color: var(--text);
+      font-size: 14px;
+    }
+
+    .priority-list li {
+      margin: 7px 0;
+      padding-left: 4px;
+    }
+
+    .priority-list span {
+      color: #ffffff;
+      font-weight: 700;
+    }
+
+    .priority-list a {
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .priority-list a[target="_blank"]::after {
+      content: "";
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      margin-left: 5px;
+      background-color: currentColor;
+      vertical-align: -1px;
+      opacity: 0.74;
+      mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M15 3h6v6'/%3E%3Cpath d='M10 14 21 3'/%3E%3Cpath d='M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6'/%3E%3C/svg%3E") center / contain no-repeat;
+      -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M15 3h6v6'/%3E%3Cpath d='M10 14 21 3'/%3E%3Cpath d='M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6'/%3E%3C/svg%3E") center / contain no-repeat;
+    }
+
+    .priority-list a:hover {
+      color: #ffffff;
+    }
+
+    .reference-note {
+      margin: 12px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .purpose-summary,
+    .method-summary {
+      margin: 0 0 18px;
+      padding: 18px 20px;
+      border: 1px solid rgba(125, 211, 252, 0.28);
+      border-radius: 8px;
+      background: rgba(8, 13, 21, 0.92);
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.2);
+    }
+
+    .purpose-summary strong,
+    .method-summary strong {
+      display: block;
+      color: var(--accent);
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .purpose-summary ul,
+    .method-summary ul {
+      margin: 8px 0 0;
+      padding-left: 18px;
+      max-width: 980px;
+      color: var(--text);
+      font-size: 15px;
+    }
+
+    .purpose-summary li,
+    .method-summary li {
+      margin: 5px 0;
+    }
+
+    section {
+      margin-top: 18px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(13, 18, 27, 0.84);
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.18);
+      overflow: hidden;
+    }
+
+    .section-heading {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      padding: 22px 24px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(20, 29, 43, 0.78);
+    }
+
+    .section-heading span {
+      color: var(--accent);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 24px;
+      letter-spacing: 0;
+    }
+
+    .rule-card {
+      display: grid;
+      grid-template-columns: 68px minmax(0, 1fr);
+      gap: 18px;
+      padding: 24px;
+      border-top: 1px solid var(--line-soft);
+    }
+
+    .rule-card:first-of-type {
+      border-top: 0;
+    }
+
+    .rule-index {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 50px;
+      height: 50px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel-strong);
+      color: var(--accent);
+      font-family: Consolas, "Cascadia Mono", monospace;
+      font-weight: 700;
+    }
+
+    h3 {
+      margin: 0 0 14px;
+      font-size: 18px;
+      letter-spacing: 0;
+    }
+
+    .example-pair {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .example {
+      min-width: 0;
+      border-radius: 8px;
+      border: 1px solid;
+      overflow: hidden;
+    }
+
+    .example.bad {
+      border-color: var(--bad-line);
+      background: var(--bad-bg);
+    }
+
+    .example.good {
+      border-color: var(--good-line);
+      background: var(--good-bg);
+    }
+
+    .example-label {
+      padding: 10px 14px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .bad .example-label {
+      color: var(--bad-head);
+    }
+
+    .good .example-label {
+      color: var(--good-head);
+    }
+
+    pre {
+      margin: 0;
+      min-height: 128px;
+      padding: 16px;
+      background: var(--code-bg);
+      color: #f8fafc;
+      overflow-x: auto;
+      white-space: pre-wrap;
+      word-break: break-word;
+      font: 13.5px/1.55 Consolas, "Cascadia Mono", "Courier New", monospace;
+    }
+
+    .rule-body p {
+      margin: 12px 0 0;
+      max-width: 860px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    @media (max-width: 900px) {
+      main {
+        width: min(100% - 24px, 1240px);
+        padding-top: 24px;
+      }
+
+      header {
+        padding: 26px;
+      }
+
+      .rule-card {
+        grid-template-columns: 1fr;
+      }
+
+      .example-pair {
+        grid-template-columns: 1fr;
+      }
+
+    }
+
+    /* Persistent document navigation */
+    main > header { position: sticky; top: 0; z-index: 30; display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-inline: -1px; padding: 16px 24px; }
+    .header-copy { min-width: 0; }
+    main > header h1 { font-size: clamp(25px, 4vw, 40px); }
+    .header-actions { display: flex; flex: 0 0 auto; gap: 8px; align-items: center; }
+    .home-link { flex: 0 0 auto; padding: 8px 12px; border: 1px solid rgba(255,255,255,.34); border-radius: 8px; color: #fff; text-decoration: none; font-size: 13px; font-weight: 800; }
+    .home-link:hover { border-color: #fff; background: rgba(255,255,255,.08); }
+    .language-select { min-height: 34px; padding: 6px 9px; border: 1px solid rgba(255,255,255,.34); border-radius: 8px; background: rgba(255,255,255,.08); color: #fff; color-scheme: dark; font-size: 13px; font-weight: 800; }
+    .language-select:hover, .language-select:focus-visible { border-color: #fff; outline: none; }
+    .document-layout { display: block; }
+    .document-layout .toc { position: fixed; top: 96px; left: max(18px, calc((100vw - 1240px) / 2 - 220px)); z-index: 25; display: grid; width: 190px; gap: 4px; margin: 0; padding: 10px; border: 1px solid var(--line); border-radius: 8px; background: rgba(17,24,36,.96); box-shadow: var(--shadow); }
+    .document-layout .toc a { min-height: 0; padding: 8px 10px; border: 0; border-radius: 6px; background: transparent; }
+    .document-layout .toc a:hover { background: var(--panel-strong); }
+    .document-content section { scroll-margin-top: 110px; }
+    @media (max-width: 1500px) {
+      .document-layout .toc { position: sticky; top: 75px; display: flex; flex-wrap: wrap; width: auto; margin: 0 0 18px; }
+    }
+    @media (max-width: 760px) {
+      .header-copy { overflow: hidden; }
+      main > header h1 { overflow: hidden; font-size: 20px; text-overflow: ellipsis; white-space: nowrap; }
+      .document-layout .toc { top: 73px; overflow-x: auto; flex-wrap: nowrap; }
+      .document-layout .toc a { flex: 0 0 auto; white-space: nowrap; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <div class="header-copy">
+        <h1>Unity C# 코딩 컨벤션</h1>
+      </div>
+      <div class="header-actions">
+        <select class="language-select" data-language-select aria-label="언어"><option value="" data-language="kr" selected>한국어</option><option value="../../en/unity/csharp-coding-convention.html" data-language="en">English</option></select>
+        <a class="home-link" href="../">Home</a>
+      </div>
+    </header>
+
+    <section class="purpose-summary" aria-label="컨벤션 목적">
+      <strong>목적</strong>
+      <ul>
+        <li>코드 모양을 고민하는 시간을 0에 가깝게 줄인다.</li>
+        <li>도메인 숙련도가 높아질수록 코드 분석 속도가 0에 가까워지게 한다.</li>
+      </ul>
+    </section>
+
+    <section class="method-summary" aria-label="컨벤션 수단">
+      <strong>수단</strong>
+      <ul>
+        <li>IDE와 표준 도구의 기본 규칙을 최대한 그대로 쓴다.</li>
+        <li>수동 코딩 중 판단 기준을 단순하게 유지한다.</li>
+        <li>동사-함수, 명사-변수처럼 컨텍스트 정보를 일관되게 둔다.</li>
+        <li>최종 검수와 수동 코딩 기준을 맞추기 위해 AI에게도 동일하게 요구한다.</li>
+      </ul>
+    </section>
+
+    <div class="scope-rule">서드파티 코드 영역은 이 컨벤션 적용 대상이 아니다. 기존 도메인이 존재하는 곳은 항상 기존 원칙을 우선한다.</div>
+
+    <section class="reference-strip" aria-label="상위 기준">
+      <strong>적용 우선순위</strong>
+      <ol class="priority-list">
+        <li><span>이 문서</span></li>
+        <li><a href="https://unity.com/how-to/naming-and-code-style-tips-c-scripting-unity" target="_blank" rel="noopener noreferrer">Unity C# Style</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/visualstudio/ide/code-styles-and-code-cleanup?view=vs-2022" target="_blank" rel="noopener noreferrer">Visual Studio Code Style 기본 옵션</a> / <a href="https://docs.microsoft.com/en-us/dotnet/csharp/fundamentals/coding-style/coding-conventions" target="_blank" rel="noopener noreferrer">C# Coding Conventions</a></li>
+      </ol>
+      <p class="reference-note">이 문서에서 언급하지 않은 컨벤션은 Unity 기준과 Visual Studio Code Style 기본 옵션을 따른다.</p>
+    </section>
+
+    <div class="document-layout">
+    <nav class="toc" aria-label="문서 섹션">
+      <a href="#명명">명명</a><a href="#파일과 Unity 객체">파일과 Unity 객체</a><a href="#단어">단어</a><a href="#구문과 구성">구문과 구성</a>
+    </nav>
+    <div class="document-content">
+
+    <section id="명명">
+      <div class="section-heading">
+        <span>SECTION</span>
+        <h2>명명</h2>
+      </div>
+      <article class="rule-card">
+        <div class="rule-index">01</div>
+        <div class="rule-body">
+          <h3>인터페이스는 Interface 접미사를 쓴다</h3>
+          <div class="example-pair">
+            <div class="example good">
+              <div class="example-label">올바른 사용</div>
+              <pre><code>public interface FunctionInterface
+{
+}
+
+private FunctionInterface function;</code></pre>
+            </div>
+            <div class="example bad">
+              <div class="example-label">잘못된 사용</div>
+              <pre><code>public interface IFunction
+{
+}
+
+private FunctionInterface functionInterface;</code></pre>
+            </div>
+          </div>
+          <p>Interface 표시는 타입명에만 둔다.</p>
+        </div>
+      </article>
+      <article class="rule-card">
+        <div class="rule-index">02</div>
+        <div class="rule-body">
+          <h3>static 멤버 변수는 밑줄 2개를 붙인다</h3>
+          <div class="example-pair">
+            <div class="example good">
+              <div class="example-label">올바른 사용</div>
+              <pre><code>public static int __Index;
+private static int __index;</code></pre>
+            </div>
+            <div class="example bad">
+              <div class="example-label">잘못된 사용</div>
+              <pre><code>public static int Index;
+private static int _index;
+private static int index;</code></pre>
+            </div>
+          </div>
+          <p>public static은 __PascalCase, private static은 __camelCase로 둔다.</p>
+        </div>
+      </article>
+      <article class="rule-card">
+        <div class="rule-index">03</div>
+        <div class="rule-body">
+          <h3>const와 readonly는 PascalCase를 쓴다</h3>
+          <div class="example-pair">
+            <div class="example good">
+              <div class="example-label">올바른 사용</div>
+              <pre><code>private const int MaxCount = 10;
+private readonly int StartIndex;</code></pre>
+            </div>
+            <div class="example bad">
+              <div class="example-label">잘못된 사용</div>
+              <pre><code>private const int max_count = 10;
+private readonly int start_index;</code></pre>
+            </div>
+          </div>
+          <p>상수형 멤버도 타입/속성 이름처럼 읽히게 한다.</p>
+        </div>
+      </article>
+      <article class="rule-card">
+        <div class="rule-index">04</div>
+        <div class="rule-body">
+          <h3>속성은 명사 또는 형용사로 쓴다</h3>
+          <div class="example-pair">
+            <div class="example good">
+              <div class="example-label">올바른 사용</div>
+              <pre><code>public bool IsActive { get; }
+public bool HasReward { get; }
+public Item AsItem { get; }</code></pre>
+            </div>
+            <div class="example bad">
+              <div class="example-label">잘못된 사용</div>
+              <pre><code>public bool Active { get; }
+public bool Activate { get; }
+public bool Reward { get; }</code></pre>
+            </div>
+          </div>
+          <p>묻는 형태의 bool 속성은 Is, Has 같은 접두사로 IDE 검색을 모은다.</p>
+        </div>
+      </article>
+      <article class="rule-card">
+        <div class="rule-index">05</div>
+        <div class="rule-body">
+          <h3>Can과 -able의 의미를 구분한다</h3>
+          <div class="example-pair">
+            <div class="example good">
+              <div class="example-label">올바른 사용</div>
+              <pre><code>public bool CanGather { get; }
+public bool Gatherable { get; }</code></pre>
+            </div>
+            <div class="example bad">
+              <div class="example-label">잘못된 사용</div>
+              <pre><code>public bool CanGathered { get; }
+public bool Gather { get; }</code></pre>
+            </div>
+          </div>
+          <p>CanGather는 객체가 하는 행위, Gatherable은 객체가 가진 속성이다.</p>
+        </div>
+      </article>
+      <article class="rule-card">
+        <div class="rule-index">06</div>
+        <div class="rule-body">
+          <h3>검색성이 중요한 속성에는 타입 postfix를 붙인다</h3>
+          <div class="example-pair">
+            <div class="example good">
+              <div class="example-label">올바른 사용</div>
+              <pre><code>public Sprite IconSprite { get; }
+public GameObject HitEffect { get; }
+public string DescriptionTooltip { get; }</code></pre>
+            </div>
+            <div class="example bad">
+              <div class="example-label">잘못된 사용</div>
+              <pre><code>public Sprite Icon { get; }
+public GameObject Hit { get; }
+public string Description { get; }</code></pre>
+            </div>
+          </div>
+          <p>String, Sprite, Prefab, Effect, Tooltip처럼 검색 필터가 필요한 경우만 쓴다.</p>
+        </div>
+      </article>
+      <article class="rule-card">
+        <div class="rule-index">07</div>
+        <div class="rule-body">
+          <h3>함수는 동사 또는 동사구로 쓴다</h3>
+          <div class="example-pair">
+            <div class="example good">
+              <div class="example-label">올바른 사용</div>
+              <pre><code>public void GiveReward()
+{
+}</code></pre>
+            </div>
+            <div class="example bad">
+              <div class="example-label">잘못된 사용</div>
+              <pre><code>public void Reward()
+{
+}</code></pre>
+            </div>
+          </div>
+          <p>동작은 함수명에서 바로 드러나야 한다.</p>
+        </div>
+      </article>
+      <article class="rule-card">
+        <div class="rule-index">08</div>
+        <div class="rule-body">
+          <h3>Enum 타입은 Enum 접미사를 쓴다</h3>
+          <div class="example-pair">
+            <div class="example good">
+              <div class="example-label">올바른 사용</div>
+              <pre><code>public enum ItemGroupEnum
+{
+}
+
+private ItemGroupEnum itemGroup;</code></pre>
+            </div>
+            <div class="example bad">
+              <div class="example-label">잘못된 사용</div>
+              <pre><code>public enum ItemGroup
+{
+}
+
+private ItemGroup itemGroupEnum;</code></pre>
+            </div>
+          </div>
+          <p>변수명에는 Enum을 반복하지 않는다.</p>
+        </div>
+      </article>
+      <article class="rule-card">
+        <div class="rule-index">09</div>
+        <div class="rule-body">
+          <h3>코루틴 함수는 Coroutine 접미사를 쓴다</h3>
+          <div class="example-pair">
+            <div class="example good">
+              <div class="example-label">올바른 사용</div>
+              <pre><code>private IEnumerator FadeCoroutine()
+{
+    yield return null;
+}</code></pre>
+            </div>
+            <div class="example bad">
+              <div class="example-label">잘못된 사용</div>
+              <pre><code>private IEnumerator Fade()
+{
+    yield return null;
+}</code></pre>
+            </div>
+          </div>
+          <p>실행 방식이 다른 함수를 이름에서 구분한다.</p>
+        </div>
+      </article>
+    </section>
+
+    <section id="파일과 Unity 객체">
+      <div class="section-heading">
+        <span>SECTION</span>
+        <h2>파일과 Unity 객체</h2>
+      </div>
+      <article class="rule-card">
+        <div class="rule-index">10</div>
+        <div class="rule-body">
+          <h3>파일명과 대표 정의명을 맞춘다</h3>
+          <div class="example-pair">
+            <div class="example good">
+              <div class="example-label">올바른 사용</div>
+              <pre><code>// File: PlayerController.cs
+public sealed class PlayerController
+{
+}</code></pre>
+            </div>
+            <div class="example bad">
+              <div class="example-label">잘못된 사용</div>
+              <pre><code>// File: Player.cs
+public sealed class PlayerController
+{
+}</code></pre>
+            </div>
+          </div>
+          <p>IDE와 IntelliSense에서 파일과 타입을 바로 찾을 수 있어야 한다.</p>
+        </div>
+      </article>
+      <article class="rule-card">
+        <div class="rule-index">11</div>
+        <div class="rule-body">
+          <h3>파일 1개에는 대표 정의 1개만 둔다</h3>
+          <div class="example-pair">
+            <div class="example good">
+              <div class="example-label">올바른 사용</div>
+              <pre><code>// File: PlayerController.cs
+public sealed class PlayerController
+{
+    private enum StateEnum
+    {
+    }
+}</code></pre>
+            </div>
+            <div class="example bad">
+              <div class="example-label">잘못된 사용</div>
+              <pre><code>// File: PlayerController.cs
+public sealed class PlayerController
+{
+}
+
+public struct PlayerState
+{
+}
+
+public enum PlayerModeEnum
+{
+}</code></pre>
+            </div>
+          </div>
+          <p>class, struct, enum 등 대표 정의는 파일을 나눈다. 중첩 정의는 예외다.</p>
+        </div>
+      </article>
+      <article class="rule-card">
+        <div class="rule-index">12</div>
+        <div class="rule-body">
+          <h3>중첩 타입은 enum, struct, interface, class 순서로 둔다</h3>
+          <div class="example-pair">
+            <div class="example good">
+              <div class="example-label">올바른 사용</div>
+              <pre><code>public sealed class PlayerController
+{
+    private enum StateEnum
+    {
+    }
+
+    private struct Entry
+    {
+    }
+
+    private interface CacheInterface
+    {
+    }
+
+    private sealed class Cache
+    {
+    }
+}</code></pre>
+            </div>
+            <div class="example bad">
+              <div class="example-label">잘못된 사용</div>
+              <pre><code>public sealed class PlayerController
+{
+    private sealed class Cache
+    {
+    }
+
+    private interface CacheInterface
+    {
+    }
+
+    private enum StateEnum
+    {
+    }
+
+    private struct Entry
+    {
+    }
+}</code></pre>
+            </div>
+          </div>
+          <p>한 파일의 여러 타입 선언은 대표 정의 1개 원칙 때문에 보통 중첩 타입에만 허용한다. 중첩 타입 선언 순서는 enum &gt; struct &gt; interface &gt; class다.</p>
+        </div>
+      </article>
+      <article class="rule-card">
+        <div class="rule-index">13</div>
+        <div class="rule-body">
+          <h3>파일명과 클래스명은 명사로 둔다</h3>
+          <div class="example-pair">
+            <div class="example good">
+              <div class="example-label">올바른 사용</div>
+              <pre><code>// File: PlayerMover.cs
+public sealed class PlayerMover
+{
+}</code></pre>
+            </div>
+            <div class="example bad">
+              <div class="example-label">잘못된 사용</div>
+              <pre><code>// File: MovePlayer.cs
+public sealed class MovePlayer
+{
+}</code></pre>
+            </div>
+          </div>
+          <p>역할은 타입명에, 동작은 함수명에 둔다.</p>
+        </div>
+      </article>
+      <article class="rule-card">
+        <div class="rule-index">14</div>
+        <div class="rule-body">
+          <h3>Unity 객체 이름과 스크립트 이름을 맞춘다</h3>
+          <div class="example-pair">
+            <div class="example good">
+              <div class="example-label">올바른 사용</div>
+              <pre><code>Prefab: InventoryPanel
+Script: InventoryPanel.cs
+Class: InventoryPanel</code></pre>
+            </div>
+            <div class="example bad">
+              <div class="example-label">잘못된 사용</div>
+              <pre><code>Prefab: Inventory
+Script: BagPanel.cs
+Class: BagPanel</code></pre>
+            </div>
+          </div>
+          <p>Inspector 이름과 코드 검색 이름이 같은 개념을 가리켜야 한다.</p>
+        </div>
+      </article>
+    </section>
+
+    <section id="단어">
+      <div class="section-heading">
+        <span>SECTION</span>
+        <h2>단어</h2>
+      </div>
+      <article class="rule-card">
+        <div class="rule-index">15</div>
+        <div class="rule-body">
+          <h3>관용 다음절어는 한 단어처럼 취급한다</h3>
+          <div class="example-pair">
+            <div class="example good">
+              <div class="example-label">올바른 사용</div>
+              <pre><code>Hotkey
+Infobox
+Inputbox
+Lifetime
+Nickname
+Filename</code></pre>
+            </div>
+            <div class="example bad">
+              <div class="example-label">잘못된 사용</div>
+              <pre><code>HotKey
+InfoBox
+InputBox
+LifeTime
+NickName
+FileName</code></pre>
+            </div>
+          </div>
+          <p>플랫폼/서드파티 관용은 따르되 새 이름은 한 단어처럼 다룬다.</p>
+        </div>
+      </article>
+      <article class="rule-card">
+        <div class="rule-index">16</div>
+        <div class="rule-body">
+          <h3>다른 키워드의 부분 문자열이면 피한다</h3>
+          <div class="example-pair">
+            <div class="example good">
+              <div class="example-label">올바른 사용</div>
+              <pre><code>StageState
+IntermissionState</code></pre>
+            </div>
+            <div class="example bad">
+              <div class="example-label">잘못된 사용</div>
+              <pre><code>MissionState
+IntermissionState</code></pre>
+            </div>
+          </div>
+          <p>Intermission 안에 Mission이 들어간다. 검색하면 Mission이 의도치 않게 같이 잡힌다.</p>
+        </div>
+      </article>
+      <article class="rule-card">
+        <div class="rule-index">17</div>
+        <div class="rule-body">
+          <h3>복수 그룹은 현재 -s/-es를 허용한다</h3>
+          <div class="example-pair">
+            <div class="example good">
+              <div class="example-label">올바른 사용</div>
+              <pre><code>Items
+Enemies
+Rewards</code></pre>
+            </div>
+            <div class="example bad">
+              <div class="example-label">잘못된 사용</div>
+              <pre><code>ItemList
+EnemyArray
+RewardBucket</code></pre>
+            </div>
+          </div>
+          <p>List, Array는 헝가리언처럼 보일 수 있다. 더 나은 대안은 미정이다.</p>
+        </div>
+      </article>
+    </section>
+
+    <section id="구문과 구성">
+      <div class="section-heading">
+        <span>SECTION</span>
+        <h2>구문과 구성</h2>
+      </div>
+      <article class="rule-card">
+        <div class="rule-index">18</div>
+        <div class="rule-body">
+          <h3>외부 생명주기 객체는 읽기 전용 속성으로 둔다</h3>
+          <div class="example-pair">
+            <div class="example good">
+              <div class="example-label">올바른 사용</div>
+              <pre><code>public Player Player { get; }</code></pre>
+            </div>
+            <div class="example bad">
+              <div class="example-label">잘못된 사용</div>
+              <pre><code>public Player Player;</code></pre>
+            </div>
+          </div>
+          <p>생성과 소유권이 외부에 있으면 setter를 닫는다.</p>
+        </div>
+      </article>
+      <article class="rule-card">
+        <div class="rule-index">19</div>
+        <div class="rule-body">
+          <h3>var를 적극 사용한다</h3>
+          <div class="example-pair">
+            <div class="example good">
+              <div class="example-label">올바른 사용</div>
+              <pre><code>var items = new Dictionary&lt;string, Item&gt;();</code></pre>
+            </div>
+            <div class="example bad">
+              <div class="example-label">잘못된 사용</div>
+              <pre><code>Dictionary&lt;string, Item&gt; items =
+    new Dictionary&lt;string, Item&gt;();</code></pre>
+            </div>
+          </div>
+          <p>오른쪽 표현식으로 타입을 알 수 있으면 var를 쓴다.</p>
+        </div>
+      </article>
+      <article class="rule-card">
+        <div class="rule-index">20</div>
+        <div class="rule-body">
+          <h3>신규 using 형태는 사용하지 않는다</h3>
+          <div class="example-pair">
+            <div class="example good">
+              <div class="example-label">올바른 사용</div>
+              <pre><code>using (var stream = File.OpenRead(path))
+{
+}</code></pre>
+            </div>
+            <div class="example bad">
+              <div class="example-label">잘못된 사용</div>
+              <pre><code>using var stream = File.OpenRead(path);</code></pre>
+            </div>
+          </div>
+          <p>기존 using 블록 형태를 유지한다.</p>
+        </div>
+      </article>
+      <article class="rule-card">
+        <div class="rule-index">21</div>
+        <div class="rule-body">
+          <h3>sealed는 override 앞에 둔다</h3>
+          <div class="example-pair">
+            <div class="example good">
+              <div class="example-label">올바른 사용</div>
+              <pre><code>public sealed override void Dispose()
+{
+}</code></pre>
+            </div>
+            <div class="example bad">
+              <div class="example-label">잘못된 사용</div>
+              <pre><code>public override sealed void Dispose()
+{
+}</code></pre>
+            </div>
+          </div>
+          <p>접근 제한자, sealed, override 순서로 읽히게 한다.</p>
+        </div>
+      </article>
+      <article class="rule-card">
+        <div class="rule-index">22</div>
+        <div class="rule-body">
+          <h3>클래스 내부 섹션은 변수, 속성, 이벤트, 함수 순서로 둔다</h3>
+          <div class="example-pair">
+            <div class="example good">
+              <div class="example-label">올바른 사용</div>
+              <pre><code>private enum StateEnum { }
+private struct Entry { }
+private interface CacheInterface { }
+private sealed class Cache { }
+private const int MaxCount = 10;
+public int Count { get; }
+public event Action Changed;
+public void Refresh() { }</code></pre>
+            </div>
+            <div class="example bad">
+              <div class="example-label">잘못된 사용</div>
+              <pre><code>public void Refresh() { }
+public int Count { get; }
+private enum StateEnum { }</code></pre>
+            </div>
+          </div>
+          <p>inner enum, inner struct, inner interface, inner class 다음은 변수 &gt; 속성 &gt; 이벤트 &gt; 함수 순서다.</p>
+        </div>
+      </article>
+      <article class="rule-card">
+        <div class="rule-index">23</div>
+        <div class="rule-body">
+          <h3>각 카테고리 내부는 abc순으로 둔다</h3>
+          <div class="example-pair">
+            <div class="example good">
+              <div class="example-label">올바른 사용</div>
+              <pre><code>private int alphaCount;
+private int betaCount;
+private int rewardCount;
+
+public bool IsActive { get; }
+public int RewardCount { get; }
+public string TooltipText { get; }
+
+public event Action Changed;
+public event Action Selected;
+
+public void ApplyReward()
+{
+}
+
+public void RefreshTooltip()
+{
+}</code></pre>
+            </div>
+            <div class="example bad">
+              <div class="example-label">잘못된 사용</div>
+              <pre><code>private int rewardCount;
+private int alphaCount;
+public void ApplyReward()
+{
+}
+public bool IsActive { get; }
+public event Action Selected;
+public string TooltipText { get; }
+public event Action Changed;
+public void RefreshTooltip()
+{
+}</code></pre>
+            </div>
+          </div>
+          <p>abc 정렬은 섹션 순서, 상속 구현 순서, 생성자 우선 규칙을 먼저 적용한 뒤 같은 상속 그룹의 같은 카테고리 내부에서만 적용한다. abc 정렬 때문에 부모/인터페이스 구현 그룹을 섞지 않는다.</p>
+        </div>
+      </article>
+      <article class="rule-card">
+        <div class="rule-index">24</div>
+        <div class="rule-body">
+          <h3>상속 구현은 부모 선언 순서대로 둔다</h3>
+          <div class="example-pair">
+            <div class="example good">
+              <div class="example-label">올바른 사용</div>
+              <pre><code>public sealed class RewardButton : ButtonBase, ClickableInterface, TooltipInterface
+{
+    private int buttonIndex;
+    private int clickableCount;
+    private int tooltipCount;
+    private int rewardCount;
+
+    public bool IsButtonActive { get; }
+    public bool IsClickable { get; }
+    public string TooltipText { get; }
+    public int RewardCount { get; }
+
+    public RewardButton()
+    {
+    }
+
+    protected override void RefreshButton()
+    {
+    }
+
+    void ClickableInterface.Click()
+    {
+    }
+
+    void TooltipInterface.ShowTooltip()
+    {
+    }
+
+    public void GiveReward()
+    {
+    }
+}</code></pre>
+            </div>
+            <div class="example bad">
+              <div class="example-label">잘못된 사용</div>
+              <pre><code>public sealed class RewardButton : ButtonBase, TooltipInterface, ClickableInterface
+{
+    private int rewardCount;
+    private int tooltipCount;
+    private int buttonIndex;
+
+    public int RewardCount { get; }
+    public string TooltipText { get; }
+
+    public void GiveReward()
+    {
+    }
+
+    public void ShowTooltip()
+    {
+    }
+
+    protected override void RefreshButton()
+    {
+    }
+
+    public RewardButton()
+    {
+    }
+}</code></pre>
+            </div>
+          </div>
+          <p>부모 &gt; 자식 순서다. 부모 간에는 상속 선언 순서를 따르고, 여러 인터페이스의 선언과 구현은 abc순으로 둔다. 생성자는 함수 중 가장 먼저 둔다.</p>
+        </div>
+      </article>
+      <article class="rule-card">
+        <div class="rule-index">25</div>
+        <div class="rule-body">
+          <h3>인터페이스 구현은 타입 explicit으로 둔다</h3>
+          <div class="example-pair">
+            <div class="example good">
+              <div class="example-label">올바른 사용</div>
+              <pre><code>public sealed class TooltipButton : TooltipInterface
+{
+    string TooltipInterface.TooltipText =&gt; tooltipText;
+
+    void TooltipInterface.ShowTooltip()
+    {
+    }
+}</code></pre>
+            </div>
+            <div class="example bad">
+              <div class="example-label">잘못된 사용</div>
+              <pre><code>public sealed class TooltipButton : TooltipInterface
+{
+    public string TooltipText =&gt; tooltipText;
+
+    public void ShowTooltip()
+    {
+    }
+}</code></pre>
+            </div>
+          </div>
+          <p>인터페이스 멤버는 public으로 노출하지 않고 InterfaceName.MemberName 형태로 구현한다.</p>
+        </div>
+      </article>
+      <article class="rule-card">
+        <div class="rule-index">26</div>
+        <div class="rule-body">
+          <h3>멤버 섹션은 const, readonly, static, member 순서로 둔다</h3>
+          <div class="example-pair">
+            <div class="example good">
+              <div class="example-label">올바른 사용</div>
+              <pre><code>private const int MaxCount = 10;
+
+private readonly int StartIndex;
+
+private static int __cacheCount;
+private static int __index;
+
+private int count;
+private int index;</code></pre>
+            </div>
+            <div class="example bad">
+              <div class="example-label">잘못된 사용</div>
+              <pre><code>private const int MaxCount = 10;
+private int index;
+private readonly int StartIndex;
+private static int __cacheCount;
+private int count;</code></pre>
+            </div>
+          </div>
+          <p>const, readonly, static, member는 서로 다른 섹션이다. 각 섹션 안에서 abc순으로 둔다.</p>
+        </div>
+      </article>
+    </section>
+    </div>
+    </div>
+  </main>
+  <script>
+    document.querySelectorAll("[data-language-select]").forEach(function (select) {
+      select.addEventListener("change", function () {
+        var option = select.options[select.selectedIndex];
+        var language = option.getAttribute("data-language");
+        var href = option.value;
+
+        try {
+          localStorage.setItem("preferred-language", language);
+        } catch (error) {
+        }
+
+        if (href) {
+          location.href = href;
+        }
+      });
+    });
+  </script>
+</body>
+</html>
