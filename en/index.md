@@ -1,7 +1,7 @@
 ---
 layout: home
 lang: en
-title: "Engineering Notes"
+title: "OOJJRS' Archive"
 permalink: /en/
 alternate_url: /kr/
 ---

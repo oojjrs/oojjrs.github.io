@@ -6,12 +6,12 @@
 {% endif %}
 {% if is_english %}
   {% assign home_url = '/en/' %}
-  {% assign brand_label = 'Engineering Notes home' %}
-  {% assign footer_copy = 'Reusable records for engineering judgment.' %}
+  {% assign brand_label = "OOJJRS' Archive home" %}
+  {% assign footer_copy = 'Essays, design documents, and working references.' %}
 {% else %}
   {% assign home_url = '/kr/' %}
-  {% assign brand_label = 'Engineering Notes 홈' %}
-  {% assign footer_copy = '생각을 다시 사용할 수 있도록 기록합니다.' %}
+  {% assign brand_label = "OOJJRS' Archive 홈" %}
+  {% assign footer_copy = '에세이, 기획서, 작업 기준을 모아둡니다.' %}
 {% endif %}
 <html lang="{{ current_lang }}">
   <head>
@@ -36,7 +36,7 @@
     <header class="site-header">
       <div class="site-shell header-inner">
         <a class="site-brand" href="{{ home_url | relative_url }}" aria-label="{{ brand_label }}">
-          <span class="brand-name">Engineering Notes</span>
+          <span class="brand-name">OOJJRS' Archive</span>
         </a>
         <div class="site-nav-group">
           {% if page.alternate_url %}
@@ -59,7 +59,7 @@
 
     <footer class="site-footer">
       <div class="site-shell footer-inner">
-        <p><strong>Engineering Notes</strong><br>{{ footer_copy }}</p>
+        <p><strong>OOJJRS' Archive</strong><br>{{ footer_copy }}</p>
         <p class="footer-meta">Built with GitHub Pages<br>© {{ "now" | date: "%Y" }}</p>
       </div>
     </footer>
