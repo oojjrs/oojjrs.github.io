@@ -1,0 +1,4 @@
+interface:
+  display_name: "oojjrs Guidelines"
+  short_description: "Load and refresh oojjrs shared Codex work rules."
+  default_prompt: "Use $oojjrs-guidelines before starting repository work."
