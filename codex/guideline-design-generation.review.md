@@ -2,7 +2,7 @@
 
 Read this only for `Design.html` creation, review, cleanup, or update. Keep it compact.
 
-1. Layout is not optional. For every new, rebuilt, or heavily reorganized `Design.html`, use `https://github.com/oojjrs/mines/blob/main/Design.html` as the mandatory layout template.
+1. Layout is not optional. For every new, rebuilt, or heavily reorganized `Design.html`, read the mandatory layout template with `gh api -H "Accept: application/vnd.github.raw" "repos/oojjrs/mines/contents/Design.html?ref=main"`; human reference: `https://github.com/oojjrs/mines/blob/main/Design.html`.
 2. Start from that template's document shell and preserve its layout system: dark header, fixed side nav, nav groups, paired `section-group` blocks, `section-group-body`, child `<details id="...">`, `summary`, `.details-body`, image filename tags, responsive rules, synchronized navigation, and image lightbox behavior.
 3. Do not invent a different layout, landing page, hero, card system, color theme, navigation model, freeform Markdown-like page, or section organization. Remove Mines-specific content and assets, but keep the template structure unless the user explicitly orders a structural deviation.
 4. `Design.html` is product/game planning, not chat history or a work board: keep final decisions, rationale, current implementation state, and unresolved items only.
