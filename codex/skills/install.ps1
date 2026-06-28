@@ -11,7 +11,7 @@ $AllSkills = @(
     "project-start-work",
     "project-finish-work",
     "project-design-document-router",
-    "unity-package-src-migration"
+    "oojjrs-unity-package-src-migration"
 )
 
 if (-not $Destination) {

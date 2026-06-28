@@ -1,0 +1,4 @@
+interface:
+  display_name: "oojjrs Unity Package Src Migration"
+  short_description: "Assets 기반 Unity 패키지를 Packages/src 루트로 옮기는 절차를 수행한다."
+  default_prompt: "Use $oojjrs-unity-package-src-migration to migrate a Unity package from Assets into Packages/src, update versioning and docs, and prepare commit steps."

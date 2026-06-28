@@ -1,9 +1,9 @@
 ---
-name: unity-package-src-migration
+name: oojjrs-unity-package-src-migration
 description: Assets 아래에 있던 Unity 패키지를 Packages/src 루트 패키지로 정리하고, Unity 패키지 관례에 맞춰 Runtime, Editor, Tests, Samples~, Documentation~를 구성한다. package.json, .meta, asmdef, 에디터 코드, 포함/제외할 에셋 판단, 경로/문서/버전 갱신, 선택적 stage/commit/push가 필요한 작업에 사용한다.
 ---
 
-# Unity Package Src Migration
+# oojjrs Unity Package Src Migration
 
 이 스킬은 Unity 패키지가 `Assets` 아래에 들어 있어 실제 패키지 루트를 `Packages/src`로 정리하는 절차를 다룬다. 이 사용자의 로컬 개발 규칙에서는 `com.oojjrs.*` 같은 패키지명 폴더 대신 `src`를 패키지 루트 폴더명으로 사용한다.
 
