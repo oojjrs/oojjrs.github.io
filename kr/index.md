@@ -1,6 +1,6 @@
 ---
 layout: home
-title: "OOJJRS' Archive"
+title: "OOJJRS의 서고"
 lang: ko-KR
 permalink: /kr/
 alternate_url: /en/

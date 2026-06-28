@@ -6,11 +6,13 @@
 {% endif %}
 {% if is_english %}
   {% assign home_url = '/en/' %}
+  {% assign brand_name = "OOJJRS' Archive" %}
   {% assign brand_label = "OOJJRS' Archive home" %}
   {% assign footer_copy = 'Essays, design documents, and working references.' %}
 {% else %}
   {% assign home_url = '/kr/' %}
-  {% assign brand_label = "OOJJRS' Archive 홈" %}
+  {% assign brand_name = 'OOJJRS의 서고' %}
+  {% assign brand_label = 'OOJJRS의 서고 홈' %}
   {% assign footer_copy = '에세이, 기획서, 작업 기준을 모아둡니다.' %}
 {% endif %}
 <html lang="{{ current_lang }}">
@@ -18,7 +20,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#101419">
-    <title>{% if page.title and page.title != site.title %}{{ page.title }} · {% endif %}{{ site.title }}</title>
+    <title>{% if page.title and page.title != brand_name %}{{ page.title }} · {% endif %}{{ brand_name }}</title>
     <meta name="description" content="{{ page.description | default: site.description | escape }}">
     <link rel="stylesheet" href="{{ "/assets/css/style.css" | relative_url }}?v={{ site.time | date: '%s' }}-{{ site.github.build_revision | default: 'local' }}">
     {% if page.alternate_url %}
@@ -36,7 +38,7 @@
     <header class="site-header">
       <div class="site-shell header-inner">
         <a class="site-brand" href="{{ home_url | relative_url }}" aria-label="{{ brand_label }}">
-          <span class="brand-name">OOJJRS' Archive</span>
+          <span class="brand-name">{{ brand_name }}</span>
         </a>
         <div class="site-nav-group">
           {% if page.alternate_url %}
@@ -59,7 +61,7 @@
 
     <footer class="site-footer">
       <div class="site-shell footer-inner">
-        <p><strong>OOJJRS' Archive</strong><br>{{ footer_copy }}</p>
+        <p><strong>{{ brand_name }}</strong><br>{{ footer_copy }}</p>
         <p class="footer-meta">Built with GitHub Pages<br>© {{ "now" | date: "%Y" }}</p>
       </div>
     </footer>
