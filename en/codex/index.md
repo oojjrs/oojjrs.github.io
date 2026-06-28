@@ -22,4 +22,10 @@ permalink: /en/codex/
     <p>Minimal raw rules for creating and maintaining Design.html.</p>
     <span class="card-link">Open note <span aria-hidden="true">→</span></span>
   </a>
+  <a class="document-card" href="../../codex/guideline-readme-generation.review.md">
+    <span class="document-kind">REVIEW</span>
+    <h2>GitHub README.md Rules</h2>
+    <p>Minimal raw rules for short library-facing README.md files.</p>
+    <span class="card-link">Open note <span aria-hidden="true">→</span></span>
+  </a>
 </div>
