@@ -13,7 +13,7 @@ Read this only for `Design.html` creation, review, cleanup, or update. Keep it c
 9. Put temporary files in `$Trash`; final document assets must use live project asset paths or `DesignAssets/...`, never ad-hoc `tmp` folders.
 10. Keep only assets referenced by the current document in final document-asset folders.
 11. Explain important project terms with short `?` tooltips. Ask before inventing terms, meanings, or rationale.
-12. Put complete/current sections first. Put unwritten candidates and future ideas near the end in one collapsed group.
+12. Put complete/current sections first. Use collapsed `<details>` by default; add `open` only to the small current/overview area that must be visible immediately. Put unwritten candidates and future ideas near the end in one collapsed group.
 13. Keep category criteria and rationale next to the relevant data, image, table, sound, or section; do not create a separate meta-rule section.
 14. Do not start the body with document signals, authoring rules, or category summaries; start with real product/game content.
 15. Use planning hierarchy: identity/goal -> loop/fun/mastery -> author intent -> world/systems/content/presentation/exceptions/open items/change notes.
