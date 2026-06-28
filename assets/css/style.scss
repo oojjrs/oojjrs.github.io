@@ -57,18 +57,23 @@ pre code {
   color: inherit;
 }
 .highlight,
+.highlighter-rouge .highlight,
 pre {
   overflow-x: auto;
   border: 1px solid rgba(56, 64, 55, .9);
   border-radius: 6px;
   background: rgba(24, 28, 26, .9);
+  background-color: rgba(24, 28, 26, .9);
   color: var(--text);
 }
-.highlight { margin: 1.7em 0; }
-.highlight pre {
+.highlight,
+.highlighter-rouge .highlight { margin: 1.7em 0; }
+.highlight pre,
+.highlighter-rouge .highlight pre {
   margin: 0;
   border: 0;
   background: transparent;
+  background-color: transparent;
 }
 .article-body pre {
   padding: 18px 20px;
@@ -76,7 +81,11 @@ pre {
   font-size: 15px;
   line-height: 1.65;
 }
+.article-body .highlight code,
+.article-body .highlight span,
 .article-body pre code {
+  background: transparent;
+  background-color: transparent;
   color: inherit;
   font-size: inherit;
 }
