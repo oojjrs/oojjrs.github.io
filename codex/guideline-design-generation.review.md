@@ -2,9 +2,9 @@
 
 Read this only for `Design.html` creation, review, cleanup, or update. Keep it compact.
 
-1. Layout is not optional. For every new, rebuilt, or heavily reorganized `Design.html`, read the mandatory layout template with `gh api -H "Accept: application/vnd.github.raw" "repos/oojjrs/mines/contents/Design.html?ref=main"`.
-2. Start from that template's document shell and preserve its layout system: dark header, fixed side nav, nav groups, paired `section-group` blocks, `section-group-body`, child `<details id="...">`, `summary`, `.details-body`, image filename tags, responsive rules, synchronized navigation, and image lightbox behavior.
-3. Do not invent a different layout, landing page, hero, card system, color theme, navigation model, freeform Markdown-like page, or section organization. Remove Mines-specific content and assets, but keep the template structure unless the user explicitly orders a structural deviation.
+1. Layout is not optional. When creating a brand-new `Design.html`, read the mandatory layout template with `gh api -H "Accept: application/vnd.github.raw" "repos/oojjrs/mines/contents/Design.html?ref=main"`; for existing document updates, do not reapply the template unless the user explicitly asks to rebuild the layout.
+2. When starting from that template, preserve its layout system: dark header, fixed side nav, nav groups, paired `section-group` blocks, `section-group-body`, child `<details id="...">`, `summary`, `.details-body`, image filename tags, responsive rules, synchronized navigation, and image lightbox behavior.
+3. Do not invent a different layout, landing page, hero, card system, color theme, navigation model, freeform Markdown-like page, or section organization. Remove template-specific content and assets, but keep the template structure unless the user explicitly orders a structural deviation.
 4. `Design.html` is product/game planning, not chat history or a work board: keep final decisions, rationale, current implementation state, and unresolved items only.
 5. Do not put workflow, queue, validation, git, approval, commit rules, shared guideline links, or other work-operation text in `Design.html`.
 6. Read the live `Design.html` first; current code/assets beat stale planning text.
