@@ -1,109 +1,49 @@
 # Unity C# Rules for Codex
 
-Read this before editing first-party Unity C# code. Keep the requested behavior first, then apply these rules inside the touched code unless the user asks for a broader cleanup.
+Read this before editing first-party Unity C# files. This is the agent copy of the convention: keep every rule and decision criterion, but omit long examples and site decoration.
 
-## Scope
+## Purpose, Scope, Priority
 
-1. Apply this to first-party Unity C# files.
-2. Do not restyle third-party, generated, imported vendor, sample, or `PackageCache` code for style only.
-3. Existing file-local and domain-local conventions win when they are clear.
-4. Runtime behavior, prefab links, serialized field compatibility, and asset references outrank naming cleanup.
-5. If a convention change requires broad renames, serialized data migration, or prefab changes, stop and ask.
-
-## Reference Priority
-
-1. Current local project and domain conventions.
-2. This file.
-3. Human reference: `https://oojjrs.github.io/kr/unity/csharp-coding-convention.html`.
-4. Unity C# Style.
-5. Visual Studio Code Style defaults and Microsoft C# coding conventions.
+1. Purpose: make Unity C# code shape predictable, reduce style-decision time close to zero, and make analysis approach zero cost as domain familiarity increases.
+2. Method: prefer IDE and standard-tool defaults, keep manual decisions simple, keep context consistent (`verb` functions, `noun` variables), and apply the same standard to AI output and manual review.
+3. Scope: first-party Unity C# only. Do not restyle third-party, generated, imported vendor, sample, or `PackageCache` code for style only.
+4. Priority: current project/domain/file conventions first, then this file, then Unity C# Style, then Visual Studio Code Style defaults and Microsoft C# coding conventions. Unmentioned conventions follow Unity and Visual Studio defaults.
+5. Safety: runtime behavior, prefab links, serialized field compatibility, Unity object names, and asset references outrank naming cleanup. Ask before broad renames, serialized data migration, prefab/object rename work, or changes that could break Unity references.
 
 ## Naming
 
-1. Interface type names use the `Interface` suffix.
-   - Good: `public interface FunctionInterface { }`, `private FunctionInterface function;`
-   - Bad: `public interface IFunction { }`, `private FunctionInterface functionInterface;`
-2. Static member variables use two underscores.
-   - Good: `public static int __Index;`, `private static int __index;`
-   - Bad: `public static int Index;`, `private static int _index;`, `private static int index;`
-3. `const` and `readonly` names use PascalCase.
-   - Good: `private const int MaxCount = 10;`, `private readonly int StartIndex;`
-   - Bad: `private const int max_count = 10;`, `private readonly int start_index;`
-4. Properties use nouns or adjectives.
-   - Good: `IsActive`, `HasReward`, `AsItem`
-   - Bad: `Active`, `Activate`, `Reward`
-5. `Can` means an action is possible. `-able` means the object has an attribute.
-   - Good: `CanGather`, `Gatherable`
-   - Bad: `CanGathered`, `Gather`
-6. Add type postfixes to properties only when searchability improves.
-   - Good: `IconSprite`, `HitEffect`, `DescriptionTooltip`
-   - Bad: `Icon`, `Hit`, `Description` when those names become hard to search.
-7. Function names use verbs or verb phrases.
-   - Good: `GiveReward()`
-   - Bad: `Reward()`
-8. Enum type names use the `Enum` suffix.
-   - Good: `ItemGroupEnum itemGroup;`
-   - Bad: `ItemGroup itemGroupEnum;`
-9. Coroutine function names use the `Coroutine` suffix.
-   - Good: `FadeCoroutine()`
-   - Bad: `Fade()` for an `IEnumerator` coroutine.
+1. Interfaces use the `Interface` suffix. Put the marker only on the type: `FunctionInterface function`, not `IFunction` or `functionInterface`.
+2. Static member variables use two underscores: public static is `__PascalCase`, private static is `__camelCase`; do not use plain `Index`, `_index`, or `index`.
+3. `const` and `readonly` names use PascalCase, like `MaxCount` and `StartIndex`; they should read like type or property names.
+4. Properties are nouns or adjectives. Boolean question properties should collect under searchable prefixes such as `Is` and `Has`; avoid action-like property names such as `Activate`.
+5. Distinguish `Can` from `-able`: `CanGather` means the object can perform the action; `Gatherable` means the object has that attribute.
+6. Add type postfixes to properties only when searchability improves, such as `String`, `Sprite`, `Prefab`, `Effect`, or `Tooltip`; avoid noisy postfixes when the short name is searchable enough.
+7. Functions use verbs or verb phrases, so the action is visible from the function name: `GiveReward()`, not `Reward()`.
+8. Enum types use the `Enum` suffix, and variables do not repeat it: `ItemGroupEnum itemGroup`, not `ItemGroup itemGroupEnum`.
+9. Coroutine functions use the `Coroutine` suffix to show the different execution model: `FadeCoroutine()`, not `Fade()` for an `IEnumerator`.
 
 ## Files and Unity Objects
 
-10. Match the file name and the representative definition name.
-    - Good: `PlayerController.cs` contains `public sealed class PlayerController`.
-    - Bad: `Player.cs` contains `public sealed class PlayerController`.
-11. One file has one representative definition.
-    - Good: one top-level class with nested helper types.
-    - Bad: one file with multiple top-level classes, structs, or enums.
-12. Nested types are ordered `enum`, `struct`, `interface`, `class`.
-    - Good: `StateEnum`, then `Entry`, then `CacheInterface`, then `Cache`.
-    - Bad: nested classes before nested enums or interfaces.
-13. File names and class names are nouns.
-    - Good: `PlayerMover.cs`, `PlayerMover`
-    - Bad: `MovePlayer.cs`, `MovePlayer`
-14. Unity object names and script names should point to the same concept.
-    - Good: prefab `InventoryPanel`, script `InventoryPanel.cs`, class `InventoryPanel`.
-    - Bad: prefab `Inventory`, script `BagPanel.cs`, class `BagPanel`.
+10. Match the file name and representative definition name so IDE and IntelliSense search line up: `PlayerController.cs` contains `PlayerController`, not a different main type.
+11. One file has one representative top-level definition. Split representative classes, structs, and enums by file; nested definitions are the exception.
+12. Nested types are ordered `enum`, `struct`, `interface`, `class`. This matters because multiple type declarations usually appear only as nested types.
+13. File names and class names are nouns. Put roles in type names and actions in function names: `PlayerMover`, not `MovePlayer`.
+14. Match Unity object names and script names so inspector names and code-search names point to the same concept: prefab/script/class should align, like `InventoryPanel`.
 
 ## Words
 
-15. Treat conventional compounds as one word.
-    - Good: `Hotkey`, `Infobox`, `Inputbox`, `Lifetime`, `Nickname`, `Filename`
-    - Bad: `HotKey`, `InfoBox`, `InputBox`, `LifeTime`, `NickName`, `FileName`
-16. Avoid names that are substrings of other keywords.
-    - Good: `StageState`, `IntermissionState`
-    - Bad: `MissionState`, `IntermissionState` when searching `Mission` should not catch both.
-17. Plural groups currently allow `-s` and `-es`.
-    - Good: `Items`, `Enemies`, `Rewards`
-    - Bad: `ItemList`, `EnemyArray`, `RewardBucket` when the suffix is only type noise.
+15. Treat conventional compounds as one word: `Hotkey`, `Infobox`, `Inputbox`, `Lifetime`, `Nickname`, `Filename`. Follow platform or third-party conventions when they exist, but treat new names as one word.
+16. Avoid names that are substrings of other search keywords. Do not pair names like `MissionState` and `IntermissionState` if searching `Mission` should not catch both.
+17. Plural groups currently allow `-s` and `-es`, such as `Items`, `Enemies`, and `Rewards`. Avoid type-noise suffixes such as `List`, `Array`, or `Bucket`; a better alternative is still undecided.
 
 ## Syntax and Structure
 
-18. External lifecycle objects are read-only properties.
-    - Good: `public Player Player { get; }`
-    - Bad: `public Player Player;`
-19. Use `var` actively when the right side makes the type clear.
-    - Good: `var items = new Dictionary<string, Item>();`
-    - Bad: `Dictionary<string, Item> items = new Dictionary<string, Item>();`
-20. Do not use the newer using-declaration form.
-    - Good: `using (var stream = File.OpenRead(path)) { }`
-    - Bad: `using var stream = File.OpenRead(path);`
-21. Put `sealed` before `override`.
-    - Good: `public sealed override void Dispose()`
-    - Bad: `public override sealed void Dispose()`
-22. Class sections are variables, properties, events, functions.
-    - Good: nested types first, then fields, then properties, then events, then functions.
-    - Bad: public functions before fields or nested types.
-23. Sort alphabetically only inside the same category of the same inheritance group.
-    - Good: fields alphabetized within their own section after inherited/local grouping.
-    - Bad: moving parent or interface implementation groups only to satisfy alphabetic order.
-24. Implement inherited members in parent declaration order.
-    - Good: base class members, then interfaces in declaration order, then local members. Constructors come first among functions.
-    - Bad: local public methods before required base or interface implementation members.
-25. Interface implementation is explicit by type.
-    - Good: `string TooltipInterface.TooltipText => tooltipText;`, `void TooltipInterface.ShowTooltip() { }`
-    - Bad: `public string TooltipText => tooltipText;`, `public void ShowTooltip() { }`
-26. Member sections are `const`, `readonly`, `static`, ordinary member.
-    - Good: constants first, then readonly fields, then static fields, then ordinary fields.
-    - Bad: mixing ordinary fields between constants, readonly fields, and static fields.
+18. External lifecycle objects are read-only properties: use a get-only property when creation and ownership live outside this object; do not expose it as a mutable public field.
+19. Use `var` actively when the right side makes the type clear; do not repeat obvious generic types on both sides.
+20. Do not use the newer using-declaration form. Keep the existing block form: `using (...) { }`, not `using var`.
+21. Put `sealed` before `override`, in access modifier, `sealed`, `override` order: `public sealed override`, not `public override sealed`.
+22. Class sections are nested types, variables, properties, events, functions. Nested type order is still `enum`, `struct`, `interface`, `class`.
+23. Sort alphabetically only inside the same category of the same inheritance group, after section order, inheritance implementation order, and constructor priority. Do not move parent or interface groups just to satisfy abc sorting.
+24. Implement inherited members in parent declaration order: parent > child, parents in inheritance declaration order, multiple interfaces and implementations alphabetically, constructors first among functions, then local members.
+25. Interface implementation is explicit by type. Do not expose interface members as public members; implement them as `InterfaceName.MemberName`, such as `TooltipInterface.TooltipText`.
+26. Member sections are `const`, `readonly`, `static`, ordinary member. Sort alphabetically inside each section and do not mix ordinary fields between those sections.
