@@ -10,7 +10,8 @@ $AllSkills = @(
     "github-project-board",
     "project-start-work",
     "project-finish-work",
-    "project-design-document-router"
+    "project-design-document-router",
+    "unity-package-src-migration"
 )
 
 if (-not $Destination) {
