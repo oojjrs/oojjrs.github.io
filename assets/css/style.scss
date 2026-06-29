@@ -319,97 +319,6 @@ pre {
   line-height: 1.72;
 }
 .article-body .article-note p { margin: 0; color: #d8ddd4; }
-.article-body .convention-summary,
-.article-body .convention-reference {
-  margin: 1.8em 0;
-  padding: 20px 22px;
-  border: 1px solid var(--line);
-  border-radius: 6px;
-  background: rgba(24, 28, 26, .72);
-}
-.article-body .convention-summary strong,
-.article-body .convention-reference strong {
-  display: block;
-  margin-bottom: 8px;
-  color: var(--accent);
-  font: 800 12px/1.4 Consolas, monospace;
-  letter-spacing: 0;
-  text-transform: uppercase;
-}
-.article-body .convention-summary ul,
-.article-body .convention-priority-list {
-  margin: 0;
-  padding-left: 22px;
-}
-.article-body .convention-reference-note {
-  margin: 1em 0 0;
-  color: var(--muted);
-  font-size: 15px;
-}
-.article-body .convention-rule {
-  display: grid;
-  grid-template-columns: 48px minmax(0, 1fr);
-  gap: 18px;
-  margin: 2.4em 0;
-  padding-top: 2em;
-  border-top: 1px solid rgba(56, 64, 55, .72);
-}
-.article-body .convention-rule:first-of-type {
-  margin-top: 1.4em;
-}
-.article-body .convention-rule-index {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 42px;
-  height: 42px;
-  border: 1px solid var(--line);
-  border-radius: 4px;
-  color: var(--accent);
-  font: 800 13px/1 Consolas, monospace;
-}
-.article-body .convention-rule h3 {
-  margin-top: 0;
-}
-.article-body .convention-examples {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
-  margin: 1em 0;
-}
-.article-body .convention-example {
-  min-width: 0;
-  overflow: hidden;
-  border: 1px solid var(--line);
-  border-radius: 6px;
-  background: rgba(24, 28, 26, .7);
-}
-.article-body .convention-example.good {
-  border-color: rgba(216, 255, 62, .32);
-}
-.article-body .convention-example.bad {
-  border-color: rgba(255, 176, 111, .34);
-}
-.article-body .convention-example-label {
-  padding: 8px 12px;
-  border-bottom: 1px solid rgba(56, 64, 55, .82);
-  color: var(--muted);
-  font: 800 11px/1.2 Consolas, monospace;
-  letter-spacing: 0;
-  text-transform: uppercase;
-}
-.article-body .convention-example.good .convention-example-label {
-  color: var(--accent);
-}
-.article-body .convention-example.bad .convention-example-label {
-  color: var(--orange);
-}
-.article-body .convention-example pre {
-  margin: 0;
-  border: 0;
-  border-radius: 0;
-  background: transparent;
-}
 .article-body hr { margin: 3.5em 0; border: 0; border-top: 1px solid var(--line); }
 .article-footer-nav {
   display: flex;
@@ -480,8 +389,6 @@ pre {
   .article-body h2 { margin-top: 3.4em; font-size: 25px; }
   .article-body .article-principle { padding: 20px; }
   .article-body .article-note { padding: 16px 18px; }
-  .article-body .convention-rule { grid-template-columns: 1fr; gap: 12px; }
-  .article-body .convention-examples { grid-template-columns: 1fr; }
   .footer-inner { display: block; padding: 46px 0; }
   .footer-meta { margin-top: 24px; text-align: left; }
 }
