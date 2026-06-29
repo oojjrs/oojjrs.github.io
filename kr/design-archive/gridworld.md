@@ -5,6 +5,7 @@ lang: ko-KR
 category: "DESIGN ARCHIVE"
 description: "세계를 생성하고, 관찰하고, 개입하고, 결과를 다음 세계로 이어가는 시뮬레이션 게임 기획안"
 permalink: /kr/design-archive/gridworld/
+alternate_url: /en/design-archive/gridworld/
 toc_items:
   - id: identity
     label: "프로젝트 정의"

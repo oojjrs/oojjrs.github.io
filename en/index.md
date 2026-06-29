@@ -32,6 +32,23 @@ alternate_url: /kr/
     </div>
   </section>
 
+  <section class="home-document-group" aria-labelledby="design-heading">
+    <div class="home-section-heading">
+      <p>DESIGN ARCHIVE</p>
+      <h2 id="design-heading">Design Archive</h2>
+    </div>
+
+    <div class="collection-grid collection-grid-design">
+      <a class="collection-card collection-card-design" href="{{ "/en/design-archive/gridworld/" | relative_url }}">
+        <span class="card-index">03</span>
+        <span class="card-label">DESIGN ARCHIVE</span>
+        <h3>Gridworld</h3>
+        <p>A system for creating, accumulating, and colliding worlds</p>
+        <span class="card-link">Read <span aria-hidden="true">→</span></span>
+      </a>
+    </div>
+  </section>
+
   <nav class="utility-link-row" aria-label="Private reference documents">
     <a class="utility-link utility-link-codex" href="{{ "/codex/common-work-guidelines.md" | relative_url }}">
       <span>CODEX</span>
