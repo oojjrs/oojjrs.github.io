@@ -12,11 +12,12 @@ Read this before work. Keep it tiny.
 8. Ask first unless the immediately previous user message explicitly ordered a hard-to-undo or external action: `git push`, deploy, permanent delete, forced rollback, or unrecoverable document rewrite.
 9. Preserve user/other-thread changes. Do not revert or clean unrelated files.
 10. Existing text files: preserve their current encoding and line endings exactly unless the user asks to convert them; do not introduce LF-only files. New text files only: UTF-8 No-BOM + CRLF.
-11. If `Design.html` exists, read it before every task and update it when the task changes planning state.
-12. For `Design.html` work, also read `https://oojjrs.github.io/codex/guideline-design-generation.review.md`.
-13. For GitHub-facing `README.md` work, also read `https://oojjrs.github.io/codex/guideline-readme-generation.review.md`.
-14. When editing Unity C# code, also read `https://oojjrs.github.io/codex/unity-csharp-coding-convention.md`.
-15. After applying this file, use project skills only as supplemental workflow help; if missing, install/update from `https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/install.ps1`; index: `https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/index.md`.
-16. If the git repository is linked 1:1 to a GitHub Project, use `$oojjrs-github-project-board` and that Project as the task board: find/create the task card, convert a draft card to an issue when moving it to In Progress, assign issue-backed cards to `oojjrs`, update status/notes while working, use real newlines in card/issue bodies instead of literal `\n`, and report if no board/card update was possible.
-17. Stage/commit only the requested scope. Push only when explicitly requested.
-18. Write feedback and documents in Korean; include relevant `git log` context when reporting work or choosing the next task.
+11. Put temporary files in `$Trash`; do not leave ad-hoc `tmp` or scratch files in project paths.
+12. If `Design.html` exists, read it before every task and update it when the task changes planning state.
+13. For `Design.html` work, also read `https://oojjrs.github.io/codex/guideline-design-generation.review.md`.
+14. For GitHub-facing `README.md` work, also read `https://oojjrs.github.io/codex/guideline-readme-generation.review.md`.
+15. When editing Unity C# code, also read `https://oojjrs.github.io/codex/unity-csharp-coding-convention.md`.
+16. After applying this file, use project skills only as supplemental workflow help; if missing, install/update from `https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/install.ps1`; index: `https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/index.md`.
+17. If the git repository is linked 1:1 to a GitHub Project, use `$oojjrs-github-project-board` and that Project as the task board: find/create the task card, convert a draft card to an issue when moving it to In Progress, assign issue-backed cards to `oojjrs`, update status/notes while working, use real newlines in card/issue bodies instead of literal `\n`, and report if no board/card update was possible.
+18. Stage/commit only the requested scope. Push only when explicitly requested.
+19. Write feedback and documents in Korean; include relevant `git log` context when reporting work or choosing the next task.
