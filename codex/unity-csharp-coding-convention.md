@@ -6,7 +6,7 @@ Read this before editing first-party Unity C# files. This is the agent copy of t
 
 1. Purpose: make Unity C# code shape predictable, reduce style-decision time close to zero, and make analysis approach zero cost as domain familiarity increases.
 2. Method: prefer IDE and standard-tool defaults, keep manual decisions simple, keep context consistent (`verb` functions, `noun` variables), and apply the same standard to AI output and manual review.
-3. Scope: first-party Unity C# only. Do not restyle third-party, generated, imported vendor, sample, or `PackageCache` code for style only.
+3. Scope: first-party Unity C# only. Auto-generated code is always an exception to this convention. Do not restyle third-party, generated, imported vendor, sample, or `PackageCache` code for style only.
 4. Priority: current project/domain/file conventions first, then this file, then Unity C# Style, then Visual Studio Code Style defaults and Microsoft C# coding conventions. Unmentioned conventions follow Unity and Visual Studio defaults.
 5. Safety: runtime behavior, prefab links, serialized field compatibility, Unity object names, and asset references outrank naming cleanup. Ask before broad renames, serialized data migration, prefab/object rename work, or changes that could break Unity references.
 
