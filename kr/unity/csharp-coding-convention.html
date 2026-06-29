@@ -50,33 +50,19 @@
     }
 
     header {
-      max-width: 880px;
-      margin-bottom: 42px;
-      padding: 0 0 42px;
-      border-bottom: 1px solid var(--line);
+      margin-bottom: 24px;
+      padding: 34px 36px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: linear-gradient(135deg, rgba(17, 24, 36, 0.96), rgba(11, 16, 24, 0.96));
+      box-shadow: var(--shadow);
     }
 
     h1 {
       margin: 0;
-      max-width: 850px;
-      font-size: clamp(40px, 6vw, 64px);
-      line-height: 1.12;
+      font-size: clamp(32px, 4vw, 56px);
+      line-height: 1.02;
       letter-spacing: 0;
-    }
-
-    .eyebrow {
-      margin: 0 0 10px;
-      color: var(--accent);
-      font: 800 12px/1.4 Consolas, monospace;
-      letter-spacing: 0;
-    }
-
-    .article-description {
-      max-width: 720px;
-      margin: 24px 0 0;
-      color: var(--muted);
-      font-size: 20px;
-      line-height: 1.65;
     }
 
     .scope-rule {
@@ -338,7 +324,7 @@
       }
 
       header {
-        padding-bottom: 34px;
+        padding: 26px;
       }
 
       .rule-card {
@@ -352,9 +338,10 @@
     }
 
     /* Persistent document navigation */
-    main > header { position: static; display: block; margin-inline: 0; padding: 0 0 42px; }
+    main > header { position: sticky; top: 0; z-index: 30; display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-inline: -1px; padding: 16px 24px; }
     .header-copy { min-width: 0; }
-    .header-actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 24px; }
+    main > header h1 { font-size: clamp(25px, 4vw, 40px); }
+    .header-actions { display: flex; flex: 0 0 auto; gap: 8px; align-items: center; }
     .home-link { flex: 0 0 auto; padding: 8px 12px; border: 1px solid rgba(255,255,255,.34); border-radius: 8px; color: #fff; text-decoration: none; font-size: 13px; font-weight: 800; }
     .home-link:hover { border-color: #fff; background: rgba(255,255,255,.08); }
     .language-select { min-height: 34px; padding: 6px 9px; border: 1px solid rgba(255,255,255,.34); border-radius: 8px; background: rgba(255,255,255,.08); color: #fff; color-scheme: dark; font-size: 13px; font-weight: 800; }
@@ -368,9 +355,8 @@
       .document-layout .toc { position: sticky; top: 75px; display: flex; flex-wrap: wrap; width: auto; margin: 0 0 18px; }
     }
     @media (max-width: 760px) {
-      main > header { padding-bottom: 34px; }
-      main > header h1 { font-size: 36px; }
-      .article-description { font-size: 18px; }
+      .header-copy { overflow: hidden; }
+      main > header h1 { overflow: hidden; font-size: 20px; text-overflow: ellipsis; white-space: nowrap; }
       .document-layout .toc { top: 73px; overflow-x: auto; flex-wrap: nowrap; }
       .document-layout .toc a { flex: 0 0 auto; white-space: nowrap; }
     }
@@ -380,9 +366,7 @@
   <main>
     <header>
       <div class="header-copy">
-        <p class="eyebrow">CONVENTION</p>
         <h1>Unity C# 코딩 컨벤션</h1>
-        <p class="article-description">Unity C# 코드의 모양을 예측 가능하게 만들고 코드 읽기 비용을 줄이기 위한 실무 컨벤션</p>
       </div>
       <div class="header-actions">
         <select class="language-select" data-language-select aria-label="언어"><option value="" data-language="kr" selected>한국어</option><option value="../../en/unity/csharp-coding-convention.html" data-language="en">English</option></select>
