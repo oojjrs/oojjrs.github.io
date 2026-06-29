@@ -1,9 +1,9 @@
 ---
-name: project-design-document-router
+name: oojjrs-project-design-document-router
 description: Route project Design.html planning-document creation, review, cleanup, or update through the user's public work and design rules. Use when Codex needs to create, update, reorganize, validate, or keep Design.html separate from workflow, queue, commit, and GitHub Project board instructions.
 ---
 
-# Project Design Document Router
+# oojjrs Project Design Document Router
 
 Use this skill as a thin router for project planning documents. Do not duplicate the full rules here; the current rules live in the public Markdown documents.
 

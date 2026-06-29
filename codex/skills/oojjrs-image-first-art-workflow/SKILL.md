@@ -1,9 +1,9 @@
 ---
-name: image-first-art-workflow
+name: oojjrs-image-first-art-workflow
 description: Enforce the user's image-first art workflow for any image, UI art, game asset, visual mockup, static sprite, icon-like raster asset, generated reference, or art-direction task. Use together with `imagegen` whenever Codex might create or alter visual assets, except when making 2D sprite animation. The first image/art-style pass must be imagegen; System.Drawing, PIL, canvas, SVG, HTML/CSS, ImageMagick, or procedural/code drawing are only second-pass post-processing tools after an acceptable imagegen result exists.
 ---
 
-# Image-first Art Workflow
+# oojjrs Image-First Art Workflow
 
 ## Core Rule
 
@@ -44,7 +44,7 @@ Examples that require imagegen first:
 - product/marketing/hero images
 - visual comparison candidates where the user will judge art direction
 
-## 2D Sprite Animation Exception
+## oojjrs 2D Sprite Animation Exception
 
 Do not use imagegen to make 2D sprite animations or animation-frame sheets. This exception overrides the imagegen-first rule.
 

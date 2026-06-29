@@ -6,20 +6,26 @@ param(
 $ErrorActionPreference = "Stop"
 
 $BaseUrl = "https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills"
-$AllSkills = @(
+$CanonicalSkills = @(
     "oojjrs-guidelines",
-    "github-project-board",
-    "project-start-work",
-    "project-finish-work",
-    "project-design-document-router",
-    "unity-package-src-migration",
-    "2d-sprite-animation",
-    "image-first-art-workflow"
+    "oojjrs-github-project-board",
+    "oojjrs-project-start-work",
+    "oojjrs-project-finish-work",
+    "oojjrs-project-design-document-router",
+    "oojjrs-unity-package-src-migration",
+    "oojjrs-2d-sprite-animation",
+    "oojjrs-image-first-art-workflow"
 )
-$LegacySkills = @(
-    "oojjrs-unity-package-src-migration"
-)
-$KnownSkills = $AllSkills + $LegacySkills
+$LegacyAliases = @{
+    "github-project-board" = "oojjrs-github-project-board"
+    "project-start-work" = "oojjrs-project-start-work"
+    "project-finish-work" = "oojjrs-project-finish-work"
+    "project-design-document-router" = "oojjrs-project-design-document-router"
+    "unity-package-src-migration" = "oojjrs-unity-package-src-migration"
+    "2d-sprite-animation" = "oojjrs-2d-sprite-animation"
+    "image-first-art-workflow" = "oojjrs-image-first-art-workflow"
+}
+$KnownSkills = $CanonicalSkills + $LegacyAliases.Keys
 $DefaultFiles = @(
     "SKILL.md",
     "agents/openai.yaml"
@@ -43,12 +49,12 @@ if (-not $Destination) {
 if ($Skill -and $Skill.Count -gt 0) {
     $TargetSkills = $Skill
 } else {
-    $TargetSkills = $AllSkills
+    $TargetSkills = $CanonicalSkills
 }
 
 foreach ($name in $TargetSkills) {
     if ($KnownSkills -notcontains $name) {
-        throw "Unknown skill '$name'. Known skills: $($KnownSkills -join ', ')"
+        throw "Unknown skill '$name'. Known skills: $($CanonicalSkills -join ', ')"
     }
 }
 
@@ -56,11 +62,17 @@ $Utf8NoBom = New-Object System.Text.UTF8Encoding($false)
 New-Item -ItemType Directory -Force -Path $Destination | Out-Null
 
 foreach ($name in $TargetSkills) {
-    $skillDir = Join-Path $Destination $name
+    if ($LegacyAliases.ContainsKey($name)) {
+        $canonicalName = $LegacyAliases[$name]
+    } else {
+        $canonicalName = $name
+    }
+
+    $skillDir = Join-Path $Destination $canonicalName
     New-Item -ItemType Directory -Force -Path $skillDir | Out-Null
 
-    if ($SkillFiles.ContainsKey($name)) {
-        $files = $SkillFiles[$name]
+    if ($SkillFiles.ContainsKey($canonicalName)) {
+        $files = $SkillFiles[$canonicalName]
     } else {
         $files = $DefaultFiles
     }
@@ -68,15 +80,31 @@ foreach ($name in $TargetSkills) {
     foreach ($relativePath in $files) {
         $webPath = $relativePath -replace "\\", "/"
         $localPath = Join-Path $skillDir ($relativePath -replace "/", [System.IO.Path]::DirectorySeparatorChar)
+        $sourcePath = Join-Path $PSScriptRoot (Join-Path $canonicalName ($relativePath -replace "/", [System.IO.Path]::DirectorySeparatorChar))
         $localDir = Split-Path -Parent $localPath
         if ($localDir) {
             New-Item -ItemType Directory -Force -Path $localDir | Out-Null
         }
 
-        $text = (Invoke-WebRequest -UseBasicParsing -Uri "$BaseUrl/$name/$webPath").Content
+        if (Test-Path -LiteralPath $sourcePath) {
+            $text = [System.IO.File]::ReadAllText($sourcePath)
+        } else {
+            $text = (Invoke-WebRequest -UseBasicParsing -Uri "$BaseUrl/$canonicalName/$webPath").Content
+        }
         $text = $text -replace "`r`n|`n|`r", "`r`n"
         [System.IO.File]::WriteAllText($localPath, $text, $Utf8NoBom)
     }
 
-    Write-Host "Installed $name -> $skillDir"
+    foreach ($legacyName in $LegacyAliases.Keys) {
+        if ($LegacyAliases[$legacyName] -ne $canonicalName) {
+            continue
+        }
+
+        $legacyDir = Join-Path $Destination $legacyName
+        if (Test-Path -LiteralPath $legacyDir) {
+            Remove-Item -LiteralPath $legacyDir -Recurse -Force
+        }
+    }
+
+    Write-Host "Installed $canonicalName -> $skillDir"
 }

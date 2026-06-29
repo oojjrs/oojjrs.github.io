@@ -1,4 +1,0 @@
-interface:
-  display_name: "Design Document Router"
-  short_description: "Route Design.html work through public rules."
-  default_prompt: "Use $project-design-document-router to update Design.html correctly."

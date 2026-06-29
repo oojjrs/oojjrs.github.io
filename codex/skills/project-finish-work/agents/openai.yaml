@@ -1,4 +1,0 @@
-interface:
-  display_name: "Project Finish Work"
-  short_description: "Finish repo work with validation and board updates."
-  default_prompt: "Use $project-finish-work to finish this repository task cleanly."

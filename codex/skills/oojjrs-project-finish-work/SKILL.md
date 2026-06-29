@@ -1,9 +1,9 @@
 ---
-name: project-finish-work
+name: oojjrs-project-finish-work
 description: Finish repository work with validation, narrow git scope, Design.html synchronization when planning state changed, GitHub Project board updates, and Korean reporting. Use when Codex is done implementing, preparing a commit, pushing, or summarizing completed repository work.
 ---
 
-# Project Finish Work
+# oojjrs Project Finish Work
 
 Use this skill before final response, commit, push, or handoff.
 
@@ -12,8 +12,8 @@ Use this skill before final response, commit, push, or handoff.
 1. Re-check `git status --short --branch`.
 2. Review the diff and keep staging narrow to the requested scope.
 3. Run the relevant validation: at minimum `git diff --check`; add project build/tests when the task touched executable behavior.
-4. If `Design.html` exists and the work changed planning state, update it using `$project-design-document-router`.
-5. If a repository-linked GitHub Project board exists, use `$github-project-board` to update the task card assignee/status/body/notes with real newlines. Report if no update was possible.
+4. If `Design.html` exists and the work changed planning state, update it using `$oojjrs-project-design-document-router`.
+5. If a repository-linked GitHub Project board exists, use `$oojjrs-github-project-board` to update the task card assignee/status/body/notes with real newlines. Report if no update was possible.
 6. Before commit, inspect `git diff --cached --name-status` and `git diff --cached --check`.
 7. Push only when the immediately previous user message explicitly requested push.
 8. Keep feedback in Korean and include relevant `git log` context.

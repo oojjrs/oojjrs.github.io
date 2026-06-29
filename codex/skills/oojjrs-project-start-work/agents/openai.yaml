@@ -1,0 +1,4 @@
+interface:
+  display_name: "oojjrs Project Start Work"
+  short_description: "Start repo work with board and scope checks."
+  default_prompt: "Use $oojjrs-project-start-work to begin this repository task safely."

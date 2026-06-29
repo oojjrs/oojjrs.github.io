@@ -1,4 +1,0 @@
-interface:
-  display_name: "2D Sprite Animation"
-  short_description: "Build clean 2D sprite sheets from layered parts."
-  default_prompt: "Use $2d-sprite-animation to create a clean sprite sheet and preview GIF from this game asset."

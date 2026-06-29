@@ -1,9 +1,9 @@
 ---
-name: 2d-sprite-animation
+name: oojjrs-2d-sprite-animation
 description: Create or revise 2D game sprite animations, sprite sheets, and preview GIFs from raster assets such as PNG sprites, layered PNG parts, or PSD-derived layers. Use when Codex is asked to animate a 2D sprite, make Unity 2D animation frames, build a sprite sheet, improve sprite animation quality, remove artifacts from generated frames, or turn a flat game asset into reusable animation parts.
 ---
 
-# 2D Sprite Animation
+# oojjrs 2D Sprite Animation
 
 Use a layered-parts workflow. Do not start by slicing, warping, or spline-bending a flattened PNG directly unless the motion is a trivial whole-image transform.
 

@@ -1,9 +1,9 @@
 ---
-name: github-project-board
+name: oojjrs-github-project-board
 description: Manage a repository-linked GitHub Project v2 task board. Use when Codex must find or create task cards, convert Draft Issue cards to real repository issues before moving work to In Progress, assign issue-backed cards to oojjrs, update project status/notes during work, or fix/report GitHub Project card metadata and body formatting.
 ---
 
-# GitHub Project Board
+# oojjrs GitHub Project Board
 
 Use this skill for GitHub Project v2 boards that are linked 1:1 to the current repository.
 
