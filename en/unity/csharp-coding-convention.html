@@ -1,64 +1,64 @@
 ---
 layout: page
-title: "Unity C# 코딩 컨벤션"
-lang: ko-KR
-alternate_url: /en/unity/csharp-coding-convention.html
+lang: en
+title: "Unity C# Coding Convention"
+alternate_url: /kr/unity/csharp-coding-convention.html
 category: "CONVENTION"
-description: "Unity C# 코드의 모양을 예측 가능하게 만들고 코드 읽기 비용을 줄이기 위한 실무 컨벤션"
-permalink: /kr/unity/csharp-coding-convention.html
+description: "A practical Unity C# convention for making code shape predictable and code reading fast."
+permalink: /en/unity/csharp-coding-convention.html
 toc_items:
-  - id: 명명
-    label: "명명"
-  - id: 파일과 Unity 객체
-    label: "파일과 Unity 객체"
-  - id: 단어
-    label: "단어"
-  - id: 구문과 구성
-    label: "구문과 구성"
+  - id: naming
+    label: "Naming"
+  - id: files-unity-objects
+    label: "Files and Unity objects"
+  - id: words
+    label: "Words"
+  - id: syntax-structure
+    label: "Syntax and structure"
 ---
 
-<p class="article-backlink"><a href="{{ "/kr/unity/" | relative_url }}">← Unity</a></p>
+<p class="article-backlink"><a href="{{ "/en/unity/" | relative_url }}">← Unity</a></p>
 
-<p class="article-lead">이 컨벤션은 Unity C# 코드의 모양을 예측 가능하게 만들기 위한 실무 규칙이다.</p>
+<p class="article-lead">This convention exists to make the shape of Unity C# code predictable.</p>
 
-<section class="convention-summary" aria-label="컨벤션 목적">
-      <strong>목적</strong>
+<section class="convention-summary" aria-label="Convention purpose">
+      <strong>Purpose</strong>
       <ul>
-        <li>코드 모양을 고민하는 시간을 0에 가깝게 줄인다.</li>
-        <li>도메인 숙련도가 높아질수록 코드 분석 속도가 0에 가까워지게 한다.</li>
+        <li>Reduce the time spent deciding how code should look as close to zero as possible.</li>
+        <li>Make code analysis approach zero cost as domain familiarity increases.</li>
       </ul>
     </section>
 
-    <section class="convention-summary" aria-label="컨벤션 수단">
-      <strong>수단</strong>
+    <section class="convention-summary" aria-label="Convention method">
+      <strong>Method</strong>
       <ul>
-        <li>IDE와 표준 도구의 기본 규칙을 최대한 그대로 쓴다.</li>
-        <li>수동 코딩 중 판단 기준을 단순하게 유지한다.</li>
-        <li>동사-함수, 명사-변수처럼 컨텍스트 정보를 일관되게 둔다.</li>
-        <li>최종 검수와 수동 코딩 기준을 맞추기 위해 AI에게도 동일하게 요구한다.</li>
+        <li>Use IDE and standard-tool defaults as much as possible.</li>
+        <li>Keep manual coding decisions simple.</li>
+        <li>Keep contextual information consistent, such as verbs for functions and nouns for variables.</li>
+        <li>Apply the same standard to AI output so final review and manual coding use one rule set.</li>
       </ul>
     </section>
 
-    <div class="article-principle"><p>서드파티 코드 영역은 이 컨벤션 적용 대상이 아니다. 기존 도메인이 존재하는 곳은 항상 기존 원칙을 우선한다.</p></div>
+    <div class="article-principle"><p>Third-party code is not subject to this convention. In an existing domain, the established local rules always take priority.</p></div>
 
-    <section class="convention-reference" aria-label="상위 기준">
-      <strong>적용 우선순위</strong>
+    <section class="convention-reference" aria-label="Reference priority">
+      <strong>Priority</strong>
       <ol class="convention-priority-list">
-        <li><span>이 문서</span></li>
+        <li><span>This document</span></li>
         <li><a href="https://unity.com/how-to/naming-and-code-style-tips-c-scripting-unity" target="_blank" rel="noopener noreferrer">Unity C# Style</a></li>
-        <li><a href="https://learn.microsoft.com/en-us/visualstudio/ide/code-styles-and-code-cleanup?view=vs-2022" target="_blank" rel="noopener noreferrer">Visual Studio Code Style 기본 옵션</a> / <a href="https://docs.microsoft.com/en-us/dotnet/csharp/fundamentals/coding-style/coding-conventions" target="_blank" rel="noopener noreferrer">C# Coding Conventions</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/visualstudio/ide/code-styles-and-code-cleanup?view=vs-2022" target="_blank" rel="noopener noreferrer">Visual Studio Code Style default options</a> / <a href="https://docs.microsoft.com/en-us/dotnet/csharp/fundamentals/coding-style/coding-conventions" target="_blank" rel="noopener noreferrer">C# Coding Conventions</a></li>
       </ol>
-      <p class="convention-reference-note">이 문서에서 언급하지 않은 컨벤션은 Unity 기준과 Visual Studio Code Style 기본 옵션을 따른다.</p>
+      <p class="convention-reference-note">Conventions not mentioned here follow Unity standards and Visual Studio Code Style defaults.</p>
     </section>
-<section id="명명">
-      <h2>명명</h2>
+<section id="naming">
+      <h2>Naming</h2>
       <article class="convention-rule">
         <div class="convention-rule-index">01</div>
         <div class="convention-rule-body">
-          <h3>인터페이스는 Interface 접미사를 쓴다</h3>
+          <h3>Interfaces use the Interface suffix</h3>
           <div class="convention-examples">
             <div class="convention-example good">
-              <div class="convention-example-label">올바른 사용</div>
+              <div class="convention-example-label">Correct</div>
               <pre><code>public interface FunctionInterface
 {
 }
@@ -66,7 +66,7 @@ toc_items:
 private FunctionInterface function;</code></pre>
             </div>
             <div class="convention-example bad">
-              <div class="convention-example-label">잘못된 사용</div>
+              <div class="convention-example-label">Incorrect</div>
               <pre><code>public interface IFunction
 {
 }
@@ -74,137 +74,137 @@ private FunctionInterface function;</code></pre>
 private FunctionInterface functionInterface;</code></pre>
             </div>
           </div>
-          <p>Interface 표시는 타입명에만 둔다.</p>
+          <p>Keep the interface marker only in the type name.</p>
         </div>
       </article>
       <article class="convention-rule">
         <div class="convention-rule-index">02</div>
         <div class="convention-rule-body">
-          <h3>static 멤버 변수는 밑줄 2개를 붙인다</h3>
+          <h3>Static member variables use two underscores</h3>
           <div class="convention-examples">
             <div class="convention-example good">
-              <div class="convention-example-label">올바른 사용</div>
+              <div class="convention-example-label">Correct</div>
               <pre><code>public static int __Index;
 private static int __index;</code></pre>
             </div>
             <div class="convention-example bad">
-              <div class="convention-example-label">잘못된 사용</div>
+              <div class="convention-example-label">Incorrect</div>
               <pre><code>public static int Index;
 private static int _index;
 private static int index;</code></pre>
             </div>
           </div>
-          <p>public static은 __PascalCase, private static은 __camelCase로 둔다.</p>
+          <p>Use __PascalCase for public static fields and __camelCase for private static fields.</p>
         </div>
       </article>
       <article class="convention-rule">
         <div class="convention-rule-index">03</div>
         <div class="convention-rule-body">
-          <h3>const와 readonly는 PascalCase를 쓴다</h3>
+          <h3>const and readonly use PascalCase</h3>
           <div class="convention-examples">
             <div class="convention-example good">
-              <div class="convention-example-label">올바른 사용</div>
+              <div class="convention-example-label">Correct</div>
               <pre><code>private const int MaxCount = 10;
 private readonly int StartIndex;</code></pre>
             </div>
             <div class="convention-example bad">
-              <div class="convention-example-label">잘못된 사용</div>
+              <div class="convention-example-label">Incorrect</div>
               <pre><code>private const int max_count = 10;
 private readonly int start_index;</code></pre>
             </div>
           </div>
-          <p>상수형 멤버도 타입/속성 이름처럼 읽히게 한다.</p>
+          <p>Constant-like members should read like type or property names.</p>
         </div>
       </article>
       <article class="convention-rule">
         <div class="convention-rule-index">04</div>
         <div class="convention-rule-body">
-          <h3>속성은 명사 또는 형용사로 쓴다</h3>
+          <h3>Properties are nouns or adjectives</h3>
           <div class="convention-examples">
             <div class="convention-example good">
-              <div class="convention-example-label">올바른 사용</div>
+              <div class="convention-example-label">Correct</div>
               <pre><code>public bool IsActive { get; }
 public bool HasReward { get; }
 public Item AsItem { get; }</code></pre>
             </div>
             <div class="convention-example bad">
-              <div class="convention-example-label">잘못된 사용</div>
+              <div class="convention-example-label">Incorrect</div>
               <pre><code>public bool Active { get; }
 public bool Activate { get; }
 public bool Reward { get; }</code></pre>
             </div>
           </div>
-          <p>묻는 형태의 bool 속성은 Is, Has 같은 접두사로 IDE 검색을 모은다.</p>
+          <p>Boolean properties that ask a question should collect under prefixes such as Is and Has in IDE search.</p>
         </div>
       </article>
       <article class="convention-rule">
         <div class="convention-rule-index">05</div>
         <div class="convention-rule-body">
-          <h3>Can과 -able의 의미를 구분한다</h3>
+          <h3>Distinguish Can from -able</h3>
           <div class="convention-examples">
             <div class="convention-example good">
-              <div class="convention-example-label">올바른 사용</div>
+              <div class="convention-example-label">Correct</div>
               <pre><code>public bool CanGather { get; }
 public bool Gatherable { get; }</code></pre>
             </div>
             <div class="convention-example bad">
-              <div class="convention-example-label">잘못된 사용</div>
+              <div class="convention-example-label">Incorrect</div>
               <pre><code>public bool CanGathered { get; }
 public bool Gather { get; }</code></pre>
             </div>
           </div>
-          <p>CanGather는 객체가 하는 행위, Gatherable은 객체가 가진 속성이다.</p>
+          <p>CanGather describes an action the object can perform. Gatherable describes an attribute the object has.</p>
         </div>
       </article>
       <article class="convention-rule">
         <div class="convention-rule-index">06</div>
         <div class="convention-rule-body">
-          <h3>검색성이 중요한 속성에는 타입 postfix를 붙인다</h3>
+          <h3>Add type postfixes to properties when searchability matters</h3>
           <div class="convention-examples">
             <div class="convention-example good">
-              <div class="convention-example-label">올바른 사용</div>
+              <div class="convention-example-label">Correct</div>
               <pre><code>public Sprite IconSprite { get; }
 public GameObject HitEffect { get; }
 public string DescriptionTooltip { get; }</code></pre>
             </div>
             <div class="convention-example bad">
-              <div class="convention-example-label">잘못된 사용</div>
+              <div class="convention-example-label">Incorrect</div>
               <pre><code>public Sprite Icon { get; }
 public GameObject Hit { get; }
 public string Description { get; }</code></pre>
             </div>
           </div>
-          <p>String, Sprite, Prefab, Effect, Tooltip처럼 검색 필터가 필요한 경우만 쓴다.</p>
+          <p>Use postfixes such as String, Sprite, Prefab, Effect, and Tooltip only when they improve search filtering.</p>
         </div>
       </article>
       <article class="convention-rule">
         <div class="convention-rule-index">07</div>
         <div class="convention-rule-body">
-          <h3>함수는 동사 또는 동사구로 쓴다</h3>
+          <h3>Functions use verbs or verb phrases</h3>
           <div class="convention-examples">
             <div class="convention-example good">
-              <div class="convention-example-label">올바른 사용</div>
+              <div class="convention-example-label">Correct</div>
               <pre><code>public void GiveReward()
 {
 }</code></pre>
             </div>
             <div class="convention-example bad">
-              <div class="convention-example-label">잘못된 사용</div>
+              <div class="convention-example-label">Incorrect</div>
               <pre><code>public void Reward()
 {
 }</code></pre>
             </div>
           </div>
-          <p>동작은 함수명에서 바로 드러나야 한다.</p>
+          <p>The action should be visible from the function name.</p>
         </div>
       </article>
       <article class="convention-rule">
         <div class="convention-rule-index">08</div>
         <div class="convention-rule-body">
-          <h3>Enum 타입은 Enum 접미사를 쓴다</h3>
+          <h3>Enum types use the Enum suffix</h3>
           <div class="convention-examples">
             <div class="convention-example good">
-              <div class="convention-example-label">올바른 사용</div>
+              <div class="convention-example-label">Correct</div>
               <pre><code>public enum ItemGroupEnum
 {
 }
@@ -212,7 +212,7 @@ public string Description { get; }</code></pre>
 private ItemGroupEnum itemGroup;</code></pre>
             </div>
             <div class="convention-example bad">
-              <div class="convention-example-label">잘못된 사용</div>
+              <div class="convention-example-label">Incorrect</div>
               <pre><code>public enum ItemGroup
 {
 }
@@ -220,66 +220,66 @@ private ItemGroupEnum itemGroup;</code></pre>
 private ItemGroup itemGroupEnum;</code></pre>
             </div>
           </div>
-          <p>변수명에는 Enum을 반복하지 않는다.</p>
+          <p>Do not repeat Enum in the variable name.</p>
         </div>
       </article>
       <article class="convention-rule">
         <div class="convention-rule-index">09</div>
         <div class="convention-rule-body">
-          <h3>코루틴 함수는 Coroutine 접미사를 쓴다</h3>
+          <h3>Coroutine functions use the Coroutine suffix</h3>
           <div class="convention-examples">
             <div class="convention-example good">
-              <div class="convention-example-label">올바른 사용</div>
+              <div class="convention-example-label">Correct</div>
               <pre><code>private IEnumerator FadeCoroutine()
 {
     yield return null;
 }</code></pre>
             </div>
             <div class="convention-example bad">
-              <div class="convention-example-label">잘못된 사용</div>
+              <div class="convention-example-label">Incorrect</div>
               <pre><code>private IEnumerator Fade()
 {
     yield return null;
 }</code></pre>
             </div>
           </div>
-          <p>실행 방식이 다른 함수를 이름에서 구분한다.</p>
+          <p>The name should distinguish functions with a different execution model.</p>
         </div>
       </article>
     </section>
 
-    <section id="파일과 Unity 객체">
-      <h2>파일과 Unity 객체</h2>
+    <section id="files-unity-objects">
+      <h2>Files and Unity objects</h2>
       <article class="convention-rule">
         <div class="convention-rule-index">10</div>
         <div class="convention-rule-body">
-          <h3>파일명과 대표 정의명을 맞춘다</h3>
+          <h3>Match the file name and the representative definition name</h3>
           <div class="convention-examples">
             <div class="convention-example good">
-              <div class="convention-example-label">올바른 사용</div>
+              <div class="convention-example-label">Correct</div>
               <pre><code>// File: PlayerController.cs
 public sealed class PlayerController
 {
 }</code></pre>
             </div>
             <div class="convention-example bad">
-              <div class="convention-example-label">잘못된 사용</div>
+              <div class="convention-example-label">Incorrect</div>
               <pre><code>// File: Player.cs
 public sealed class PlayerController
 {
 }</code></pre>
             </div>
           </div>
-          <p>IDE와 IntelliSense에서 파일과 타입을 바로 찾을 수 있어야 한다.</p>
+          <p>The file and type should be easy to find through IDE and IntelliSense.</p>
         </div>
       </article>
       <article class="convention-rule">
         <div class="convention-rule-index">11</div>
         <div class="convention-rule-body">
-          <h3>파일 1개에는 대표 정의 1개만 둔다</h3>
+          <h3>One file has one representative definition</h3>
           <div class="convention-examples">
             <div class="convention-example good">
-              <div class="convention-example-label">올바른 사용</div>
+              <div class="convention-example-label">Correct</div>
               <pre><code>// File: PlayerController.cs
 public sealed class PlayerController
 {
@@ -289,7 +289,7 @@ public sealed class PlayerController
 }</code></pre>
             </div>
             <div class="convention-example bad">
-              <div class="convention-example-label">잘못된 사용</div>
+              <div class="convention-example-label">Incorrect</div>
               <pre><code>// File: PlayerController.cs
 public sealed class PlayerController
 {
@@ -304,16 +304,16 @@ public enum PlayerModeEnum
 }</code></pre>
             </div>
           </div>
-          <p>class, struct, enum 등 대표 정의는 파일을 나눈다. 중첩 정의는 예외다.</p>
+          <p>Representative definitions such as class, struct, and enum should be split by file. Nested definitions are the exception.</p>
         </div>
       </article>
       <article class="convention-rule">
         <div class="convention-rule-index">12</div>
         <div class="convention-rule-body">
-          <h3>중첩 타입은 enum, struct, interface, class 순서로 둔다</h3>
+          <h3>Nested types are ordered enum, struct, interface, class</h3>
           <div class="convention-examples">
             <div class="convention-example good">
-              <div class="convention-example-label">올바른 사용</div>
+              <div class="convention-example-label">Correct</div>
               <pre><code>public sealed class PlayerController
 {
     private enum StateEnum
@@ -334,7 +334,7 @@ public enum PlayerModeEnum
 }</code></pre>
             </div>
             <div class="convention-example bad">
-              <div class="convention-example-label">잘못된 사용</div>
+              <div class="convention-example-label">Incorrect</div>
               <pre><code>public sealed class PlayerController
 {
     private sealed class Cache
@@ -355,64 +355,64 @@ public enum PlayerModeEnum
 }</code></pre>
             </div>
           </div>
-          <p>한 파일의 여러 타입 선언은 대표 정의 1개 원칙 때문에 보통 중첩 타입에만 허용한다. 중첩 타입 선언 순서는 enum &gt; struct &gt; interface &gt; class다.</p>
+          <p>Because one file normally has one representative definition, multiple type declarations usually appear only as nested types. Nested type order is enum &gt; struct &gt; interface &gt; class.</p>
         </div>
       </article>
       <article class="convention-rule">
         <div class="convention-rule-index">13</div>
         <div class="convention-rule-body">
-          <h3>파일명과 클래스명은 명사로 둔다</h3>
+          <h3>File names and class names are nouns</h3>
           <div class="convention-examples">
             <div class="convention-example good">
-              <div class="convention-example-label">올바른 사용</div>
+              <div class="convention-example-label">Correct</div>
               <pre><code>// File: PlayerMover.cs
 public sealed class PlayerMover
 {
 }</code></pre>
             </div>
             <div class="convention-example bad">
-              <div class="convention-example-label">잘못된 사용</div>
+              <div class="convention-example-label">Incorrect</div>
               <pre><code>// File: MovePlayer.cs
 public sealed class MovePlayer
 {
 }</code></pre>
             </div>
           </div>
-          <p>역할은 타입명에, 동작은 함수명에 둔다.</p>
+          <p>Put roles in type names and actions in function names.</p>
         </div>
       </article>
       <article class="convention-rule">
         <div class="convention-rule-index">14</div>
         <div class="convention-rule-body">
-          <h3>Unity 객체 이름과 스크립트 이름을 맞춘다</h3>
+          <h3>Match Unity object names and script names</h3>
           <div class="convention-examples">
             <div class="convention-example good">
-              <div class="convention-example-label">올바른 사용</div>
+              <div class="convention-example-label">Correct</div>
               <pre><code>Prefab: InventoryPanel
 Script: InventoryPanel.cs
 Class: InventoryPanel</code></pre>
             </div>
             <div class="convention-example bad">
-              <div class="convention-example-label">잘못된 사용</div>
+              <div class="convention-example-label">Incorrect</div>
               <pre><code>Prefab: Inventory
 Script: BagPanel.cs
 Class: BagPanel</code></pre>
             </div>
           </div>
-          <p>Inspector 이름과 코드 검색 이름이 같은 개념을 가리켜야 한다.</p>
+          <p>Inspector names and code-search names should point to the same concept.</p>
         </div>
       </article>
     </section>
 
-    <section id="단어">
-      <h2>단어</h2>
+    <section id="words">
+      <h2>Words</h2>
       <article class="convention-rule">
         <div class="convention-rule-index">15</div>
         <div class="convention-rule-body">
-          <h3>관용 다음절어는 한 단어처럼 취급한다</h3>
+          <h3>Conventional compounds are treated as one word</h3>
           <div class="convention-examples">
             <div class="convention-example good">
-              <div class="convention-example-label">올바른 사용</div>
+              <div class="convention-example-label">Correct</div>
               <pre><code>Hotkey
 Infobox
 Inputbox
@@ -421,7 +421,7 @@ Nickname
 Filename</code></pre>
             </div>
             <div class="convention-example bad">
-              <div class="convention-example-label">잘못된 사용</div>
+              <div class="convention-example-label">Incorrect</div>
               <pre><code>HotKey
 InfoBox
 InputBox
@@ -430,135 +430,135 @@ NickName
 FileName</code></pre>
             </div>
           </div>
-          <p>플랫폼/서드파티 관용은 따르되 새 이름은 한 단어처럼 다룬다.</p>
+          <p>Follow platform or third-party conventions when they exist, but treat new names as one word.</p>
         </div>
       </article>
       <article class="convention-rule">
         <div class="convention-rule-index">16</div>
         <div class="convention-rule-body">
-          <h3>다른 키워드의 부분 문자열이면 피한다</h3>
+          <h3>Avoid names that are substrings of other keywords</h3>
           <div class="convention-examples">
             <div class="convention-example good">
-              <div class="convention-example-label">올바른 사용</div>
+              <div class="convention-example-label">Correct</div>
               <pre><code>StageState
 IntermissionState</code></pre>
             </div>
             <div class="convention-example bad">
-              <div class="convention-example-label">잘못된 사용</div>
+              <div class="convention-example-label">Incorrect</div>
               <pre><code>MissionState
 IntermissionState</code></pre>
             </div>
           </div>
-          <p>Intermission 안에 Mission이 들어간다. 검색하면 Mission이 의도치 않게 같이 잡힌다.</p>
+          <p>Mission appears inside Intermission, so searching for Mission catches unintended results.</p>
         </div>
       </article>
       <article class="convention-rule">
         <div class="convention-rule-index">17</div>
         <div class="convention-rule-body">
-          <h3>복수 그룹은 현재 -s/-es를 허용한다</h3>
+          <h3>Plural groups currently allow -s and -es</h3>
           <div class="convention-examples">
             <div class="convention-example good">
-              <div class="convention-example-label">올바른 사용</div>
+              <div class="convention-example-label">Correct</div>
               <pre><code>Items
 Enemies
 Rewards</code></pre>
             </div>
             <div class="convention-example bad">
-              <div class="convention-example-label">잘못된 사용</div>
+              <div class="convention-example-label">Incorrect</div>
               <pre><code>ItemList
 EnemyArray
 RewardBucket</code></pre>
             </div>
           </div>
-          <p>List, Array는 헝가리언처럼 보일 수 있다. 더 나은 대안은 미정이다.</p>
+          <p>List and Array can read like Hungarian notation. A better alternative is still undecided.</p>
         </div>
       </article>
     </section>
 
-    <section id="구문과 구성">
-      <h2>구문과 구성</h2>
+    <section id="syntax-structure">
+      <h2>Syntax and structure</h2>
       <article class="convention-rule">
         <div class="convention-rule-index">18</div>
         <div class="convention-rule-body">
-          <h3>외부 생명주기 객체는 읽기 전용 속성으로 둔다</h3>
+          <h3>External lifecycle objects are read-only properties</h3>
           <div class="convention-examples">
             <div class="convention-example good">
-              <div class="convention-example-label">올바른 사용</div>
+              <div class="convention-example-label">Correct</div>
               <pre><code>public Player Player { get; }</code></pre>
             </div>
             <div class="convention-example bad">
-              <div class="convention-example-label">잘못된 사용</div>
+              <div class="convention-example-label">Incorrect</div>
               <pre><code>public Player Player;</code></pre>
             </div>
           </div>
-          <p>생성과 소유권이 외부에 있으면 setter를 닫는다.</p>
+          <p>If creation and ownership live outside this object, close the setter.</p>
         </div>
       </article>
       <article class="convention-rule">
         <div class="convention-rule-index">19</div>
         <div class="convention-rule-body">
-          <h3>var를 적극 사용한다</h3>
+          <h3>Use var actively</h3>
           <div class="convention-examples">
             <div class="convention-example good">
-              <div class="convention-example-label">올바른 사용</div>
+              <div class="convention-example-label">Correct</div>
               <pre><code>var items = new Dictionary&lt;string, Item&gt;();</code></pre>
             </div>
             <div class="convention-example bad">
-              <div class="convention-example-label">잘못된 사용</div>
+              <div class="convention-example-label">Incorrect</div>
               <pre><code>Dictionary&lt;string, Item&gt; items =
     new Dictionary&lt;string, Item&gt;();</code></pre>
             </div>
           </div>
-          <p>오른쪽 표현식으로 타입을 알 수 있으면 var를 쓴다.</p>
+          <p>Use var when the type is clear from the expression on the right.</p>
         </div>
       </article>
       <article class="convention-rule">
         <div class="convention-rule-index">20</div>
         <div class="convention-rule-body">
-          <h3>신규 using 형태는 사용하지 않는다</h3>
+          <h3>Do not use the newer using-declaration form</h3>
           <div class="convention-examples">
             <div class="convention-example good">
-              <div class="convention-example-label">올바른 사용</div>
+              <div class="convention-example-label">Correct</div>
               <pre><code>using (var stream = File.OpenRead(path))
 {
 }</code></pre>
             </div>
             <div class="convention-example bad">
-              <div class="convention-example-label">잘못된 사용</div>
+              <div class="convention-example-label">Incorrect</div>
               <pre><code>using var stream = File.OpenRead(path);</code></pre>
             </div>
           </div>
-          <p>기존 using 블록 형태를 유지한다.</p>
+          <p>Keep the existing using block form.</p>
         </div>
       </article>
       <article class="convention-rule">
         <div class="convention-rule-index">21</div>
         <div class="convention-rule-body">
-          <h3>sealed는 override 앞에 둔다</h3>
+          <h3>Put sealed before override</h3>
           <div class="convention-examples">
             <div class="convention-example good">
-              <div class="convention-example-label">올바른 사용</div>
+              <div class="convention-example-label">Correct</div>
               <pre><code>public sealed override void Dispose()
 {
 }</code></pre>
             </div>
             <div class="convention-example bad">
-              <div class="convention-example-label">잘못된 사용</div>
+              <div class="convention-example-label">Incorrect</div>
               <pre><code>public override sealed void Dispose()
 {
 }</code></pre>
             </div>
           </div>
-          <p>접근 제한자, sealed, override 순서로 읽히게 한다.</p>
+          <p>Read the declaration in access modifier, sealed, override order.</p>
         </div>
       </article>
       <article class="convention-rule">
         <div class="convention-rule-index">22</div>
         <div class="convention-rule-body">
-          <h3>클래스 내부 섹션은 변수, 속성, 이벤트, 함수 순서로 둔다</h3>
+          <h3>Class sections are variables, properties, events, functions</h3>
           <div class="convention-examples">
             <div class="convention-example good">
-              <div class="convention-example-label">올바른 사용</div>
+              <div class="convention-example-label">Correct</div>
               <pre><code>private enum StateEnum { }
 private struct Entry { }
 private interface CacheInterface { }
@@ -569,22 +569,22 @@ public event Action Changed;
 public void Refresh() { }</code></pre>
             </div>
             <div class="convention-example bad">
-              <div class="convention-example-label">잘못된 사용</div>
+              <div class="convention-example-label">Incorrect</div>
               <pre><code>public void Refresh() { }
 public int Count { get; }
 private enum StateEnum { }</code></pre>
             </div>
           </div>
-          <p>inner enum, inner struct, inner interface, inner class 다음은 변수 &gt; 속성 &gt; 이벤트 &gt; 함수 순서다.</p>
+          <p>After inner enum, inner struct, inner interface, and inner class, use variables &gt; properties &gt; events &gt; functions.</p>
         </div>
       </article>
       <article class="convention-rule">
         <div class="convention-rule-index">23</div>
         <div class="convention-rule-body">
-          <h3>각 카테고리 내부는 abc순으로 둔다</h3>
+          <h3>Sort inside each category alphabetically</h3>
           <div class="convention-examples">
             <div class="convention-example good">
-              <div class="convention-example-label">올바른 사용</div>
+              <div class="convention-example-label">Correct</div>
               <pre><code>private int alphaCount;
 private int betaCount;
 private int rewardCount;
@@ -605,7 +605,7 @@ public void RefreshTooltip()
 }</code></pre>
             </div>
             <div class="convention-example bad">
-              <div class="convention-example-label">잘못된 사용</div>
+              <div class="convention-example-label">Incorrect</div>
               <pre><code>private int rewardCount;
 private int alphaCount;
 public void ApplyReward()
@@ -620,16 +620,16 @@ public void RefreshTooltip()
 }</code></pre>
             </div>
           </div>
-          <p>abc 정렬은 섹션 순서, 상속 구현 순서, 생성자 우선 규칙을 먼저 적용한 뒤 같은 상속 그룹의 같은 카테고리 내부에서만 적용한다. abc 정렬 때문에 부모/인터페이스 구현 그룹을 섞지 않는다.</p>
+          <p>Alphabetical order applies only inside the same category of the same inheritance group, after section order, inheritance implementation order, and constructor priority. Do not mix parent or interface implementation groups just to satisfy alphabetical order.</p>
         </div>
       </article>
       <article class="convention-rule">
         <div class="convention-rule-index">24</div>
         <div class="convention-rule-body">
-          <h3>상속 구현은 부모 선언 순서대로 둔다</h3>
+          <h3>Implement inherited members in parent declaration order</h3>
           <div class="convention-examples">
             <div class="convention-example good">
-              <div class="convention-example-label">올바른 사용</div>
+              <div class="convention-example-label">Correct</div>
               <pre><code>public sealed class RewardButton : ButtonBase, ClickableInterface, TooltipInterface
 {
     private int buttonIndex;
@@ -664,7 +664,7 @@ public void RefreshTooltip()
 }</code></pre>
             </div>
             <div class="convention-example bad">
-              <div class="convention-example-label">잘못된 사용</div>
+              <div class="convention-example-label">Incorrect</div>
               <pre><code>public sealed class RewardButton : ButtonBase, TooltipInterface, ClickableInterface
 {
     private int rewardCount;
@@ -692,16 +692,16 @@ public void RefreshTooltip()
 }</code></pre>
             </div>
           </div>
-          <p>부모 &gt; 자식 순서다. 부모 간에는 상속 선언 순서를 따르고, 여러 인터페이스의 선언과 구현은 abc순으로 둔다. 생성자는 함수 중 가장 먼저 둔다.</p>
+          <p>Use parent &gt; child order. Among parents, follow the inheritance declaration order. Multiple interfaces and their implementations are ordered alphabetically. Constructors come first among functions.</p>
         </div>
       </article>
       <article class="convention-rule">
         <div class="convention-rule-index">25</div>
         <div class="convention-rule-body">
-          <h3>인터페이스 구현은 타입 explicit으로 둔다</h3>
+          <h3>Interface implementation is explicit by type</h3>
           <div class="convention-examples">
             <div class="convention-example good">
-              <div class="convention-example-label">올바른 사용</div>
+              <div class="convention-example-label">Correct</div>
               <pre><code>public sealed class TooltipButton : TooltipInterface
 {
     string TooltipInterface.TooltipText =&gt; tooltipText;
@@ -712,7 +712,7 @@ public void RefreshTooltip()
 }</code></pre>
             </div>
             <div class="convention-example bad">
-              <div class="convention-example-label">잘못된 사용</div>
+              <div class="convention-example-label">Incorrect</div>
               <pre><code>public sealed class TooltipButton : TooltipInterface
 {
     public string TooltipText =&gt; tooltipText;
@@ -723,16 +723,16 @@ public void RefreshTooltip()
 }</code></pre>
             </div>
           </div>
-          <p>인터페이스 멤버는 public으로 노출하지 않고 InterfaceName.MemberName 형태로 구현한다.</p>
+          <p>Do not expose interface members as public members. Implement them as InterfaceName.MemberName.</p>
         </div>
       </article>
       <article class="convention-rule">
         <div class="convention-rule-index">26</div>
         <div class="convention-rule-body">
-          <h3>멤버 섹션은 const, readonly, static, member 순서로 둔다</h3>
+          <h3>Member sections are const, readonly, static, member</h3>
           <div class="convention-examples">
             <div class="convention-example good">
-              <div class="convention-example-label">올바른 사용</div>
+              <div class="convention-example-label">Correct</div>
               <pre><code>private const int MaxCount = 10;
 
 private readonly int StartIndex;
@@ -744,7 +744,7 @@ private int count;
 private int index;</code></pre>
             </div>
             <div class="convention-example bad">
-              <div class="convention-example-label">잘못된 사용</div>
+              <div class="convention-example-label">Incorrect</div>
               <pre><code>private const int MaxCount = 10;
 private int index;
 private readonly int StartIndex;
@@ -752,7 +752,7 @@ private static int __cacheCount;
 private int count;</code></pre>
             </div>
           </div>
-          <p>const, readonly, static, member는 서로 다른 섹션이다. 각 섹션 안에서 abc순으로 둔다.</p>
+          <p>const, readonly, static, and ordinary members are separate sections. Sort alphabetically inside each section.</p>
         </div>
       </article>
     </section>
