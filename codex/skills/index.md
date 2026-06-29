@@ -5,7 +5,7 @@ If a listed skill is missing, Codex should install/update it automatically befor
 Host custom instruction:
 
 ```text
-모든 작업에서 $oojjrs-guidelines 를 먼저 사용하라.
+코드/문서/자산/git/배포/검증 등 실제 작업을 수행할 때만 $oojjrs-guidelines 를 먼저 사용하라. 단순 질문 답변에는 사용하지 마라.
 ```
 
 ## Automatic Install

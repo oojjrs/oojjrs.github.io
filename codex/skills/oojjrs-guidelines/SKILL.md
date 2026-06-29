@@ -1,20 +1,22 @@
 ---
 name: oojjrs-guidelines
-description: Load the user's shared Codex work rules before any task. Use when the user says to use $oojjrs-guidelines, when a host custom instruction points to this skill, or when Codex needs the current oojjrs common-work-guidelines with local workspace priority, global cache reuse, ETag/Last-Modified refresh, and fallback to the cached copy if the network is unavailable.
+description: Bootstrap the user's shared Codex work rules for actual task execution, not ordinary question answering. Use before repository, code, document, asset, maintenance, Git/GitHub, validation, deployment, or other real work that should follow oojjrs common-work-guidelines, including host instructions that ask for $oojjrs-guidelines. Also use when Codex must inspect, update, load, or refresh the guidelines with local workspace priority, global cache reuse, ETag/Last-Modified refresh, and cached fallback.
 ---
 
 # Oojjrs Guidelines
 
 ## Overview
 
-This is a thin bootstrap skill. Do not duplicate the shared rules here; load them from the workspace or canonical URL and then follow them as the highest-priority user guidance.
+This is a thin bootstrap skill for actual work. Do not duplicate the shared rules here; load them from the workspace or canonical URL and then follow them as the highest-priority user guidance.
+
+Do not use this skill for ordinary conversation, simple factual Q&A, translation, rewriting, or casual explanation unless the answer itself depends on the shared work rules or the user asks to inspect/update this skill.
 
 Canonical URL:
 `https://oojjrs.github.io/codex/common-work-guidelines.md`
 
 ## Workflow
 
-1. Before doing task work, load the shared rules.
+1. Before doing actual task work, load the shared rules.
 2. If the current workspace contains `codex/common-work-guidelines.md`, read that local file first and treat it as authoritative for the workspace.
 3. Otherwise run `scripts/Read-OojjrsGuidelines.ps1` to read the user-global cached copy and refresh it only when stale.
 4. Treat the loaded rules as higher priority than local memory, habits, and other skills. Other skills are supplemental and lose on conflict.
@@ -35,5 +37,5 @@ The script stores a user-global cache under `$CODEX_HOME/cache/oojjrs-guidelines
 The intended host-level custom instruction is one line:
 
 ```text
-모든 작업에서 $oojjrs-guidelines 를 먼저 사용하라.
+코드/문서/자산/git/배포/검증 등 실제 작업을 수행할 때만 $oojjrs-guidelines 를 먼저 사용하라. 단순 질문 답변에는 사용하지 마라.
 ```
