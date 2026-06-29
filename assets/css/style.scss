@@ -92,8 +92,9 @@ pre {
 .site-shell { width: min(1120px, calc(100% - 40px)); margin-inline: auto; }
 
 .site-header {
-  position: relative;
-  z-index: 10;
+  position: sticky;
+  top: 0;
+  z-index: 40;
   border-bottom: 1px solid var(--line);
   background: rgba(17, 19, 16, .92);
   backdrop-filter: blur(14px);
@@ -220,7 +221,7 @@ pre {
 .note-title { color: var(--text); font-size: 18px; font-weight: 750; }
 .note-arrow { text-align: right; }
 
-.article { max-width: 1040px; padding-top: 90px; padding-bottom: 120px; }
+.article { max-width: 1040px; padding-top: 90px; padding-bottom: 120px; scroll-margin-top: 100px; }
 .article-header { max-width: 880px; margin-bottom: 42px; padding-bottom: 42px; border-bottom: 1px solid var(--line); }
 .article-header h1 { max-width: 850px; margin: 0; font-size: clamp(40px, 6vw, 64px); letter-spacing: 0; line-height: 1.12; }
 .article-description { max-width: 720px; margin: 24px 0 0; color: var(--muted); font-size: 20px; line-height: 1.65; }
@@ -275,7 +276,7 @@ pre {
   font-size: 29px;
   letter-spacing: 0;
   line-height: 1.25;
-  scroll-margin-top: 96px;
+  scroll-margin-top: 100px;
 }
 .article-body h2::before {
   display: block;
