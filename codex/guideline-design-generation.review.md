@@ -2,9 +2,9 @@
 
 Read this only for `Design.html` creation, review, cleanup, or update. Keep it compact.
 
-1. Layout is not optional. When creating a brand-new `Design.html`, read the mandatory layout template with `gh api -H "Accept: application/vnd.github.raw" "repos/oojjrs/mines/contents/Design.html?ref=main"`; for existing document updates, do not reapply the template unless the user explicitly asks to rebuild the layout.
-2. When starting from that template, preserve its layout system: dark header, fixed side nav, nav groups, paired `section-group` blocks, `section-group-body`, child `<details id="...">`, `summary`, `.details-body`, image filename tags, responsive rules, synchronized navigation, and image lightbox behavior.
-3. Do not invent a different layout, landing page, hero, card system, color theme, navigation model, freeform Markdown-like page, or section organization. Remove template-specific content and assets, but keep the template structure unless the user explicitly orders a structural deviation.
+1. Layout is not optional. When creating a brand-new `Design.html`, use a compact, navigable structure suited to the current project; for existing document updates, do not rebuild the layout unless the user explicitly asks.
+2. When starting from a provided template, preserve its layout system: dark header, fixed side nav, nav groups, paired `section-group` blocks, `section-group-body`, child `<details id="...">`, `summary`, `.details-body`, image filename tags, responsive rules, synchronized navigation, and image lightbox behavior.
+3. Do not invent a different layout, landing page, hero, card system, color theme, navigation model, freeform Markdown-like page, or section organization. When a template applies, remove template-specific content and assets, but keep the template structure unless the user explicitly orders a structural deviation.
 4. `Design.html` is product/game planning, not chat history or a work board: keep final decisions, rationale, current implementation state, and unresolved items only.
 5. Do not put workflow, queue, validation, git, approval, commit rules, shared guideline links, or other work-operation text in `Design.html`.
 6. Read the live `Design.html` first; current code/assets beat stale planning text.
@@ -25,4 +25,4 @@ Read this only for `Design.html` creation, review, cleanup, or update. Keep it c
 21. Record rationale as: why it exists, why this option won, what problem it solves, what constraints shaped it, and what later work must preserve.
 22. For new docs, consider these sections and delete irrelevant ones: direction, UX goals, systems, screens/flows/rules, decisions, rejected options, open risks, assets, change notes.
 23. For game docs, consider these categories: core, world, levels, characters, rules, items/economy, quests/events, interaction/combat, presentation, UI, meta/live, unresolved/excluded.
-24. Validate template adherence, links, anchors, local assets, image click-throughs, tooltips, encoding, line endings, HTML structure, `details open` count/intent, project checks, skill checks when touched, and diff scope.
+24. Validate layout adherence, links, anchors, local assets, image click-throughs, tooltips, encoding, line endings, HTML structure, `details open` count/intent, project checks, skill checks when touched, and diff scope.
