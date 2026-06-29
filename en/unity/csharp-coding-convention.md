@@ -35,7 +35,7 @@ This convention exists to make the shape of Unity C# code predictable.
 - Keep contextual information consistent, such as verbs for functions and nouns for variables.
 - Apply the same standard to AI output so final review and manual coding use one rule set.
 
-Third-party code and auto-generated code are always exceptions to this convention. In an existing domain, the established local rules always take priority.
+Third-party code is not subject to this convention. In an existing domain, the established local rules always take priority.
 {: .article-principle }
 
 **Priority**
