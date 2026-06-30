@@ -12,6 +12,7 @@ Use a layered-parts workflow. Do not start by slicing, warping, or spline-bendin
 1. Inspect the source sprite and target runtime format first.
    - Identify which pixels must stay fixed, which parts move, and which parts occlude others.
    - Preserve the existing runtime contract: frame size, sheet layout, Unity meta/import settings, animation clip references, and document previews.
+   - For existing text metadata or project files, preserve the current encoding and line endings exactly; do not normalize to CRLF unless that was the original state or the user asks.
 
 2. Prefer true source layers.
    - Use PSD-derived layers or separate PNG parts when available.

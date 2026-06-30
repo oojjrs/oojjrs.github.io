@@ -58,7 +58,6 @@ foreach ($name in $TargetSkills) {
     }
 }
 
-$Utf8NoBom = New-Object System.Text.UTF8Encoding($false)
 New-Item -ItemType Directory -Force -Path $Destination | Out-Null
 
 foreach ($name in $TargetSkills) {
@@ -86,13 +85,18 @@ foreach ($name in $TargetSkills) {
             New-Item -ItemType Directory -Force -Path $localDir | Out-Null
         }
 
+        # Preserve source bytes exactly. Do not normalize encoding or line endings during install.
         if (Test-Path -LiteralPath $sourcePath) {
-            $text = [System.IO.File]::ReadAllText($sourcePath)
+            [System.IO.File]::Copy($sourcePath, $localPath, $true)
         } else {
-            $text = (Invoke-WebRequest -UseBasicParsing -Uri "$BaseUrl/$canonicalName/$webPath").Content
+            $webClient = New-Object System.Net.WebClient
+            try {
+                $bytes = $webClient.DownloadData("$BaseUrl/$canonicalName/$webPath")
+                [System.IO.File]::WriteAllBytes($localPath, $bytes)
+            } finally {
+                $webClient.Dispose()
+            }
         }
-        $text = $text -replace "`r`n|`n|`r", "`r`n"
-        [System.IO.File]::WriteAllText($localPath, $text, $Utf8NoBom)
     }
 
     foreach ($legacyName in $LegacyAliases.Keys) {

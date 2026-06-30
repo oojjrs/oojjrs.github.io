@@ -68,6 +68,8 @@ Get `PROJECT_ID` from:
 
 Use real newlines in card and issue bodies. Never write literal `\n` text.
 
+If this workflow also touches local text files, preserve each existing file's encoding and line endings exactly. Do not normalize to CRLF unless the file already used CRLF or the user asks.
+
 In PowerShell, prefer a here-string:
 
 ```powershell

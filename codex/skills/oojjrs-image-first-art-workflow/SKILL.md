@@ -25,6 +25,10 @@ Do not create or use ad-hoc `tmp`, `temp`, `scratch`, or similarly named folders
 
 When writing literal `$Trash` paths in PowerShell, quote them, for example `'.\$Trash'`, so `$Trash` is not treated as a variable.
 
+## Text Metadata Files
+
+When image work touches existing text metadata, manifests, import settings, or project files, preserve each file's current encoding and line endings exactly. Do not normalize to CRLF unless that was the file's original state or the user explicitly asks.
+
 ## Required Sequence
 
 1. Use `$imagegen` / built-in `image_gen` for the first generated image, concept, static sprite, illustration, UI art, object cutout, background, icon-like raster asset, mockup, or visual reference. Do not use imagegen for 2D sprite animation frames.

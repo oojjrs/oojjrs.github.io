@@ -13,10 +13,11 @@ Use this skill before editing a repository.
 2. Run `git status --short --branch` and inspect recent context with `git log --oneline --decorate -5`.
 3. Preserve unrelated dirty files. If they affect the task, work around them or report the conflict.
 4. If `Design.html` exists, read it before task work. For Design.html work, also use `$oojjrs-project-design-document-router`.
-5. Resolve the exact requested scope and avoid bundling nearby docs/assets/runtime files unless requested.
-6. Check whether the repository is linked 1:1 to a GitHub Project. If linked, use `$oojjrs-github-project-board` to find/create the task card, convert draft to issue when moving to In Progress, assign issue-backed cards to `oojjrs`, and update status/notes with real newlines.
-7. If no linked board/card update is possible, say that explicitly before or during the work report.
-8. Start implementation only after these checks unless the user is only asking a question or review.
+5. Before editing existing text files, note their current encoding and line endings; preserve that exact state unless the user asks for conversion.
+6. Resolve the exact requested scope and avoid bundling nearby docs/assets/runtime files unless requested.
+7. Check whether the repository is linked 1:1 to a GitHub Project. If linked, use `$oojjrs-github-project-board` to find/create the task card, convert draft to issue when moving to In Progress, assign issue-backed cards to `oojjrs`, and update status/notes with real newlines.
+8. If no linked board/card update is possible, say that explicitly before or during the work report.
+9. Start implementation only after these checks unless the user is only asking a question or review.
 
 ## Scope Rules
 

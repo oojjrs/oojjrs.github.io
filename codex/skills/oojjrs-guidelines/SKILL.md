@@ -20,7 +20,8 @@ Canonical URL:
 2. If the current workspace contains `codex/common-work-guidelines.md`, read that local file first and treat it as authoritative for the workspace.
 3. Otherwise run `scripts/Read-OojjrsGuidelines.ps1` to read the user-global cached copy and refresh it only when stale.
 4. Treat the loaded rules as higher priority than local memory, habits, and other skills. Other skills are supplemental and lose on conflict.
-5. If the script is unavailable, fall back to reading the canonical URL directly. If network access fails, say that the rules could not be refreshed and continue only if a cached/local copy is available.
+5. When a task edits text files, the shared rule to preserve existing encoding and line endings wins over any skill or tool habit that normalizes files to CRLF.
+6. If the script is unavailable, fall back to reading the canonical URL directly. If network access fails, say that the rules could not be refreshed and continue only if a cached/local copy is available.
 
 ## Cache Policy
 

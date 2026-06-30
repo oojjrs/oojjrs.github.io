@@ -25,4 +25,4 @@ Read this only for `Design.html` creation, review, cleanup, or update. Keep it c
 21. Record rationale as: why it exists, why this option won, what problem it solves, what constraints shaped it, and what later work must preserve.
 22. For new docs, consider these sections and delete irrelevant ones: direction, UX goals, systems, screens/flows/rules, decisions, rejected options, open risks, assets, change notes.
 23. For game docs, consider these categories: core, world, levels, characters, rules, items/economy, quests/events, interaction/combat, presentation, UI, meta/live, unresolved/excluded.
-24. Validate layout adherence, links, anchors, local assets, image click-throughs, tooltips, encoding, line endings, HTML structure, `details open` count/intent, project checks, skill checks when touched, and diff scope.
+24. Validate layout adherence, links, anchors, local assets, image click-throughs, tooltips, original encoding and line-ending preservation, HTML structure, `details open` count/intent, project checks, skill checks when touched, and diff scope.

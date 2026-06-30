@@ -27,6 +27,8 @@ powershell -ExecutionPolicy Bypass -File $path -Skill oojjrs-github-project-boar
 
 Default destination is `$CODEX_HOME/skills`, or `~/.codex/skills` when `$CODEX_HOME` is unset.
 
+The installer copies source skill files without rewriting encoding or line endings. Existing/source text state is authoritative; CRLF is not forced during install.
+
 ## Skill URLs
 
 - `oojjrs-guidelines`: `https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/oojjrs-guidelines/SKILL.md`
