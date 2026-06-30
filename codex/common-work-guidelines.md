@@ -12,7 +12,7 @@ Read this before work. Keep it the durable source.
 8. Ask first unless the immediately previous user message explicitly ordered a hard-to-undo or external action: `git push`, deploy, permanent delete, forced rollback, or unrecoverable document rewrite.
 9. Preserve user/other-thread changes. Do not revert or clean unrelated files.
 10. Existing text files: preserve their current encoding and line endings exactly unless the user asks to convert them; do not introduce LF-only files. New text files only: UTF-8 No-BOM + CRLF.
-11. Keep disk I/O low: avoid repeated broad scans, batch reads/edits, avoid needless temp artifacts, and put necessary temporary files in `$Trash`.
+11. Keep disk I/O low: avoid repeated broad scans, batch reads/edits, and needless temp artifacts. Put all necessary temporary or intermediate files in `$Trash`, including generated image candidates and post-processing outputs; do not use ad-hoc `tmp`, `temp`, or scratch folders.
 12. Durable workflow preferences belong in this file or a linked public guideline, not in Codex local/global memory. Memory may be used only as in-progress task scratch/checkpoint state.
 13. If a memory contains reusable workflow guidance, ignore it as authority, move the rule here or to a linked public guideline, and request that the memory be deleted.
 14. Do not add repo-local `AGENTS.md`, `HANDOFF.md`, or similar instruction files beyond a pointer to `$oojjrs-guidelines` unless the user explicitly makes that repository an exception.

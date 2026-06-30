@@ -1,4 +1,4 @@
 interface:
   display_name: "oojjrs Image-First Art Workflow"
   short_description: "Imagegen-first art creation rule"
-  default_prompt: "Use $oojjrs-image-first-art-workflow: generate the first art pass with imagegen, then use local tools only for post-processing such as sizing, slicing, cleanup, or formatting."
+  default_prompt: "Use $oojjrs-image-first-art-workflow: generate the first art pass with imagegen, keep all temporary/intermediate image files under $Trash, then use local tools only for post-processing such as sizing, slicing, cleanup, or formatting."

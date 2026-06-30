@@ -15,6 +15,16 @@ Do not use System.Drawing, PIL, canvas, SVG, HTML/CSS, ImageMagick, procedural s
 
 Local/code tools are allowed only after imagegen has established the art style, subject, and overall visual quality. Use those tools only to make the accepted imagegen output production-ready: exact sizing, slicing, padding, alpha cleanup, format conversion, state variants, atlas packing, masks, guides, or other deterministic post-processing.
 
+## Temporary File Location
+
+All image workflow temporary and intermediate files must go under a literal `$Trash` folder. This includes raw generated candidates, downloaded imagegen results, contact sheets, masks, alpha-cleanup inputs, resized/cropped variants, rejected experiments, and post-processing scratch files.
+
+When the task has a repo or project root, use that root's `$Trash` folder. If no root is clear, use a `$Trash` folder under the current working directory or the explicitly requested output directory.
+
+Do not create or use ad-hoc `tmp`, `temp`, `scratch`, or similarly named folders for image generation work. If a tool default points to a temp location, override it before writing files. If writing to `$Trash` is blocked, stop and report the blocker instead of silently falling back to another folder.
+
+When writing literal `$Trash` paths in PowerShell, quote them, for example `'.\$Trash'`, so `$Trash` is not treated as a variable.
+
 ## Required Sequence
 
 1. Use `$imagegen` / built-in `image_gen` for the first generated image, concept, static sprite, illustration, UI art, object cutout, background, icon-like raster asset, mockup, or visual reference. Do not use imagegen for 2D sprite animation frames.
@@ -96,6 +106,7 @@ If there is any doubt, bias toward imagegen for the first visual asset.
 When finishing image work, state:
 
 - whether imagegen was used for the first art pass
+- where temporary/intermediate files were kept, and confirm whether `$Trash` was used
 - what second-pass tools were used, if any
 - where the final selected asset was saved
 - whether any placeholder/code-made visuals remain and why
