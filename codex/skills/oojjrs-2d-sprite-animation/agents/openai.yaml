@@ -1,4 +1,4 @@
 interface:
   display_name: "oojjrs 2D Sprite Animation"
   short_description: "Build clean 2D sprite sheets from layered parts."
-  default_prompt: "Use $oojjrs-2d-sprite-animation to create a clean sprite sheet and preview GIF from this game asset."
+  default_prompt: "Use $oojjrs-2d-sprite-animation to create a clean sprite sheet and preview GIF from this game asset without creating new Unity .meta files."

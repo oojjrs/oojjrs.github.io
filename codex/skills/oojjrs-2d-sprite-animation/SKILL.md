@@ -12,6 +12,7 @@ Use a layered-parts workflow. Do not start by slicing, warping, or spline-bendin
 1. Inspect the source sprite and target runtime format first.
    - Identify which pixels must stay fixed, which parts move, and which parts occlude others.
    - Preserve the existing runtime contract: frame size, sheet layout, Unity meta/import settings, animation clip references, and document previews.
+   - Do not create or author new Unity `.meta` files for newly generated assets; preserve or move existing `.meta` files only if they are already present and in scope.
    - For existing text metadata or project files, preserve the current encoding and line endings exactly; do not normalize to CRLF unless that was the original state or the user asks.
 
 2. Prefer true source layers.
@@ -48,7 +49,7 @@ Before calling the animation done:
 - Check that fixed layer sample pixels are identical across frames.
 - Check dimensions, frame count, and transparent background.
 - Check for clipping, seams, ghosting, dark fringes, broken occlusion, and palette artifacts.
-- For Unity assets, verify meta GUIDs, sprite rects/internal IDs, and animation clip references.
+- For Unity assets, verify existing `.meta` GUIDs, sprite rects/internal IDs, and animation clip references when they already exist; do not generate missing `.meta` files.
 - Run the project-appropriate diff/format checks before reporting completion.
 
 ## Quality Rules

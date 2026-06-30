@@ -29,6 +29,8 @@ When writing literal `$Trash` paths in PowerShell, quote them, for example `'.\$
 
 When image work touches existing text metadata, manifests, import settings, or project files, preserve each file's current encoding and line endings exactly. Do not normalize to CRLF unless that was the file's original state or the user explicitly asks.
 
+When creating or exporting Unity assets, do not create or author new Unity `.meta` files. Save the asset output only; preserve or move existing `.meta` files only when they were already present and explicitly in scope.
+
 ## Required Sequence
 
 1. Use `$imagegen` / built-in `image_gen` for the first generated image, concept, static sprite, illustration, UI art, object cutout, background, icon-like raster asset, mockup, or visual reference. Do not use imagegen for 2D sprite animation frames.
@@ -113,4 +115,5 @@ When finishing image work, state:
 - where temporary/intermediate files were kept, and confirm whether `$Trash` was used
 - what second-pass tools were used, if any
 - where the final selected asset was saved
+- whether any Unity `.meta` files were preserved or moved, and confirm no new `.meta` files were generated
 - whether any placeholder/code-made visuals remain and why
