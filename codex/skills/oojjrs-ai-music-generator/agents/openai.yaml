@@ -1,0 +1,4 @@
+interface:
+  display_name: "oojjrs AI Music Generator"
+  short_description: "Generate and download instrumental AI music through Chrome."
+  default_prompt: "Use $oojjrs-ai-music-generator to generate two instrumental tracks from this description and download both results."

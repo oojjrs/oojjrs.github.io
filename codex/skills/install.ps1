@@ -14,7 +14,8 @@ $CanonicalSkills = @(
     "oojjrs-project-design-document-router",
     "oojjrs-unity-package-src-migration",
     "oojjrs-2d-sprite-animation",
-    "oojjrs-image-first-art-workflow"
+    "oojjrs-image-first-art-workflow",
+    "oojjrs-ai-music-generator"
 )
 $LegacyAliases = @{
     "github-project-board" = "oojjrs-github-project-board"
@@ -35,6 +36,11 @@ $SkillFiles = @{
         "SKILL.md",
         "agents/openai.yaml",
         "scripts/Read-OojjrsGuidelines.ps1"
+    )
+    "oojjrs-ai-music-generator" = @(
+        "SKILL.md",
+        "agents/openai.yaml",
+        "scripts/Generate-AiMusic-Chrome.ps1"
     )
 }
 
