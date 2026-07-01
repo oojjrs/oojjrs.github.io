@@ -14,7 +14,7 @@ Use the bundled `scripts/Generate-AiMusic-Chrome.ps1`. Do not reimplement the pr
    - Accept an optional title of up to 80 characters.
    - Accept an optional style of up to 120 characters; when style is present, require a title.
    - Keep instrumental mode enabled. Do not add lyrics or expose an option to disable instrumental mode.
-   - Use the requested output directory. Otherwise create an `outputs/music` directory in the active workspace.
+   - Use the requested output directory. Otherwise use `$Trash` in the active workspace.
 
 2. Run the script from PowerShell.
 

@@ -20,8 +20,18 @@ Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
 $ProgressPreference = 'SilentlyContinue'
 
+function Get-DefaultOutputDirectory {
+    $location = Get-Location
+    $currentPath = if ($location.Provider.Name -eq 'FileSystem') {
+        $location.ProviderPath
+    } else {
+        $location.Path
+    }
+    return Join-Path $currentPath '$Trash'
+}
+
 if ([string]::IsNullOrWhiteSpace($OutputDirectory)) {
-    $OutputDirectory = Join-Path $PSScriptRoot 'music'
+    $OutputDirectory = Get-DefaultOutputDirectory
 }
 if ([string]::IsNullOrWhiteSpace($Prompt)) {
     throw '노래 설명(-Prompt)을 입력하세요.'
