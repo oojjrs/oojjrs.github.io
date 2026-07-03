@@ -1,4 +1,4 @@
 interface:
   display_name: "oojjrs Skill Maintenance"
-  short_description: "Maintain public oojjrs skill sources"
-  default_prompt: "Use $oojjrs-skill-maintenance to update a public oojjrs skill and keep source, metadata, index, installer, validation, and installation aligned."
+  short_description: "Maintain and validate public oojjrs skill sources"
+  default_prompt: "Use $oojjrs-skill-maintenance to update a public oojjrs skill and keep source, metadata, index, installer, validation dependencies, and installation aligned."

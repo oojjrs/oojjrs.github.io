@@ -20,6 +20,7 @@ Use this skill for public/shared skill work in `H:\oojjrs.github.io\codex\skills
 5. Do not create auxiliary docs such as README, changelog, or install notes inside a skill folder unless the user explicitly asks.
 6. Install/update the skill after source edits so `C:\Users\oojjr\.codex\skills` matches the public source.
 7. Validate with the skill-creator `quick_validate.py` script when available, then check `git diff --check`.
+8. `quick_validate.py` requires PyYAML (`import yaml`). If it is missing in the Python used for validation, install or repair `PyYAML` once and rerun the validation instead of skipping it.
 
 ## SKILL.md Rules
 
@@ -45,6 +46,7 @@ Run these checks before commit:
 
 ```powershell
 git diff --check
+python -c "import yaml"
 python C:\Users\oojjr\.codex\skills\.system\skill-creator\scripts\quick_validate.py <skill-folder>
 powershell -ExecutionPolicy Bypass -File .\codex\skills\install.ps1 -SkipToolInstall
 ```
