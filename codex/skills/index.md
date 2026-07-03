@@ -29,6 +29,8 @@ Default destination is `$CODEX_HOME/skills`, or `~/.codex/skills` when `$CODEX_H
 
 The installer copies source skill files without rewriting encoding or line endings. Existing/source text state is authoritative; CRLF is not forced during install.
 
+The installer also attempts to install workstation tools required by selected skills. Installing `oojjrs-image-first-art-workflow` installs ImageMagick 7 (`magick.exe`) and oxipng (`oxipng.exe`) through `winget` when they are missing. Add `-SkipToolInstall` to copy skills only.
+
 ## Skill URLs
 
 - `oojjrs-guidelines`: `https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/oojjrs-guidelines/SKILL.md`

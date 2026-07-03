@@ -1,6 +1,7 @@
 param(
     [string]$Destination,
-    [string[]]$Skill
+    [string[]]$Skill,
+    [switch]$SkipToolInstall
 )
 
 $ErrorActionPreference = "Stop"
@@ -42,6 +43,53 @@ $SkillFiles = @{
         "agents/openai.yaml",
         "scripts/Generate-AiMusic-Chrome.ps1"
     )
+}
+$ToolDependencies = @{
+    "oojjrs-image-first-art-workflow" = @(
+        @{
+            Name = "ImageMagick 7"
+            Command = "magick.exe"
+            WingetId = "ImageMagick.ImageMagick"
+        },
+        @{
+            Name = "oxipng"
+            Command = "oxipng.exe"
+            WingetId = "shssoichiro.oxipng"
+        }
+    )
+}
+
+function Test-CommandAvailable {
+    param([string]$Command)
+
+    return $null -ne (Get-Command $Command -ErrorAction SilentlyContinue)
+}
+
+function Install-ToolDependency {
+    param([hashtable]$Tool)
+
+    if (Test-CommandAvailable $Tool.Command) {
+        Write-Host "$($Tool.Name) already available ($($Tool.Command))"
+        return
+    }
+
+    if (-not (Get-Command winget.exe -ErrorAction SilentlyContinue)) {
+        Write-Warning "Cannot install $($Tool.Name): winget.exe is not available. Install '$($Tool.WingetId)' manually."
+        return
+    }
+
+    Write-Host "Installing $($Tool.Name) with winget..."
+    & winget.exe install --id $Tool.WingetId --exact --accept-package-agreements --accept-source-agreements
+    if ($LASTEXITCODE -ne 0) {
+        Write-Warning "winget failed to install $($Tool.Name) ($($Tool.WingetId))."
+        return
+    }
+
+    if (Test-CommandAvailable $Tool.Command) {
+        Write-Host "Installed $($Tool.Name) ($($Tool.Command))"
+    } else {
+        Write-Warning "$($Tool.Name) installed, but $($Tool.Command) is not available on PATH yet. Restart the terminal or refresh PATH."
+    }
 }
 
 if (-not $Destination) {
@@ -117,4 +165,10 @@ foreach ($name in $TargetSkills) {
     }
 
     Write-Host "Installed $canonicalName -> $skillDir"
+
+    if (-not $SkipToolInstall -and $ToolDependencies.ContainsKey($canonicalName)) {
+        foreach ($tool in $ToolDependencies[$canonicalName]) {
+            Install-ToolDependency $tool
+        }
+    }
 }

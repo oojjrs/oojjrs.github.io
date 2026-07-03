@@ -15,6 +15,17 @@ Do not use System.Drawing, PIL, canvas, SVG, HTML/CSS, ImageMagick, procedural s
 
 Local/code tools are allowed only after imagegen has established the art style, subject, and overall visual quality. Use those tools only to make the accepted imagegen output production-ready: exact sizing, slicing, padding, alpha cleanup, format conversion, state variants, atlas packing, masks, guides, or other deterministic post-processing.
 
+## Recommended Local Tools
+
+For second-pass raster work, prefer ImageMagick 7 (`magick.exe`) over `System.Drawing` when it is available. Use it for image inspection, resize/crop/pad/trim, alpha and mask work, compositing, contact sheets, and visual diffs. Use `oxipng.exe` for final PNG optimization after the visual output is approved.
+
+When this skill is installed through the public `codex/skills/install.ps1` script, the installer attempts to install these workstation tools with `winget`:
+
+- `ImageMagick.ImageMagick` for `magick.exe`
+- `shssoichiro.oxipng` for `oxipng.exe`
+
+If `winget` is unavailable or installation fails, continue with available local tools and report the missing tool. Do not add ImageMagick or oxipng as project dependencies; they are workstation utilities for Codex image work.
+
 ## Temporary File Location
 
 All image workflow temporary and intermediate files must go under a literal `$Trash` folder. This includes raw generated candidates, downloaded imagegen results, contact sheets, masks, alpha-cleanup inputs, resized/cropped variants, rejected experiments, and post-processing scratch files.
