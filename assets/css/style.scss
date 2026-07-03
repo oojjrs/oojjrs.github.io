@@ -355,13 +355,12 @@ pre {
 .document-card p { margin: 0 0 26px; color: var(--muted); }
 
 .skill-routing-viewer {
-  position: relative;
-  left: 50%;
+  --skill-routing-page-width: min(1040px, calc(100vw - 40px));
+  --skill-routing-diagram-width: min(1600px, calc(100vw - 80px));
   overflow: visible;
-  width: min(1600px, calc(100vw - 80px));
+  width: var(--skill-routing-diagram-width);
   max-width: none;
-  margin: 0 0 22px;
-  transform: translateX(-50%);
+  margin: 0 0 22px calc((var(--skill-routing-page-width) - var(--skill-routing-diagram-width)) / 2);
   border: 1px solid var(--line);
   border-radius: 6px;
   background: #f6f8fb;
@@ -409,7 +408,10 @@ pre {
   .article-body h2 { margin-top: 3.4em; font-size: 25px; }
   .article-body .article-principle { padding: 20px; }
   .article-body .article-note { padding: 16px 18px; }
-  .skill-routing-viewer { width: calc(100vw - 28px); }
+  .skill-routing-viewer {
+    --skill-routing-page-width: calc(100vw - 28px);
+    --skill-routing-diagram-width: calc(100vw - 28px);
+  }
   .footer-inner { display: block; padding: 46px 0; }
   .footer-meta { margin-top: 24px; text-align: left; }
 }
