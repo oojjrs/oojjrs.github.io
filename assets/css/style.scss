@@ -181,9 +181,9 @@ pre {
 
 .utility-link-row {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 6px;
-  width: min(100%, 640px);
+  width: min(100%, 760px);
   margin: 34px 0 0 auto;
   padding-top: 12px;
   border-top: 1px solid rgba(56, 64, 55, .55);

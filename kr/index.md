@@ -60,6 +60,11 @@ alternate_url: /en/
       <strong>기획서 기준</strong>
     </a>
 
+    <a class="utility-link utility-link-codex" href="{{ "/codex/skill-routing-diagram/" | relative_url }}">
+      <span>CODEX</span>
+      <strong>스킬 라우팅</strong>
+    </a>
+
     <a class="utility-link utility-link-unity" href="{{ "/kr/unity/csharp-coding-convention.html" | relative_url }}">
       <span>UNITY</span>
       <strong>Unity C# 컨벤션</strong>

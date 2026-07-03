@@ -60,6 +60,11 @@ alternate_url: /kr/
       <strong>Design.html Standard</strong>
     </a>
 
+    <a class="utility-link utility-link-codex" href="{{ "/codex/skill-routing-diagram/" | relative_url }}">
+      <span>CODEX</span>
+      <strong>Skill Routing</strong>
+    </a>
+
     <a class="utility-link utility-link-unity" href="{{ "/en/unity/csharp-coding-convention.html" | relative_url }}">
       <span>UNITY</span>
       <strong>Unity C# Convention</strong>
