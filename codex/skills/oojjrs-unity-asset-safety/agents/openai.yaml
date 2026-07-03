@@ -1,0 +1,4 @@
+interface:
+  display_name: "oojjrs Unity Asset Safety"
+  short_description: "Protect Unity assets and metadata"
+  default_prompt: "Use $oojjrs-unity-asset-safety to change Unity assets without authoring new .meta files or disturbing unrelated project state."

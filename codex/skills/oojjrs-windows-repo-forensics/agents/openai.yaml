@@ -1,0 +1,4 @@
+interface:
+  display_name: "oojjrs Windows Repo Forensics"
+  short_description: "Diagnose Windows repo oddities"
+  default_prompt: "Use $oojjrs-windows-repo-forensics to investigate local Windows repo, sync, path, and folder provenance issues from direct evidence."

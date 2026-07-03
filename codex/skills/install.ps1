@@ -13,10 +13,23 @@ $CanonicalSkills = @(
     "oojjrs-project-start-work",
     "oojjrs-project-finish-work",
     "oojjrs-project-design-document-router",
+    "oojjrs-design-html-builder",
+    "oojjrs-guideline-maintenance",
+    "oojjrs-skill-maintenance",
+    "oojjrs-readme-doc-generation",
     "oojjrs-unity-package-src-migration",
+    "oojjrs-unity-package-release",
+    "oojjrs-unity-asset-safety",
+    "oojjrs-unity-csharp-entity-workflow",
+    "oojjrs-unity-prefab-guid-usage-lookup",
     "oojjrs-2d-sprite-animation",
     "oojjrs-image-first-art-workflow",
-    "oojjrs-ai-music-generator"
+    "oojjrs-mines-art-asset-pipeline",
+    "oojjrs-game-audio-asset-workflow",
+    "oojjrs-ai-music-generator",
+    "oojjrs-visual-qa",
+    "oojjrs-dirty-worktree-scope-split",
+    "oojjrs-windows-repo-forensics"
 )
 $LegacyAliases = @{
     "github-project-board" = "oojjrs-github-project-board"
@@ -26,6 +39,7 @@ $LegacyAliases = @{
     "unity-package-src-migration" = "oojjrs-unity-package-src-migration"
     "2d-sprite-animation" = "oojjrs-2d-sprite-animation"
     "image-first-art-workflow" = "oojjrs-image-first-art-workflow"
+    "unity-prefab-guid-usage-lookup" = "oojjrs-unity-prefab-guid-usage-lookup"
 }
 $KnownSkills = $CanonicalSkills + $LegacyAliases.Keys
 $DefaultFiles = @(

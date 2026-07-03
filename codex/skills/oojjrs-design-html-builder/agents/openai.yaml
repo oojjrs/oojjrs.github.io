@@ -1,0 +1,4 @@
+interface:
+  display_name: "oojjrs Design.html Builder"
+  short_description: "Build image-heavy Design.html docs"
+  default_prompt: "Use $oojjrs-design-html-builder to rebuild or update a project Design.html from live assets, history, and the shared planning-doc rules."

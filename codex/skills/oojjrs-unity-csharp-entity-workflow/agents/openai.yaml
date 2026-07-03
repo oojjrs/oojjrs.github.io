@@ -1,0 +1,4 @@
+interface:
+  display_name: "oojjrs Unity C# Entity Workflow"
+  short_description: "Guide Unity entity code changes"
+  default_prompt: "Use $oojjrs-unity-csharp-entity-workflow to add or refactor Unity C# entity/model code under the public coding convention."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "oojjrs Dirty Worktree Scope Split"
+  short_description: "Commit narrow work in dirty repos"
+  default_prompt: "Use $oojjrs-dirty-worktree-scope-split to isolate requested work from unrelated dirty files and prepare a narrow commit."

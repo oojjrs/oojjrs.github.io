@@ -1,0 +1,4 @@
+interface:
+  display_name: "oojjrs Game Audio Asset Workflow"
+  short_description: "Prepare game audio assets safely"
+  default_prompt: "Use $oojjrs-game-audio-asset-workflow to preserve originals, edit copies, install final game audio, and update project planning docs."

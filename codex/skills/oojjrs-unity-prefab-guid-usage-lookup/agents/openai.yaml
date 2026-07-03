@@ -1,0 +1,4 @@
+interface:
+  display_name: "oojjrs Unity Prefab GUID Usage Lookup"
+  short_description: "Trace Unity YAML usage by GUID"
+  default_prompt: "Use $oojjrs-unity-prefab-guid-usage-lookup to find concrete Unity prefab, script, and serialized reference usage by GUID."

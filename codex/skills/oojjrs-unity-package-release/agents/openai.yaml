@@ -1,0 +1,4 @@
+interface:
+  display_name: "oojjrs Unity Package Release"
+  short_description: "Finish Unity package release bundles"
+  default_prompt: "Use $oojjrs-unity-package-release to sync package metadata, docs, validation, commit, and push for an oojjrs Unity package release."

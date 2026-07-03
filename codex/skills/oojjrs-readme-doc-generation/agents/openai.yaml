@@ -1,0 +1,4 @@
+interface:
+  display_name: "oojjrs README Doc Generation"
+  short_description: "Write GitHub-facing README docs"
+  default_prompt: "Use $oojjrs-readme-doc-generation to create or update a concise GitHub-facing README from live project evidence."
