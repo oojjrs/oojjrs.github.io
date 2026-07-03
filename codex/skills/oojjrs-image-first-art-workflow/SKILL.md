@@ -1,6 +1,6 @@
 ---
 name: oojjrs-image-first-art-workflow
-description: Enforce the user's image-first art workflow for any image, UI art, game asset, visual mockup, static sprite, icon-like raster asset, generated reference, or art-direction task. Use together with `imagegen` whenever Codex might create or alter visual assets, except when making 2D sprite animation. The first image/art-style pass must be imagegen; System.Drawing, PIL, canvas, SVG, HTML/CSS, ImageMagick, or procedural/code drawing are only second-pass post-processing tools after an acceptable imagegen result exists.
+description: Enforce the user's image-first art workflow for any image, UI art, game asset, visual mockup, static sprite, icon-like raster asset, generated reference, or art-direction task. Use together with `imagegen` whenever Codex might create or alter visual assets, except when making 2D sprite animation. The first image/art-style pass must be imagegen; ImageMagick/oxipng are the default second-pass raster tools after an acceptable imagegen result exists, while System.Drawing, PIL, canvas, SVG, HTML/CSS, and procedural/code drawing are fallback or native-source tools only.
 ---
 
 # oojjrs Image-First Art Workflow
@@ -17,7 +17,9 @@ Local/code tools are allowed only after imagegen has established the art style, 
 
 ## Recommended Local Tools
 
-For second-pass raster work, prefer ImageMagick 7 (`magick.exe`) over `System.Drawing` when it is available. Use it for image inspection, resize/crop/pad/trim, alpha and mask work, compositing, contact sheets, and visual diffs. Use `oxipng.exe` for final PNG optimization after the visual output is approved.
+For second-pass raster work, use ImageMagick 7 (`magick.exe`) as the default local editing tool when it is installed. Use it for image inspection, resize/crop/pad/trim, alpha and mask work, compositing, contact sheets, and visual diffs. Use `oxipng.exe` for final PNG optimization after the visual output is approved.
+
+Do not choose System.Drawing for raster editing when `magick.exe` can do the job. Keep System.Drawing only as a last-resort fallback for simple deterministic transforms when ImageMagick is unavailable, or when the project already has a native .NET image-processing path that must be preserved. Treat older skill or guideline wording that recommends System.Drawing for image editing as outdated when it conflicts with this section.
 
 When this skill is installed through the public `codex/skills/install.ps1` script, the installer attempts to install these workstation tools with `winget`:
 
@@ -85,9 +87,9 @@ For 2D sprite animation, use tools and workflows that preserve deterministic mot
 
 If the task needs a static style reference for the animated sprite, imagegen can create that separate reference first. Do not turn imagegen output into the animation frame source unless the user explicitly asks for a non-production visual exploration.
 
-## System.Drawing And Similar Tools
+## Local Raster Tools And Code Drawing
 
-System.Drawing, PIL, ImageMagick, SharpDX, canvas, SVG, HTML/CSS, and procedural scripts are second-pass tools for geometry and file preparation, not first-pass art direction.
+ImageMagick 7 (`magick.exe`) is the default second-pass raster editor when it is installed. System.Drawing, PIL, SharpDX, canvas, SVG, HTML/CSS, and procedural scripts are fallback or native-source deterministic tools for geometry and file preparation, not first-pass art direction.
 
 Use them only after imagegen has produced the accepted visual source. They may reinforce, normalize, or package an imagegen result; they must not invent the initial art style, silhouette, material feel, lighting, mood, or visual quality.
 
