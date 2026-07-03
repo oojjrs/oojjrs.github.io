@@ -9,6 +9,13 @@ permalink: /en/codex/
 ---
 
 <div class="document-cards">
+  <a class="document-card" href="../../codex/skill-routing-diagram/">
+    <span class="document-kind">DIAGRAM</span>
+    <h2>Codex Skill Routing</h2>
+    <p>A visual map for when each oojjrs Codex skill joins the work process.</p>
+    <span class="card-link">Open diagram <span aria-hidden="true">→</span></span>
+  </a>
+
   <a class="document-card" href="../../codex/common-work-guidelines.md">
     <span class="document-kind">GUIDELINE</span>
     <h2>Codex Work Rules</h2>

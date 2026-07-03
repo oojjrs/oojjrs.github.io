@@ -1,0 +1,245 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1220" viewBox="0 0 1600 1220" role="img" aria-labelledby="title desc">
+  <title id="title">oojjrs Codex Skill Routing Diagram</title>
+  <desc id="desc">A browser-readable workflow diagram showing when each oojjrs Codex skill is used across repository work.</desc>
+  <defs>
+    <style>
+      :root {
+        color-scheme: light;
+      }
+      text {
+        font-family: "Segoe UI", "Malgun Gothic", Arial, sans-serif;
+        fill: #172033;
+      }
+      .page {
+        fill: #f6f8fb;
+      }
+      .title {
+        font-size: 34px;
+        font-weight: 750;
+      }
+      .subtitle {
+        font-size: 17px;
+        fill: #526070;
+      }
+      .lane-title {
+        font-size: 19px;
+        font-weight: 750;
+        fill: #263243;
+      }
+      .lane {
+        fill: #ffffff;
+        stroke: #d8e0ea;
+        stroke-width: 2;
+      }
+      .node {
+        fill: #ffffff;
+        stroke: #8ea0b8;
+        stroke-width: 2;
+      }
+      .node.primary {
+        fill: #e8f1ff;
+        stroke: #4d7fc4;
+      }
+      .node.guard {
+        fill: #fff4dd;
+        stroke: #d1952b;
+      }
+      .node.domain {
+        fill: #edf8f2;
+        stroke: #53a46e;
+      }
+      .node.asset {
+        fill: #f4ecff;
+        stroke: #8b63c7;
+      }
+      .node.finish {
+        fill: #ffecec;
+        stroke: #c85f5f;
+      }
+      .node.utility {
+        fill: #eef3f8;
+        stroke: #75869a;
+      }
+      .label {
+        font-size: 16px;
+        font-weight: 700;
+      }
+      .small {
+        font-size: 13px;
+        fill: #4d5d6e;
+      }
+      .skill {
+        font-size: 12px;
+        font-family: Consolas, "Cascadia Mono", monospace;
+        fill: #2c4058;
+      }
+      .edge {
+        fill: none;
+        stroke: #677386;
+        stroke-width: 2.2;
+        marker-end: url(#arrow);
+      }
+      .edge.soft {
+        stroke: #9aa7b7;
+        stroke-dasharray: 7 7;
+      }
+      .edge.asset {
+        stroke: #8b63c7;
+      }
+      .edge.finish {
+        stroke: #c85f5f;
+      }
+      .legend-title {
+        font-size: 15px;
+        font-weight: 700;
+      }
+      .legend-text {
+        font-size: 13px;
+        fill: #526070;
+      }
+    </style>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#677386"/>
+    </marker>
+  </defs>
+
+  <rect class="page" x="0" y="0" width="1600" height="1220"/>
+  <text class="title" x="64" y="64">oojjrs Codex 작업 스킬 라우팅</text>
+  <text class="subtitle" x="64" y="94">공통 가이드라인을 먼저 적용하고, 필요한 최소 스킬 스택만 추가로 로드한다.</text>
+
+  <rect class="lane" x="50" y="130" width="320" height="960" rx="14"/>
+  <rect class="lane" x="400" y="130" width="360" height="960" rx="14"/>
+  <rect class="lane" x="790" y="130" width="430" height="960" rx="14"/>
+  <rect class="lane" x="1250" y="130" width="300" height="960" rx="14"/>
+
+  <text class="lane-title" x="80" y="170">1. 시작 레이어</text>
+  <text class="lane-title" x="430" y="170">2. 범위/상태 레이어</text>
+  <text class="lane-title" x="820" y="170">3. 도메인 스킬</text>
+  <text class="lane-title" x="1280" y="170">4. 검증/마무리</text>
+
+  <g id="entry">
+    <rect class="node primary" x="90" y="220" width="240" height="92" rx="12"/>
+    <text class="label" x="120" y="252">사용자 요청</text>
+    <text class="small" x="120" y="278">질문이면 답변만</text>
+    <text class="small" x="120" y="298">작업이면 아래 흐름</text>
+  </g>
+
+  <g id="guidelines">
+    <rect class="node primary" x="90" y="370" width="240" height="92" rx="12"/>
+    <text class="label" x="120" y="402">공통 규칙 로드</text>
+    <text class="skill" x="120" y="428">$oojjrs-guidelines</text>
+    <text class="small" x="120" y="448">최상위 기준</text>
+  </g>
+
+  <g id="start">
+    <rect class="node primary" x="90" y="520" width="240" height="112" rx="12"/>
+    <text class="label" x="120" y="552">repo 시작 점검</text>
+    <text class="skill" x="120" y="578">$oojjrs-project-start-work</text>
+    <text class="small" x="120" y="598">git 상태, 최근 로그</text>
+    <text class="small" x="120" y="618">Design.html/보드 확인</text>
+  </g>
+
+  <g id="dirty">
+    <rect class="node guard" x="430" y="220" width="300" height="112" rx="12"/>
+    <text class="label" x="460" y="252">dirty tree?</text>
+    <text class="skill" x="460" y="278">$oojjrs-dirty-worktree-scope-split</text>
+    <text class="small" x="460" y="298">섞인 변경이면 먼저 분리</text>
+    <text class="small" x="460" y="318">깨끗하면 건너뜀</text>
+  </g>
+
+  <g id="board">
+    <rect class="node guard" x="430" y="390" width="300" height="112" rx="12"/>
+    <text class="label" x="460" y="422">GitHub Project?</text>
+    <text class="skill" x="460" y="448">$oojjrs-github-project-board</text>
+    <text class="small" x="460" y="468">연결된 repo에서만</text>
+    <text class="small" x="460" y="488">카드/이슈/상태 동기화</text>
+  </g>
+
+  <g id="select-domain">
+    <rect class="node primary" x="430" y="590" width="300" height="112" rx="12"/>
+    <text class="label" x="460" y="622">가장 구체적인</text>
+    <text class="label" x="460" y="646">도메인 스킬 1개 선택</text>
+    <text class="small" x="460" y="674">필요할 때만 보조 스킬 추가</text>
+  </g>
+
+  <g id="docs">
+    <rect class="node domain" x="830" y="200" width="350" height="160" rx="12"/>
+    <text class="label" x="860" y="232">문서/가이드/스킬</text>
+    <text class="skill" x="860" y="258">$oojjrs-project-design-document-router</text>
+    <text class="skill" x="860" y="280">$oojjrs-design-html-builder</text>
+    <text class="skill" x="860" y="302">$oojjrs-readme-doc-generation</text>
+    <text class="skill" x="860" y="324">$oojjrs-guideline-maintenance</text>
+    <text class="skill" x="860" y="346">$oojjrs-skill-maintenance</text>
+  </g>
+
+  <g id="unity">
+    <rect class="node domain" x="830" y="380" width="350" height="140" rx="12"/>
+    <text class="label" x="860" y="412">Unity 코드/패키지/참조</text>
+    <text class="skill" x="860" y="438">$oojjrs-unity-csharp-entity-workflow</text>
+    <text class="skill" x="860" y="460">$oojjrs-unity-package-src-migration</text>
+    <text class="skill" x="860" y="482">$oojjrs-unity-package-release</text>
+    <text class="skill" x="860" y="504">$oojjrs-unity-prefab-guid-usage-lookup</text>
+  </g>
+
+  <g id="assets">
+    <rect class="node asset" x="830" y="560" width="350" height="184" rx="12"/>
+    <text class="label" x="860" y="592">Unity 에셋/아트/오디오</text>
+    <text class="skill" x="860" y="618">$oojjrs-unity-asset-safety</text>
+    <text class="skill" x="860" y="640">$oojjrs-image-first-art-workflow</text>
+    <text class="skill" x="860" y="662">$oojjrs-2d-sprite-animation</text>
+    <text class="skill" x="860" y="684">$oojjrs-mines-art-asset-pipeline</text>
+    <text class="skill" x="860" y="706">$oojjrs-game-audio-asset-workflow</text>
+    <text class="skill" x="860" y="728">$oojjrs-ai-music-generator</text>
+  </g>
+
+  <g id="forensics">
+    <rect class="node utility" x="830" y="770" width="350" height="112" rx="12"/>
+    <text class="label" x="860" y="802">Windows/Git 현상 조사</text>
+    <text class="skill" x="860" y="828">$oojjrs-windows-repo-forensics</text>
+    <text class="small" x="860" y="850">OneDrive, TortoiseGit, 경로 차이</text>
+    <text class="small" x="860" y="870">read-only 증거 우선</text>
+  </g>
+
+  <g id="visual">
+    <rect class="node utility" x="1285" y="250" width="230" height="112" rx="12"/>
+    <text class="label" x="1315" y="282">시각 검수</text>
+    <text class="skill" x="1315" y="308">$oojjrs-visual-qa</text>
+    <text class="small" x="1315" y="328">HTML/SVG/이미지</text>
+    <text class="small" x="1315" y="348">브라우저 또는 정적 검사</text>
+  </g>
+
+  <g id="finish">
+    <rect class="node finish" x="1285" y="520" width="230" height="122" rx="12"/>
+    <text class="label" x="1315" y="552">마무리</text>
+    <text class="skill" x="1315" y="578">$oojjrs-project-finish-work</text>
+    <text class="small" x="1315" y="600">검증, stage</text>
+    <text class="small" x="1315" y="620">commit/push는 요청 시</text>
+  </g>
+
+  <g id="report">
+    <rect class="node finish" x="1285" y="750" width="230" height="92" rx="12"/>
+    <text class="label" x="1315" y="782">한국어 보고</text>
+    <text class="small" x="1315" y="808">변경, 검증, 남은 위험</text>
+    <text class="small" x="1315" y="828">git 상태 포함</text>
+  </g>
+
+  <path class="edge" d="M 210 312 L 210 370"/>
+  <path class="edge" d="M 210 462 L 210 520"/>
+  <path class="edge" d="M 330 576 C 390 576 390 276 430 276"/>
+  <path class="edge" d="M 580 332 L 580 390"/>
+  <path class="edge" d="M 580 502 L 580 590"/>
+  <path class="edge" d="M 730 646 C 770 646 770 270 830 270"/>
+  <path class="edge" d="M 730 646 C 770 646 770 450 830 450"/>
+  <path class="edge asset" d="M 730 646 C 770 646 770 643 830 643"/>
+  <path class="edge soft" d="M 730 646 C 770 646 770 826 830 826"/>
+  <path class="edge soft" d="M 1180 270 C 1240 270 1240 306 1285 306"/>
+  <path class="edge soft" d="M 1180 643 C 1240 643 1240 306 1285 306"/>
+  <path class="edge finish" d="M 1180 450 C 1240 450 1240 581 1285 581"/>
+  <path class="edge finish" d="M 1180 826 C 1240 826 1240 581 1285 581"/>
+  <path class="edge finish" d="M 1400 642 L 1400 750"/>
+
+  <rect class="node utility" x="82" y="930" width="1390" height="104" rx="12"/>
+  <text class="legend-title" x="112" y="962">읽는 법</text>
+  <text class="legend-text" x="112" y="988">두꺼운 기본 흐름은 항상 고려한다. 점선은 필요할 때만 붙는 보조 검수다. 도메인 스킬은 전부 읽는 것이 아니라 요청에 가장 가까운 것만 고른다.</text>
+  <text class="legend-text" x="112" y="1014">예: Mines 타일 이미지 작업 = guidelines → project-start → unity-asset-safety → mines-art-asset-pipeline/image-first → visual-qa → project-finish.</text>
+</svg>

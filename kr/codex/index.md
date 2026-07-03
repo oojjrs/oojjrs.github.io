@@ -9,6 +9,13 @@ permalink: /kr/codex/
 ---
 
 <div class="document-cards">
+  <a class="document-card" href="../../codex/skill-routing-diagram/">
+    <span class="document-kind">DIAGRAM</span>
+    <h2>Codex Skill Routing</h2>
+    <p>Codex 작업 흐름에서 어떤 oojjrs 스킬을 언제 로드하는지 한눈에 보는 도식.</p>
+    <span class="card-link">문서 열기 <span aria-hidden="true">→</span></span>
+  </a>
+
   <a class="document-card" href="../../codex/common-work-guidelines.md">
     <span class="document-kind">GUIDELINE</span>
     <h2>Codex Work Rules</h2>
