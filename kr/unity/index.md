@@ -15,4 +15,10 @@ permalink: /kr/unity/
     <p>파일 구성, 선언 순서, 이름 규칙부터 Unity 생명주기 메서드와 직렬화 필드 배치까지 다룹니다.</p>
     <span class="card-link">문서 열기 <span aria-hidden="true">→</span></span>
   </a>
+  <a class="document-card" href="./network-action-presentation-sync.html">
+    <span class="document-kind">ARCHITECTURE</span>
+    <h2>네트워크 액션 연출 동기화 구조</h2>
+    <p>Animator를 직접 동기화하지 않고, 공유 액션 상태를 기준으로 애니메이션·이펙트·사운드를 맞추는 구조입니다.</p>
+    <span class="card-link">문서 열기 <span aria-hidden="true">→</span></span>
+  </a>
 </div>

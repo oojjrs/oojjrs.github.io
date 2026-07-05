@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">네트워크 액션 연출 동기화 공통 구조</title>
+  <desc id="desc">명령 생성에서 액션 요청, 판정 주체, 공유 액션 상태, 연출 어댑터, 출력까지 이어지는 직선형 액션 연출 동기화 구조</desc>
+  <defs>
+    <style>
+      .bg { fill: #f6f8fb; }
+      .title { fill: #132238; font: 800 44px "Segoe UI", "Malgun Gothic", sans-serif; letter-spacing: 0; }
+      .subtitle { fill: #526173; font: 500 20px "Segoe UI", "Malgun Gothic", sans-serif; letter-spacing: 0; }
+      .section-label { fill: #607086; font: 800 13px "Segoe UI", "Malgun Gothic", sans-serif; letter-spacing: 0; }
+      .box-title { fill: #172033; font: 800 21px "Segoe UI", "Malgun Gothic", sans-serif; letter-spacing: 0; }
+      .box-text { fill: #3e4b5e; font: 500 15px "Segoe UI", "Malgun Gothic", sans-serif; letter-spacing: 0; }
+      .note { fill: #5c6878; font: 600 16px "Segoe UI", "Malgun Gothic", sans-serif; letter-spacing: 0; }
+      .card { fill: #ffffff; stroke: #d7dee8; stroke-width: 2; }
+      .request { fill: #ffffff; stroke: #b9c4d2; }
+      .decision-owner { fill: #fff4e7; stroke: #e6a247; }
+      .state { fill: #eaf4ff; stroke: #5798d9; }
+      .adapter { fill: #ecf8f0; stroke: #4fab6d; }
+      .output { fill: #fffaf0; stroke: #d4a22c; }
+      .definition { fill: #f5efff; stroke: #9270cc; }
+      .main-line { fill: none; stroke: #526173; stroke-width: 3.2; stroke-linecap: round; stroke-linejoin: round; }
+      .ref-line { fill: none; stroke: #9270cc; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 8 8; }
+      .shadow { filter: drop-shadow(0 12px 22px rgba(28, 39, 55, 0.11)); }
+    </style>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#526173"/>
+    </marker>
+    <marker id="arrow-ref" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#9270cc"/>
+    </marker>
+  </defs>
+
+  <rect class="bg" width="1600" height="900"/>
+
+  <text x="80" y="88" class="title">네트워크 액션 연출 동기화 공통 구조</text>
+  <text x="82" y="124" class="subtitle">본선은 직선이다. 판정 주체는 공유 액션 상태만 갱신하고, 연출 어댑터는 그 상태 변경을 감지한다.</text>
+
+  <g id="diagram-flow">
+
+  <text x="90" y="188" class="section-label">요청</text>
+  <text x="575" y="188" class="section-label">판정 주체</text>
+  <text x="890" y="188" class="section-label">공유 상태</text>
+  <text x="1160" y="188" class="section-label">연출</text>
+
+  <g class="shadow">
+    <rect x="80" y="220" width="210" height="178" rx="12" class="card request"/>
+    <text x="110" y="263" class="box-title">명령/의도 생성</text>
+    <text x="110" y="303" class="box-text">클라이언트 입력</text>
+    <text x="110" y="332" class="box-text">서버/AI/로컬 판단</text>
+    <text x="110" y="361" class="box-text">시작·중단·대체 의도</text>
+  </g>
+
+  <g class="shadow">
+    <rect x="350" y="220" width="210" height="178" rx="12" class="card request"/>
+    <text x="380" y="263" class="box-title">액션/상태 요청</text>
+    <text x="380" y="303" class="box-text">시작·중단·대체</text>
+    <text x="380" y="332" class="box-text">동작·목표·방향</text>
+    <text x="380" y="361" class="box-text">요청 시각/원인</text>
+  </g>
+
+  <g class="shadow">
+    <rect x="620" y="220" width="250" height="178" rx="12" class="card decision-owner"/>
+    <text x="650" y="263" class="box-title">판정 주체</text>
+    <text x="650" y="303" class="box-text">오프라인: 로컬 런타임</text>
+    <text x="650" y="332" class="box-text">P2P/Host: Peer Master</text>
+    <text x="650" y="361" class="box-text">CS: 게임 서버</text>
+    <text x="650" y="390" class="box-text">가능·중단·대체·타이밍 확정</text>
+  </g>
+
+  <g class="shadow">
+    <rect x="930" y="220" width="230" height="178" rx="12" class="card state"/>
+    <text x="960" y="263" class="box-title">공유 액션 상태</text>
+    <text x="960" y="303" class="box-text">현재 동작 / 버전</text>
+    <text x="960" y="332" class="box-text">목표·위치·시작 시각</text>
+    <text x="960" y="361" class="box-text">중단·대체 결과</text>
+  </g>
+
+  <g class="shadow">
+    <rect x="1220" y="220" width="230" height="178" rx="12" class="card adapter"/>
+    <text x="1250" y="263" class="box-title">연출 어댑터</text>
+    <text x="1250" y="303" class="box-text">공유 상태 변경 감지</text>
+    <text x="1250" y="332" class="box-text">기존 연출 정리</text>
+    <text x="1250" y="361" class="box-text">새 연출 예약</text>
+  </g>
+
+  <path class="main-line" marker-end="url(#arrow)" d="M290 309 L350 309"/>
+  <path class="main-line" marker-end="url(#arrow)" d="M560 309 L620 309"/>
+  <path class="main-line" marker-end="url(#arrow)" d="M870 309 L930 309"/>
+  <path class="main-line" marker-end="url(#arrow)" d="M1160 309 L1220 309"/>
+
+
+  <g class="shadow">
+    <rect x="1220" y="490" width="230" height="148" rx="12" class="card output"/>
+    <text x="1250" y="531" class="box-title">출력</text>
+    <text x="1250" y="569" class="box-text">애니메이션</text>
+    <text x="1250" y="598" class="box-text">이펙트·사운드</text>
+    <text x="1250" y="627" class="box-text">투사체·판정·표식</text>
+  </g>
+  <path class="main-line" marker-end="url(#arrow)" d="M1335 398 L1335 490"/>
+
+  <g class="shadow">
+    <rect x="620" y="490" width="250" height="148" rx="12" class="card"/>
+    <text x="650" y="531" class="box-title">게임플레이 결과</text>
+    <text x="650" y="569" class="box-text">피해·회복·상태이상</text>
+    <text x="650" y="598" class="box-text">쿨타임·자원·판정 기록</text>
+  </g>
+  <path class="main-line" marker-end="url(#arrow)" d="M745 398 L745 490"/>
+
+  <g class="shadow">
+    <rect x="265" y="710" width="330" height="92" rx="12" class="card definition"/>
+    <text x="295" y="749" class="box-title">액션 규칙 정의</text>
+    <text x="295" y="782" class="box-text">가능 조건 · 취소 정책 · 타이밍</text>
+  </g>
+  <path class="ref-line" marker-end="url(#arrow-ref)" d="M430 710 C430 590 500 430 620 340"/>
+
+  <g class="shadow">
+    <rect x="900" y="710" width="360" height="92" rx="12" class="card definition"/>
+    <text x="930" y="749" class="box-title">연출 정의</text>
+    <text x="930" y="782" class="box-text">애니메이션 매핑 · 이펙트 · 사운드 · 부착점</text>
+  </g>
+  <path class="ref-line" marker-end="url(#arrow-ref)" d="M1080 710 C1110 600 1155 455 1220 360"/>
+
+  <rect x="80" y="835" width="1120" height="38" rx="10" fill="#ffffff" stroke="#d7dee8" stroke-width="1.4"/>
+  <text x="104" y="860" class="note">핵심: 요청과 판정은 공유 액션 상태를 갱신한다. 연출은 그 상태 변경을 보고 따라온다.</text>
+  </g>
+</svg>
