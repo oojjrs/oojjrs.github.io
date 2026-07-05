@@ -69,5 +69,10 @@ alternate_url: /en/
       <span>UNITY</span>
       <strong>Unity C# 컨벤션</strong>
     </a>
+
+    <a class="utility-link utility-link-unity" href="{{ "/kr/unity/network-action-presentation-sync/" | relative_url }}">
+      <span>UNITY</span>
+      <strong>액션 연출 동기화</strong>
+    </a>
   </nav>
 </section>
