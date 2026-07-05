@@ -1,6 +1,6 @@
 ---
 name: oojjrs-image-first-art-workflow
-description: Enforce the user's image-first art workflow for any image, UI art, game asset, visual mockup, static sprite, icon-like raster asset, generated reference, or art-direction task. Use together with `imagegen` whenever Codex might create or alter visual assets, except when making 2D sprite animation. The first image/art-style pass must be imagegen; ImageMagick/oxipng are the default second-pass raster tools after an acceptable imagegen result exists, while System.Drawing, PIL, canvas, SVG, HTML/CSS, and procedural/code drawing are fallback or native-source tools only.
+description: Enforce the user's image-first art workflow for any image, UI art, game asset, visual mockup, static sprite, icon-like raster asset, generated reference, or art-direction task. Use together with `imagegen` whenever Codex might create or alter visual assets, except when making 2D sprite animation. The first image/art-style pass must be imagegen; preview-only imagegen calls are forbidden; previews must come from actual generated/accepted files. ImageMagick/oxipng are the default second-pass raster tools after an acceptable imagegen result exists, while System.Drawing, PIL, canvas, SVG, HTML/CSS, and procedural/code drawing are fallback or native-source tools only.
 ---
 
 # oojjrs Image-First Art Workflow
@@ -14,6 +14,8 @@ Exception: do not use imagegen when the task is to make a 2D sprite animation. A
 Do not use System.Drawing, PIL, canvas, SVG, HTML/CSS, ImageMagick, procedural shapes, or other deterministic drawing code as the first art pass when the user expects visual quality or art direction.
 
 Local/code tools are allowed only after imagegen has established the art style, subject, and overall visual quality. Use those tools only to make the accepted imagegen output production-ready: exact sizing, slicing, padding, alpha cleanup, format conversion, state variants, atlas packing, masks, guides, or other deterministic post-processing.
+
+Preview-only imagegen calls are forbidden. Result previews, contact sheets, Design.html preview images, comparison boards, review sheets, and display-only mockups must be composed from the actual generated/accepted image files with deterministic local tools. Do not call imagegen separately just to visualize, re-preview, or mock up an already generated result; use imagegen only when creating or revising source/candidate artwork.
 
 ## Recommended Local Tools
 
@@ -50,7 +52,8 @@ When creating or exporting Unity assets, do not create or author new Unity `.met
 2. Inspect the generated result for style fit, subject clarity, composition, and obvious artifacts.
 3. Iterate with imagegen if the art style is wrong. Do not try to rescue a bad first-pass drawing with System.Drawing or simple code effects.
 4. After the imagegen result is acceptable, use local tools only for deterministic production steps: resize, crop, pad, trim, alpha cleanup, chroma-key removal, format conversion, sprite-sheet packing, atlas layout, file naming, compression, masks, guide overlays, or exact UI-size variants.
-5. Put the final selected asset in the project or requested output location. Do not leave project-referenced assets only in a generated-images cache.
+5. Build any result preview from the actual generated/accepted image files. A preview is packaging or presentation, not a reason for another imagegen call.
+6. Put the final selected asset in the project or requested output location. Do not leave project-referenced assets only in a generated-images cache.
 
 ## UI Work
 
@@ -97,6 +100,7 @@ Allowed second-pass uses:
 
 - resize/crop/pad to exact dimensions
 - generate contact sheets from imagegen outputs
+- compose previews, comparison boards, and review sheets from actual generated/accepted image files
 - trim transparent borders or add margins
 - remove chroma-key backgrounds after imagegen
 - pack sprite sheets or atlases
@@ -107,6 +111,7 @@ Forbidden first-pass uses:
 
 - drawing the initial art asset with simple shapes, gradients, noise, or procedural strokes
 - substituting a code-made placeholder for art that the user is meant to evaluate visually
+- calling imagegen only to create a separate preview, mockup, contact sheet, comparison board, or display-only visualization
 - spending iterations polishing a low-quality procedural image when imagegen should have established the style
 
 ## Exceptions
@@ -127,6 +132,7 @@ When finishing image work, state:
 - whether imagegen was used for the first art pass
 - where temporary/intermediate files were kept, and confirm whether `$Trash` was used
 - what second-pass tools were used, if any
+- whether previews were composed from actual generated/accepted image files, if any previews were made
 - where the final selected asset was saved
 - whether any Unity `.meta` files were preserved or moved, and confirm no new `.meta` files were generated
 - whether any placeholder/code-made visuals remain and why

@@ -1,4 +1,4 @@
 interface:
   display_name: "oojjrs Mines Art Asset Pipeline"
   short_description: "Ship Mines art assets safely"
-  default_prompt: "Use $oojjrs-mines-art-asset-pipeline to promote Mines art candidates into final assets, update Design.html, and validate the narrow asset scope."
+  default_prompt: "Use $oojjrs-mines-art-asset-pipeline to promote Mines art candidates into final assets, update Design.html, and validate the narrow asset scope; build previews from actual candidates/finals, never preview-only imagegen calls."

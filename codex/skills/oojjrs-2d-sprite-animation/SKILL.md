@@ -39,6 +39,7 @@ Use a layered-parts workflow. Do not start by slicing, warping, or spline-bendin
 6. Generate outputs.
    - Bake the transparent runtime sprite sheet.
    - Bake a preview GIF or PNG sequence on a non-black background that matches the design surface.
+   - Build previews only from the actual animation frames or generated sprite sheet. Do not call imagegen to create, refresh, or beautify a preview-only GIF, sequence, contact sheet, or mockup.
    - Keep generated frame count, columns, duration, and pivot behavior consistent with nearby project assets.
 
 ## Validation

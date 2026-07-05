@@ -34,6 +34,7 @@ Handle these as first-class repeated workflows:
 4. Preserve existing final names when runtime references already depend on them.
 5. Update `Design.html` when the planning inventory, previews, naming, or completion state changes.
 6. Keep filenames visible under image previews when the planning doc uses image inventories.
+7. Compose reveal previews, treasure previews, comparison boards, and planning-document previews from the actual generated candidates or accepted final files. Do not call imagegen only to create a preview, mockup, contact sheet, or display-only visualization.
 
 ## Validation
 

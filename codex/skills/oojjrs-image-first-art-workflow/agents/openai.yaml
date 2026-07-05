@@ -1,4 +1,4 @@
 interface:
   display_name: "oojjrs Image-First Art Workflow"
   short_description: "Imagegen-first art workflow with local post-processing tools"
-  default_prompt: "Use $oojjrs-image-first-art-workflow: generate the first art pass with imagegen, keep temporary/intermediate files under $Trash, default to ImageMagick/oxipng for second-pass processing when installed, treat System.Drawing as fallback only, and do not create new Unity .meta files."
+  default_prompt: "Use $oojjrs-image-first-art-workflow: generate the first art pass with imagegen, never call imagegen only for previews, keep temporary/intermediate files under $Trash, default to ImageMagick/oxipng for second-pass processing when installed, treat System.Drawing as fallback only, and do not create new Unity .meta files."

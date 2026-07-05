@@ -14,6 +14,7 @@ Use this skill after creating or changing visual surfaces.
 3. Use browser or screenshot verification when available.
 4. Check desktop and mobile-sized views for layout, text fit, image loading, and interaction-critical state.
 5. If browser automation is blocked, fall back to static DOM/CSS checks, file metadata, image dimensions, and targeted source inspection.
+6. For previews, review sheets, and visual QA artifacts, capture or compose from the actual surface, screenshot, generated image, accepted asset, or rendered document under test. Do not call imagegen only to make a QA preview, mockup, comparison board, or display-only visualization.
 
 ## What To Inspect
 

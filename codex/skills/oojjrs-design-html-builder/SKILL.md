@@ -35,6 +35,10 @@ Favor:
 - minimal prose around visual inventories
 - no visible file paths, byte counts, validation logs, or implementation audit metadata unless requested
 
+## Preview Source Rule
+
+Build image previews, comparison boards, contact sheets, and visual inventories from the actual project assets, generated candidates, accepted images, screenshots, or rendered documents they represent. Do not call imagegen only to make a Design.html preview, mockup, or display-only visualization.
+
 ## Validation
 
 Check:
