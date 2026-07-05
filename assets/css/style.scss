@@ -287,6 +287,35 @@ pre {
   letter-spacing: 0;
 }
 .article-body h3 { margin-top: 2.6em; letter-spacing: 0; }
+.article-body table {
+  width: 100%;
+  margin: 2em 0 2.4em;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-collapse: separate;
+  border-radius: 6px;
+  border-spacing: 0;
+  background: rgba(24, 28, 26, .86);
+  color: #d8ddd4;
+}
+.article-body thead { background: rgba(216, 255, 62, .1); }
+.article-body tbody tr:nth-child(even) { background: rgba(255, 255, 255, .035); }
+.article-body th,
+.article-body td {
+  padding: 16px 18px;
+  border-right: 1px solid rgba(56, 64, 55, .74);
+  border-bottom: 1px solid rgba(56, 64, 55, .74);
+  color: #d8ddd4;
+  vertical-align: top;
+}
+.article-body th {
+  color: var(--text);
+  font-weight: 850;
+  text-align: left;
+}
+.article-body td:last-child,
+.article-body th:last-child { border-right: 0; }
+.article-body tbody tr:last-child td { border-bottom: 0; }
 
 .article-body blockquote {
   margin: 2.2em 0;
@@ -408,6 +437,9 @@ pre {
   .article-body h2 { margin-top: 3.4em; font-size: 25px; }
   .article-body .article-principle { padding: 20px; }
   .article-body .article-note { padding: 16px 18px; }
+  .article-body table { display: block; overflow-x: auto; }
+  .article-body th,
+  .article-body td { min-width: 150px; }
   .skill-routing-viewer {
     --skill-routing-page-width: calc(100vw - 28px);
     --skill-routing-diagram-width: calc(100vw - 28px);
