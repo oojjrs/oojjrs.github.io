@@ -58,6 +58,8 @@ Unity Animator는 표현을 만들기에는 좋지만, 네트워크 동기화의
 
 Unity의 기본 네트워크 컴포넌트가 제공하는 방식은 대체로 state replication 또는 snapshot replication에 가깝다. 위치, 회전, Animator parameter, 재생 상태처럼 이미 만들어진 결과 상태를 계속 복제하고, 받는 쪽은 그 결과를 따라간다. 직관적이고 만들기 쉽지만, 동기화해야 할 결과물이 많아질수록 전송량과 보정 비용이 커진다.
 
+Unreal의 [Replication Graph](https://dev.epicgames.com/documentation/en-us/unreal-engine/replication-graph-in-unreal-engine)는 이 비용 구조를 보여주는 좋은 참고 사례다. Replication Graph는 대량의 replicated Actor와 접속자를 다루기 위해 Actor를 역할이나 위치별 node에 묶고, 각 client에 보낼 replication list를 빠르게 만들도록 돕는 시스템이다. Epic 문서도 기본 Actor replication 방식이 많은 Actor와 client 상황에서 서버 CPU 병목이 될 수 있다고 설명한다. 즉 엔진 기본 동기화가 쓸모없다는 뜻이 아니라, 결과 상태 복제 방식은 규모가 커질수록 relevance, update frequency, grouping, culling 같은 별도 최적화가 필요해진다는 뜻이다.
+
 이 구조는 그보다 command/result-based synchronization에 가깝다. 모든 중간 좌표나 Animator 진행률을 맞추려 하지 않고, 명령·요청과 판정 주체가 확정한 액션 결과만 공유한다. 네트워크 상태는 항상 균일하지 않고 지연, 순서 뒤바뀜, 일시적인 끊김이 생길 수 있다고 전제한다. 그래서 연속적인 표현을 매 순간 맞추기보다, 액션의 의미와 전환점만 동기화하고 애니메이션, 이펙트, 사운드는 각 클라이언트가 로컬에서 재구성한다.
 
 이 방식은 deterministic lockstep과도 다르다. deterministic lockstep은 같은 입력을 같은 tick과 같은 순서로 처리해 모든 클라이언트가 중간 상태까지 같은 결과를 내야 한다. 여기서는 그런 완전 결정적 시뮬레이션을 필수 조건으로 두지 않는다. 필요한 것은 모든 클라이언트가 같은 판정 결과와 액션 상태 전환을 공유하고, 각자 그 상태를 자기 로컬 연출로 풀어내는 것이다.
