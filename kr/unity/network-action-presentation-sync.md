@@ -64,7 +64,14 @@ Unity의 기본 네트워크 컴포넌트가 제공하는 방식은 대체로 st
 
 ## 공통 구조 {#structure}
 
-이 구조는 크게 두 계층으로 나뉜다.
+이 구조는 물리적인 실행 계층이라기보다 세 책임 영역으로 나뉜다.
+
+<div class="skill-routing-viewer" style="--skill-routing-diagram-width: min(1180px, calc(100vw - 80px));">
+  <img
+    class="skill-routing-image"
+    src="{{ '/assets/images/network-action-responsibility-layers.svg' | relative_url }}"
+    alt="액션 연출 동기화 책임 영역 도식">
+</div>
 
 - 요청 생성 계층: 클라이언트 입력, 서버 스크립트, AI, 로컬 시스템이 시작·중단·대체 의도를 같은 단계에서 만들 수 있다.
 - 판정/동기화 계층: 들어온 시작·중단·대체 요청을 검증하고, 우선순위·피격·사망·상태 규칙에 따라 중단이나 대체를 자체 결정할 수도 있다. 최종적으로 가능 여부, 취소·연계·피격 우선순위, 판정 타이밍을 확정하고, 그 결과를 공유 액션 상태로 동기화한다.
