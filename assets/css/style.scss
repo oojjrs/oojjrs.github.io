@@ -299,6 +299,10 @@ pre {
   color: #d8ddd4;
 }
 .article-body thead { background: rgba(216, 255, 62, .1); }
+.article-body thead th {
+  background-color: #23291f;
+  color: var(--text);
+}
 .article-body tbody tr:nth-child(even) { background: rgba(255, 255, 255, .035); }
 .article-body th,
 .article-body td {
