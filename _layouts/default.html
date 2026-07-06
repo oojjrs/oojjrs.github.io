@@ -41,6 +41,17 @@
           <span class="brand-name">{{ brand_name }}</span>
         </a>
         <div class="site-nav-group">
+          <nav class="site-nav" aria-label="{% if is_english %}Site menu{% else %}사이트 메뉴{% endif %}">
+            {% if is_english %}
+              <a href="{{ "/en/#essay-heading" | relative_url }}">Essays</a>
+              <a href="{{ "/en/#technical-heading" | relative_url }}">Technical</a>
+              <a href="{{ "/en/design-archive/gridworld/" | relative_url }}">Design</a>
+            {% else %}
+              <a href="{{ "/kr/#essay-heading" | relative_url }}">에세이</a>
+              <a href="{{ "/kr/#technical-heading" | relative_url }}">기술 문서</a>
+              <a href="{{ "/kr/design-archive/gridworld/" | relative_url }}">기획서</a>
+            {% endif %}
+          </nav>
           {% if page.alternate_url %}
             <label class="language-label" for="site-language">{% if is_english %}Language{% else %}언어{% endif %}</label>
             <select class="language-select" id="site-language" data-language-select aria-label="{% if is_english %}Language{% else %}언어{% endif %}">
