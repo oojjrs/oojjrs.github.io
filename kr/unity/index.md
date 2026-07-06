@@ -17,8 +17,8 @@ permalink: /kr/unity/
   </a>
   <a class="document-card" href="{{ "/kr/unity/network-action-presentation-sync/" | relative_url }}">
     <span class="document-kind">ARCHITECTURE</span>
-    <h2>네트워크 액션 연출 동기화 구조</h2>
-    <p>Animator를 직접 동기화하지 않고, 공유 액션 상태를 기준으로 애니메이션·이펙트·사운드를 맞추는 구조입니다.</p>
+    <h2>네트워크 객체 상태 동기화 구조</h2>
+    <p>엔진 객체 복제를 그대로 진실로 삼지 않고, 작고 명확한 공유 객체 상태를 기준으로 로컬 표현을 재구성하는 구조입니다.</p>
     <span class="card-link">문서 열기 <span aria-hidden="true">→</span></span>
   </a>
 </div>
