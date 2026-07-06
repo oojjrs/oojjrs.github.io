@@ -32,20 +32,35 @@ alternate_url: /kr/
     </div>
   </section>
 
+  <section class="home-document-group" aria-labelledby="technical-heading">
+    <div class="home-section-heading">
+      <p>TECHNICAL NOTES</p>
+      <h2 id="technical-heading">Technical Notes</h2>
+    </div>
+
+    <div class="collection-grid">
+      <a class="collection-card collection-card-codex" href="{{ "/codex/skill-routing-diagram/" | relative_url }}">
+        <span class="card-index">03</span>
+        <span class="card-label">AI WORKFLOW</span>
+        <h3>Skill Routing</h3>
+        <p>When each Codex skill should join the work process</p>
+        <span class="card-link">Open <span aria-hidden="true">→</span></span>
+      </a>
+
+      <a class="collection-card collection-card-network" href="{{ "/en/unity/network-action-presentation-sync/" | relative_url }}">
+        <span class="card-index">04</span>
+        <span class="card-label">NETWORK ARCHITECTURE</span>
+        <h3>Object State Sync</h3>
+        <p>Share compact object state and rebuild presentation locally</p>
+        <span class="card-link">Read <span aria-hidden="true">→</span></span>
+      </a>
+    </div>
+  </section>
+
   <nav class="utility-link-row" aria-label="Private reference documents">
     <a class="utility-link utility-link-codex" href="{{ "/codex/common-work-guidelines.md" | relative_url }}">
       <span>CODEX</span>
       <strong>Common Work Guidelines</strong>
-    </a>
-
-    <a class="utility-link utility-link-codex" href="{{ "/codex/skill-routing-diagram/" | relative_url }}">
-      <span>CODEX</span>
-      <strong>Skill Routing</strong>
-    </a>
-
-    <a class="utility-link utility-link-network" href="{{ "/en/unity/network-action-presentation-sync/" | relative_url }}">
-      <span>NETWORK</span>
-      <strong>Object State Sync</strong>
     </a>
 
     <a class="utility-link utility-link-unity" href="{{ "/en/unity/csharp-coding-convention.html" | relative_url }}">
