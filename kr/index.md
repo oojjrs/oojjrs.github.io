@@ -32,20 +32,35 @@ alternate_url: /en/
     </div>
   </section>
 
+  <section class="home-document-group" aria-labelledby="technical-heading">
+    <div class="home-section-heading">
+      <p>TECHNICAL NOTES</p>
+      <h2 id="technical-heading">기술 문서</h2>
+    </div>
+
+    <div class="collection-grid">
+      <a class="collection-card collection-card-codex" href="{{ "/codex/skill-routing-diagram/" | relative_url }}">
+        <span class="card-index">03</span>
+        <span class="card-label">AI WORKFLOW</span>
+        <h3>스킬 라우팅</h3>
+        <p>작업 흐름에서 필요한 Codex 스킬을 고르는 기준</p>
+        <span class="card-link">열기 <span aria-hidden="true">→</span></span>
+      </a>
+
+      <a class="collection-card collection-card-network" href="{{ "/kr/unity/network-action-presentation-sync/" | relative_url }}">
+        <span class="card-index">04</span>
+        <span class="card-label">NETWORK ARCHITECTURE</span>
+        <h3>객체 상태 동기화</h3>
+        <p>공유 객체 상태를 기준으로 로컬 표현을 재구성하는 구조</p>
+        <span class="card-link">읽기 <span aria-hidden="true">→</span></span>
+      </a>
+    </div>
+  </section>
+
   <nav class="utility-link-row" aria-label="관리용 문서">
     <a class="utility-link utility-link-codex" href="{{ "/codex/common-work-guidelines.md" | relative_url }}">
       <span>CODEX</span>
       <strong>공통 작업 지침</strong>
-    </a>
-
-    <a class="utility-link utility-link-codex" href="{{ "/codex/skill-routing-diagram/" | relative_url }}">
-      <span>CODEX</span>
-      <strong>스킬 라우팅</strong>
-    </a>
-
-    <a class="utility-link utility-link-network" href="{{ "/kr/unity/network-action-presentation-sync/" | relative_url }}">
-      <span>NETWORK</span>
-      <strong>객체 상태 동기화</strong>
     </a>
 
     <a class="utility-link utility-link-unity" href="{{ "/kr/unity/csharp-coding-convention.html" | relative_url }}">
