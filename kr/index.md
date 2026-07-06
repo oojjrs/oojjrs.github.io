@@ -73,4 +73,12 @@ alternate_url: /en/
       <strong>기획서 기준</strong>
     </a>
   </nav>
+
+  <section class="minor-link-row" aria-label="기획서">
+    <a class="minor-link" href="{{ "/kr/design-archive/gridworld/" | relative_url }}">
+      <span>DESIGN ARCHIVE</span>
+      <strong>Gridworld 기획서</strong>
+      <p>세계들을 생성하고, 축적하고, 충돌시키는 시스템</p>
+    </a>
+  </section>
 </section>

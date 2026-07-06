@@ -73,4 +73,12 @@ alternate_url: /kr/
       <strong>Design.html Standard</strong>
     </a>
   </nav>
+
+  <section class="minor-link-row" aria-label="Design archive">
+    <a class="minor-link" href="{{ "/en/design-archive/gridworld/" | relative_url }}">
+      <span>DESIGN ARCHIVE</span>
+      <strong>Gridworld Design Archive</strong>
+      <p>A system for creating, accumulating, and colliding worlds</p>
+    </a>
+  </section>
 </section>
