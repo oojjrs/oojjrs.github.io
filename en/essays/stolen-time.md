@@ -10,8 +10,8 @@ toc_items:
     label: "The time behind the work"
   - id: digested-time
     label: "Digested time"
-  - id: scarce-focus
-    label: "Scarce concentration"
+  - id: scarce-immersion
+    label: "Scarce immersion"
   - id: disturbed-signal
     label: "The disturbed signal"
   - id: tool-as-environment
@@ -61,15 +61,15 @@ What we revere is the result of a person digesting long time through their body 
 
 That is why skill differs from mere information or labor volume. It is the result of time changing shape as it passes through one person. Even when two people live through the same amount of time, one may let it pass, while another turns it into judgment, sense, and taste.
 
-## Scarce concentration {#scarce-focus}
+## Scarce immersion {#scarce-immersion}
 
-Concentration is a natural human ability, but it is also an expensive one.
+Immersion is deeper than simple concentration.
 
-In an unstable survival environment, focusing on one thing for a long time always has a cost. A being that must scan the surroundings, sense danger, manage relationships, and find food may not have long concentration as its default state. A human who goes deeply into one thing accepts the risk of missing other signals.
+If concentration is the ability to gather attention in a particular moment, immersion is closer to a state in which the priorities of the world remain tied to one object for a while. In an unstable survival environment, being immersed in one thing for a long time always has a cost. A being that must scan the surroundings, sense danger, manage relationships, and find food may not have long immersion as its default state.
 
-Precisely because of that cost, concentration becomes a special signal. Being able to hold onto one thing for a long time means that the person endured risk, boredom, and repetition. Humans can sense differences even in brief moments of concentration. We notice who sees more accurately, holds on longer, and judges faster.
+Precisely because of that cost, immersion becomes a special signal. Being able to stay with one thing for a long time means that the person pushed other possibilities aside, endured risk, boredom, and repetition, and kept the center of their world aligned with one object.
 
-When that difference accumulates over time, it becomes skill, and skill becomes a form of time internalized inside one person. To feel a thrill before a result is, in a sense, to sense the density of concentration embedded in it.
+Humans can sense differences even in brief moments of concentration. We notice who sees more accurately, holds on longer, and judges faster. But what creates deeper awe is the sense that the person stayed long enough to form a rhythm with the object. Repeated immersion becomes skill, and skill becomes a form of time internalized inside one person.
 
 ## The disturbed signal {#disturbed-signal}
 
