@@ -19,7 +19,7 @@ toc_items:
   - id: arrival-speed
     label: "The speed of arrival"
   - id: parallel-time
-    label: "Civilization's parallel time"
+    label: "Time swallowed by civilization"
   - id: stolen-time
     label: "Stolen time"
   - id: human-time-with-ai
@@ -87,9 +87,7 @@ AI also feels strange because it does not look like a simple tool.
 
 A tool is supposed to sit in the human hand. The human sets the purpose, and the tool helps serve it. But AI is so large, so fast, and so similar to many human abilities that it often looks less like a tool and more like a master. We say that we use AI, but we also feel as if AI evaluates us, replaces us, and reorganizes us.
 
-This reversal, however, is not entirely new in human history. Fire was a tool humans discovered, but humans soon reorganized night, food, and community around fire. Agriculture was a technique for domesticating crops, but humans became bound to the seasons of crops and the order of land. Writing was a means of helping memory, but law, taxation, and contracts began to define humans through records.
-
-Money was a tool for exchange, but it turned human labor and the future into calculable units. Clocks and factories were devices for measuring time and assisting production, but humans came to live their days according to the rhythm of those devices.
+This reversal, however, is not entirely new in human history. Fire, agriculture, writing, money, clocks, and factories all began as tools that expanded human ability. But they soon reorganized human night and food, land and seasons, law and contracts, labor and the rhythm of the day.
 
 When a tool becomes large enough, it no longer remains only a tool. It becomes the environment in which humans live. It may begin as a way of reorganizing nature around human needs, but the reorganized environment becomes a condition that defines humans again.
 
@@ -97,7 +95,7 @@ When a tool becomes large enough, it no longer remains only a tool. It becomes t
 
 What makes AI special is not only that a tool becomes an environment.
 
-That has happened before. But fire, agriculture, and writing spread across regions and generations. People had some time to be born into the change, adapt to it, resist it, mythologize it, and institutionalize it. When change is slow enough, it eventually begins to look like nature.
+Earlier changes generally spread across regions and generations. People had some time to be born into the change, adapt to it, resist it, mythologize it, and institutionalize it. When change is slow enough, it eventually begins to look like nature.
 
 AI, by contrast, arrived almost simultaneously through the transmission network of modern civilization. The internet, platforms, cloud infrastructure, APIs, social media, and corporate competition accelerate its spread. In years, sometimes months, the meanings of writing, drawing, coding, translating, summarizing, and planning begin to shake.
 
@@ -107,7 +105,7 @@ If AI had spread very slowly, it might have been absorbed into culture as a new 
 
 AI is less the first tool to touch the essence of humanity than an event in which a change that touches the essence of humanity arrived faster than humans could adapt to it.
 
-## Civilization's parallel time {#parallel-time}
+## Time swallowed by civilization {#parallel-time}
 
 That does not mean AI results are truly produced without time.
 
