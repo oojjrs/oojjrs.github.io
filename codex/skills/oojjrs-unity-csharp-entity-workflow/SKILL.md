@@ -1,6 +1,6 @@
 ---
 name: oojjrs-unity-csharp-entity-workflow
-description: Add or refactor Unity C# entity/model/binding code in oojjrs Unity repos. Use for Game, Item, Action, Relation, Actor, TableT, EntityModelBindingT, null/default expression cleanup, Regex LIKE helpers, generated-code boundaries, and package runtime changes that must follow the public Unity C# coding convention.
+description: Add or refactor Unity C# entity/model/binding code in oojjrs Unity repos. Use for Game, Item, Action, Relation, Actor, TableT, EntityModelBindingT, null/default expression cleanup, Regex LIKE helpers, generated-code boundaries, package runtime changes, and loading the public Unity C# coding convention before those edits.
 ---
 
 # oojjrs Unity C# Entity Workflow
@@ -10,7 +10,11 @@ Use this skill for Unity C# model/entity/runtime helper work.
 ## Required Context
 
 1. Read `$oojjrs-guidelines`.
-2. Read `codex/unity-csharp-coding-convention.md` from the public guidance source before editing Unity C# code.
+2. Read the Unity C# coding convention before editing code:
+   - Prefer `codex/unity-csharp-coding-convention.md` when it exists in the current workspace.
+   - Otherwise, on Windows load `https://oojjrs.github.io/codex/unity-csharp-coding-convention.md` with `Invoke-WebRequest -UseBasicParsing`.
+   - If that request fails, retry with another available HTTP client or browser before concluding the document is unavailable. A blocked direct-URL web tool or `curl.exe` Schannel error does not prove the site or document is unavailable.
+   - If every method fails, report the access failure before editing and do not infer convention rules from memory alone.
 3. Inspect existing nearby entity/model patterns before adding a new abstraction.
 4. Treat generated code and third-party code as convention exceptions unless the user explicitly asks to regenerate or edit them.
 
