@@ -718,3 +718,50 @@ private int count;
 ```
 
 `const`, `readonly`, `static`, and ordinary members are separate sections. Sort alphabetically inside each section.
+
+### 27. Keep brace usage consistent within a control-flow chain
+
+Correct:
+
+```csharp
+if (isReady)
+    StartGame();
+else if (canRetry)
+    RetryGame();
+else
+    CancelGame();
+```
+
+Also correct when any branch needs multiple statements:
+
+```csharp
+if (isReady)
+{
+    StartGame();
+}
+else if (canRetry)
+{
+    ResetGame();
+    RetryGame();
+}
+else
+{
+    CancelGame();
+}
+```
+
+Incorrect:
+
+```csharp
+if (isReady)
+    StartGame();
+else if (canRetry)
+{
+    ResetGame();
+    RetryGame();
+}
+else
+    CancelGame();
+```
+
+Prefer omitting braces when every branch is a single statement. If any `if`, `else if`, or `else` branch needs braces, use braces for every branch in that chain.

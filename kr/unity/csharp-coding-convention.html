@@ -1127,6 +1127,50 @@ private int count;</code></pre>
           <p>const, readonly, static, member는 서로 다른 섹션이다. 각 섹션 안에서 abc순으로 둔다.</p>
         </div>
       </article>
+      <article class="rule-card">
+        <div class="rule-index">27</div>
+        <div class="rule-body">
+          <h3>같은 제어문 연쇄에서는 중괄호 사용을 일관되게 맞춘다</h3>
+          <div class="example-pair">
+            <div class="example good">
+              <div class="example-label">올바른 사용</div>
+              <pre><code>if (isReady)
+    StartGame();
+else if (canRetry)
+    RetryGame();
+else
+    CancelGame();
+
+if (isReady)
+{
+    StartGame();
+}
+else if (canRetry)
+{
+    ResetGame();
+    RetryGame();
+}
+else
+{
+    CancelGame();
+}</code></pre>
+            </div>
+            <div class="example bad">
+              <div class="example-label">잘못된 사용</div>
+              <pre><code>if (isReady)
+    StartGame();
+else if (canRetry)
+{
+    ResetGame();
+    RetryGame();
+}
+else
+    CancelGame();</code></pre>
+            </div>
+          </div>
+          <p>모든 분기가 한 문장이면 중괄호를 생략하는 방식을 권장한다. 같은 if, else if, else 연쇄에서 한 분기라도 중괄호가 필요하면 나머지 분기에도 모두 중괄호를 사용한다.</p>
+        </div>
+      </article>
     </section>
     </div>
     </div>
