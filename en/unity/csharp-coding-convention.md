@@ -765,3 +765,21 @@ else
 ```
 
 Prefer omitting braces when every branch is a single statement. If any `if`, `else if`, or `else` branch needs braces, use braces for every branch in that chain.
+
+### 28. Use prefix increment and decrement operators
+
+Correct:
+
+```csharp
+++index;
+--index;
+```
+
+Incorrect:
+
+```csharp
+index++;
+index--;
+```
+
+Put increment and decrement operators before the operand. Do not use postfix forms.
