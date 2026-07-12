@@ -47,3 +47,4 @@ Read this before editing first-party Unity C# files. This is the agent copy of t
 24. Implement inherited members in parent declaration order: parent > child, parents in inheritance declaration order, multiple interfaces and implementations alphabetically, constructors first among functions, then local members.
 25. Interface implementation is explicit by type. Do not expose interface members as public members; implement them as `InterfaceName.MemberName`, such as `TooltipInterface.TooltipText`.
 26. Member sections are `const`, `readonly`, `static`, ordinary member. Sort alphabetically inside each section and do not mix ordinary fields between those sections.
+27. Keep braces consistent across the branches of the same control-flow chain. Prefer omitting braces when every branch is a single statement; if any `if`, `else if`, or `else` branch needs braces, use braces for every branch in that chain.
