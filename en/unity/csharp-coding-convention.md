@@ -783,3 +783,25 @@ index--;
 ```
 
 Put increment and decrement operators before the operand. Do not use postfix forms.
+
+### 29. Use logical negation only for Boolean toggle assignments
+
+Correct:
+
+```csharp
+isActive = !isActive;
+
+if (isActive == false)
+    Activate();
+```
+
+Incorrect:
+
+```csharp
+if (!isActive)
+    Activate();
+
+return !isActive;
+```
+
+Use the logical negation operator `!` only when toggling a Boolean value and assigning it back to the same value. In every other case, including conditions and return expressions, use an explicit comparison such as `== false`.
