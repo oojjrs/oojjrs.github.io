@@ -49,3 +49,4 @@ Read this before editing first-party Unity C# files. This is the agent copy of t
 26. Member sections are `const`, `readonly`, `static`, ordinary member. Sort alphabetically inside each section and do not mix ordinary fields between those sections.
 27. Keep braces consistent across the branches of the same control-flow chain. Prefer omitting braces when every branch is a single statement; if any `if`, `else if`, or `else` branch needs braces, use braces for every branch in that chain.
 28. Use increment and decrement operators in prefix form: `++index` and `--index`, not `index++` or `index--`.
+29. Use the logical negation operator `!` only to toggle and assign the same Boolean value, such as `isActive = !isActive;`. In every other case, including conditions, use an explicit comparison such as `if (isActive == false)` instead of `if (!isActive)`.

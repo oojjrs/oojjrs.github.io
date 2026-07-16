@@ -1190,6 +1190,29 @@ index--;</code></pre>
           <p>증가와 감소 연산자는 각각 <code>++index</code>, <code>--index</code>처럼 피연산자 앞에 둔다. <code>index++</code>, <code>index--</code> 같은 후위형은 사용하지 않는다.</p>
         </div>
       </article>
+      <article class="rule-card">
+        <div class="rule-index">29</div>
+        <div class="rule-body">
+          <h3>논리 부정 연산자는 Boolean 토글 대입에만 쓴다</h3>
+          <div class="example-pair">
+            <div class="example good">
+              <div class="example-label">올바른 사용</div>
+              <pre><code>isActive = !isActive;
+
+if (isActive == false)
+    Activate();</code></pre>
+            </div>
+            <div class="example bad">
+              <div class="example-label">잘못된 사용</div>
+              <pre><code>if (!isActive)
+    Activate();
+
+return !isActive;</code></pre>
+            </div>
+          </div>
+          <p>논리 부정 연산자 <code>!</code>는 Boolean 값을 토글하여 같은 변수에 다시 대입할 때만 사용한다. 조건문과 반환식을 포함한 그 밖의 모든 경우에는 <code>if (isActive == false)</code>처럼 <code>== false</code>를 사용해 명시적으로 비교한다.</p>
+        </div>
+      </article>
     </section>
     </div>
     </div>
