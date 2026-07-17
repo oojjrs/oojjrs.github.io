@@ -805,3 +805,29 @@ return !isActive;
 ```
 
 Use the logical negation operator `!` only when toggling a Boolean value and assigning it back to the same value. In every other case, including conditions and return expressions, use an explicit comparison such as `== false`.
+
+### 30. Do not sort members by access modifier
+
+Correct:
+
+```csharp
+public int AlphaCount { get; }
+private int BetaCount { get; }
+protected int EnemyCount { get; }
+private int ItemCount { get; }
+public int RewardCount { get; }
+protected int StageCount { get; }
+```
+
+Incorrect:
+
+```csharp
+public int AlphaCount { get; }
+public int RewardCount { get; }
+protected int EnemyCount { get; }
+protected int StageCount { get; }
+private int BetaCount { get; }
+private int ItemCount { get; }
+```
+
+Access modifiers do not create member-ordering groups. Apply section order, inheritance implementation order, constructor priority, and alphabetical sorting without collecting `public`, `protected`, or `private` members together.
