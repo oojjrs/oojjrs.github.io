@@ -1213,6 +1213,33 @@ return !isActive;</code></pre>
           <p>논리 부정 연산자 <code>!</code>는 Boolean 값을 토글하여 같은 변수에 다시 대입할 때만 사용한다. 조건문과 반환식을 포함한 그 밖의 모든 경우에는 <code>if (isActive == false)</code>처럼 <code>== false</code>를 사용해 명시적으로 비교한다.</p>
         </div>
       </article>
+      <article class="rule-card">
+        <div class="rule-index">30</div>
+        <div class="rule-body">
+          <h3>접근 제한자에 따라 멤버를 정렬하지 않는다</h3>
+          <div class="example-pair">
+            <div class="example good">
+              <div class="example-label">올바른 사용</div>
+              <pre><code>public int AlphaCount { get; }
+private int BetaCount { get; }
+protected int EnemyCount { get; }
+private int ItemCount { get; }
+public int RewardCount { get; }
+protected int StageCount { get; }</code></pre>
+            </div>
+            <div class="example bad">
+              <div class="example-label">잘못된 사용</div>
+              <pre><code>public int AlphaCount { get; }
+public int RewardCount { get; }
+protected int EnemyCount { get; }
+protected int StageCount { get; }
+private int BetaCount { get; }
+private int ItemCount { get; }</code></pre>
+            </div>
+          </div>
+          <p>접근 제한자는 멤버 정렬 그룹을 만들지 않는다. <code>public</code>, <code>protected</code>, <code>private</code>끼리 모으지 말고 섹션 순서, 상속 구현 순서, 생성자 우선 규칙을 적용한 뒤 같은 상속 그룹의 같은 카테고리 안에서 이름순으로 정렬한다.</p>
+        </div>
+      </article>
     </section>
     </div>
     </div>
