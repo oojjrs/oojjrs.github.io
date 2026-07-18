@@ -31,3 +31,4 @@ Read this before work. Keep it the durable source.
 27. Stage/commit only the requested scope. Push only when explicitly requested.
 28. Write feedback and documents in Korean; include relevant `git log` context when reporting work or choosing the next task.
 29. When adding or changing first-party logs, also read `https://oojjrs.github.io/codex/logging-guideline.md`; classify each message before writing it and follow that document's rules for required system logs, warnings, debugging logs, UX LOG, uppercase English text, and `{expression}` identifier references.
+30. When adding, moving, or publishing a public site document, also add a discoverable entry link from the site's existing home, navigation, index, or document list so a visitor can reach it by clicking from the site root; a direct URL alone does not count. Before reporting completion, verify the full click path in the rendered or deployed site, not only that the destination URL returns successfully.
