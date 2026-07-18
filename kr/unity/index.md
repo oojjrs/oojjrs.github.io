@@ -15,6 +15,12 @@ permalink: /kr/unity/
     <p>파일 구성, 선언 순서, 이름 규칙부터 Unity 생명주기 메서드와 직렬화 필드 배치까지 다룹니다.</p>
     <span class="card-link">문서 열기 <span aria-hidden="true">→</span></span>
   </a>
+  <a class="document-card" href="./logging-guideline.html">
+    <span class="document-kind">GUIDELINE</span>
+    <h2>로그 작성 지침</h2>
+    <p>필수 시스템 로그, 경고, 디버깅 로그, UX LOG의 목적과 형식, 선택 기준을 정리합니다.</p>
+    <span class="card-link">문서 열기 <span aria-hidden="true">→</span></span>
+  </a>
   <a class="document-card" href="{{ "/kr/unity/network-action-presentation-sync/" | relative_url }}">
     <span class="document-kind">ARCHITECTURE</span>
     <h2>네트워크 객체 상태 동기화 구조</h2>
