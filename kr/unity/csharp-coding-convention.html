@@ -1267,6 +1267,31 @@ private int count;
           <p>각 Attribute는 한 줄에 하나씩 작성하고, Attribute가 적용되는 선언은 다음 줄에 둔다. 여러 Attribute를 한 줄에 합치거나 Attribute와 대상 선언을 같은 줄에 작성하지 않는다.</p>
         </div>
       </article>
+      <article class="rule-card">
+        <div class="rule-index">32</div>
+        <div class="rule-body">
+          <h3>개별 조건식이 두 개 이상 연결되면 각 조건식을 괄호로 감싼다</h3>
+          <div class="example-pair">
+            <div class="example good">
+              <div class="example-label">올바른 사용</div>
+              <pre><code>if ((count &gt; 0) &amp;&amp; (item != null))
+    Use(item);
+
+if ((isReady == true) || ((count &gt; 0) &amp;&amp; (item != null)))
+    Start();</code></pre>
+            </div>
+            <div class="example bad">
+              <div class="example-label">잘못된 사용</div>
+              <pre><code>if (count &gt; 0 &amp;&amp; item != null)
+    Use(item);
+
+if (isReady == true || count &gt; 0 &amp;&amp; item != null)
+    Start();</code></pre>
+            </div>
+          </div>
+          <p>논리 연산자로 두 개 이상의 개별 조건식을 연결할 때는 연산자 우선순위와 관계없이 각 조건식을 괄호로 감싼다. 중첩된 복합 조건식은 바깥 단계에서 하나의 조건식으로 보고, 내부 조건식에도 같은 규칙을 재귀적으로 적용한다. 사람이 연산자 우선순위를 기억하고 있다는 전제보다 조건 경계를 코드에 명시하는 방식을 우선한다.</p>
+        </div>
+      </article>
     </section>
     </div>
     </div>
