@@ -1245,6 +1245,28 @@ private int ItemCount { get; }</code></pre>
           <p>접근 제한자는 멤버 정렬 그룹을 만들지 않는다. <code>public</code>, <code>protected</code>, <code>private</code>끼리 모으지 말고 섹션 순서, 상속 구현 순서, 생성자 우선 규칙을 적용한 뒤 같은 상속 그룹의 같은 카테고리 안에서 이름순으로 정렬한다.</p>
         </div>
       </article>
+      <article class="rule-card">
+        <div class="rule-index">31</div>
+        <div class="rule-body">
+          <h3>Attribute는 한 줄에 하나씩 명시한다</h3>
+          <div class="example-pair">
+            <div class="example good">
+              <div class="example-label">올바른 사용</div>
+              <pre><code>[Header("Settings")]
+[SerializeField]
+private int count;</code></pre>
+            </div>
+            <div class="example bad">
+              <div class="example-label">잘못된 사용</div>
+              <pre><code>[Header("Settings"), SerializeField]
+private int count;
+
+[SerializeField] private int index;</code></pre>
+            </div>
+          </div>
+          <p>각 Attribute는 한 줄에 하나씩 작성하고, Attribute가 적용되는 선언은 다음 줄에 둔다. 여러 Attribute를 한 줄에 합치거나 Attribute와 대상 선언을 같은 줄에 작성하지 않는다.</p>
+        </div>
+      </article>
     </section>
     </div>
     </div>

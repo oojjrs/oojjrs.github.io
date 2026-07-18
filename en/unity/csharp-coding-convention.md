@@ -831,3 +831,24 @@ private int ItemCount { get; }
 ```
 
 Access modifiers do not create member-ordering groups. Apply section order, inheritance implementation order, constructor priority, and alphabetical sorting without collecting `public`, `protected`, or `private` members together.
+
+### 31. Write one attribute per line
+
+Correct:
+
+```csharp
+[Header("Settings")]
+[SerializeField]
+private int count;
+```
+
+Incorrect:
+
+```csharp
+[Header("Settings"), SerializeField]
+private int count;
+
+[SerializeField] private int index;
+```
+
+Write each attribute on its own line, and put the attributed declaration on the following line. Do not combine multiple attributes on one line or place an attribute and its declaration on the same line.
