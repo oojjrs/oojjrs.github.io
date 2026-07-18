@@ -23,6 +23,16 @@ Canonical URL:
 5. When a task edits text files, the shared rule to preserve existing encoding and line endings wins over any skill or tool habit that normalizes files to CRLF.
 6. If the script is unavailable, fall back to reading the canonical URL directly. If network access fails, say that the rules could not be refreshed and continue only if a cached/local copy is available.
 
+## Text Format Tool
+
+For repository text edits, use `scripts/Test-OojjrsTextFormat.ps1` to inspect changed files instead of reconstructing encoding and line-ending checks each time.
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/Test-OojjrsTextFormat.ps1 -Path <changed-files>
+```
+
+The tool compares tracked files with their `HEAD` bytes and checks only lines in the current Git diff. It expects untracked text files to use UTF-8 No-BOM with CRLF. `-Fix` changes line endings only on added or modified lines; encoding restoration remains file-wide because encoding is a file property. A mixed-line-ending `HEAD` is reported as `NeedsReview` and is never auto-fixed. Pass `-Fix` only when the task authorizes correcting mismatches; without it, the tool is read-only and exits with code 1 on a mismatch. Use `-Recurse` only for a deliberately scoped directory.
+
 ## Cache Policy
 
 The script stores a user-global cache under `$CODEX_HOME/cache/oojjrs-guidelines` or `~/.codex/cache/oojjrs-guidelines`.
