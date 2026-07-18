@@ -50,7 +50,8 @@ $SkillFiles = @{
     "oojjrs-guidelines" = @(
         "SKILL.md",
         "agents/openai.yaml",
-        "scripts/Read-OojjrsGuidelines.ps1"
+        "scripts/Read-OojjrsGuidelines.ps1",
+        "scripts/Test-OojjrsTextFormat.ps1"
     )
     "oojjrs-ai-music-generator" = @(
         "SKILL.md",
