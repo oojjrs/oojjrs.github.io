@@ -1,4 +1,4 @@
 interface:
   display_name: "oojjrs Guidelines"
-  short_description: "Load oojjrs shared Codex work rules for actual task work."
-  default_prompt: "Use $oojjrs-guidelines before actual repository work, not simple Q&A."
+  short_description: "Load shared work rules and reuse text-format validation tools."
+  default_prompt: "Use $oojjrs-guidelines before actual repository work and reuse its text-format checker for edited files."
