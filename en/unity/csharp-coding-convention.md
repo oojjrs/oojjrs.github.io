@@ -590,7 +590,7 @@ public void RefreshTooltip()
 
 Alphabetical order applies only inside the same category of the same inheritance group, after section order, inheritance implementation order, and constructor priority. Do not mix parent or interface implementation groups just to satisfy alphabetical order.
 
-### 24. Implement inherited members in parent declaration order
+### 24. Implement Unity messages before explicitly inherited members
 
 Correct:
 
@@ -607,7 +607,7 @@ public sealed class RewardButton : ButtonBase, ClickableInterface, TooltipInterf
     public string TooltipText { get; }
     public int RewardCount { get; }
 
-    public RewardButton()
+    private void Awake()
     {
     }
 
@@ -649,17 +649,17 @@ public sealed class RewardButton : ButtonBase, TooltipInterface, ClickableInterf
     {
     }
 
-    protected override void RefreshButton()
+    private void Awake()
     {
     }
 
-    public RewardButton()
+    protected override void RefreshButton()
     {
     }
 }
 ```
 
-Use parent > child order. Among parents, follow the inheritance declaration order. Multiple interfaces and their implementations are ordered alphabetically. Constructors come first among functions.
+In a `MonoBehaviour`, Unity message functions are treated like an implicit first inherited group. Put them before explicitly inherited parent and interface members, and order them by the Unity lifecycle, such as `Awake`, `OnEnable`, and `Start`. After that, use parent > child order. Among explicit parents, follow the inheritance declaration order. Multiple interfaces and their implementations are ordered alphabetically. In types that do not use Unity messages, constructors still come first among functions.
 
 ### 25. Interface implementation is explicit by type
 
