@@ -1,4 +1,4 @@
 interface:
   display_name: "oojjrs Guideline Maintenance"
-  short_description: "Maintain shared oojjrs work rules"
-  default_prompt: "Use $oojjrs-guideline-maintenance to update shared oojjrs guidance and place each reusable rule in the right durable source."
+  short_description: "Maintain and synchronize shared oojjrs rules"
+  default_prompt: "Use $oojjrs-guideline-maintenance to update shared oojjrs guidance, synchronize every representation of a convention document set, and place each reusable rule in the right durable source."
