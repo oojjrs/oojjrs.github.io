@@ -43,16 +43,16 @@
       <ul>
         <li>사용자에게 전달되거나 자동 비교하는 영어 로그의 고정 문구는 모두 대문자로 쓴다.</li>
         <li>실행 중 결정되는 모든 identifier는 보간식 <code>{expression}</code>으로 참조한다.</li>
-        <li>모든 로그의 최종 출력에는 행위 주체자가 가장 앞에 <code>{actor}&gt; </code> 형태로 있어야 한다. 태그 로거가 붙이면 호출 문자열에는 중복 작성하지 않는다.</li>
+        <li>일반 로그의 최종 출력에는 행위 주체자가 가장 앞에 <code>{actor}&gt; </code> 형태로 있어야 한다. 태그 로거가 붙이면 호출 문자열에는 중복 작성하지 않는다. catch된 예외 객체를 그대로 출력하는 로그는 제외한다.</li>
         <li>문자열 연결보다 <code>$"..."</code>을 사용하고 identifier의 실제 값은 대문자로 바꾸지 않는다.</li>
         <li><code> : </code>는 분류와 값, <code>&gt; </code>는 주체와 사건, <code> -&gt; </code>는 상태 변화를 구분한다.</li>
-        <li>예외도 주체자와 예외 객체를 함께 받는 공통 API로 기록한다.</li>
+        <li>catch된 예외는 주체자나 설명 문구를 붙이지 않고 <code>e</code> 또는 <code>e.ToString()</code>을 그대로 예외 API에 전달한다.</li>
         <li>민감한 인증정보와 불필요한 개인정보는 기록하지 않는다.</li>
       </ul>
       <pre><code>Debug.Log($"{name}&gt; ENABLED.");
 Debug.Log($"{GetType().Name}&gt; APP STEP : {_step} -&gt; {value}");
 Debug.LogWarning($"{GetType().Name}&gt; NO HANDLERS : {request.GetType().Name}");
-logger.LogException(name, e);</code></pre>
+Debug.LogException(e);</code></pre>
       <p class="muted"><code>{}</code>는 출력에 중괄호를 표시하는 규칙이 아니라 고정 문구와 identifier 참조를 소스에서 분리하는 규칙이다.</p>
     </section>
 
@@ -65,6 +65,7 @@ logger.LogException(name, e);</code></pre>
         <li>주체가 하나뿐이고 절대 모호하지 않은 전역 부팅 로그만 제한적으로 생략할 수 있다.</li>
         <li><code>SEND&gt;</code>, <code>RECV&gt;</code>, <code>HANDLED&gt;</code>는 네트워크 의미를 내포한 축약형이지만, 동시 연결·요청이 섞이면 실제 연결 태그를 앞에 둔다.</li>
         <li>주체자를 정하기 어렵거나 기존 로그에 없다면 생략하지 말고 책임 객체와 계층 설계를 다시 검토한다.</li>
+        <li>catch 예외 로그는 예외다. <code>Debug.LogException(e)</code>, <code>logger.WriteExceptionLine(e.ToString())</code>, <code>Console.WriteLine(e)</code>처럼 예외 자체만 전달한다. 기존 태그 로거가 자동으로 붙이는 태그는 그대로 둔다.</li>
       </ul>
       <h3>프레임워크에서 보장한다</h3>
       <p>개별 호출부가 매번 주체자를 기억하게 하지 않는다. 부모 클래스, 공통 로거, 미들웨어, 베이스 컨트롤러, 패킷 핸들러 팩터리가 태그를 한 번 받고 모든 하위 로그에 붙이는 방식을 우선한다. 태그가 설정된 로거의 호출 문자열은 사건만 쓰고 주체자를 중복 작성하지 않는다.</p>
@@ -128,7 +129,7 @@ logger.LogDebug($"{connectionName}&gt; RECV : {response.GetType().Name} ({reques
     </section>
 
     <section class="decision"><h2>선택 순서</h2><ol><li>항상 존재하고 실행 순서 비교의 기준점이면 필수 시스템 로그다.</li><li>기대 상태에서 벗어났지만 계속 실행할 수 있으면 경고 로그다.</li><li>내부 구현의 세부 스텝을 확인하려면 디버깅 로그다.</li><li>사용자 행동을 집계해 UX 결정을 내리려면 UX LOG다.</li></ol><p>한 사건이 여러 목적을 가지면 채널을 분리한다. 로그인 시스템 초기화는 필수 로그, 비정상 설정은 경고, 패킷 왕복은 디버깅 로그, 로그인 방식 선택은 UX LOG다.</p></section>
-    <section class="checklist"><h2>검토 체크리스트</h2><ul><li>로그 종류를 먼저 결정했는가?</li><li>필수 로그의 기준점과 순서가 안정적인가?</li><li>정상 상태에서 경고가 0개인가?</li><li>디버깅 로그를 필터링할 수 있는가?</li><li>UX LOG에 분석 목적과 구조화된 속성이 있는가?</li><li>외부 전달 영어 문구가 모두 대문자인가?</li><li>모든 identifier가 <code>{expression}</code>으로 참조되는가?</li><li>최종 출력의 첫 토큰에서 행위 주체자를 식별할 수 있는가?</li><li>부모·공통 로거가 태그를 시스템적으로 보장하는가?</li><li>태그 로거의 호출 문자열에 주체자를 중복 작성하지 않았는가?</li><li>주체자 없는 전역·네트워크 축약 로그가 정말 모호하지 않은가?</li><li>민감한 값이 없는가?</li></ul><p><a href="csharp-coding-convention.html">Unity C# 코딩 컨벤션 보기</a></p></section>
+    <section class="checklist"><h2>검토 체크리스트</h2><ul><li>로그 종류를 먼저 결정했는가?</li><li>필수 로그의 기준점과 순서가 안정적인가?</li><li>정상 상태에서 경고가 0개인가?</li><li>디버깅 로그를 필터링할 수 있는가?</li><li>UX LOG에 분석 목적과 구조화된 속성이 있는가?</li><li>외부 전달 영어 문구가 모두 대문자인가?</li><li>모든 identifier가 <code>{expression}</code>으로 참조되는가?</li><li>일반 로그의 최종 출력 첫 토큰에서 행위 주체자를 식별할 수 있는가?</li><li>부모·공통 로거가 태그를 시스템적으로 보장하는가?</li><li>태그 로거의 호출 문자열에 주체자를 중복 작성하지 않았는가?</li><li>주체자 없는 전역·네트워크 축약 로그가 정말 모호하지 않은가?</li><li>catch 예외 로그에 주체자나 설명 문구를 붙이지 않고 예외 자체를 그대로 전달했는가?</li><li>민감한 값이 없는가?</li></ul><p><a href="csharp-coding-convention.html">Unity C# 코딩 컨벤션 보기</a></p></section>
   </main>
 </body>
 </html>
