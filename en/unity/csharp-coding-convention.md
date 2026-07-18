@@ -852,3 +852,53 @@ private int count;
 ```
 
 Write each attribute on its own line, and put the attributed declaration on the following line. Do not combine multiple attributes on one line or place an attribute and its declaration on the same line.
+
+### 32. Wrap each individual expression in a compound condition
+
+Correct:
+
+```csharp
+if ((count > 0) && (item != null))
+    Use(item);
+
+if ((isReady == true) || ((count > 0) && (item != null)))
+    Start();
+```
+
+Incorrect:
+
+```csharp
+if (count > 0 && item != null)
+    Use(item);
+
+if (isReady == true || count > 0 && item != null)
+    Start();
+```
+
+When logical operators join two or more individual condition expressions, wrap every individual expression in parentheses regardless of operator precedence. Treat a nested compound condition as one expression at the outer level and apply the same rule recursively inside it. Prefer making condition boundaries explicit in code over assuming that the reader remembers operator precedence.
+
+### 33. Put the valid and primary-interest branch first
+
+Correct:
+
+```csharp
+if (item != null)
+    Use(item);
+else
+    ReportMissingItem();
+```
+
+Incorrect:
+
+```csharp
+if (item == null)
+    ReportMissingItem();
+else
+    Use(item);
+```
+
+In an `if` chain, put the valid, normal, or primary-interest case first and move the invalid, error, or exceptional case later. Choose branch order by what a human reader needs to understand first. When the main behavior uses an existing item, begin with `if (item != null)` and place the `null` case afterward.
+
+### 34. Follow the logging guideline
+
+Before adding or changing logs, read `logging-guideline.md` and classify each message as a required system log, warning, debugging log, or optional UX LOG. The logging guideline controls language, uppercase text, identifier references, stability, and channel-specific behavior.
