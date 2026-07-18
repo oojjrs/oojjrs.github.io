@@ -76,6 +76,11 @@ alternate_url: /en/
       <strong>Unity C# 컨벤션</strong>
     </a>
 
+    <a class="utility-link utility-link-unity" href="{{ "/kr/unity/project-bootstrap/" | relative_url }}">
+      <span>UNITY</span>
+      <strong>프로젝트 초기 설정</strong>
+    </a>
+
     <a class="utility-link utility-link-unity" href="{{ "/kr/unity/logging-guideline.html" | relative_url }}">
       <span>LOGGING</span>
       <strong>로그 작성 지침</strong>
