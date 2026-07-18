@@ -76,6 +76,11 @@ alternate_url: /en/
       <strong>Unity C# 컨벤션</strong>
     </a>
 
+    <a class="utility-link utility-link-unity" href="{{ "/kr/unity/logging-guideline.html" | relative_url }}">
+      <span>LOGGING</span>
+      <strong>로그 작성 지침</strong>
+    </a>
+
     <a class="utility-link utility-link-codex" href="{{ "/codex/guideline-design-generation.review.md" | relative_url }}">
       <span>DESIGN</span>
       <strong>기획서 기준</strong>

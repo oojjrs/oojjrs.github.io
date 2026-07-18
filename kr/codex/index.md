@@ -23,6 +23,13 @@ permalink: /kr/codex/
     <span class="card-link">문서 열기 <span aria-hidden="true">→</span></span>
   </a>
 
+  <a class="document-card" href="../../codex/logging-guideline.md">
+    <span class="document-kind">GUIDELINE</span>
+    <h2>로그 작성 지침</h2>
+    <p>필수 시스템 로그, 경고, 디버깅 로그, UX LOG의 작성 규칙입니다.</p>
+    <span class="card-link">문서 열기 <span aria-hidden="true">→</span></span>
+  </a>
+
   <a class="document-card" href="../../codex/guideline-design-generation.review.md">
     <span class="document-kind">REVIEW</span>
     <h2>Design.html Planning Rules</h2>
