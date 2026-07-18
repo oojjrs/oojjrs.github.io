@@ -28,3 +28,5 @@ permalink: /kr/unity/
     <span class="card-link">문서 열기 <span aria-hidden="true">→</span></span>
   </a>
 </div>
+
+<p class="supplementary-link">개인 작업 참고: <a href="{{ "/kr/unity/project-bootstrap/" | relative_url }}">신규 Unity 프로젝트 초기 설정</a></p>
