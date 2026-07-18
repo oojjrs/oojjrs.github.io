@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-labelledby="title desc">
+  <title id="title">OO Games symbol</title>
+  <desc id="desc">The letters OO forming a compact game controller.</desc>
+  <defs>
+    <mask id="controller-cutouts" maskUnits="userSpaceOnUse" x="0" y="0" width="1200" height="800">
+      <rect width="1200" height="800" fill="white"/>
+      <ellipse cx="350" cy="485" rx="145" ry="155" fill="black"/>
+      <ellipse cx="850" cy="485" rx="145" ry="155" fill="black"/>
+      <path d="M540 94 C560 130 575 145 600 145 C625 145 640 130 660 94 Z" fill="black"/>
+      <path d="M505 760 C540 688 570 650 600 650 C630 650 660 688 695 760 Z" fill="black"/>
+      <rect x="214" y="216" width="122" height="38" rx="8" fill="black"/>
+      <rect x="256" y="174" width="38" height="122" rx="8" fill="black"/>
+      <circle cx="914" cy="202" r="31" fill="black"/>
+      <circle cx="982" cy="250" r="31" fill="black"/>
+    </mask>
+  </defs>
+  <g fill="#0B132B" mask="url(#controller-cutouts)">
+    <circle cx="350" cy="470" r="300"/>
+    <circle cx="850" cy="470" r="300"/>
+    <rect x="350" y="94" width="500" height="430" rx="170"/>
+  </g>
+</svg>
