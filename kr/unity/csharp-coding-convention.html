@@ -1023,6 +1023,18 @@ public void RefreshTooltip()
     {
     }
 
+    private void OnDestroy()
+    {
+    }
+
+    private void OnEnable()
+    {
+    }
+
+    private void Start()
+    {
+    }
+
     protected override void RefreshButton()
     {
     }
@@ -1069,7 +1081,7 @@ public void RefreshTooltip()
 }</code></pre>
             </div>
           </div>
-          <p><code>MonoBehaviour</code>에서는 Unity 메시지 함수를 암시적으로 가장 먼저 상속받은 그룹처럼 취급한다. 명시적으로 상속받은 부모와 인터페이스 멤버보다 먼저 두고, <code>Awake</code>, <code>OnEnable</code>, <code>Start</code>처럼 Unity 생명주기 순서로 정렬한다. 그 뒤에는 부모 &gt; 자식 순서를 적용한다. 명시적 부모 간에는 상속 선언 순서를 따르고, 여러 인터페이스의 선언과 구현은 abc순으로 둔다. Unity 메시지를 사용하지 않는 타입에서는 생성자를 함수 중 가장 먼저 둔다.</p>
+          <p><code>MonoBehaviour</code>에서는 Unity 메시지 함수를 암시적으로 가장 먼저 상속받은 그룹처럼 취급한다. 명시적으로 상속받은 부모와 인터페이스 멤버보다 먼저 두고, <code>Awake</code>, <code>OnDestroy</code>, <code>OnEnable</code>, <code>Start</code>처럼 함수명 abc순으로 정렬한다. Unity 생명주기 순서로 정렬하지 않는다. 그 뒤에는 부모 &gt; 자식 순서를 적용한다. 명시적 부모 간에는 상속 선언 순서를 따르고, 여러 인터페이스의 선언과 구현은 abc순으로 둔다. Unity 메시지를 사용하지 않는 타입에서는 생성자를 함수 중 가장 먼저 둔다.</p>
         </div>
       </article>
       <article class="rule-card">
