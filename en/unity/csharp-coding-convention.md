@@ -611,6 +611,18 @@ public sealed class RewardButton : ButtonBase, ClickableInterface, TooltipInterf
     {
     }
 
+    private void OnDestroy()
+    {
+    }
+
+    private void OnEnable()
+    {
+    }
+
+    private void Start()
+    {
+    }
+
     protected override void RefreshButton()
     {
     }
@@ -659,7 +671,7 @@ public sealed class RewardButton : ButtonBase, TooltipInterface, ClickableInterf
 }
 ```
 
-In a `MonoBehaviour`, Unity message functions are treated like an implicit first inherited group. Put them before explicitly inherited parent and interface members, and order them by the Unity lifecycle, such as `Awake`, `OnEnable`, and `Start`. After that, use parent > child order. Among explicit parents, follow the inheritance declaration order. Multiple interfaces and their implementations are ordered alphabetically. In types that do not use Unity messages, constructors still come first among functions.
+In a `MonoBehaviour`, Unity message functions are treated like an implicit first inherited group. Put them before explicitly inherited parent and interface members, and sort them alphabetically by function name, such as `Awake`, `OnDestroy`, `OnEnable`, and `Start`. Do not order them by the Unity lifecycle. After that, use parent > child order. Among explicit parents, follow the inheritance declaration order. Multiple interfaces and their implementations are ordered alphabetically. In types that do not use Unity messages, constructors still come first among functions.
 
 ### 25. Interface implementation is explicit by type
 
