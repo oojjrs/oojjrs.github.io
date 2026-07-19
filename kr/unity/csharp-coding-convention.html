@@ -997,13 +997,13 @@ public void RefreshTooltip()
 }</code></pre>
             </div>
           </div>
-          <p>abc 정렬은 섹션 순서, 상속 구현 순서, 생성자 우선 규칙을 먼저 적용한 뒤 같은 상속 그룹의 같은 카테고리 내부에서만 적용한다. abc 정렬 때문에 부모/인터페이스 구현 그룹을 섞지 않는다.</p>
+          <p>abc 정렬은 섹션 순서와 함수의 생성자·소멸자 &gt; static 함수 &gt; 상속 구현 &gt; 일반 인스턴스 함수 순서를 먼저 적용한 뒤 같은 상속 그룹의 같은 카테고리 내부에서만 적용한다. abc 정렬 때문에 부모/인터페이스 구현 그룹을 섞지 않는다.</p>
         </div>
       </article>
       <article class="rule-card">
         <div class="rule-index">24</div>
         <div class="rule-body">
-          <h3>Unity 함수는 명시적으로 상속받은 멤버보다 먼저 둔다</h3>
+          <h3>함수는 생성자·소멸자, static, 상속 구현, 일반 함수 순서로 둔다</h3>
           <div class="example-pair">
             <div class="example good">
               <div class="example-label">올바른 사용</div>
@@ -1081,7 +1081,7 @@ public void RefreshTooltip()
 }</code></pre>
             </div>
           </div>
-          <p><code>MonoBehaviour</code>에서는 Unity 메시지 함수를 암시적으로 가장 먼저 상속받은 그룹처럼 취급한다. 명시적으로 상속받은 부모와 인터페이스 멤버보다 먼저 두고, <code>Awake</code>, <code>OnDestroy</code>, <code>OnEnable</code>, <code>Start</code>처럼 함수명 abc순으로 정렬한다. Unity 생명주기 순서로 정렬하지 않는다. 그 뒤에는 부모 &gt; 자식 순서를 적용한다. 명시적 부모 간에는 상속 선언 순서를 따르고, 여러 인터페이스의 선언과 구현은 abc순으로 둔다. Unity 메시지를 사용하지 않는 타입에서는 생성자를 함수 중 가장 먼저 둔다.</p>
+          <p>함수는 생성자, 소멸자, <code>static</code> 함수, 상속 구현, 일반 인스턴스 함수 순서로 둔다. <code>static</code> 함수와 인스턴스 함수를 섞지 않는다. <code>static</code> 클래스가 아닌 일반 객체에서는 동작이 타입 자체의 책임인 경우가 아니면 <code>static</code> 함수를 가급적 사용하지 않는다. <code>MonoBehaviour</code>에서는 Unity 메시지 함수를 암시적으로 가장 먼저 상속받은 그룹처럼 취급한다. 명시적으로 상속받은 부모와 인터페이스 멤버보다 먼저 두고, <code>Awake</code>, <code>OnDestroy</code>, <code>OnEnable</code>, <code>Start</code>처럼 함수명 abc순으로 정렬한다. Unity 생명주기 순서로 정렬하지 않는다. 그 뒤에는 부모 &gt; 자식 순서를 적용한다. 명시적 부모 간에는 상속 선언 순서를 따르고, 여러 인터페이스의 선언과 구현은 abc순으로 둔다.</p>
         </div>
       </article>
       <article class="rule-card">
@@ -1118,7 +1118,7 @@ public void RefreshTooltip()
       <article class="rule-card">
         <div class="rule-index">26</div>
         <div class="rule-body">
-          <h3>멤버 섹션은 const, readonly, static, member 순서로 둔다</h3>
+          <h3>멤버 변수 섹션은 const, readonly, static, member 순서로 둔다</h3>
           <div class="example-pair">
             <div class="example good">
               <div class="example-label">올바른 사용</div>
@@ -1141,7 +1141,7 @@ private static int __cacheCount;
 private int count;</code></pre>
             </div>
           </div>
-          <p>const, readonly, static, member는 서로 다른 섹션이다. 각 섹션 안에서 abc순으로 둔다.</p>
+          <p>const, readonly, static, member는 서로 다른 변수 섹션이다. 각 섹션 안에서 abc순으로 둔다. 함수에는 24번의 순서를 적용한다.</p>
         </div>
       </article>
       <article class="rule-card">
@@ -1254,7 +1254,7 @@ private int BetaCount { get; }
 private int ItemCount { get; }</code></pre>
             </div>
           </div>
-          <p>접근 제한자는 멤버 정렬 그룹을 만들지 않는다. <code>public</code>, <code>protected</code>, <code>private</code>끼리 모으지 말고 섹션 순서, 상속 구현 순서, 생성자 우선 규칙을 적용한 뒤 같은 상속 그룹의 같은 카테고리 안에서 이름순으로 정렬한다.</p>
+          <p>접근 제한자는 멤버 정렬 그룹을 만들지 않는다. <code>public</code>, <code>protected</code>, <code>private</code>끼리 모으지 말고 섹션 순서, 24번의 함수 순서, 상속 구현 순서를 적용한 뒤 같은 상속 그룹의 같은 카테고리 안에서 이름순으로 정렬한다.</p>
         </div>
       </article>
       <article class="rule-card">

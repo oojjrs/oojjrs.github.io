@@ -588,9 +588,9 @@ public void RefreshTooltip()
 }
 ```
 
-Alphabetical order applies only inside the same category of the same inheritance group, after section order, inheritance implementation order, and constructor priority. Do not mix parent or interface implementation groups just to satisfy alphabetical order.
+Alphabetical order applies only inside the same category of the same inheritance group, after section order and the function order of constructors and finalizer > static functions > inherited implementations > local instance functions. Do not mix parent or interface implementation groups just to satisfy alphabetical order.
 
-### 24. Implement Unity messages before explicitly inherited members
+### 24. Order functions as constructors and finalizer, static, inherited, then local
 
 Correct:
 
@@ -671,7 +671,7 @@ public sealed class RewardButton : ButtonBase, TooltipInterface, ClickableInterf
 }
 ```
 
-In a `MonoBehaviour`, Unity message functions are treated like an implicit first inherited group. Put them before explicitly inherited parent and interface members, and sort them alphabetically by function name, such as `Awake`, `OnDestroy`, `OnEnable`, and `Start`. Do not order them by the Unity lifecycle. After that, use parent > child order. Among explicit parents, follow the inheritance declaration order. Multiple interfaces and their implementations are ordered alphabetically. In types that do not use Unity messages, constructors still come first among functions.
+Order functions as constructors, finalizer, static functions, inherited implementations, then local instance functions. Do not mix static and instance functions. In an ordinary non-static object type, avoid static functions unless the behavior clearly belongs to the type itself. In a `MonoBehaviour`, Unity message functions are treated like the first inherited group. Put them before explicitly inherited parent and interface members, and sort them alphabetically by function name, such as `Awake`, `OnDestroy`, `OnEnable`, and `Start`. Do not order them by the Unity lifecycle. After that, use parent > child order. Among explicit parents, follow the inheritance declaration order. Multiple interfaces and their implementations are ordered alphabetically.
 
 ### 25. Interface implementation is explicit by type
 
@@ -703,7 +703,7 @@ public sealed class TooltipButton : TooltipInterface
 
 Do not expose interface members as public members. Implement them as `InterfaceName.MemberName`.
 
-### 26. Member sections are const, readonly, static, member
+### 26. Member-variable sections are const, readonly, static, member
 
 Correct:
 
@@ -729,7 +729,7 @@ private static int __cacheCount;
 private int count;
 ```
 
-`const`, `readonly`, `static`, and ordinary members are separate sections. Sort alphabetically inside each section.
+`const`, `readonly`, `static`, and ordinary members are separate variable sections. Sort alphabetically inside each section. Function ordering follows rule 24.
 
 ### 27. Keep brace usage consistent within a control-flow chain
 
@@ -842,7 +842,7 @@ private int BetaCount { get; }
 private int ItemCount { get; }
 ```
 
-Access modifiers do not create member-ordering groups. Apply section order, inheritance implementation order, constructor priority, and alphabetical sorting without collecting `public`, `protected`, or `private` members together.
+Access modifiers do not create member-ordering groups. Apply section order, the function order in rule 24, inheritance implementation order, and alphabetical sorting without collecting `public`, `protected`, or `private` members together.
 
 ### 31. Write one attribute per line
 
