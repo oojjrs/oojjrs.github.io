@@ -673,7 +673,61 @@ public sealed class RewardButton : ButtonBase, TooltipInterface, ClickableInterf
 
 Order functions as constructors, finalizer, static functions, inherited implementations, then local instance functions. Do not mix static and instance functions. In an ordinary non-static object type, avoid static functions unless the behavior clearly belongs to the type itself. In a `MonoBehaviour`, Unity message functions are treated like the first inherited group. Put them before explicitly inherited parent and interface members, and sort them alphabetically by function name, such as `Awake`, `OnDestroy`, `OnEnable`, and `Start`. Do not order them by the Unity lifecycle. After that, use parent > child order. Among explicit parents, follow the inheritance declaration order. Multiple interfaces and their implementations are ordered alphabetically.
 
-### 25. Interface implementation is explicit by type
+### 25. Do not create unnecessary functions
+
+Correct:
+
+```csharp
+private IEnumerator PlayRewardCoroutine()
+{
+    rewardCount += bonusCount;
+    RefreshTooltip();
+
+    yield return FadeCoroutine(0f, 1f);
+    yield return FadeCoroutine(1f, 0f);
+
+    IEnumerator FadeCoroutine(float fromAlpha, float toAlpha)
+    {
+        canvasGroup.alpha = fromAlpha;
+        while (canvasGroup.alpha != toAlpha)
+        {
+            canvasGroup.alpha = Mathf.MoveTowards(canvasGroup.alpha, toAlpha, Time.deltaTime);
+            yield return null;
+        }
+    }
+}
+```
+
+Incorrect:
+
+```csharp
+private void ApplyReward()
+{
+    rewardCount += bonusCount;
+    RefreshTooltip();
+}
+
+private IEnumerator FadeCoroutine(float fromAlpha, float toAlpha)
+{
+    canvasGroup.alpha = fromAlpha;
+    while (canvasGroup.alpha != toAlpha)
+    {
+        canvasGroup.alpha = Mathf.MoveTowards(canvasGroup.alpha, toAlpha, Time.deltaTime);
+        yield return null;
+    }
+}
+
+private IEnumerator PlayRewardCoroutine()
+{
+    ApplyReward();
+    yield return FadeCoroutine(0f, 1f);
+    yield return FadeCoroutine(1f, 0f);
+}
+```
+
+A single call site alone does not make a function unnecessary. A function called from only one place is unnecessary when extraction creates no reuse, independent responsibility, contract, or clearer context boundary and only scatters related context across the file. Keep that logic in its caller. Unity messages, overrides, explicit interface implementations, registered callbacks, and framework entry points remain member functions regardless of direct call count. `private` limits external access but does not narrow the context inside a class, and it does not by itself justify class-wide scope. In long components, do not move one-off helper logic away from its caller without a clear benefit. Local functions are not the default extraction tool either. Use one mainly for a dependent coroutine subflow, a very long block that benefits from folding, or logic called multiple times by one outer function and nowhere else. Use a member function when multiple members share the logic or it owns an independent responsibility.
+
+### 26. Interface implementation is explicit by type
 
 Correct:
 
@@ -703,7 +757,7 @@ public sealed class TooltipButton : TooltipInterface
 
 Do not expose interface members as public members. Implement them as `InterfaceName.MemberName`.
 
-### 26. Member-variable sections are const, readonly, static, member
+### 27. Member-variable sections are const, readonly, static, member
 
 Correct:
 
@@ -731,7 +785,7 @@ private int count;
 
 `const`, `readonly`, `static`, and ordinary members are separate variable sections. Sort alphabetically inside each section. Function ordering follows rule 24.
 
-### 27. Keep brace usage consistent within a control-flow chain
+### 28. Keep brace usage consistent within a control-flow chain
 
 Correct:
 
@@ -778,7 +832,7 @@ else
 
 Prefer omitting braces when every branch is a single statement. If any `if`, `else if`, or `else` branch needs braces, use braces for every branch in that chain.
 
-### 28. Use prefix increment and decrement operators
+### 29. Use prefix increment and decrement operators
 
 Correct:
 
@@ -796,7 +850,7 @@ index--;
 
 Put increment and decrement operators before the operand. Do not use postfix forms.
 
-### 29. Use logical negation only for Boolean toggle assignments
+### 30. Use logical negation only for Boolean toggle assignments
 
 Correct:
 
@@ -818,7 +872,7 @@ return !isActive;
 
 Use the logical negation operator `!` only when toggling a Boolean value and assigning it back to the same value. In every other case, including conditions and return expressions, use an explicit comparison such as `== false`.
 
-### 30. Do not sort members by access modifier
+### 31. Do not sort members by access modifier
 
 Correct:
 
@@ -844,7 +898,7 @@ private int ItemCount { get; }
 
 Access modifiers do not create member-ordering groups. Apply section order, the function order in rule 24, inheritance implementation order, and alphabetical sorting without collecting `public`, `protected`, or `private` members together.
 
-### 31. Write one attribute per line
+### 32. Write one attribute per line
 
 Correct:
 
@@ -865,7 +919,7 @@ private int count;
 
 Write each attribute on its own line, and put the attributed declaration on the following line. Do not combine multiple attributes on one line or place an attribute and its declaration on the same line.
 
-### 32. Wrap each individual expression in a compound condition
+### 33. Wrap each individual expression in a compound condition
 
 Correct:
 
@@ -889,7 +943,7 @@ if (isReady == true || count > 0 && item != null)
 
 When logical operators join two or more individual condition expressions, wrap every individual expression in parentheses regardless of operator precedence. Treat a nested compound condition as one expression at the outer level and apply the same rule recursively inside it. Prefer making condition boundaries explicit in code over assuming that the reader remembers operator precedence.
 
-### 33. Put the valid and primary-interest branch first
+### 34. Put the valid and primary-interest branch first
 
 Correct:
 
@@ -911,6 +965,6 @@ else
 
 In an `if` chain, put the valid, normal, or primary-interest case first and move the invalid, error, or exceptional case later. Choose branch order by what a human reader needs to understand first. When the main behavior uses an existing item, begin with `if (item != null)` and place the `null` case afterward.
 
-### 34. Follow the logging guideline
+### 35. Follow the logging guideline
 
 Before adding or changing logs, read `logging-guideline.md` and classify each message as a required system log, warning, debugging log, or optional UX LOG. The logging guideline controls language, uppercase text, identifier references, stability, and channel-specific behavior.
