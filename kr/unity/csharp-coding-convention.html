@@ -1337,26 +1337,26 @@ private int count;
       <article class="rule-card">
         <div class="rule-index">33</div>
         <div class="rule-body">
-          <h3>개별 조건식이 두 개 이상 연결되면 각 조건식을 괄호로 감싼다</h3>
+          <h3>비교식은 괄호로 감싸되 완결된 단일 항목은 감싸지 않는다</h3>
           <div class="example-pair">
             <div class="example good">
               <div class="example-label">올바른 사용</div>
-              <pre><code>if ((count &gt; 0) &amp;&amp; (item != null))
+              <pre><code>if (isReady &amp;&amp; (item != null))
     Use(item);
 
-if ((isReady == true) || ((count &gt; 0) &amp;&amp; (item != null)))
+if (CanStart() || ((count &gt; 0) &amp;&amp; (item != null)))
     Start();</code></pre>
             </div>
             <div class="example bad">
               <div class="example-label">잘못된 사용</div>
-              <pre><code>if (count &gt; 0 &amp;&amp; item != null)
+              <pre><code>if ((isReady) &amp;&amp; (item != null))
     Use(item);
 
-if (isReady == true || count &gt; 0 &amp;&amp; item != null)
+if (CanStart() || count &gt; 0 &amp;&amp; item != null)
     Start();</code></pre>
             </div>
           </div>
-          <p>논리 연산자로 두 개 이상의 개별 조건식을 연결할 때는 연산자 우선순위와 관계없이 각 조건식을 괄호로 감싼다. 중첩된 복합 조건식은 바깥 단계에서 하나의 조건식으로 보고, 내부 조건식에도 같은 규칙을 재귀적으로 적용한다. 사람이 연산자 우선순위를 기억하고 있다는 전제보다 조건 경계를 코드에 명시하는 방식을 우선한다.</p>
+          <p>논리 연산자로 두 개 이상의 조건을 연결할 때는 연산자 우선순위와 관계없이 비교식과 복합 조건식을 괄호로 감싼다. 단, 그 자체로 조건이 완결되는 단일 항목, 대표적으로 <code>true</code>로 직접 평가하는 Boolean 변수, 속성, 함수 호출은 괄호로 감싸지 않는다. 중첩된 복합 조건식은 바깥 단계에서 하나의 조건으로 보고, 내부 조건에도 같은 규칙을 재귀적으로 적용한다. 비교식과 복합 조건식의 경계는 명시하되 완결된 단일 항목에 의미 없는 괄호를 추가하지 않는다.</p>
         </div>
       </article>
       <article class="rule-card">
