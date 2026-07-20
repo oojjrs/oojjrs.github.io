@@ -919,29 +919,29 @@ private int count;
 
 Write each attribute on its own line, and put the attributed declaration on the following line. Do not combine multiple attributes on one line or place an attribute and its declaration on the same line.
 
-### 33. Wrap each individual expression in a compound condition
+### 33. Wrap comparisons, but not complete single-term conditions
 
 Correct:
 
 ```csharp
-if ((count > 0) && (item != null))
+if (isReady && (item != null))
     Use(item);
 
-if ((isReady == true) || ((count > 0) && (item != null)))
+if (CanStart() || ((count > 0) && (item != null)))
     Start();
 ```
 
 Incorrect:
 
 ```csharp
-if (count > 0 && item != null)
+if ((isReady) && (item != null))
     Use(item);
 
-if (isReady == true || count > 0 && item != null)
+if (CanStart() || count > 0 && item != null)
     Start();
 ```
 
-When logical operators join two or more individual condition expressions, wrap every individual expression in parentheses regardless of operator precedence. Treat a nested compound condition as one expression at the outer level and apply the same rule recursively inside it. Prefer making condition boundaries explicit in code over assuming that the reader remembers operator precedence.
+When logical operators join two or more conditions, wrap each comparison or compound condition in parentheses regardless of operator precedence. Do not add parentheses around a single-term condition that is already complete on its own, typically a Boolean variable, property, or function call evaluated as `true`. Treat a nested compound condition as one condition at the outer level and apply the same rule recursively inside it. Prefer making comparison and compound-condition boundaries explicit without adding meaningless parentheses to a complete single-term condition.
 
 ### 34. Put the valid and primary-interest branch first
 
