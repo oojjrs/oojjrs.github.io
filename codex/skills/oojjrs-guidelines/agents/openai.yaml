@@ -1,4 +1,4 @@
 interface:
   display_name: "oojjrs Guidelines"
-  short_description: "Load shared work rules and reuse text-format validation tools."
-  default_prompt: "Use $oojjrs-guidelines before actual repository work and reuse its text-format checker for edited files."
+  short_description: "Load shared rules and prevent text-format drift after edits."
+  default_prompt: "Use $oojjrs-guidelines before repository work, then fix and verify every touched text file with its checker after each edit batch."

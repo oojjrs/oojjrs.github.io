@@ -121,30 +121,28 @@ function Get-GitChangedLines {
     return $lines
 }
 
-function Get-ChangedLineEndingState {
-    param([string]$Text, [System.Collections.Generic.HashSet[int]]$ChangedLines, [string]$ExpectedLineEnding)
+function Get-LineEndingMismatchLines {
+    param([string]$Text, [string]$ExpectedLineEnding)
 
     $parts = [regex]::Split($Text, "(`r`n|`n|`r)")
     $mismatchLines = New-Object 'System.Collections.Generic.List[int]'
     $lineNumber = 1
     for ($index = 1; $index -lt $parts.Length; $index += 2) {
-        if ($ChangedLines.Contains($lineNumber)) {
-            $actual = switch ($parts[$index]) { "`r`n" { "CRLF" } "`n" { "LF" } "`r" { "CR" } }
-            if ($actual -ne $ExpectedLineEnding) { $mismatchLines.Add($lineNumber) }
-        }
+        $actual = switch ($parts[$index]) { "`r`n" { "CRLF" } "`n" { "LF" } "`r" { "CR" } }
+        if ($actual -ne $ExpectedLineEnding) { $mismatchLines.Add($lineNumber) }
         $lineNumber++
     }
     return $mismatchLines
 }
 
-function Set-ChangedLineEndings {
-    param([string]$Text, [System.Collections.Generic.HashSet[int]]$ChangedLines, [string]$ExpectedLineEnding)
+function Set-LineEndings {
+    param([string]$Text, [string]$ExpectedLineEnding)
 
     $replacement = switch ($ExpectedLineEnding) { "CRLF" { "`r`n" } "LF" { "`n" } "CR" { "`r" } }
     $parts = [regex]::Split($Text, "(`r`n|`n|`r)")
     $lineNumber = 1
     for ($index = 1; $index -lt $parts.Length; $index += 2) {
-        if ($ChangedLines.Contains($lineNumber)) { $parts[$index] = $replacement }
+        $parts[$index] = $replacement
         $lineNumber++
     }
     return ($parts -join '')
@@ -199,13 +197,21 @@ foreach ($file in $files | Sort-Object FullName -Unique) {
         $mismatchLines = New-Object 'System.Collections.Generic.List[int]'
         $status = "NeedsReview"
     } else {
-        $mismatchLines = Get-ChangedLineEndingState $current.Text $changedLines $expectedLineEnding
+        $mismatchLines = Get-LineEndingMismatchLines $current.Text $expectedLineEnding
         $status = if ($encodingOk -and $mismatchLines.Count -eq 0) { "OK" } else { "Mismatch" }
     }
 
     if ($status -eq "Mismatch" -and $Fix) {
-        $normalized = Set-ChangedLineEndings $current.Text $changedLines $expectedLineEnding
+        $normalized = Set-LineEndings $current.Text $expectedLineEnding
         [System.IO.File]::WriteAllText($file.FullName, $normalized, (Get-EncodingWriter $expectedEncoding))
+        $verifiedBytes = [System.IO.File]::ReadAllBytes($file.FullName)
+        $verified = Get-TextFormat $verifiedBytes
+        $verifiedMismatches = Get-LineEndingMismatchLines $verified.Text $expectedLineEnding
+        if ($verified.Encoding -ne $expectedEncoding -or $verifiedMismatches.Count -ne 0) {
+            throw "Text format verification failed after fix: $($file.FullName)"
+        }
+        $current = $verified
+        $mismatchLines = $verifiedMismatches
         $status = "Fixed"
     }
 
@@ -217,7 +223,7 @@ foreach ($file in $files | Sort-Object FullName -Unique) {
         ExpectedEncoding = $expectedEncoding
         LineEnding = $current.LineEnding
         ExpectedLineEnding = $expectedLineEnding
-        ChangedLines = $changedLines.Count
+        GitChangedLines = $changedLines.Count
         MismatchLines = ($mismatchLines -join ',')
         Path = $file.FullName
     }

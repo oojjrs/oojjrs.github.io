@@ -16,7 +16,7 @@ Use this skill for public/shared skill work in `H:\oojjrs.github.io\codex\skills
    - `codex/skills/<skill>/agents/openai.yaml`
    - `codex/skills/index.md`
    - `codex/skills/install.ps1`
-4. Preserve source encoding and line endings for existing files. New text files should be UTF-8 No-BOM with CRLF.
+4. Preserve source encoding and line endings for existing files. After each edit batch, run the installed/shared text-format checker with `-Fix` on the exact touched files and rerun it read-only; changed-line-only checks can miss Git-hidden EOL normalization. New text files should be UTF-8 No-BOM with CRLF.
 5. Do not create auxiliary docs such as README, changelog, or install notes inside a skill folder unless the user explicitly asks.
 6. Install/update the skill after source edits so `C:\Users\oojjr\.codex\skills` matches the public source.
 7. Validate with the skill-creator `quick_validate.py` script when available, then check `git diff --check`.

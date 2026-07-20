@@ -13,7 +13,7 @@ Use this skill before editing a repository.
 2. Run `git status --short --branch` and inspect recent context with `git log --oneline --decorate -5`.
 3. Preserve unrelated dirty files. If they affect the task, work around them or report the conflict.
 4. If `Design.html` exists, read it before task work. For Design.html work, also use `$oojjrs-project-design-document-router`.
-5. Before editing existing text files, note their current encoding and line endings; preserve that exact state unless the user asks for conversion.
+5. Before editing existing text files, note their current encoding and line endings; preserve that exact state unless the user asks for conversion. After each edit batch, run the shared text-format checker with `-Fix` on the exact touched files, rerun it read-only, and inspect the ordinary diff before continuing.
 6. Resolve the exact requested scope and avoid bundling nearby docs/assets/runtime files unless requested.
 7. For Unity asset work, do not create or author new `.meta` files; plan to preserve or move existing `.meta` files only when they are already present and in scope.
 8. Check whether the repository is linked 1:1 to a GitHub Project. If linked, use `$oojjrs-github-project-board` to find/create the task card, convert draft to issue when moving to In Progress, assign issue-backed cards to `oojjrs`, and update status/notes with real newlines.
