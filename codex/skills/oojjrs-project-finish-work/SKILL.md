@@ -12,7 +12,7 @@ Use this skill before final response, commit, push, or handoff.
 1. Re-check `git status --short --branch`.
 2. Review the diff and keep staging narrow to the requested scope.
 3. Run the relevant validation: at minimum `git diff --check`; add project build/tests when the task touched executable behavior.
-4. Verify touched existing text files kept their original encoding and line endings; `git diff --check` alone is not sufficient.
+4. Run the shared text-format checker with `-Fix` on every touched text file, rerun it without `-Fix`, and review the ordinary diff. It must compare uniform tracked files across the whole file because `git diff --check` and changed-line-only checks can miss EOL normalization.
 5. For Unity asset work, verify the staged diff does not add newly authored `.meta` files unless the user explicitly requested them; moved or preserved existing `.meta` files are acceptable.
 6. If `Design.html` exists and the work changed planning state, update it using `$oojjrs-project-design-document-router`.
 7. If a repository-linked GitHub Project board exists, use `$oojjrs-github-project-board` to update the task card assignee/status/body/notes with real newlines. Report if no update was possible.

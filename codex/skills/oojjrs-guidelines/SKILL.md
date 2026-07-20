@@ -25,13 +25,14 @@ Canonical URL:
 
 ## Text Format Tool
 
-For repository text edits, use `scripts/Test-OojjrsTextFormat.ps1` to inspect changed files instead of reconstructing encoding and line-ending checks each time.
+For repository text edits, run `scripts/Test-OojjrsTextFormat.ps1 -Fix` on the exact touched files immediately after every edit batch, then rerun it without `-Fix` and review the ordinary diff. Do this before another edit can obscure which files were touched.
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File scripts/Test-OojjrsTextFormat.ps1 -Path <changed-files>
+powershell -ExecutionPolicy Bypass -File scripts/Test-OojjrsTextFormat.ps1 -Path <touched-files> -Fix
+powershell -ExecutionPolicy Bypass -File scripts/Test-OojjrsTextFormat.ps1 -Path <touched-files>
 ```
 
-The tool compares tracked files with their `HEAD` bytes and checks only lines in the current Git diff. It expects untracked text files to use UTF-8 No-BOM with CRLF. `-Fix` changes line endings only on added or modified lines; encoding restoration remains file-wide because encoding is a file property. A mixed-line-ending `HEAD` is reported as `NeedsReview` and is never auto-fixed. Pass `-Fix` only when the task authorizes correcting mismatches; without it, the tool is read-only and exits with code 1 on a mismatch. Use `-Recurse` only for a deliberately scoped directory.
+The tool compares tracked files with their `HEAD` bytes. For a uniformly formatted original, it checks and restores encoding and line endings across the whole working file; changed-line-only checks are unsafe because Git may hide EOL-only changes. It expects untracked text files to use UTF-8 No-BOM with CRLF. A mixed-line-ending `HEAD` is reported as `NeedsReview` and is never auto-fixed. Without `-Fix`, the tool is read-only and exits with code 1 on a mismatch. Use `-Recurse` only for a deliberately scoped directory.
 
 ## Cache Policy
 
