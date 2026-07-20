@@ -29,7 +29,7 @@ Default destination is `$CODEX_HOME/skills`, or `~/.codex/skills` when `$CODEX_H
 
 The installer copies source skill files without rewriting encoding or line endings. Existing/source text state is authoritative; CRLF is not forced during install.
 
-`oojjrs-guidelines` also installs `scripts/Test-OojjrsTextFormat.ps1`. It compares tracked text files with their Git `HEAD` encoding and checks line endings only on added or modified lines; new text files are checked for UTF-8 No-BOM with CRLF. Add `-Fix` only when normalization is explicitly intended. Mixed-line-ending originals require manual review and are never auto-fixed.
+`oojjrs-guidelines` also installs `scripts/Test-OojjrsTextFormat.ps1`. It compares uniformly formatted tracked text files with Git `HEAD` across the whole file, so Git-hidden EOL normalization is detected and `-Fix` can restore it; new text files are checked for UTF-8 No-BOM with CRLF. Run `-Fix` on exact touched files after each edit batch and rerun read-only. Mixed-line-ending originals require manual review and are never auto-fixed.
 
 The installer also attempts to install workstation tools required by selected skills. Installing `oojjrs-image-first-art-workflow` installs ImageMagick 7 (`magick.exe`) and oxipng (`oxipng.exe`) through `winget` when they are missing. Add `-SkipToolInstall` to copy skills only.
 

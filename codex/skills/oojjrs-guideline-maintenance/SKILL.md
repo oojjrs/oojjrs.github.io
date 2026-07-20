@@ -20,7 +20,7 @@ Use this skill when a durable workflow rule or public guidance document must cha
 
 1. Verify the current authoritative file directly before answering whether a rule exists.
 2. Keep edits narrow to the requested rule or wording.
-3. Preserve existing encoding and line endings exactly.
+3. Preserve existing encoding and line endings exactly. After each edit batch, run the shared text-format checker with `-Fix` on the exact touched files and rerun it read-only; do not rely on Git's changed-line view to reveal EOL normalization.
 4. Do not add repo-local `AGENTS.md`, `HANDOFF.md`, or similar instruction files unless the user explicitly makes that repository an exception.
 5. If the rule affects public skills, update the relevant `SKILL.md`, `agents/openai.yaml`, `codex/skills/index.md`, and `install.ps1`.
 
