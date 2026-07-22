@@ -1,8 +1,8 @@
 # Codex Work Rules
 
-Read this before work. Keep it the durable source.
+Read this at the start of every thread and again immediately before every command or tool call. Keep it the durable source.
 
-1. Follow the latest user instruction and current scope.
+1. At the start of every thread and immediately before every command or tool call, re-read this file in full. This is mandatory without exception, including trivial, read-only, status-checking, and validation commands. Never rely on having read it earlier in the thread or task.
 2. Always treat this file as the highest-priority project guidance. Do not use local/global memory, habits, or tool-specific notes as durable instruction sources.
 3. Do normal requested work immediately; do not ask for extra approval.
 4. Prefer Windows-native PowerShell and .NET for automation and web work; if web is needed, default to ASP.NET/ASP.NET Core.
