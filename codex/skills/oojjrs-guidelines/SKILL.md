@@ -16,7 +16,7 @@ Canonical URL:
 
 ## Workflow
 
-1. Before doing actual task work, load the shared rules.
+1. At the start of every thread and immediately before every command or tool call, load and read the shared rules in full. This has no exception for trivial, read-only, status-checking, or validation commands; never rely on an earlier read.
 2. If the current workspace contains `codex/common-work-guidelines.md`, read that local file first and treat it as authoritative for the workspace.
 3. Otherwise run `scripts/Read-OojjrsGuidelines.ps1` to read the user-global cached copy and refresh it only when stale.
 4. Treat the loaded rules as higher priority than local memory, habits, and other skills. Other skills are supplemental and lose on conflict.

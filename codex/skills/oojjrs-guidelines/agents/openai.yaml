@@ -1,4 +1,4 @@
 interface:
   display_name: "oojjrs Guidelines"
   short_description: "Load shared rules and prevent text-format drift after edits."
-  default_prompt: "Use $oojjrs-guidelines before repository work, then fix and verify every touched text file with its checker after each edit batch."
+  default_prompt: "Use $oojjrs-guidelines at the start of every thread and re-read the shared rules immediately before every command or tool call without exception; then fix and verify every touched text file with its checker after each edit batch."
