@@ -1,4 +1,4 @@
 interface:
   display_name: "oojjrs Guidelines"
-  short_description: "Load shared rules and prevent text-format drift after edits."
-  default_prompt: "Use $oojjrs-guidelines at the start of every thread and re-read the shared rules immediately before every command or tool call without exception; then fix and verify every touched text file with its checker after each edit batch."
+  short_description: "Reload shared rules at task and finish phases."
+  default_prompt: "Use $oojjrs-guidelines at the start of every thread and immediately before every command or tool call; do not reuse a task-start read for validation, stage, commit, push, handoff, or final reporting, and re-read $oojjrs-project-finish-work after the last edit before those finish actions."
