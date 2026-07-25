@@ -1,6 +1,6 @@
 ---
 name: oojjrs-guidelines
-description: Bootstrap the user's shared Codex work rules for actual task execution, not ordinary question answering. Use before repository, code, document, asset, maintenance, Git/GitHub, validation, deployment, or other real work that should follow oojjrs common-work-guidelines, including host instructions that ask for $oojjrs-guidelines. Also use when Codex must inspect, update, load, or refresh the guidelines with local workspace priority, global cache reuse, ETag/Last-Modified refresh, and cached fallback.
+description: Bootstrap the user's shared Codex work rules for actual task execution, not ordinary question answering. Use before repository, code, document, asset, maintenance, Git/GitHub, validation, deployment, or other real work that should follow oojjrs common-work-guidelines, including host instructions that ask for $oojjrs-guidelines. For validation, stage, commit, push, handoff, or final reporting, re-read the rules at that phase because a task-start read does not count. Also use when Codex must inspect, update, load, or refresh the guidelines with local workspace priority, global cache reuse, ETag/Last-Modified refresh, and cached fallback.
 ---
 
 # Oojjrs Guidelines
@@ -20,8 +20,10 @@ Canonical URL:
 2. If the current workspace contains `codex/common-work-guidelines.md`, read that local file first and treat it as authoritative for the workspace.
 3. Otherwise run `scripts/Read-OojjrsGuidelines.ps1` to read the user-global cached copy and refresh it only when stale.
 4. Treat the loaded rules as higher priority than local memory, habits, and other skills. Other skills are supplemental and lose on conflict.
-5. When a task edits text files, the shared rule to preserve existing encoding and line endings wins over any skill or tool habit that normalizes files to CRLF.
-6. If the script is unavailable, fall back to reading the canonical URL directly. If network access fails, say that the rules could not be refreshed and continue only if a cached/local copy is available.
+5. Do not preload `$oojjrs-project-finish-work` at task start. After the last edit, start a distinct finish phase by re-reading the shared rules and then reading the finish skill in a completed tool call; an earlier read does not count, and another edit restarts the phase.
+6. Before every `git commit`, finish and review the cached-diff checks in an earlier completed tool call. The later commit command must re-read both the shared rules and finish skill and rerun the cached check before invoking Git; never combine the first finish-phase read and an unseen commit in one call.
+7. When a task edits text files, the shared rule to preserve existing encoding and line endings wins over any skill or tool habit that normalizes files to CRLF.
+8. If the script is unavailable, fall back to reading the canonical URL directly. If network access fails, say that the rules could not be refreshed and continue only if a cached/local copy is available.
 
 ## Text Format Tool
 
@@ -49,5 +51,5 @@ The script stores a user-global cache under `$CODEX_HOME/cache/oojjrs-guidelines
 The intended host-level custom instruction is one line:
 
 ```text
-코드/문서/자산/git/배포/검증 등 실제 작업을 수행할 때만 $oojjrs-guidelines 를 먼저 사용하라. 단순 질문 답변에는 사용하지 마라.
+코드/문서/자산/git/배포/검증 등 실제 작업을 수행할 때만 $oojjrs-guidelines 를 먼저 사용하라. 커밋/푸시/최종 보고 단계에서는 작업 시작 때 읽은 지침을 재사용하지 말고 공통 지침과 $oojjrs-project-finish-work 를 그 단계에서 다시 읽어라. 단순 질문 답변에는 사용하지 마라.
 ```
