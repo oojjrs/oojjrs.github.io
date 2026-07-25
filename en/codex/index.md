@@ -23,6 +23,13 @@ permalink: /en/codex/
     <span class="card-link">Open note <span aria-hidden="true">→</span></span>
   </a>
 
+  <a class="document-card" href="../../codex/skills/index.md">
+    <span class="document-kind">INDEX</span>
+    <h2>oojjrs Codex Skills</h2>
+    <p>Browse the public skill catalog, install URLs, and host instruction.</p>
+    <span class="card-link">Open index <span aria-hidden="true">→</span></span>
+  </a>
+
   <a class="document-card" href="../../codex/guideline-design-generation.review.md">
     <span class="document-kind">REVIEW</span>
     <h2>Design.html Planning Rules</h2>
