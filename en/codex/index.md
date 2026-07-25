@@ -23,7 +23,7 @@ permalink: /en/codex/
     <span class="card-link">Open note <span aria-hidden="true">→</span></span>
   </a>
 
-  <a class="document-card" href="../../codex/skills/index.md">
+  <a class="document-card" href="../../codex/skills/">
     <span class="document-kind">INDEX</span>
     <h2>oojjrs Codex Skills</h2>
     <p>Browse the public skill catalog, install URLs, and host instruction.</p>

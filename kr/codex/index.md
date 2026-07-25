@@ -23,7 +23,7 @@ permalink: /kr/codex/
     <span class="card-link">문서 열기 <span aria-hidden="true">→</span></span>
   </a>
 
-  <a class="document-card" href="../../codex/skills/index.md">
+  <a class="document-card" href="../../codex/skills/">
     <span class="document-kind">INDEX</span>
     <h2>oojjrs Codex 스킬</h2>
     <p>공개 스킬 목록, 설치 주소, 전역 호스트 지침을 확인합니다.</p>
