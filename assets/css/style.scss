@@ -56,6 +56,10 @@ pre code {
   background: transparent;
   color: inherit;
 }
+.article-body :not(pre) > code {
+  overflow-wrap: anywhere;
+  word-break: normal;
+}
 .highlight,
 .highlighter-rouge .highlight,
 pre {
