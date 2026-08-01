@@ -41,6 +41,7 @@ toc_items:
 - `Foobar` declares one atomic layer named `Foobar`.
 - Adding a token expands the structure represented by the name by one layer.
 - Length is not the problem. A token that has no coordinate in the real structure is the problem.
+- A surface token repeated only because of a language or scope naming constraint does not create another semantic layer.
 
 This is not a casing convention. It is a design rule for how much architecture a name exposes.
 
@@ -128,9 +129,9 @@ Preserve official platform spellings such as `GameObject`, `DateTime`, `TimeSpan
 
 `Temp` in `PlayerInputBugTemp` or `ItemLogicTemp` is not a semantic layer when it only marks temporary lifetime. If a workaround becomes a durable responsibility, name the actual role, such as `Workaround`.
 
-### Repeating the owner
+### Misreading required surface repetition
 
-`MyAsker.MyAskerArguments` declares `MyAsker` twice. Use nested `MyAsker.Arguments`, or top-level `MyAskerArguments`.
+When a nested class cannot use the shorter `Arguments` because of a name conflict, a form such as `MyAsker.MyAskerArguments` may be required. The second surface `MyAsker` does not add another semantic layer. Read the semantic structure as `MyAsker -> Arguments`, record the language or scope exception, and do not mechanically shorten it to `MyAsker.Arguments`.
 
 ### Mismatching name scope and implementation scope
 
@@ -147,7 +148,8 @@ Before accepting a new or changed name, ask:
 5. Does the prefab or scene hierarchy, or the server domain and role matrix, support the boundary?
 6. Does `Temp`, `Old`, `New`, or `Legacy` describe responsibility, or only implementation age?
 7. Which form has the newest first-party code converged on for the same concept?
-8. Does the rename require a Unity serialization, prefab, scene, route, database, or wire-format migration?
+8. Is an apparent repetition required by a language or scope naming constraint, such as a nested-type name conflict?
+9. Does the rename require a Unity serialization, prefab, scene, route, database, or wire-format migration?
 
 ## Scope and history {#scope}
 

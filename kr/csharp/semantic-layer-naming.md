@@ -41,6 +41,7 @@ toc_items:
 - `Foobar`는 `Foobar`라는 원자적인 한 계층을 선언한다.
 - 토큰을 하나 추가한다는 것은 이름이 가리키는 구조를 한 계층 확장하는 일이다.
 - 이름이 길어지는 것 자체는 문제가 아니다. 실제 구조에서 가리키는 좌표가 없는 토큰이 문제다.
+- 언어나 스코프의 이름 제약 때문에 표면상 토큰이 반복돼도 실제 구조가 늘어나지 않았다면 새 의미 계층으로 세지 않는다.
 
 이 규칙은 PascalCase 문법을 정하는 컨벤션이 아니라, 이름에 아키텍처를 얼마나 드러낼지 정하는 설계 규칙이다.
 
@@ -128,9 +129,9 @@ Prefab에 `Title → Hud`가 있는데 `TitlehudStartButton`이라고 쓰거나,
 
 `PlayerInputBugTemp`, `ItemLogicTemp`에서 `Temp`가 소유·구조·역할이 아니라 단지 임시 수명 표지라면 의미 계층이 아니다. 장기간 존재하는 우회 책임이라면 `Workaround`처럼 실제 역할을 이름에 둔다.
 
-### 소유자를 중복한다
+### 필요한 표기 반복을 의미 중복으로 오판한다
 
-`MyAsker.MyAskerArguments`는 중첩 경로에서 `MyAsker`를 두 번 선언한다. 중첩 타입이면 `MyAsker.Arguments`, 최상위 타입이면 `MyAskerArguments`가 구조와 맞는다.
+중첩 클래스가 이름 충돌 때문에 짧은 `Arguments`를 쓸 수 없다면 `MyAsker.MyAskerArguments` 같은 표기가 필요할 수 있다. 이때 표면상 반복되는 두 번째 `MyAsker`는 새 의미 계층이 아니다. 의미 구조는 `MyAsker → Arguments`로 읽고, 언어 또는 스코프 제약에 따른 예외로 기록한다. `MyAsker.Arguments`로 기계적으로 줄이지 않는다.
 
 ### 이름의 범위와 구현의 범위가 다르다
 
@@ -147,7 +148,8 @@ Prefab만 인스턴스화하는 타입을 `AssetLoader`라고 부르거나, obst
 5. Prefab과 Scene hierarchy 또는 서버 domain과 역할 matrix가 경계를 뒷받침하는가?
 6. `Temp`, `Old`, `New`, `Legacy`가 책임이 아니라 구현 시점만 나타내지는 않는가?
 7. 같은 개념이 최신 first-party 코드에서 어떤 형태로 수렴했는가?
-8. 이름 변경에 Unity 직렬화, Prefab, Scene, route, database 또는 wire format migration이 필요한가?
+8. 겉보기 중복이 중첩 타입의 이름 충돌 같은 언어·스코프 제약 때문에 필요한가?
+9. 이름 변경에 Unity 직렬화, Prefab, Scene, route, database 또는 wire format migration이 필요한가?
 
 ## 적용 범위와 이력 {#scope}
 
