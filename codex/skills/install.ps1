@@ -16,6 +16,7 @@ $CanonicalSkills = @(
     "oojjrs-design-html-builder",
     "oojjrs-guideline-maintenance",
     "oojjrs-skill-maintenance",
+    "oojjrs-steamworks",
     "oojjrs-readme-doc-generation",
     "oojjrs-unity-package-src-migration",
     "oojjrs-unity-package-release",
@@ -52,6 +53,17 @@ $SkillFiles = @{
         "agents/openai.yaml",
         "scripts/Read-OojjrsGuidelines.ps1",
         "scripts/Test-OojjrsTextFormat.ps1"
+    )
+    "oojjrs-steamworks" = @(
+        "SKILL.md",
+        "agents/openai.yaml",
+        "references/official-documentation-map.md",
+        "references/capability-matrix.md",
+        "references/steamworks-sdk.md",
+        "references/web-api.md",
+        "references/steamcmd-steampipe.md",
+        "references/partner-site.md",
+        "scripts/Test-SteamworksEnvironment.ps1"
     )
     "oojjrs-ai-music-generator" = @(
         "SKILL.md",

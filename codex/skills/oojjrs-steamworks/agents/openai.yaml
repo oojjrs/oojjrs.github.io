@@ -1,0 +1,4 @@
+interface:
+  display_name: "oojjrs Steamworks"
+  short_description: "Build and operate Steamworks integrations from official docs."
+  default_prompt: "Use $oojjrs-steamworks to route this Steamworks task through Valve's current official documentation, execute every implemented safe step, and clearly report any capability that still needs implementation."
