@@ -76,6 +76,11 @@ alternate_url: /kr/
       <strong>Unity C# Convention</strong>
     </a>
 
+    <a class="utility-link utility-link-unity" href="{{ "/en/csharp/semantic-layer-naming/" | relative_url }}">
+      <span>NAMING</span>
+      <strong>Semantic Layer Naming</strong>
+    </a>
+
     <a class="utility-link utility-link-codex" href="{{ "/codex/guideline-design-generation.review.md" | relative_url }}">
       <span>DESIGN</span>
       <strong>Design.html Standard</strong>

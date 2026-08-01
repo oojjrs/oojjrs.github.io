@@ -384,31 +384,25 @@ Inspector names and code-search names should point to the same concept.
 
 ## Words {#words}
 
-### 15. Conventional compounds are treated as one word
+### 15. PascalCase boundaries represent semantic layers
 
 Correct:
 
 ```text
-Hotkey
-Infobox
-Inputbox
-Lifetime
 Nickname
-Filename
+TitleMenuButton
+LobbyRoomListEntryHostText
 ```
 
 Incorrect:
 
 ```text
-HotKey
-InfoBox
-InputBox
-LifeTime
 NickName
-FileName
+TitlemenuButton
+LifeTime
 ```
 
-Follow platform or third-party conventions when they exist, but treat new names as one word.
+Keep one semantic layer in one token. A new uppercase boundary does not merely separate spelling; it declares one more ownership, structure, relation, or role layer. `Nickname` is one concept, while `TitleMenuButton` represents a real `Title -> Menu -> Button` structure. Let the code structure, not the dictionary, decide the boundary. See [Semantic Layer Naming]({{ "/en/csharp/semantic-layer-naming/" | relative_url }}) for the full decision criteria.
 
 ### 16. Avoid names that are substrings of other keywords
 

@@ -783,28 +783,22 @@ Class: BagPanel</code></pre>
       <article class="rule-card">
         <div class="rule-index">15</div>
         <div class="rule-body">
-          <h3>관용 다음절어는 한 단어처럼 취급한다</h3>
+          <h3>PascalCase 경계는 의미 계층을 나타낸다</h3>
           <div class="example-pair">
             <div class="example good">
               <div class="example-label">올바른 사용</div>
-              <pre><code>Hotkey
-Infobox
-Inputbox
-Lifetime
-Nickname
-Filename</code></pre>
+              <pre><code>Nickname
+TitleMenuButton
+LobbyRoomListEntryHostText</code></pre>
             </div>
             <div class="example bad">
               <div class="example-label">잘못된 사용</div>
-              <pre><code>HotKey
-InfoBox
-InputBox
-LifeTime
-NickName
-FileName</code></pre>
+              <pre><code>NickName
+TitlemenuButton
+LifeTime</code></pre>
             </div>
           </div>
-          <p>플랫폼/서드파티 관용은 따르되 새 이름은 한 단어처럼 다룬다.</p>
+          <p>한 의미 계층은 한 토큰으로 쓴다. 새 대문자 경계는 철자를 끊는 표시가 아니라 실제 소유·구조·관계·역할 계층을 하나 추가한다는 선언이다. <code>Nickname</code>은 한 개념이고, <code>TitleMenuButton</code>은 실제 <code>Title → Menu → Button</code> 구조다. 사전이 아니라 코드 구조로 경계를 판정한다. 자세한 기준은 <a href="{{ "/kr/csharp/semantic-layer-naming/" | relative_url }}">의미 계층 기반 네이밍</a>에서 다룬다.</p>
         </div>
       </article>
       <article class="rule-card">

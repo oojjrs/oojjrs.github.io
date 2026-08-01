@@ -32,7 +32,7 @@ Read this before editing first-party Unity C# files. This is the agent copy of t
 
 ## Words
 
-15. Treat conventional compounds as one word: `Hotkey`, `Infobox`, `Inputbox`, `Lifetime`, `Nickname`, `Filename`. Follow platform or third-party conventions when they exist, but treat new names as one word.
+15. A PascalCase boundary declares a semantic layer. Keep one semantic layer in one token, and split only for a real ownership, structure, relation, or role boundary: `Nickname` is one concept, while `TitleMenuButton` represents `Title -> Menu -> Button`. The dictionary does not decide the boundary; the code structure does. Apply the full decision criteria in `semantic-layer-naming-guideline.md`.
 16. Avoid names that are substrings of other search keywords. Do not pair names like `MissionState` and `IntermissionState` if searching `Mission` should not catch both.
 17. Plural groups currently allow `-s` and `-es`, such as `Items`, `Enemies`, and `Rewards`. Avoid type-noise suffixes such as `List`, `Array`, or `Bucket`; a better alternative is still undecided.
 
