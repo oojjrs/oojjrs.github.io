@@ -368,6 +368,26 @@ pre {
   word-break: normal;
   white-space: nowrap;
 }
+.article-body .naming-census-table {
+  display: block;
+  overflow-x: auto;
+  font-size: 15px;
+  line-height: 1.55;
+}
+.article-body .naming-census-table th,
+.article-body .naming-census-table td {
+  min-width: 118px;
+  padding: 14px 12px;
+  vertical-align: top;
+}
+.article-body .naming-census-table th:first-child,
+.article-body .naming-census-table td:first-child { min-width: 174px; }
+.article-body .naming-census-table code {
+  display: inline-block;
+  overflow-wrap: normal;
+  word-break: normal;
+  white-space: nowrap;
+}
 
 .article-body blockquote {
   margin: 2.2em 0;

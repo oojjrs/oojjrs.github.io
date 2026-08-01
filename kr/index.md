@@ -81,6 +81,11 @@ alternate_url: /en/
       <strong>의미 계층 네이밍</strong>
     </a>
 
+    <a class="utility-link utility-link-unity" href="{{ "/kr/csharp/naming-census/" | relative_url }}">
+      <span>NAMING DATA</span>
+      <strong>네이밍 전수조사</strong>
+    </a>
+
     <a class="utility-link utility-link-unity" href="{{ "/kr/unity/project-bootstrap/" | relative_url }}">
       <span>UNITY</span>
       <strong>프로젝트 초기 설정</strong>
