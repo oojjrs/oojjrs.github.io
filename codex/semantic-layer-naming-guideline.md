@@ -10,6 +10,7 @@ Read this before creating or changing names in first-party Unity or ASP.NET C#. 
 4. Do not split or merge tokens according to dictionary spelling. The code model decides the boundary.
 5. `FooBar` and `Foobar` are different concepts. `FooBar` asserts `Foo -> Bar`; `Foobar` names one atomic layer.
 6. Long names are acceptable when every token identifies a real coordinate. A token with no structural meaning is the problem, not length itself.
+7. A repeated surface token forced by a language or scope naming constraint does not create another semantic layer.
 
 ## Atomic Concepts and Real Layers
 
@@ -49,7 +50,7 @@ Preserve official platform identifiers such as `GameObject`, `DateTime`, `TimeSp
 1. **Invented boundary:** `NickName`, `LifeTime`, or `GamePlay` declares `Nick -> Name`, `Life -> Time`, or `Game -> Play` without such layers.
 2. **Hidden boundary:** `TitlehudStartButton` or `Tilelogic` merges a real `Title -> Hud` or `Tile -> Logic` structure.
 3. **Lifecycle label as architecture:** `Temp`, `Legacy`, `Old`, or `New` is not a semantic layer merely because an implementation is temporary. Name the durable responsibility, such as `Workaround`, when that is the actual role.
-4. **Repeated owner:** `MyAsker.MyAskerArguments` declares the owner twice. Use nested `Arguments`, or use top-level `MyAskerArguments`.
+4. **Misread required repetition:** A nested type may need `MyAsker.MyAskerArguments` when a naming conflict prevents the shorter `Arguments`. The second surface `MyAsker` does not add another semantic layer. Read the structure as `MyAsker -> Arguments`, record the language or scope exception, and do not mechanically shorten it to `MyAsker.Arguments`.
 5. **Scope mismatch:** A generic name such as `AssetLoader` is misleading if the implementation only instantiates prefabs. An `AgentContainer` is misleading if it primarily stores obstacles.
 6. **Boundary drift:** Do not alternate `Nickname` and `NickName`, or `Minimap` and `MiniMap`, for the same concept unless the structures are genuinely different.
 
@@ -64,7 +65,8 @@ Before accepting a new or changed name, answer these questions:
 5. Does the prefab or scene hierarchy, or the server domain and role matrix, support the boundary?
 6. Is the token a durable responsibility rather than a temporary implementation state?
 7. Which form does the newest first-party code use for the same concept?
-8. Does a rename require a Unity serialization, prefab, scene, route, database, or wire-format migration?
+8. Is an apparent repetition required by a language or scope naming constraint, such as a nested-type name conflict?
+9. Does a rename require a Unity serialization, prefab, scene, route, database, or wire-format migration?
 
 ## Scope and Precedence
 
