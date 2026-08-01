@@ -3,8 +3,8 @@ layout: page
 title: "Semantic Layer Naming"
 lang: en
 alternate_url: /kr/csharp/semantic-layer-naming/
-category: "C# DESIGN"
-description: "A naming rule that reads PascalCase boundaries as ownership, structure, relation, and role layers in the code model rather than as spelling breaks."
+category: "NAMING DESIGN"
+description: "A language-, engine-, and platform-neutral naming rule that maps identifier boundaries to ownership, structure, relation, and role layers in the code model."
 permalink: /en/csharp/semantic-layer-naming/
 toc_items:
   - id: principle
@@ -27,10 +27,10 @@ toc_items:
 
 <p class="article-backlink"><a href="{{ "/en/" | relative_url }}">← Document index</a></p>
 
-<p class="article-lead">An uppercase boundary in PascalCase is not a visual spelling break. Each boundary declares that the structure represented by the name has gained another layer.</p>
+<p class="article-lead">A boundary inside an identifier is not a visual spelling break. Each boundary declares that the structure represented by the name has gained another layer, regardless of language, engine, or platform.</p>
 
 <div class="article-principle">
-  <p>Each PascalCase token represents one real semantic layer. Write one layer as one token. Let ownership, structure, relations, and responsibilities in the code—not the dictionary—decide the boundary.</p>
+  <p>Each semantic token in a name represents one real semantic layer. Write one layer as one token. Let ownership, structure, relations, and responsibilities in the code—not the dictionary or surface casing—decide the boundary.</p>
 </div>
 
 ## Core principle {#principle}
@@ -44,6 +44,8 @@ toc_items:
 - A surface token repeated only because of a language or scope naming constraint does not create another semantic layer.
 
 This is not a casing convention. It is a design rule for how much architecture a name exposes.
+
+The examples use PascalCase, but the semantic decision comes first. In camelCase, snake_case, kebab-case, or another required style, preserve the same grouping and render it with the target convention: `FooBar`, `fooBar`, `foo_bar`, and `foo-bar` can all express `Foo -> Bar`, while `Foobar` and `foobar` express one atomic layer.
 
 ## Layers, not words {#tokens}
 
@@ -62,7 +64,7 @@ The reverse can also be true. Use `UserName` when the model has a real `User -> 
 
 ## Mapping structure into names {#structure}
 
-Unity UI names expose prefab and scene ownership paths.
+Unity UI provides one concrete example: a name can expose prefab and scene ownership paths.
 
 ```text
 Title
@@ -74,7 +76,7 @@ TitleMenuSingleplayerButton
 
 `Button` is not decorative suffixing; it is the leaf component role. In the same way, `LobbyRoomListEntryHostText` exposes `Lobby -> Room -> List -> Entry -> Host -> Text`.
 
-The same rule applies to ASP.NET servers.
+An ASP.NET server provides another example.
 
 ```text
 Db -> Character -> Mapper
@@ -85,6 +87,8 @@ DbCharacterRecord
 ```
 
 Names such as `RoomLobbyService` and `RoomPlayerView` are valid when the aggregate and role boundaries actually exist.
+
+The principle itself depends on neither Unity nor ASP.NET. Other languages, engines, and platforms use the same semantic layers while rendering them with their own naming syntax.
 
 ## Two-dimensional coordinates {#matrix}
 
@@ -104,12 +108,12 @@ Repeated prefixes expose rows; repeated role suffixes expose columns. This is wh
 
 A token boundary must point to at least one concrete structure:
 
-1. A prefab, scene, GameObject, component, or serialized ownership path
-2. A namespace, nested type, aggregate, domain, persistence, transport, or application-service boundary
+1. A file, module, package, resource, object, component, or serialized ownership path
+2. A namespace, nested type, aggregate, domain, schema, persistence, transport, or application-service boundary
 3. A stable role reused by sibling names, such as `Entry`, `Button`, `Text`, `Mapper`, `Record`, or `Handler`
 4. A real relationship expressed by `From`, `For`, `Of`, `Via`, or `Without`
 5. A consistent first-party facade layer such as `My` around platform types
-6. A number that corresponds to a real scene, prefab, slot, or stage ordinal
+6. A number that corresponds to a real resource, scene, prefab, slot, stage, schema version, or ordinal variant
 
 Do not reject `MyButton` by shape alone. It is valid when `My` consistently marks a first-party facade distinct from Unity's built-in types. `From` in `FinderFromVariable` is valid when it represents the real source relationship.
 
@@ -141,26 +145,28 @@ When a nested class cannot use the shorter `Arguments` because of a name conflic
 
 Before accepting a new or changed name, ask:
 
-1. What actual structure, owner, relation, or responsibility does each PascalCase token identify?
+1. What actual structure, owner, relation, or responsibility does each semantic token in the name identify?
 2. Can each intermediate token be explained independently or reused as a common sibling-family row?
 3. Would merging two tokens hide a real layer?
 4. Would splitting one token invent a layer the system does not have?
-5. Does the prefab or scene hierarchy, or the server domain and role matrix, support the boundary?
+5. Does the relevant ownership hierarchy, code or data model, domain, or role matrix support the boundary?
 6. Does `Temp`, `Old`, `New`, or `Legacy` describe responsibility, or only implementation age?
 7. Which form has the newest first-party code converged on for the same concept?
 8. Is an apparent repetition required by a language or scope naming constraint, such as a nested-type name conflict?
-9. Does the rename require a Unity serialization, prefab, scene, route, database, or wire-format migration?
+9. Does the rename require a serialization, resource, route, database, public API, or wire-format migration?
 
 ## Scope and history {#scope}
 
-Apply this rule to first-party Unity and ASP.NET C# types, members, Unity objects, prefabs, scenes, DTOs, persistence types, and service roles.
+Apply this rule to every first-party name created or changed during coding, regardless of language, engine, or platform. It covers code identifiers and code-owned names such as types, members, modules, packages, files, resources, serialized objects, DTOs, persistence types, and service roles.
 
-Exclude generated code, vendor code, external samples, `PackageCache`, and framework-owned names from first-party consistency judgments. In team repositories, separate other authors' legacy from the user's own naming practice.
+First decide the semantic layers, then express them with the syntax, separators, and casing required by the target convention.
+
+Exclude generated code, vendor code, external samples, dependency caches, and framework-owned names from first-party consistency judgments. In team repositories, separate other authors' legacy from the user's own naming practice.
 
 When inferring the established convention, treat recent first-party code as stronger evidence than old code. Legacy can reveal debt, but it does not automatically become precedent for new names.
 
 <div class="article-note">
-  <p>Even when the naming principle is clear, a broad rename that affects Unity serialization or an external contract is a separate migration task. Do not perform it as style cleanup without reference tracing and a migration plan.</p>
+  <p>Even when the naming principle is clear, a broad rename that affects serialization, resources, public APIs, or an external contract is a separate migration task. Do not perform it as style cleanup without reference tracing and a migration plan.</p>
 </div>
 
-Continue with [Unity C# Convention]({{ "/en/unity/csharp-coding-convention.html" | relative_url }}) for syntax, file organization, and Unity-specific code shape.
+For Unity C# work, continue with [Unity C# Convention]({{ "/en/unity/csharp-coding-convention.html" | relative_url }}) for syntax, file organization, and Unity-specific code shape.
