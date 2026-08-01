@@ -43,6 +43,7 @@ The installer also attempts to install workstation tools required by selected sk
 - `oojjrs-design-html-builder`: `https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/oojjrs-design-html-builder/SKILL.md`
 - `oojjrs-guideline-maintenance`: `https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/oojjrs-guideline-maintenance/SKILL.md`
 - `oojjrs-skill-maintenance`: `https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/oojjrs-skill-maintenance/SKILL.md`
+- `oojjrs-steamworks`: `https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/oojjrs-steamworks/SKILL.md`
 - `oojjrs-readme-doc-generation`: `https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/oojjrs-readme-doc-generation/SKILL.md`
 - `oojjrs-unity-package-src-migration`: `https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/oojjrs-unity-package-src-migration/SKILL.md`
 - `oojjrs-unity-package-release`: `https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/oojjrs-unity-package-release/SKILL.md`
