@@ -1,16 +1,18 @@
 # Semantic Layer Naming Guideline for Codex
 
-Read this before creating or changing names in first-party Unity or ASP.NET C#. This guideline defines what PascalCase boundaries mean; language syntax and ordinary casing rules remain in their respective coding conventions.
+Read this before any task that requires coding. Apply it to every first-party name the task creates or changes, regardless of language, engine, or platform. This guideline defines the semantic layers represented by an identifier; language-specific syntax, separators, and ordinary casing remain governed by the applicable coding convention.
 
 ## Core Principle
 
-1. Each PascalCase token declares one semantic layer.
+1. Each semantic token in a name declares one semantic layer. In PascalCase, each capitalized segment makes that boundary visible.
 2. Keep one semantic layer in one token.
 3. Add a token only when the name gains a real ownership, structure, relation, or role layer.
 4. Do not split or merge tokens according to dictionary spelling. The code model decides the boundary.
 5. `FooBar` and `Foobar` are different concepts. `FooBar` asserts `Foo -> Bar`; `Foobar` names one atomic layer.
 6. Long names are acceptable when every token identifies a real coordinate. A token with no structural meaning is the problem, not length itself.
 7. A repeated surface token forced by a language or scope naming constraint does not create another semantic layer.
+
+The examples below use PascalCase, but the decision comes before surface syntax. In camelCase, snake_case, kebab-case, or another required style, preserve the same semantic grouping and render it with the target convention: `FooBar`, `fooBar`, `foo_bar`, and `foo-bar` can all express `Foo -> Bar`, while `Foobar` and `foobar` express one atomic layer.
 
 ## Atomic Concepts and Real Layers
 
@@ -36,12 +38,12 @@ Repeated prefixes expose structural rows; repeated role suffixes expose columns.
 
 A token boundary is justified when at least one concrete structure supports it:
 
-1. A Unity prefab, scene, GameObject, component, or serialized ownership path.
-2. A namespace, nested type, aggregate, domain, persistence, transport, or application-service boundary.
+1. A file, module, package, resource, object, component, or serialized ownership path.
+2. A namespace, nested type, aggregate, domain, schema, persistence, transport, or application-service boundary.
 3. A stable role reused by peer names, such as `Entry`, `Button`, `Text`, `Mapper`, `Record`, or `Handler`.
 4. A real relationship represented by an operator token such as `From`, `For`, `Of`, `Via`, or `Without`.
 5. A deliberate provenance layer. For example, `My` is valid when it consistently marks a first-party facade or wrapper around platform types.
-6. A numeric token that maps to a real scene, prefab, slot, stage, or ordinal variant.
+6. A numeric token that maps to a real resource, scene, prefab, slot, stage, schema version, or ordinal variant.
 
 Preserve official platform identifiers such as `GameObject`, `DateTime`, `TimeSpan`, `AudioSource`, and `Texture2D`. Treat their internal spelling as quoted external vocabulary rather than first-party domain boundaries.
 
@@ -58,20 +60,21 @@ Preserve official platform identifiers such as `GameObject`, `DateTime`, `TimeSp
 
 Before accepting a new or changed name, answer these questions:
 
-1. What does each PascalCase token point to in the actual structure?
+1. What does each semantic token in the name point to in the actual structure?
 2. Can each intermediate token be explained independently or reused as a sibling-family row?
 3. Would merging two tokens hide a real layer?
 4. Would splitting one token invent a layer that the system does not have?
-5. Does the prefab or scene hierarchy, or the server domain and role matrix, support the boundary?
+5. Does the relevant ownership hierarchy, code or data model, domain, or role matrix support the boundary?
 6. Is the token a durable responsibility rather than a temporary implementation state?
 7. Which form does the newest first-party code use for the same concept?
 8. Is an apparent repetition required by a language or scope naming constraint, such as a nested-type name conflict?
-9. Does a rename require a Unity serialization, prefab, scene, route, database, or wire-format migration?
+9. Does a rename require a serialization, resource, route, database, public API, or wire-format migration?
 
 ## Scope and Precedence
 
-- Apply this guideline to first-party Unity and ASP.NET C# names, including types, members, Unity objects, prefabs, scenes, DTOs, persistence types, and service roles.
-- Exclude generated, vendor, imported sample, `PackageCache`, and framework-owned names from first-party consistency judgments.
+- Apply this guideline to every first-party name created or changed during coding, regardless of language, engine, or platform. This includes code identifiers and code-owned names such as types, members, modules, packages, files, resources, serialized objects, DTOs, persistence types, and service roles.
+- First decide the semantic layers, then express them with the syntax, separators, and casing required by the target convention.
+- Exclude generated, vendor, imported sample, dependency-cache, and framework-owned names from first-party consistency judgments.
 - When inferring an established convention, weight recent first-party code more strongly than old code, and separate other authors' team legacy from the user's own naming practice.
 - Existing serialized or external contracts outrank cosmetic cleanup. Do not perform broad renames without tracing references and planning the migration.
 
