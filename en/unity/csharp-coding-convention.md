@@ -814,7 +814,7 @@ private int count;
 
 `const`, `readonly`, `static`, and ordinary members are separate variable sections. Inside the ordinary-member section, put inherited-implementation variables before local instance variables according to rule 24. Sort alphabetically only inside the same inheritance group. Variables, properties, and functions all follow rule 24's shared order.
 
-### 28. Keep brace usage consistent within a control-flow chain
+### 28. Strongly prefer omitting braces from single embedded-statement bodies
 
 Correct:
 
@@ -825,6 +825,15 @@ else if (canRetry)
     RetryGame();
 else
     CancelGame();
+
+foreach (var enemy in enemies)
+    enemy.Update();
+
+using (var stream = OpenStream())
+    Load(stream);
+
+lock (syncRoot)
+    RefreshCache();
 ```
 
 Also correct when any branch needs multiple statements:
@@ -845,21 +854,21 @@ else
 }
 ```
 
-Incorrect:
+Incorrect without a concrete reason:
 
 ```csharp
-if (isReady)
-    StartGame();
-else if (canRetry)
+foreach (var enemy in enemies)
 {
-    ResetGame();
-    RetryGame();
+    enemy.Update();
 }
-else
-    CancelGame();
+
+using (var stream = OpenStream())
+{
+    Load(stream);
+}
 ```
 
-Prefer omitting braces when every branch is a single statement. If any `if`, `else if`, or `else` branch needs braces, use braces for every branch in that chain.
+Strongly prefer omitting braces from every body that C# permits as a single embedded statement. This applies equally to `if`/`else`, `for`, `foreach`, `while`, `do`, `using` statements, `lock`, and `fixed`; it is not an `if`-only style. This is a strong recommendation, not a requirement, so keep braces only when there is a concrete reason. In an `if`/`else if`/`else` chain, omit braces when every branch is a single statement. If any branch needs braces, use braces for every branch in that chain.
 
 ### 29. Use prefix increment and decrement operators
 
