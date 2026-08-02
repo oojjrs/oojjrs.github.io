@@ -582,24 +582,32 @@ public void RefreshTooltip()
 }
 ```
 
-Alphabetical order applies only inside the same category of the same inheritance group, after section order and the function order of constructors and finalizer > static functions > inherited implementations > local instance functions. Do not mix parent or interface implementation groups just to satisfy alphabetical order.
+Alphabetical order applies only inside the same category of the same inheritance group, after section order and the shared member order. Variables use `const` > `readonly` > `static` > inherited implementation > local instance member, properties use `static` > inherited implementation > local instance member, and functions use constructors and finalizer > `static` > inherited implementation > local instance function. Do not mix parent or interface implementation groups just to satisfy alphabetical order.
 
-### 24. Order functions as constructors and finalizer, static, inherited, then local
+### 24. Order variables, properties, and functions as static, inherited, then local
 
 Correct:
 
 ```csharp
 public sealed class RewardButton : ButtonBase, ClickableInterface, TooltipInterface
 {
+    private static int __rewardTypeCount;
+
     private int buttonIndex;
     private int clickableCount;
     private int tooltipCount;
     private int rewardCount;
 
+    public static int RewardTypeCount { get; }
+
     public bool IsButtonActive { get; }
     public bool IsClickable { get; }
     public string TooltipText { get; }
     public int RewardCount { get; }
+
+    private static void RegisterRewardType()
+    {
+    }
 
     private void Awake()
     {
@@ -641,13 +649,19 @@ Incorrect:
 public sealed class RewardButton : ButtonBase, TooltipInterface, ClickableInterface
 {
     private int rewardCount;
+    private static int __rewardTypeCount;
     private int tooltipCount;
     private int buttonIndex;
 
     public int RewardCount { get; }
+    public static int RewardTypeCount { get; }
     public string TooltipText { get; }
 
     public void GiveReward()
+    {
+    }
+
+    private static void RegisterRewardType()
     {
     }
 
@@ -665,7 +679,7 @@ public sealed class RewardButton : ButtonBase, TooltipInterface, ClickableInterf
 }
 ```
 
-Order functions as constructors, finalizer, static functions, inherited implementations, then local instance functions. Do not mix static and instance functions. In an ordinary non-static object type, avoid static functions unless the behavior clearly belongs to the type itself. In a `MonoBehaviour`, Unity message functions are treated like the first inherited group. Put them before explicitly inherited parent and interface members, and sort them alphabetically by function name, such as `Awake`, `OnDestroy`, `OnEnable`, and `Start`. Do not order them by the Unity lifecycle. After that, use parent > child order. Among explicit parents, follow the inheritance declaration order. Multiple interfaces and their implementations are ordered alphabetically.
+Within each category, order variables, properties, and functions as static members, inherited-implementation members, then local instance members. Constructors and the finalizer precede those groups among functions; `const` and `readonly` precede them among variables. Variables and properties that support an inherited implementation belong to that parent or interface group. Do not mix static, inherited-implementation, and local groups. In an ordinary non-static object type, avoid static functions unless the behavior clearly belongs to the type itself. In a `MonoBehaviour`, Unity message functions are treated like the first inherited group. Put them before explicitly inherited parent and interface members, and sort them alphabetically by function name, such as `Awake`, `OnDestroy`, `OnEnable`, and `Start`. Do not order them by the Unity lifecycle. After that, use parent > child order. Among explicit parents, follow the inheritance declaration order. Multiple interfaces and their implementations are ordered alphabetically.
 
 ### 25. Do not create unnecessary functions
 
@@ -777,7 +791,7 @@ private static int __cacheCount;
 private int count;
 ```
 
-`const`, `readonly`, `static`, and ordinary members are separate variable sections. Sort alphabetically inside each section. Function ordering follows rule 24.
+`const`, `readonly`, `static`, and ordinary members are separate variable sections. Inside the ordinary-member section, put inherited-implementation variables before local instance variables according to rule 24. Sort alphabetically only inside the same inheritance group. Variables, properties, and functions all follow rule 24's shared order.
 
 ### 28. Keep brace usage consistent within a control-flow chain
 
@@ -890,7 +904,7 @@ private int BetaCount { get; }
 private int ItemCount { get; }
 ```
 
-Access modifiers do not create member-ordering groups. Apply section order, the function order in rule 24, inheritance implementation order, and alphabetical sorting without collecting `public`, `protected`, or `private` members together.
+Access modifiers do not create member-ordering groups. Apply section order, rule 24's shared order for variables, properties, and functions, inheritance implementation order, and alphabetical sorting without collecting `public`, `protected`, or `private` members together.
 
 ### 32. Write one attribute per line
 
