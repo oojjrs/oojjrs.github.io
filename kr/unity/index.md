@@ -29,4 +29,4 @@ permalink: /kr/unity/
   </a>
 </div>
 
-<p class="supplementary-link">개인 작업 참고: <a href="{{ "/kr/unity/project-bootstrap/" | relative_url }}">신규 Unity 프로젝트 초기 설정</a></p>
+<p class="supplementary-link">개인 작업 참고: <a href="{{ "/kr/unity/project-bootstrap/" | relative_url }}">신규 Unity 프로젝트 초기 설정</a> · <a href="{{ "/kr/unity/game-ui-notes/" | relative_url }}">게임 UI 실무 노트</a></p>
