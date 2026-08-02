@@ -39,7 +39,7 @@ Read this before editing first-party Unity C# files. This is the agent copy of t
 ## Syntax and Structure
 
 18. External lifecycle objects are read-only properties: use a get-only property when creation and ownership live outside this object; do not expose it as a mutable public field.
-19. Use `var` actively when the right side makes the type clear; do not repeat obvious generic types on both sides.
+19. Do not repeat a type in object creation. Use `var` when a local variable's right-side expression names the type. When the declaration or assignment target already names the type, especially for class member variables and properties, use target-typed `new(arguments)` or `new()` instead of repeating the type after `new`.
 20. Do not use the newer using-declaration form. Keep the existing block form: `using (...) { }`, not `using var`.
 21. Put `sealed` before `override`, in access modifier, `sealed`, `override` order: `public sealed override`, not `public override sealed`.
 22. Class sections are nested types, variables, properties, events, functions. Nested type order is still `enum`, `struct`, `interface`, `class`.
