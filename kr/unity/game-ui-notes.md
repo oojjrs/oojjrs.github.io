@@ -1,10 +1,29 @@
 ---
-layout: page
+layout: reference
 title: "게임 UI 실무 노트"
 lang: ko-KR
 category: "GAME UI NOTES"
 description: "FHD PC와 게임패드 지원을 기준으로 반복해서 참고할 UI 규격, 판단 근거, 측정 사례를 정리한 개인 작업 노트입니다."
 permalink: /kr/unity/game-ui-notes/
+parent_url: /kr/unity/
+parent_label: "Unity 문서"
+status: "초안"
+last_updated: "2026-08-02"
+summary: "FHD PC에서 게임패드까지 지원하는 일반 버튼은 60~64px가 무난하다. 새 8px 그리드에서는 64px를 기본으로 삼고, 기존 4px 그리드에서는 60px를 유지해도 된다."
+quick_facts:
+  - label: "COMPACT"
+    value: "48px"
+    note: "설정·보조 기능"
+  - label: "STANDARD"
+    value: "64px"
+    note: "일반 메뉴 기본값"
+    primary: true
+  - label: "PRIMARY"
+    value: "72px"
+    note: "주요 행동"
+  - label: "HERO"
+    value: "96~100px"
+    note: "단일 대형 CTA"
 toc_items:
   - id: current-standard
     label: "현재 작업 규격"
@@ -19,18 +38,6 @@ toc_items:
   - id: maintenance
     label: "노트 추가 형식"
 ---
-
-[← Unity 문서]({{ "/kr/unity/" | relative_url }})
-{: .article-backlink }
-
-이 문서는 완성된 범용 규격서가 아니라, 게임 UI를 만들면서 반복해서 쓰는 결정과 판단법을 모아 두는 개인 작업 노트다. 실제 제작에 바로 적용할 값은 **규격**, 상황에 따라 재사용할 판단법은 **설계 노하우**, 결정을 검토할 때 참고한 관찰값은 **측정 사례**로 분리한다.
-{: .article-lead }
-
-> FHD PC에서 게임패드까지 지원하는 일반 버튼은 높이 60~64px가 무난하다. 새 8px 그리드에서는 64px를 기본으로 삼고, 기존 4px 그리드에서는 60px를 그대로 사용해도 된다.
-{: .article-principle }
-
-문서 상태: **초안 · 2026-08-02**. 아래 숫자는 프로젝트의 아트 스타일, 시청 거리, UI 배율에 따라 조정하되 어떤 이유로 바꿨는지 결정 기록에 남긴다.
-{: .article-note }
 
 ## 현재 작업 규격 {#current-standard}
 
@@ -93,6 +100,7 @@ toc_items:
 ## 설계 노하우 {#know-how}
 
 ### 폭보다 높이를 먼저 정한다
+{: .reference-tip-heading }
 
 - 적용 상황: 한 UI 시스템 안에 1:1부터 6:1까지 여러 폭의 버튼이 함께 존재할 때
 - 권장: 입력 방식과 시청 거리로 높이 토큰을 먼저 고르고 폭은 콘텐츠에 맞춰 늘린다.
@@ -100,6 +108,7 @@ toc_items:
 - 예외: 카드, 탭, 툴바처럼 컨테이너 역할이 다른 요소는 별도의 높이 토큰을 둔다.
 
 ### 100px는 일반 버튼이 아니라 강조 토큰으로 남긴다
+{: .reference-tip-heading }
 
 - 적용 상황: FHD에서 현재 버튼 높이가 100px이고 반복 메뉴가 크게 느껴질 때
 - 권장: 일반 버튼은 60~64px로 내리고 96~100px는 `ButtonHero`로 보존한다.
@@ -107,6 +116,7 @@ toc_items:
 - 예외: 소파 거리 TV UI, 커다란 이미지 카드, 접근성 확대 모드에서는 96~100px가 기본이 될 수 있다.
 
 ### 래스터 버튼은 단순 축소보다 9-slice를 우선한다
+{: .reference-tip-heading }
 
 - 적용 상황: 100px 기준으로 제작된 배경 아트를 60~64px 규격으로 바꿀 때
 - 권장: 모서리와 테두리를 고정하는 9-slice로 가시 높이를 조절한다.
@@ -114,6 +124,7 @@ toc_items:
 - 주의: 원본 이미지의 투명 여백이 RectTransform 높이에 포함되어 있으면 먼저 실제 배경판 높이를 잰다.
 
 ### 해상도보다 화면 높이 비율을 함께 기록한다
+{: .reference-tip-heading }
 
 - 48px = FHD 세로 높이의 약 4.4%
 - 60px = 약 5.6%
@@ -124,6 +135,10 @@ toc_items:
 울트라와이드에서도 버튼 크기는 가로 해상도보다 세로 해상도를 기준으로 유지한다. 1440p와 4K에서는 1080p 논리 캔버스를 기준으로 확대하되, 작은 해상도로 내릴 때 글자와 히트 영역이 접근성 하한 아래로 단순 축소되지 않게 한다.
 
 ## 측정 사례 {#measurements}
+
+<details class="reference-section-details">
+  <summary>상용 게임 7종의 측정값과 근거 보기</summary>
+  <div markdown="1">
 
 아래 값은 크롭되지 않은 1920×1080 스크린샷에서 잰 근사치다. 배경이 없는 텍스트 메뉴는 실제 히트박스가 아니라 인접 행의 중심 간격을 측정했다.
 
@@ -139,13 +154,19 @@ toc_items:
 
 사례 범위는 40~82px로 넓지만 일반적인 중심 구간은 50~64px였다. 이 표는 평균 규격을 강제하기 위한 통계가 아니라, 현재 프로젝트의 60~64px 결정이 상용 게임의 화면 밀도에서 벗어나지 않는지 확인하는 참고 자료다. 게임 내 UI 배율, 투명 히트박스, 최신 빌드 변경은 스크린샷만으로 확인할 수 없다.
 
-<details>
-  <summary>측정 원본과 접근성 참고 링크</summary>
+<div class="reference-source-links">
+  <strong>측정 원본과 접근성 참고 링크</strong>
   <p><small>측정 원본: <a href="https://interfaceingame.com/screenshots/death-stranding-main-menu/">Death Stranding</a> · <a href="https://interfaceingame.com/screenshots/nierautomata-dialoge-options/">NieR:Automata</a> · <a href="https://interfaceingame.com/screenshots/cyberpunk-2077-main-menu/">Cyberpunk 2077</a> · <a href="https://interfaceingame.com/screenshots/assassins-creed-valhalla-main-menu/">Assassin's Creed Valhalla</a> · <a href="https://interfaceingame.com/screenshots/hades-main-menu/">Hades</a> · <a href="https://interfaceingame.com/screenshots/overwatch-2-main-menu/">Overwatch 2</a> · <a href="https://interfaceingame.com/screenshots/control-main-menu/">Control</a></small></p>
   <p><small>접근성 참고: <a href="https://learn.microsoft.com/en-us/xbox/accessibility/xbox-accessibility-guidelines/101">Xbox XAG 101</a> · <a href="https://learn.microsoft.com/en-us/xbox/accessibility/xbox-accessibility-guidelines/113">Xbox XAG 113</a> · <a href="https://learn.microsoft.com/en-us/windows/apps/develop/input/guidelines-for-targeting">Microsoft Targeting</a> · <a href="https://www.rnib.org.uk/documents/2627/RNIB_Best_Practice_in_Accessible_Gaming.pdf">RNIB Accessible Gaming</a></small></p>
+</div>
+  </div>
 </details>
 
 ## 노트 추가 형식 {#maintenance}
+
+<details class="reference-section-details">
+  <summary>노트 추가 양식과 결정 기록 보기</summary>
+  <div markdown="1">
 
 새 노하우는 결론만 적지 않고 다음 형식으로 추가한다.
 
@@ -168,3 +189,6 @@ toc_items:
 | 2026-08-02 | 패드 지원 일반 버튼의 초안 기본값을 64px로 둔다. | 상용 게임 측정 중심 구간과 8px 그리드를 함께 만족한다. |
 | 2026-08-02 | 기존 60px 규격도 허용한다. | 4px 그리드와 잘 맞고 FHD에서 충분한 가시 높이를 확보한다. |
 | 2026-08-02 | 기존 100px 규격은 Hero 용도로 제한한다. | 반복 메뉴의 과도한 밀도를 줄이면서 강조 위계를 보존한다. |
+
+  </div>
+</details>
