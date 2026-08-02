@@ -1576,6 +1576,42 @@ public void Run()
           <p>함수, 접근자, 지역 함수, 람다, 제어 흐름 블록 안에서는 서로 다른 즉시 목적을 가진 완결된 문장 그룹 사이에만 빈 줄을 한 줄 둔다. 생산한 값과 그 값을 즉시 검증하거나 소비하는 문장은 붙이고 하나의 논리 단계를 이루는 문장도 붙인다. 한 문단이 끝난 뒤 독립된 문장 그룹이 이어지면 두 문단을 나누되, <code>else</code>나 닫는 중괄호 앞에는 빈 줄을 넣지 않는다. 준비, 검증, 변경, 실행 일시 중단과 재개, 외부 호출, 통지와 동기화가 이미 서로 다른 단계라면 문단 경계를 둔다. 이러한 문장 종류 자체가 경계를 만들지는 않으며, 인접한 각 그룹의 즉시 목적을 서로 다르게 이름 붙일 수 있을 때만 나눈다. 빈 줄은 그 단계를 설명할 뿐 가드, 콜백, 그 밖의 동작을 새로 추가하라고 요구하지 않는다. 경계가 불분명하면 기존 공백을 보존한다.</p>
         </div>
       </article>
+      <article class="rule-card">
+        <div class="rule-index">40</div>
+        <div class="rule-body">
+          <h3>한 번만 쓰는 값은 지역 변수로 이름 붙이지 않는다</h3>
+          <div class="example-pair">
+            <div class="example good">
+              <div class="example-label">올바른 사용</div>
+              <pre><code>private int Run(Player player)
+{
+    Apply(FindItem());
+
+    return CalculateScore(player);
+}
+
+private void ApplyAndLog()
+{
+    var item = FindItem();
+    Apply(item);
+    Log(item);
+}</code></pre>
+            </div>
+            <div class="example bad">
+              <div class="example-label">잘못된 사용</div>
+              <pre><code>private int Run(Player player)
+{
+    var item = FindItem();
+    Apply(item);
+
+    var score = CalculateScore(player);
+    return score;
+}</code></pre>
+            </div>
+          </div>
+          <p>함수 반환값의 의미를 설명하는 지역 변수 이름은 실제 컨텍스트 분리가 아니며 문장을 하나 늘릴 근거가 되지 않는다. 값이 다음 함수 호출, 대입, <code>return</code>, 표현식에서 한 번만 소비되면 직접 인라인한다. 한 번 쓰는 임시 변수가 약간의 명료함을 주더라도 더 짧은 코드를 우선한다. 동일 값을 둘 이상의 소비 지점에서 사용하거나 평가 순서, 수명, <code>ref</code>/<code>out</code> 사용, 해제 등 C# 문법·실행 의미상 저장이 필요할 때만 지역 변수를 선언한다. 실제 컨텍스트 분리는 주변 구조로 유지하며 전달용 지역 변수로 흉내 내지 않는다.</p>
+        </div>
+      </article>
     </section>
     </div>
     </div>

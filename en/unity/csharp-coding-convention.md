@@ -1151,3 +1151,38 @@ private IEnumerator RunCoroutine()
 ```
 
 Inside a function, accessor, local function, lambda, or control-flow block, use one blank line only between complete statement groups that serve different immediate purposes. Keep a produced value with its immediate validation or consumer and keep one logical step together. After one paragraph is complete, separate a following independent statement group; do not insert a blank line before an `else` or a closing brace. Use a paragraph boundary when preparation, validation, mutation, execution suspension and resumption, external calls, or notification and synchronization form separate existing phases. These statement kinds do not create boundaries by themselves; separate adjacent groups only when each has a distinct immediate purpose. A blank line describes those phases and never requires adding guards, callbacks, or other behavior. When the boundary is unclear, preserve the existing spacing.
+
+### 40. Inline values that a local variable would use only once
+
+Correct:
+
+```csharp
+private int Run(Player player)
+{
+    Apply(FindItem());
+
+    return CalculateScore(player);
+}
+
+private void ApplyAndLog()
+{
+    var item = FindItem();
+    Apply(item);
+    Log(item);
+}
+```
+
+Incorrect:
+
+```csharp
+private int Run(Player player)
+{
+    var item = FindItem();
+    Apply(item);
+
+    var score = CalculateScore(player);
+    return score;
+}
+```
+
+A local name that only explains the meaning of a function result is not meaningful context separation and does not justify another statement. When a value is consumed only once by the next call, assignment, return, or expression, inline it. Prefer the shorter code even if a one-use temporary would add slight clarity. Declare a local only when the same value is consumed at least twice or storage is required by C# syntax or execution semantics, such as evaluation order, lifetime, `ref`/`out` use, or disposal. Preserve real context separation through the surrounding structure instead of a relay variable.
