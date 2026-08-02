@@ -1007,7 +1007,7 @@ In an `if` chain, put the valid, normal, or primary-interest case first and move
 
 Before adding or changing logs, read `logging-guideline.md` and classify each message as a required system log, warning, debugging log, or optional UX LOG. The logging guideline controls language, uppercase text, identifier references, stability, and channel-specific behavior.
 
-### 36. Do not put one function parameter per line
+### 36. Do not put one function parameter or call argument per line
 
 Correct:
 
@@ -1023,6 +1023,13 @@ private void Register<TItem, TFactory>(TItem item, TFactory factory)
     where TFactory : ItemFactoryInterface
 {
 }
+
+private void GrantReward()
+{
+    ApplyReward(
+        item, rewardCount, rewardType,
+        isBonus, onComplete);
+}
 ```
 
 Incorrect:
@@ -1035,9 +1042,19 @@ private void ApplyReward(
     Action onComplete)
 {
 }
+
+private void GrantReward()
+{
+    ApplyReward(
+        item,
+        rewardCount,
+        rewardType,
+        isBonus,
+        onComplete);
+}
 ```
 
-Keep a function's parameter list on one line whenever practical. If it must wrap, group multiple parameters on the same lines instead of giving each parameter its own line. Within a function declaration, generic `where` constraint clauses are the sole vertical exception and may be written one clause per line.
+Keep function declaration parameter lists and function call argument lists on one line whenever practical. If either must wrap, group multiple parameters or arguments on the same lines instead of giving each parameter or argument its own line. Within a function declaration, generic `where` constraint clauses are the sole vertical exception and may be written one clause per line.
 
 ### 37. Use one completely empty blank line
 
