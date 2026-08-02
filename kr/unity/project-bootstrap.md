@@ -14,6 +14,7 @@ permalink: /kr/unity/project-bootstrap/
 1. 프로젝트에 사용할 Unity 버전과 Render Pipeline을 정한다.
 2. 프로젝트를 생성하고 첫 임포트가 끝날 때까지 기다린다.
 3. `Project Settings > Player`에서 Company Name, Product Name, Version과 플랫폼별 Application Identifier를 설정한다.
+   - OOJJRS Unity 라이브러리 개발 프로젝트는 `Company Name`을 `oojjrs`, `Product Name`을 패키지 ID의 마지막 식별자(예: `com.oojjrs.onet` → `onet`), `Player Version`을 `1.0`으로 고정한다. UPM 패키지 버전은 `package.json`의 SemVer로 별도 관리한다.
 4. Active Input Handling을 `Input System Package (New)`로 설정한다.
 5. 프로젝트 전용 소스는 `Assets/Sources` 아래에서 시작한다.
 
