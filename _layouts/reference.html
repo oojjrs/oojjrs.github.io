@@ -1,0 +1,98 @@
+---
+layout: default
+---
+<div class="site-shell reference-layout" id="top">
+  <a class="reference-skip" href="#reference-content">본문으로 건너뛰기</a>
+  <aside class="reference-sidebar">
+    {% if page.parent_url %}
+      <a class="reference-backlink" href="{{ page.parent_url | relative_url }}">← {{ page.parent_label | default: "문서 목록" }}</a>
+    {% endif %}
+    <p class="reference-sidebar-label">REFERENCE</p>
+    <nav class="reference-nav" aria-label="문서 목차">
+      <ol>
+        {% for item in page.toc_items %}
+          <li>
+            <a href="#{{ item.id }}">
+              <span>0{{ forloop.index }}</span>
+              {{ item.label }}
+            </a>
+          </li>
+        {% endfor %}
+      </ol>
+    </nav>
+  </aside>
+
+  <article class="reference-document">
+    <header class="reference-header">
+      <div class="reference-header-top">
+        <div>
+          <p class="eyebrow">{{ page.category | default: "WORKING REFERENCE" }}</p>
+          <h1>{{ page.title }}</h1>
+          {% if page.description %}
+            <p class="reference-description">{{ page.description }}</p>
+          {% endif %}
+        </div>
+        <dl class="reference-meta">
+          {% if page.status %}
+            <div>
+              <dt>STATUS</dt>
+              <dd>{{ page.status }}</dd>
+            </div>
+          {% endif %}
+          {% if page.last_updated %}
+            <div>
+              <dt>UPDATED</dt>
+              <dd>{{ page.last_updated }}</dd>
+            </div>
+          {% endif %}
+        </dl>
+      </div>
+
+      {% if page.quick_facts %}
+        <dl class="reference-quick-facts" aria-label="핵심 규격">
+          {% for fact in page.quick_facts %}
+            <div{% if fact.primary %} class="is-primary"{% endif %}>
+              <dt>
+                {{ fact.label }}
+                {% if fact.primary %}<span>기본</span>{% endif %}
+              </dt>
+              <dd>{{ fact.value }}</dd>
+              <p>{{ fact.note }}</p>
+            </div>
+          {% endfor %}
+        </dl>
+      {% endif %}
+
+      {% if page.summary %}
+        <div class="reference-summary">
+          <strong>CURRENT DECISION</strong>
+          <p>{{ page.summary }}</p>
+        </div>
+      {% endif %}
+
+      {% if page.toc_items %}
+        <details class="reference-mobile-toc">
+          <summary>문서 목차</summary>
+          <nav aria-label="모바일 문서 목차">
+            <ol>
+              {% for item in page.toc_items %}
+                <li><a href="#{{ item.id }}">{{ item.label }}</a></li>
+              {% endfor %}
+            </ol>
+          </nav>
+        </details>
+      {% endif %}
+    </header>
+
+    <div class="article-body reference-body" id="reference-content">
+      {{ content }}
+    </div>
+
+    <nav class="reference-footer-nav" aria-label="문서 이동">
+      {% if page.parent_url %}
+        <a href="{{ page.parent_url | relative_url }}">{{ page.parent_label | default: "문서 목록" }}</a>
+      {% endif %}
+      <a href="#top">맨 위로</a>
+    </nav>
+  </article>
+</div>
