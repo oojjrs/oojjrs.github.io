@@ -997,3 +997,35 @@ In an `if` chain, put the valid, normal, or primary-interest case first and move
 ### 35. Follow the logging guideline
 
 Before adding or changing logs, read `logging-guideline.md` and classify each message as a required system log, warning, debugging log, or optional UX LOG. The logging guideline controls language, uppercase text, identifier references, stability, and channel-specific behavior.
+
+### 36. Do not put one function parameter per line
+
+Correct:
+
+```csharp
+private void ApplyReward(
+    int rewardCount, RewardTypeEnum rewardType,
+    bool isBonus, Action onComplete)
+{
+}
+
+private void Register<TItem, TFactory>(TItem item, TFactory factory)
+    where TItem : Item
+    where TFactory : ItemFactoryInterface
+{
+}
+```
+
+Incorrect:
+
+```csharp
+private void ApplyReward(
+    int rewardCount,
+    RewardTypeEnum rewardType,
+    bool isBonus,
+    Action onComplete)
+{
+}
+```
+
+Keep a function's parameter list on one line whenever practical. If it must wrap, group multiple parameters on the same lines instead of giving each parameter its own line. Within a function declaration, generic `where` constraint clauses are the sole vertical exception and may be written one clause per line.
