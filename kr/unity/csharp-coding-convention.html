@@ -1430,7 +1430,7 @@ else
       <article class="rule-card">
         <div class="rule-index">36</div>
         <div class="rule-body">
-          <h3>함수 파라미터를 한 줄에 하나씩 배치하지 않는다</h3>
+          <h3>함수 선언의 파라미터와 호출의 인수를 한 줄에 하나씩 배치하지 않는다</h3>
           <div class="example-pair">
             <div class="example good">
               <div class="example-label">올바른 사용</div>
@@ -1444,6 +1444,13 @@ private void Register&lt;TItem, TFactory&gt;(TItem item, TFactory factory)
     where TItem : Item
     where TFactory : ItemFactoryInterface
 {
+}
+
+private void GrantReward()
+{
+    ApplyReward(
+        item, rewardCount, rewardType,
+        isBonus, onComplete);
 }</code></pre>
             </div>
             <div class="example bad">
@@ -1454,10 +1461,20 @@ private void Register&lt;TItem, TFactory&gt;(TItem item, TFactory factory)
     bool isBonus,
     Action onComplete)
 {
+}
+
+private void GrantReward()
+{
+    ApplyReward(
+        item,
+        rewardCount,
+        rewardType,
+        isBonus,
+        onComplete);
 }</code></pre>
             </div>
           </div>
-          <p>함수의 파라미터 목록은 가능하면 한 줄에 둔다. 줄 길이 때문에 나누어야 해도 여러 파라미터를 같은 줄에 묶으며, 파라미터 하나마다 개행하지 않는다. 함수 선언 안에서 세로로 나열할 수 있는 유일한 예외는 제네릭 <code>where</code> 제약 절이며, 각 <code>where</code> 절은 한 줄에 하나씩 둘 수 있다.</p>
+          <p>함수 선언의 파라미터 목록과 함수 호출의 인수 목록은 가능하면 한 줄에 둔다. 줄 길이 때문에 나누어야 해도 여러 파라미터나 인수를 같은 줄에 묶으며, 파라미터나 인수 하나마다 개행하지 않는다. 함수 선언 안에서 세로로 나열할 수 있는 유일한 예외는 제네릭 <code>where</code> 제약 절이며, 각 <code>where</code> 절은 한 줄에 하나씩 둘 수 있다.</p>
         </div>
       </article>
       <article class="rule-card">
