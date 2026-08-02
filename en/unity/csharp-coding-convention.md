@@ -460,22 +460,43 @@ public Player Player;
 
 If creation and ownership live outside this object, close the setter.
 
-### 19. Use `var` actively
+### 19. Do not repeat types in object creation
 
 Correct:
 
 ```csharp
-var items = new Dictionary<string, Item>();
+public sealed class Inventory
+{
+    private Dictionary<string, Item> items =
+        new(StringComparer.Ordinal);
+
+    public List<Item> Items { get; } = new();
+
+    private void Refresh()
+    {
+        var rewards = new List<Reward>();
+    }
+}
 ```
 
 Incorrect:
 
 ```csharp
-Dictionary<string, Item> items =
-    new Dictionary<string, Item>();
+public sealed class Inventory
+{
+    private Dictionary<string, Item> items =
+        new Dictionary<string, Item>(StringComparer.Ordinal);
+
+    public List<Item> Items { get; } = new List<Item>();
+
+    private void Refresh()
+    {
+        List<Reward> rewards = new List<Reward>();
+    }
+}
 ```
 
-Use `var` when the type is clear from the expression on the right.
+Use `var` when a local variable's right-side creation expression names the type. When the declaration or assignment target already names the type, especially for class fields and properties, use target-typed `new(arguments)` or `new()`. Do not repeat the same construction type on both sides.
 
 ### 20. Do not use the newer using-declaration form
 
