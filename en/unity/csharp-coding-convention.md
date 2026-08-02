@@ -707,54 +707,29 @@ Within each category, order variables, properties, and functions as static membe
 Correct:
 
 ```csharp
-private IEnumerator PlayRewardCoroutine()
+private void ApplyReward()
 {
     rewardCount += bonusCount;
     RefreshTooltip();
-
-    yield return FadeCoroutine(0f, 1f);
-    yield return FadeCoroutine(1f, 0f);
-
-    IEnumerator FadeCoroutine(float fromAlpha, float toAlpha)
-    {
-        canvasGroup.alpha = fromAlpha;
-        while (canvasGroup.alpha != toAlpha)
-        {
-            canvasGroup.alpha = Mathf.MoveTowards(canvasGroup.alpha, toAlpha, Time.deltaTime);
-            yield return null;
-        }
-    }
 }
 ```
 
 Incorrect:
 
 ```csharp
-private void ApplyReward()
+private void AddBonus()
 {
     rewardCount += bonusCount;
+}
+
+private void ApplyReward()
+{
+    AddBonus();
     RefreshTooltip();
-}
-
-private IEnumerator FadeCoroutine(float fromAlpha, float toAlpha)
-{
-    canvasGroup.alpha = fromAlpha;
-    while (canvasGroup.alpha != toAlpha)
-    {
-        canvasGroup.alpha = Mathf.MoveTowards(canvasGroup.alpha, toAlpha, Time.deltaTime);
-        yield return null;
-    }
-}
-
-private IEnumerator PlayRewardCoroutine()
-{
-    ApplyReward();
-    yield return FadeCoroutine(0f, 1f);
-    yield return FadeCoroutine(1f, 0f);
 }
 ```
 
-A single call site alone does not make a function unnecessary. A function called from only one place is unnecessary when extraction creates no reuse, independent responsibility, contract, or clearer context boundary and only scatters related context across the file. Keep that logic in its caller. Unity messages, overrides, explicit interface implementations, registered callbacks, and framework entry points remain member functions regardless of direct call count. `private` limits external access but does not narrow the context inside a class, and it does not by itself justify class-wide scope. In long components, do not move one-off helper logic away from its caller without a clear benefit. Local functions are not the default extraction tool either. Use one mainly for a dependent coroutine subflow, a very long block that benefits from folding, or logic called multiple times by one outer function and nowhere else. Use a member function when multiple members share the logic or it owns an independent responsibility.
+Keep one-off logic in its caller unless extraction creates reuse, an independent responsibility or contract, or a clearer context boundary. Unity messages, overrides, explicit interface implementations, registered callbacks, and framework entry points are exceptions. Use a local function only for caller-local reuse, a dependent coroutine, or a long foldable block.
 
 ### 26. Interface implementation is explicit by type
 
@@ -784,8 +759,6 @@ public sealed class TooltipButton : TooltipInterface
 }
 ```
 
-Do not expose interface members as public members. Implement them as `InterfaceName.MemberName`.
-
 ### 27. Member-variable sections are const, readonly, static, member
 
 Correct:
@@ -812,7 +785,7 @@ private static int __cacheCount;
 private int count;
 ```
 
-`const`, `readonly`, `static`, and ordinary members are separate variable sections. Inside the ordinary-member section, put inherited-implementation variables before local instance variables according to rule 24. Sort alphabetically only inside the same inheritance group. Variables, properties, and functions all follow rule 24's shared order.
+Treat `const`, `readonly`, `static`, and ordinary variables as separate sections. Order ordinary variables by rule 24 and alphabetize only within the same inheritance group.
 
 ### 28. Strongly prefer omitting braces from single embedded-statement bodies
 
@@ -828,12 +801,6 @@ else
 
 foreach (var enemy in enemies)
     enemy.Update();
-
-using (var stream = OpenStream())
-    Load(stream);
-
-lock (syncRoot)
-    RefreshCache();
 ```
 
 Also correct when any branch needs multiple statements:
@@ -861,14 +828,9 @@ foreach (var enemy in enemies)
 {
     enemy.Update();
 }
-
-using (var stream = OpenStream())
-{
-    Load(stream);
-}
 ```
 
-Strongly prefer omitting braces from every body that C# permits as a single embedded statement. This applies equally to `if`/`else`, `for`, `foreach`, `while`, `do`, `using` statements, `lock`, and `fixed`; it is not an `if`-only style. This is a strong recommendation, not a requirement, so keep braces only when there is a concrete reason. In an `if`/`else if`/`else` chain, omit braces when every branch is a single statement. If any branch needs braces, use braces for every branch in that chain.
+Omit braces from any single embedded-statement body unless there is a concrete reason to keep them. If one branch in an `if` chain needs braces, use braces for every branch.
 
 ### 29. Use prefix increment and decrement operators
 
@@ -885,8 +847,6 @@ Incorrect:
 index++;
 index--;
 ```
-
-Put increment and decrement operators before the operand. Do not use postfix forms.
 
 ### 30. Use logical negation only for Boolean toggle assignments
 
@@ -908,7 +868,7 @@ if (!isActive)
 return !isActive;
 ```
 
-Use the logical negation operator `!` only when toggling a Boolean value and assigning it back to the same value. In every other case, including conditions and return expressions, use an explicit comparison such as `== false`.
+Use `!` only when assigning a Boolean toggle back to the same value; otherwise compare explicitly with `== false`.
 
 ### 31. Do not sort members by access modifier
 
@@ -934,7 +894,7 @@ private int BetaCount { get; }
 private int ItemCount { get; }
 ```
 
-Access modifiers do not create member-ordering groups. Apply section order, rule 24's shared order for variables, properties, and functions, inheritance implementation order, and alphabetical sorting without collecting `public`, `protected`, or `private` members together.
+Access modifiers do not affect member order. Follow rules 22-24 and 27.
 
 ### 32. Write one attribute per line
 
@@ -954,8 +914,6 @@ private int count;
 
 [SerializeField] private int index;
 ```
-
-Write each attribute on its own line, and put the attributed declaration on the following line. Do not combine multiple attributes on one line or place an attribute and its declaration on the same line.
 
 ### 33. Wrap comparisons, but not complete single-term conditions
 
@@ -979,7 +937,7 @@ if (CanStart() || count > 0 && item != null)
     Start();
 ```
 
-When logical operators join two or more conditions, wrap each comparison or compound condition in parentheses regardless of operator precedence. Do not add parentheses around a single-term condition that is already complete on its own, typically a Boolean variable, property, or function call evaluated as `true`. Treat a nested compound condition as one condition at the outer level and apply the same rule recursively inside it. Prefer making comparison and compound-condition boundaries explicit without adding meaningless parentheses to a complete single-term condition.
+Parenthesize every comparison or nested compound operand joined by logical operators. Do not wrap standalone Boolean variables, properties, or calls.
 
 ### 34. Put the valid and primary-interest branch first
 
@@ -1001,11 +959,9 @@ else
     Use(item);
 ```
 
-In an `if` chain, put the valid, normal, or primary-interest case first and move the invalid, error, or exceptional case later. Choose branch order by what a human reader needs to understand first. When the main behavior uses an existing item, begin with `if (item != null)` and place the `null` case afterward.
-
 ### 35. Follow the logging guideline
 
-Before adding or changing logs, read `logging-guideline.md` and classify each message as a required system log, warning, debugging log, or optional UX LOG. The logging guideline controls language, uppercase text, identifier references, stability, and channel-specific behavior.
+Before adding or changing logs, follow `logging-guideline.md`.
 
 ### 36. Do not put one function parameter or call argument per line
 
@@ -1054,7 +1010,7 @@ private void GrantReward()
 }
 ```
 
-Keep function declaration parameter lists and function call argument lists on one line whenever practical. If either must wrap, group multiple parameters or arguments on the same lines instead of giving each parameter or argument its own line. Within a function declaration, generic `where` constraint clauses are the sole vertical exception and may be written one clause per line.
+Keep declaration parameters and call arguments on one line when practical. When wrapping, keep multiple items per line. Only generic `where` clauses may be placed one per line.
 
 ### 37. Use one completely empty blank line
 
@@ -1069,7 +1025,7 @@ private void Run()
 }
 ```
 
-Incorrect (`␠` marks a space):
+Incorrect:
 
 ```csharp
 private void Run()
@@ -1079,11 +1035,11 @@ private void Run()
 
 
     Execute();
-␠␠␠␠
+
 }
 ```
 
-Rules 37-39 govern vertical whitespace only. They never justify reordering declarations or statements, changing braces or control flow, extracting functions, or changing runtime or serialization behavior. Use exactly one completely empty blank line wherever these rules require separation. Do not use consecutive blank lines, leave spaces or tabs on a blank line, or put a blank line immediately after an opening brace or before a closing brace. When `using` directives are present, put one blank line between the last `using` and the following namespace or top-level declaration.
+Use exactly one empty line where separation is required. Do not use consecutive or whitespace-only blank lines, or a blank line directly inside braces. Put one blank line after `using` directives.
 
 ### 38. Separate type-scope groups with blank lines
 
@@ -1119,7 +1075,7 @@ public void Run()
 }
 ```
 
-At type scope, use one blank line between the member sections and inheritance groups established by rules 22-24 and 27, between nested type declarations, and between function implementations. Keep consecutive variables, properties, events, enum members, and bodyless interface or abstract declarations together inside the same existing group. Keep attributes, XML documentation, and declaration-leading comments attached to their declaration, placing the section boundary before them. Spacing reflects existing groups and never creates, merges, or reorders them. When adding or changing a member in a file whose nearest same-group members consistently use a different density, follow that local density instead. Do not restyle unrelated members.
+At type scope, put one blank line between member sections, inheritance groups, nested types, and function implementations. Keep declarations in the same group together, and keep attributes, documentation, and leading comments attached to their declaration.
 
 ### 39. Use blank lines only between logical paragraphs inside blocks
 
@@ -1150,7 +1106,7 @@ private IEnumerator RunCoroutine()
 }
 ```
 
-Inside a function, accessor, local function, lambda, or control-flow block, use one blank line only between complete statement groups that serve different immediate purposes. Keep a produced value with its immediate validation or consumer and keep one logical step together. After one paragraph is complete, separate a following independent statement group; do not insert a blank line before an `else` or a closing brace. Use a paragraph boundary when preparation, validation, mutation, execution suspension and resumption, external calls, or notification and synchronization form separate existing phases. These statement kinds do not create boundaries by themselves; separate adjacent groups only when each has a distinct immediate purpose. A blank line describes those phases and never requires adding guards, callbacks, or other behavior. When the boundary is unclear, preserve the existing spacing.
+Inside blocks, use blank lines only between complete statement groups with different purposes. Keep a produced value with its immediate validation or consumer, and do not put a blank line before `else` or a closing brace.
 
 ### 40. Inline values that a local variable would use only once
 
@@ -1185,4 +1141,4 @@ private int Run(Player player)
 }
 ```
 
-A local name that only explains the meaning of a function result is not meaningful context separation and does not justify another statement. When a value is consumed only once by the next call, assignment, return, or expression, inline it. Prefer the shorter code even if a one-use temporary would add slight clarity. Declare a local only when the same value is consumed at least twice or storage is required by C# syntax or execution semantics, such as evaluation order, lifetime, `ref`/`out` use, or disposal. Preserve real context separation through the surrounding structure instead of a relay variable.
+Inline a value used only once. Declare a local only when the same value is used at least twice or C# syntax or execution semantics require storage.

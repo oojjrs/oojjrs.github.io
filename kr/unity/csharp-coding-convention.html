@@ -1120,52 +1120,27 @@ public void RefreshTooltip()
           <div class="example-pair">
             <div class="example good">
               <div class="example-label">올바른 사용</div>
-              <pre><code>private IEnumerator PlayRewardCoroutine()
-{
-    rewardCount += bonusCount;
-    RefreshTooltip();
-
-    yield return FadeCoroutine(0f, 1f);
-    yield return FadeCoroutine(1f, 0f);
-
-    IEnumerator FadeCoroutine(float fromAlpha, float toAlpha)
-    {
-        canvasGroup.alpha = fromAlpha;
-        while (canvasGroup.alpha != toAlpha)
-        {
-            canvasGroup.alpha = Mathf.MoveTowards(canvasGroup.alpha, toAlpha, Time.deltaTime);
-            yield return null;
-        }
-    }
-}</code></pre>
-            </div>
-            <div class="example bad">
-              <div class="example-label">잘못된 사용</div>
               <pre><code>private void ApplyReward()
 {
     rewardCount += bonusCount;
     RefreshTooltip();
+}</code></pre>
+            </div>
+            <div class="example bad">
+              <div class="example-label">잘못된 사용</div>
+              <pre><code>private void AddBonus()
+{
+    rewardCount += bonusCount;
 }
 
-private IEnumerator FadeCoroutine(float fromAlpha, float toAlpha)
+private void ApplyReward()
 {
-    canvasGroup.alpha = fromAlpha;
-    while (canvasGroup.alpha != toAlpha)
-    {
-        canvasGroup.alpha = Mathf.MoveTowards(canvasGroup.alpha, toAlpha, Time.deltaTime);
-        yield return null;
-    }
-}
-
-private IEnumerator PlayRewardCoroutine()
-{
-    ApplyReward();
-    yield return FadeCoroutine(0f, 1f);
-    yield return FadeCoroutine(1f, 0f);
+    AddBonus();
+    RefreshTooltip();
 }</code></pre>
             </div>
           </div>
-          <p>호출 지점이 하나라는 사실만으로 불필요한 함수가 되는 것은 아니다. 한 곳에서만 호출되고 재사용, 독립된 책임, 계약, 더 명확한 문맥 경계를 만들지 않으며 분리로 인해 같은 문맥만 파일 안에 흩어지는 함수는 불필요한 함수로 본다. 이런 로직은 호출부에 둔다. Unity 메시지, <code>override</code>, 명시적 인터페이스 구현, 등록된 콜백, 프레임워크 진입점은 직접 호출 횟수와 관계없이 멤버 함수로 둔다. <code>private</code>는 외부 접근만 제한할 뿐 클래스 내부의 문맥 범위를 좁히지 않으며, <code>private</code>라는 이유만으로 클래스 범위의 함수가 정당화되지는 않는다. 긴 컴포넌트에서 명확한 이점 없이 일회성 보조 로직을 멤버 함수로 빼 호출부와 정의를 멀리하지 않는다. 지역 함수도 기본 분리 수단으로 쓰지 않는다. 상위 함수에 종속된 코루틴 흐름, 별도로 접어 읽을 필요가 있을 만큼 긴 코드 블록, 하나의 상위 함수 안에서만 여러 번 호출되는 로직처럼 범위를 함수 내부로 제한할 명확한 이점이 있을 때 주로 사용한다. 여러 멤버가 공유하거나 독립된 책임을 가진 로직은 멤버 함수로 둔다.</p>
+          <p>재사용, 독립된 책임이나 계약, 더 명확한 문맥 경계가 생기지 않는 일회성 로직은 호출부에 둔다. Unity 메시지, <code>override</code>, 명시적 인터페이스 구현, 등록된 콜백, 프레임워크 진입점은 예외다. 지역 함수는 상위 함수 내부 재사용, 종속 코루틴, 접어 둘 만큼 긴 블록에만 쓴다.</p>
         </div>
       </article>
       <article class="rule-card">
@@ -1196,7 +1171,6 @@ private IEnumerator PlayRewardCoroutine()
 }</code></pre>
             </div>
           </div>
-          <p>인터페이스 멤버는 public으로 노출하지 않고 InterfaceName.MemberName 형태로 구현한다.</p>
         </div>
       </article>
       <article class="rule-card">
@@ -1225,7 +1199,7 @@ private static int __cacheCount;
 private int count;</code></pre>
             </div>
           </div>
-          <p><code>const</code>, <code>readonly</code>, <code>static</code>, 일반 멤버는 서로 다른 변수 섹션이다. 일반 멤버 섹션 안에서는 24번에 따라 상속 구현 변수를 자기 인스턴스 변수보다 먼저 둔다. 같은 상속 그룹 안에서만 abc순으로 정렬한다. 변수·속성·함수에는 모두 24번의 공통 순서를 적용한다.</p>
+          <p><code>const</code>, <code>readonly</code>, <code>static</code>, 일반 변수는 별도 섹션으로 두고, 일반 변수는 24번 순서에 따라 같은 상속 그룹 안에서만 이름순으로 정렬한다.</p>
         </div>
       </article>
       <article class="rule-card">
@@ -1237,19 +1211,9 @@ private int count;</code></pre>
               <div class="example-label">올바른 사용</div>
               <pre><code>if (isReady)
     StartGame();
-else if (canRetry)
-    RetryGame();
-else
-    CancelGame();
 
 foreach (var enemy in enemies)
     enemy.Update();
-
-using (var stream = OpenStream())
-    Load(stream);
-
-lock (syncRoot)
-    RefreshCache();
 
 if (isReady)
 {
@@ -1270,15 +1234,10 @@ else
               <pre><code>foreach (var enemy in enemies)
 {
     enemy.Update();
-}
-
-using (var stream = OpenStream())
-{
-    Load(stream);
 }</code></pre>
             </div>
           </div>
-          <p>C# 문법상 단일 내장문으로 쓸 수 있는 모든 본문은 중괄호 생략을 강력히 권장한다. <code>if</code>/<code>else</code>, <code>for</code>, <code>foreach</code>, <code>while</code>, <code>do</code>, <code>using</code> 문, <code>lock</code>, <code>fixed</code>에 똑같이 적용하며 <code>if</code>만의 규칙이 아니다. 필수 규칙은 아니므로 명확한 사유가 있을 때만 중괄호를 유지한다. 같은 <code>if</code>, <code>else if</code>, <code>else</code> 연쇄에서는 모든 분기가 한 문장이면 중괄호를 생략하고, 한 분기라도 중괄호가 필요하면 나머지 분기에도 모두 중괄호를 사용한다.</p>
+          <p>단일 내장문 본문은 명확한 이유가 있을 때만 중괄호를 유지한다. 같은 <code>if</code> 연쇄에서 한 분기라도 중괄호가 필요하면 모든 분기에 쓴다.</p>
         </div>
       </article>
       <article class="rule-card">
@@ -1297,7 +1256,6 @@ using (var stream = OpenStream())
 index--;</code></pre>
             </div>
           </div>
-          <p>증가와 감소 연산자는 각각 <code>++index</code>, <code>--index</code>처럼 피연산자 앞에 둔다. <code>index++</code>, <code>index--</code> 같은 후위형은 사용하지 않는다.</p>
         </div>
       </article>
       <article class="rule-card">
@@ -1320,7 +1278,7 @@ if (isActive == false)
 return !isActive;</code></pre>
             </div>
           </div>
-          <p>논리 부정 연산자 <code>!</code>는 Boolean 값을 토글하여 같은 변수에 다시 대입할 때만 사용한다. 조건문과 반환식을 포함한 그 밖의 모든 경우에는 <code>if (isActive == false)</code>처럼 <code>== false</code>를 사용해 명시적으로 비교한다.</p>
+          <p><code>!</code>는 같은 Boolean 변수의 토글 대입에만 사용하고, 그 밖에는 <code>== false</code>로 비교한다.</p>
         </div>
       </article>
       <article class="rule-card">
@@ -1347,7 +1305,7 @@ private int BetaCount { get; }
 private int ItemCount { get; }</code></pre>
             </div>
           </div>
-          <p>접근 제한자는 멤버 정렬 그룹을 만들지 않는다. <code>public</code>, <code>protected</code>, <code>private</code>끼리 모으지 말고 섹션 순서, 24번의 변수·속성·함수 공통 순서, 상속 구현 순서를 적용한 뒤 같은 상속 그룹의 같은 카테고리 안에서 이름순으로 정렬한다.</p>
+          <p>접근 제한자는 멤버 순서에 영향을 주지 않는다. 22~24번과 27번을 따른다.</p>
         </div>
       </article>
       <article class="rule-card">
@@ -1369,7 +1327,6 @@ private int count;
 [SerializeField] private int index;</code></pre>
             </div>
           </div>
-          <p>각 Attribute는 한 줄에 하나씩 작성하고, Attribute가 적용되는 선언은 다음 줄에 둔다. 여러 Attribute를 한 줄에 합치거나 Attribute와 대상 선언을 같은 줄에 작성하지 않는다.</p>
         </div>
       </article>
       <article class="rule-card">
@@ -1394,7 +1351,7 @@ if (CanStart() || count &gt; 0 &amp;&amp; item != null)
     Start();</code></pre>
             </div>
           </div>
-          <p>논리 연산자로 두 개 이상의 조건을 연결할 때는 연산자 우선순위와 관계없이 비교식과 복합 조건식을 괄호로 감싼다. 단, 그 자체로 조건이 완결되는 단일 항목, 대표적으로 <code>true</code>로 직접 평가하는 Boolean 변수, 속성, 함수 호출은 괄호로 감싸지 않는다. 중첩된 복합 조건식은 바깥 단계에서 하나의 조건으로 보고, 내부 조건에도 같은 규칙을 재귀적으로 적용한다. 비교식과 복합 조건식의 경계는 명시하되 완결된 단일 항목에 의미 없는 괄호를 추가하지 않는다.</p>
+          <p>논리 연산자로 연결한 비교식과 중첩 복합 조건식은 각각 괄호로 감싼다. 단독 Boolean 변수, 속성, 함수 호출은 감싸지 않는다.</p>
         </div>
       </article>
       <article class="rule-card">
@@ -1417,14 +1374,13 @@ else
     Use(item);</code></pre>
             </div>
           </div>
-          <p><code>if</code> 연쇄에서는 올바른 케이스, 정상 흐름, 주요 관심 분기를 먼저 두고 유효하지 않은 케이스, 오류, 예외 분기는 나중에 둔다. 조건의 기계적인 형태보다 사람이 코드를 읽을 때 먼저 이해해야 하는 흐름을 기준으로 분기 순서를 정한다. 주요 동작이 존재하는 항목을 사용하는 것이라면 <code>if (item != null)</code>부터 작성하고 <code>null</code>인 경우를 뒤에 둔다.</p>
         </div>
       </article>
       <article class="rule-card">
         <div class="rule-index">35</div>
         <div class="rule-body">
           <h3>로그 작성 지침을 따른다</h3>
-          <p>로그를 추가하거나 수정하기 전에 <a href="logging-guideline.html">로그 작성 지침</a>을 읽고 각 메시지를 필수 시스템 로그, 경고, 디버깅 로그, 선택적 UX LOG로 분류한다. 로그 작성 지침의 언어, 대문자 문구, identifier 참조, 안정성, 채널별 동작 규칙을 따른다.</p>
+          <p>로그를 추가하거나 수정할 때는 <a href="logging-guideline.html">로그 작성 지침</a>을 따른다.</p>
         </div>
       </article>
       <article class="rule-card">
@@ -1474,7 +1430,7 @@ private void GrantReward()
 }</code></pre>
             </div>
           </div>
-          <p>함수 선언의 파라미터 목록과 함수 호출의 인수 목록은 가능하면 한 줄에 둔다. 줄 길이 때문에 나누어야 해도 여러 파라미터나 인수를 같은 줄에 묶으며, 파라미터나 인수 하나마다 개행하지 않는다. 함수 선언 안에서 세로로 나열할 수 있는 유일한 예외는 제네릭 <code>where</code> 제약 절이며, 각 <code>where</code> 절은 한 줄에 하나씩 둘 수 있다.</p>
+          <p>함수 선언 파라미터와 호출 인수는 가능한 한 한 줄에 두고, 줄바꿈하면 한 줄에 여러 항목을 둔다. 제네릭 <code>where</code> 절만 한 줄에 하나씩 둘 수 있다.</p>
         </div>
       </article>
       <article class="rule-card">
@@ -1492,7 +1448,7 @@ private void GrantReward()
 }</code></pre>
             </div>
             <div class="example bad">
-              <div class="example-label">잘못된 사용 (<code>␠</code>는 스페이스 표시)</div>
+              <div class="example-label">잘못된 사용</div>
               <pre><code>private void Run()
 {
 
@@ -1500,11 +1456,11 @@ private void GrantReward()
 
 
     Execute();
-␠␠␠␠
+
 }</code></pre>
             </div>
           </div>
-          <p>37~39번은 세로 공백만 다룬다. 이 규칙을 선언이나 문장의 순서 변경, 중괄호나 제어 흐름 변경, 함수 추출, 런타임 또는 직렬화 동작 변경의 근거로 사용하지 않는다. 구분이 필요한 곳에는 정확히 한 줄의 완전히 빈 줄만 둔다. 빈 줄을 연속으로 두거나 빈 줄에 스페이스·탭을 남기지 않으며, 여는 중괄호 바로 뒤와 닫는 중괄호 바로 앞에는 빈 줄을 두지 않는다. <code>using</code> 지시문이 있으면 마지막 <code>using</code>과 뒤따르는 네임스페이스 또는 최상위 선언 사이에 빈 줄을 한 줄 둔다.</p>
+          <p>필요한 곳에는 완전히 빈 줄을 한 줄만 둔다. 연속되거나 공백 문자가 든 빈 줄과 중괄호 바로 안쪽의 빈 줄은 사용하지 않으며, 마지막 <code>using</code> 뒤에는 빈 줄을 한 줄 둔다.</p>
         </div>
       </article>
       <article class="rule-card">
@@ -1541,7 +1497,7 @@ public void Run()
 }</code></pre>
             </div>
           </div>
-          <p>타입 범위에서는 22~24번과 27번에서 정한 멤버 섹션·상속 그룹 사이, 중첩 타입 선언 사이, 함수 구현 사이에 빈 줄을 한 줄 둔다. 같은 기존 그룹 안의 연속된 변수·속성·이벤트·열거형 멤버·본문 없는 인터페이스 또는 추상 멤버 선언은 붙인다. Attribute, XML 문서 주석, 선언을 설명하는 선행 주석은 대상 선언에 붙이고 그룹 경계는 그 앞에 둔다. 공백은 기존 그룹을 드러낼 뿐 새 그룹을 만들거나 합치거나 순서를 바꾸지 않는다. 가장 가까운 같은 그룹의 멤버가 일관되게 다른 밀도를 사용하는 파일에서 멤버를 추가하거나 변경할 때는 그 지역 밀도를 따른다. 관련 없는 멤버는 다시 정리하지 않는다.</p>
+          <p>타입 범위에서는 멤버 섹션, 상속 그룹, 중첩 타입, 함수 구현 사이를 한 줄 띄운다. 같은 그룹의 선언은 붙이고 Attribute, 문서, 선행 주석은 대상 선언에 붙인다.</p>
         </div>
       </article>
       <article class="rule-card">
@@ -1573,7 +1529,7 @@ public void Run()
 }</code></pre>
             </div>
           </div>
-          <p>함수, 접근자, 지역 함수, 람다, 제어 흐름 블록 안에서는 서로 다른 즉시 목적을 가진 완결된 문장 그룹 사이에만 빈 줄을 한 줄 둔다. 생산한 값과 그 값을 즉시 검증하거나 소비하는 문장은 붙이고 하나의 논리 단계를 이루는 문장도 붙인다. 한 문단이 끝난 뒤 독립된 문장 그룹이 이어지면 두 문단을 나누되, <code>else</code>나 닫는 중괄호 앞에는 빈 줄을 넣지 않는다. 준비, 검증, 변경, 실행 일시 중단과 재개, 외부 호출, 통지와 동기화가 이미 서로 다른 단계라면 문단 경계를 둔다. 이러한 문장 종류 자체가 경계를 만들지는 않으며, 인접한 각 그룹의 즉시 목적을 서로 다르게 이름 붙일 수 있을 때만 나눈다. 빈 줄은 그 단계를 설명할 뿐 가드, 콜백, 그 밖의 동작을 새로 추가하라고 요구하지 않는다. 경계가 불분명하면 기존 공백을 보존한다.</p>
+          <p>블록 안에서는 즉시 목적이 다른 완결된 문장 그룹 사이만 한 줄 띄운다. 값을 만든 문장과 바로 검증하거나 소비하는 문장은 붙이고, <code>else</code>나 닫는 중괄호 앞은 띄우지 않는다.</p>
         </div>
       </article>
       <article class="rule-card">
@@ -1609,7 +1565,7 @@ private void ApplyAndLog()
 }</code></pre>
             </div>
           </div>
-          <p>함수 반환값의 의미를 설명하는 지역 변수 이름은 실제 컨텍스트 분리가 아니며 문장을 하나 늘릴 근거가 되지 않는다. 값이 다음 함수 호출, 대입, <code>return</code>, 표현식에서 한 번만 소비되면 직접 인라인한다. 한 번 쓰는 임시 변수가 약간의 명료함을 주더라도 더 짧은 코드를 우선한다. 동일 값을 둘 이상의 소비 지점에서 사용하거나 평가 순서, 수명, <code>ref</code>/<code>out</code> 사용, 해제 등 C# 문법·실행 의미상 저장이 필요할 때만 지역 변수를 선언한다. 실제 컨텍스트 분리는 주변 구조로 유지하며 전달용 지역 변수로 흉내 내지 않는다.</p>
+          <p>한 번만 쓰는 값은 다음 호출, 대입, <code>return</code>, 표현식에 직접 인라인한다. 같은 값을 두 번 이상 쓰거나 C# 문법·실행 의미상 저장이 필요할 때만 지역 변수를 선언한다.</p>
         </div>
       </article>
     </section>
