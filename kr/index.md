@@ -108,6 +108,10 @@ alternate_url: /en/
       <span>DESIGN</span>
       <strong>기획서 기준</strong>
     </a>
+    <a class="utility-link utility-link-unity" href="{{ "/kr/unity/game-ui-notes/" | relative_url }}">
+      <span>GAME UI</span>
+      <strong>게임 UI 실무 노트</strong>
+    </a>
   </nav>
 
   <section class="minor-link-row" aria-label="기획서">
