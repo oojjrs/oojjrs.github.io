@@ -1029,3 +1029,99 @@ private void ApplyReward(
 ```
 
 Keep a function's parameter list on one line whenever practical. If it must wrap, group multiple parameters on the same lines instead of giving each parameter its own line. Within a function declaration, generic `where` constraint clauses are the sole vertical exception and may be written one clause per line.
+
+### 37. Use one completely empty blank line
+
+Correct:
+
+```csharp
+private void Run()
+{
+    Prepare();
+
+    Execute();
+}
+```
+
+Incorrect (`␠` marks a space):
+
+```csharp
+private void Run()
+{
+
+    Prepare();
+
+
+    Execute();
+␠␠␠␠
+}
+```
+
+Rules 37-39 govern vertical whitespace only. They never justify reordering declarations or statements, changing braces or control flow, extracting functions, or changing runtime or serialization behavior. Use exactly one completely empty blank line wherever these rules require separation. Do not use consecutive blank lines, leave spaces or tabs on a blank line, or put a blank line immediately after an opening brace or before a closing brace. When `using` directives are present, put one blank line between the last `using` and the following namespace or top-level declaration.
+
+### 38. Separate type-scope groups with blank lines
+
+Correct:
+
+```csharp
+[SerializeField]
+private int _count;
+private bool _ready;
+
+public int Count => _count;
+
+// Execution entry point.
+public void Run()
+{
+}
+
+public void Stop()
+{
+}
+```
+
+Incorrect:
+
+```csharp
+[SerializeField]
+
+private int _count;
+private bool _ready;
+public int Count => _count;
+public void Run()
+{
+}
+```
+
+At type scope, use one blank line between the member sections and inheritance groups established by rules 22-24 and 27, between nested type declarations, and between function implementations. Keep consecutive variables, properties, events, enum members, and bodyless interface or abstract declarations together inside the same existing group. Keep attributes, XML documentation, and declaration-leading comments attached to their declaration, placing the section boundary before them. Spacing reflects existing groups and never creates, merges, or reorders them. When adding or changing a member in a file whose nearest same-group members consistently use a different density, follow that local density instead. Do not restyle unrelated members.
+
+### 39. Use blank lines only between logical paragraphs inside blocks
+
+Correct:
+
+```csharp
+private IEnumerator RunCoroutine()
+{
+    var item = Select();
+    item.Prepare();
+
+    yield return item.RunCoroutine();
+
+    OnCompleted?.Invoke(item);
+}
+```
+
+Incorrect:
+
+```csharp
+private IEnumerator RunCoroutine()
+{
+    var item = Select();
+
+    item.Prepare();
+    yield return item.RunCoroutine();
+    OnCompleted?.Invoke(item);
+}
+```
+
+Inside a function, accessor, local function, lambda, or control-flow block, use one blank line only between complete statement groups that serve different immediate purposes. Keep a produced value with its immediate validation or consumer and keep one logical step together. After one paragraph is complete, separate a following independent statement group; do not insert a blank line before an `else` or a closing brace. Use a paragraph boundary when preparation, validation, mutation, execution suspension and resumption, external calls, or notification and synchronization form separate existing phases. These statement kinds do not create boundaries by themselves; separate adjacent groups only when each has a distinct immediate purpose. A blank line describes those phases and never requires adding guards, callbacks, or other behavior. When the boundary is unclear, preserve the existing spacing.
