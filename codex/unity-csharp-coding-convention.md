@@ -48,7 +48,7 @@ Read this before editing first-party Unity C# files. This is the agent copy of t
 25. Extract a function only for reuse, an independent responsibility or contract, or a clearer context boundary; otherwise keep one-off logic in its caller. Unity messages, overrides, explicit interface implementations, registered callbacks, and framework entry points are exceptions. Use a local function only for caller-local reuse, a dependent coroutine, or a long foldable block.
 26. Implement interface members explicitly as `InterfaceName.MemberName`; do not expose them as public members.
 27. Order member variables as `const` > `readonly` > `static` > inherited implementation > local instance; alphabetize only within the same inheritance group.
-28. Prefer omitting braces from any body C# permits as a single embedded statement; keep them only for a concrete reason. In an `if` chain, if one branch needs braces, use them for every branch.
+28. Prefer omitting braces from any body C# permits as a single embedded statement; keep them only for a concrete reason. Do not nest brace-free control statements: when a control statement's only body is another control statement, except for an `else if` chain, brace the outer body and omit braces only from the innermost single action. In an `if` chain, if one branch needs braces, use them for every branch.
 29. Use prefix increment and decrement: `++index` and `--index`.
 30. Use `!` only to toggle and assign the same Boolean; otherwise compare explicitly with `false`.
 31. Do not group members by access modifier; follow rules 22-24 and 27.
