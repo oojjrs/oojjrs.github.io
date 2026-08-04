@@ -801,6 +801,12 @@ else
 
 foreach (var enemy in enemies)
     enemy.Update();
+
+foreach (var index in Indexes)
+{
+    if (index.CanAdd(entity, primaryKey) == false)
+        return false;
+}
 ```
 
 Also correct when any branch needs multiple statements:
@@ -828,9 +834,13 @@ foreach (var enemy in enemies)
 {
     enemy.Update();
 }
+
+foreach (var index in Indexes)
+    if (index.CanAdd(entity, primaryKey) == false)
+        return false;
 ```
 
-Omit braces from any single embedded-statement body unless there is a concrete reason to keep them. If one branch in an `if` chain needs braces, use braces for every branch.
+Omit braces from any single embedded-statement body unless there is a concrete reason to keep them. Do not nest brace-free control statements: when a control statement's only body is another control statement, except for an `else if` chain, put braces around the outer body and omit braces only from the innermost single action. If one branch in an `if` chain needs braces, use braces for every branch.
 
 ### 29. Use prefix increment and decrement operators
 
