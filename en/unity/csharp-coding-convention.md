@@ -1152,3 +1152,50 @@ private int Run(Player player)
 ```
 
 Inline a value used only once. Declare a local only when the same value is used at least twice or C# syntax or execution semantics require storage.
+
+### 41. Do not use null-conditional or null-coalescing operators on Unity objects
+
+Correct:
+
+```csharp
+private void ResetTarget(Transform target)
+{
+    if (target != null)
+        target.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
+}
+
+private Transform SelectTarget(Transform target, Transform fallback)
+{
+    if (target != null)
+        return target;
+
+    return fallback;
+}
+
+private void SetTargetFallback(Transform fallback)
+{
+    if (_target == null)
+        _target = fallback;
+}
+```
+
+Incorrect:
+
+```csharp
+private void ResetTarget(Transform target)
+{
+    target?.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
+}
+
+private Transform SelectTarget(Transform target, Transform fallback)
+{
+    return target ?? fallback;
+}
+
+private void SetTargetFallback(Transform fallback)
+{
+    _target ??= fallback;
+}
+```
+
+After a native Unity object is destroyed, its managed `UnityEngine.Object` wrapper can remain. Unity's overloaded equality and implicit Boolean treat that detached wrapper as null, but `?.`, `??`, and `??=` test only CLR null and bypass the destroyed-object state. Never use these operators on `GameObject`, `Component`, `MonoBehaviour`, `ScriptableObject`, or another Unity object reference, even when its current lifetime appears safe. Check `target != null` or `if (target)` immediately before access and select fallbacks with an explicit branch. If an `object`, interface, or generic may hide a Unity object, recover and check it as `UnityEngine.Object` first. Ordinary managed objects, nullable annotations, the ternary operator `?:`, and delegates or events such as `OnCompleted?.Invoke(item)` remain allowed. See the [UnityEngine.Object documentation](https://docs.unity3d.com/6000.0/Documentation/ScriptReference/Object.html).
