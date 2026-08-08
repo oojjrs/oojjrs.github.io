@@ -1,49 +1,34 @@
 ---
 name: oojjrs-guideline-maintenance
-description: Maintain shared oojjrs workflow guidance and public guideline documents. Use when editing common-work-guidelines.md, guideline-design-generation.review.md, guideline-readme-generation.review.md, unity-csharp-coding-convention.md, or deciding whether a reusable rule belongs in shared guidance, a project Design.html, a skill, or temporary memory.
+description: Maintain shared oojjrs workflow guidance and public guideline documents when public guidance itself is the primary deliverable. Use for common-work-guidelines.md, Design.html or README guidance, logging or semantic naming guidance, and rule-placement decisions. If the task primarily changes SKILL.md, agents/openai.yaml, the skill index, or the installer, use $oojjrs-skill-maintenance instead. Unity C# convention sets use $oojjrs-unity-csharp-convention-maintenance.
 ---
 
 # oojjrs Guideline Maintenance
 
-Use this skill when a durable workflow rule or public guidance document must change.
+Use this skill when durable public guidance must change.
 
-## Routing
+## Authority And Publication
 
-1. Put general repository work rules in `codex/common-work-guidelines.md`.
-2. Put `Design.html` planning-document rules in `codex/guideline-design-generation.review.md`.
+- The active common-rules authority is `https://oojjrs.github.io/codex/common-work-guidelines.md`.
+- `codex/common-work-guidelines.md` in this repository is its publication source, not a runtime override.
+- Before claiming what the active common rules say, read the canonical URL. Before editing, inspect the publication source and its diff.
+- Until a change is committed, pushed, and published, report that the canonical URL still serves the previous body.
+
+## Placement
+
+1. Keep only short, stable, cross-domain rules in `codex/common-work-guidelines.md`.
+2. Put Design planning-document rules in `codex/guideline-design-generation.review.md`.
 3. Put GitHub-facing README rules in `codex/guideline-readme-generation.review.md`.
-4. Put Unity C# style rules in `codex/unity-csharp-coding-convention.md`.
-5. Put executable or repeated task procedure in a skill when it is more than a short rule.
-6. Do not preserve reusable workflow policy only in Codex memory. Memory may hold in-progress scratch or checkpoint state only.
+4. Put semantic naming and logging rules in their focused public documents.
+5. Reroute multilingual Unity C# convention-set work to `$oojjrs-unity-csharp-convention-maintenance`; do not load both domains.
+6. Put executable or repeated procedure in a narrowly triggered skill. Keep temporary decisions in task state rather than durable guidance.
 
-## Editing Rules
+## Editing And Validation
 
-1. Verify the current authoritative file directly before answering whether a rule exists.
-2. Keep edits narrow to the requested rule or wording.
-3. Preserve existing encoding and line endings exactly. After each edit batch, run the shared text-format checker with `-Fix` on the exact touched files and rerun it read-only; do not rely on Git's changed-line view to reveal EOL normalization.
-4. Do not add repo-local `AGENTS.md`, `HANDOFF.md`, or similar instruction files unless the user explicitly makes that repository an exception.
-5. If the rule affects public skills, update the relevant `SKILL.md`, `agents/openai.yaml`, `codex/skills/index.md`, and `install.ps1`.
+1. Keep the change narrow and remove superseded or duplicated wording rather than layering another exception on top.
+2. Preserve existing encoding and line endings; validate exact touched files with the shared text-format checker and inspect the ordinary diff.
+3. When guidance changes public skills, keep the affected `SKILL.md`, `agents/openai.yaml`, routing index, and installer aligned.
+4. When adding, moving, or publishing a public document, add a discoverable site-root navigation path and verify it when deployment is in scope.
+5. Run targeted structure/link checks and `git diff --check -- <changed-files>`.
 
-## Convention Document Sets
-
-1. Treat every agent copy and public language page of a convention as one document set. Do not publish or report a convention change while any representation is missing the rule.
-2. For Unity C# convention changes, update all applicable files in the same task:
-   - `codex/unity-csharp-coding-convention.md`: concise agent copy containing every rule and decision criterion.
-   - `kr/unity/csharp-coding-convention.html`: full Korean public page with the matching rule card and examples.
-   - `en/unity/csharp-coding-convention.md`: full English public source with the matching rule and examples.
-   - `unity/csharp-coding-convention.html`: redirect only; change it only when the route or default language changes.
-3. Keep rule order, numbering, meaning, decision criteria, and correct/incorrect examples aligned across the document set. The agent copy may omit long examples, but it must not omit the rule or weaken its criteria.
-4. Before commit or push, compare the rule inventory across every representation and verify that no rule exists in only part of the document set.
-
-## Validation
-
-Use static checks that match the edit:
-
-```powershell
-git diff --check -- <changed-files>
-git diff -- <changed-files>
-```
-
-For a convention document set, also validate encoding and line endings for every changed representation, check HTML structure when applicable, and verify matching rule numbers and content across languages before publishing.
-
-After publishing shared guideline changes, refresh or reinstall the user-global skill/guideline cache when applicable, then report whether GitHub Pages/raw content may lag.
+After publication, compare the canonical body or page with the intended source and report any GitHub Pages/raw-content delay.

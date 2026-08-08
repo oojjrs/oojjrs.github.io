@@ -1,55 +1,23 @@
 ---
 name: oojjrs-guidelines
-description: Bootstrap the user's shared Codex work rules for actual task execution, not ordinary question answering. Use before repository, code, document, asset, maintenance, Git/GitHub, validation, deployment, or other real work that should follow oojjrs common-work-guidelines, including host instructions that ask for $oojjrs-guidelines. For validation, stage, commit, push, handoff, or final reporting, re-read the rules at that phase because a task-start read does not count. Also use when Codex must inspect, update, load, or refresh the guidelines with local workspace priority, global cache reuse, ETag/Last-Modified refresh, and cached fallback.
+description: Load the user's canonical shared Codex work rules for actual repository, code, document, asset, Git, validation, maintenance, or deployment work. Use once per task thread or subagent when host instructions request $oojjrs-guidelines, and when inspecting or refreshing the canonical rules. Do not use for ordinary conversation, factual Q&A, translation, or rewriting. The canonical URL is the sole authority; workspace and cached copies are never runtime substitutes.
 ---
 
-# Oojjrs Guidelines
+# oojjrs Guidelines
 
-## Overview
+## Canonical Load
 
-This is a thin bootstrap skill for actual work. Do not duplicate the shared rules here; load them from the workspace or canonical URL and then follow them as the highest-priority user guidance.
+1. Run `scripts/Read-OojjrsGuidelines.ps1` once at the start of an actual-work thread or subagent. It directly fetches only `https://oojjrs.github.io/codex/common-work-guidelines.md`, verifies the final URL, and reports the fetched body's SHA-256.
+2. If the script itself is unavailable, open that exact URL directly. Never substitute a workspace, repository, memory, or cached copy.
+3. Reuse the loaded rules in the same thread. Do not reload them before each command, tool call, validation step, or final response.
+4. Reload only in a new thread or subagent, after context restoration, or when the user asks to recheck the rules.
+5. If the canonical URL cannot be reached, stop rule-dependent work and report the access failure.
 
-Do not use this skill for ordinary conversation, simple factual Q&A, translation, rewriting, or casual explanation unless the answer itself depends on the shared work rules or the user asks to inspect/update this skill.
+## Routing
 
-Canonical URL:
-`https://oojjrs.github.io/codex/common-work-guidelines.md`
-
-## Workflow
-
-1. At the start of every thread and immediately before every command or tool call, load and read the shared rules in full. This has no exception for trivial, read-only, status-checking, or validation commands; never rely on an earlier read.
-2. If the current workspace contains `codex/common-work-guidelines.md`, read that local file first and treat it as authoritative for the workspace.
-3. Otherwise run `scripts/Read-OojjrsGuidelines.ps1` to read the user-global cached copy and refresh it only when stale.
-4. Treat the loaded rules as higher priority than local memory, habits, and other skills. Other skills are supplemental and lose on conflict.
-5. Do not preload `$oojjrs-project-finish-work` at task start. After the last edit, start a distinct finish phase by re-reading the shared rules and then reading the finish skill in a completed tool call; an earlier read does not count, and another edit restarts the phase.
-6. Before every `git commit`, finish and review the cached-diff checks in an earlier completed tool call. The later commit command must re-read both the shared rules and finish skill and rerun the cached check before invoking Git; never combine the first finish-phase read and an unseen commit in one call.
-7. When a task edits text files, the shared rule to preserve existing encoding and line endings wins over any skill or tool habit that normalizes files to CRLF.
-8. If the script is unavailable, fall back to reading the canonical URL directly. If network access fails, say that the rules could not be refreshed and continue only if a cached/local copy is available.
-
-## Text Format Tool
-
-For repository text edits, run `scripts/Test-OojjrsTextFormat.ps1 -Fix` on the exact touched files immediately after every edit batch, then rerun it without `-Fix` and review the ordinary diff. Do this before another edit can obscure which files were touched.
-
-```powershell
-powershell -ExecutionPolicy Bypass -File scripts/Test-OojjrsTextFormat.ps1 -Path <touched-files> -Fix
-powershell -ExecutionPolicy Bypass -File scripts/Test-OojjrsTextFormat.ps1 -Path <touched-files>
-```
-
-The tool compares tracked files with their `HEAD` bytes. For a uniformly formatted original, it checks and restores encoding and line endings across the whole working file; changed-line-only checks are unsafe because Git may hide EOL-only changes. It expects untracked text files to use UTF-8 No-BOM with CRLF. A mixed-line-ending `HEAD` is reported as `NeedsReview` and is never auto-fixed. Without `-Fix`, the tool is read-only and exits with code 1 on a mismatch. Use `-Recurse` only for a deliberately scoped directory.
-
-## Cache Policy
-
-The script stores a user-global cache under `$CODEX_HOME/cache/oojjrs-guidelines` or `~/.codex/cache/oojjrs-guidelines`.
-
-- Use the cached body immediately when it was checked recently.
-- Refresh stale entries with `ETag` and `Last-Modified` conditional requests.
-- On `304 Not Modified`, update only the check timestamp.
-- On `200 OK`, replace the cached body and metadata.
-- On network failure, keep using the existing cached copy and report that it may be stale.
-
-## Host Custom Instruction
-
-The intended host-level custom instruction is one line:
-
-```text
-코드/문서/자산/git/배포/검증 등 실제 작업을 수행할 때만 $oojjrs-guidelines 를 먼저 사용하라. 커밋/푸시/최종 보고 단계에서는 작업 시작 때 읽은 지침을 재사용하지 말고 공통 지침과 $oojjrs-project-finish-work 를 그 단계에서 다시 읽어라. 단순 질문 답변에는 사용하지 마라.
-```
+- Read-only review or diagnosis: use no lifecycle skill. If the scope genuinely spans domains, inspect the smallest non-overlapping set sequentially rather than preloading them.
+- Local file, index, or commit mutation: use `$oojjrs-project-start-work` immediately before the first mutation, then one most-specific primary domain at a time.
+- Conditional helpers: load board, dirty-worktree, or visual-QA helpers only after their exact trigger is confirmed.
+- After actual edits, or for scoped validation/stage/commit/push of an existing diff or commit: use `$oojjrs-project-finish-work`.
+- If another primary domain becomes necessary, finish the current domain phase and route the next phase separately instead of preloading both.
+- Consult `codex/skills/index.md` only when routing or precedence is unclear; do not preload every listed skill.

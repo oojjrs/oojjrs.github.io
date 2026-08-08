@@ -1,33 +1,31 @@
 ---
 name: oojjrs-project-start-work
-description: Start repository work with the user's shared project rules. Use when Codex begins a coding, document, asset, Design.html, or maintenance task in a git repository and must establish scope, read required guidance, inspect git status/log, check Design.html when present, and update a repository-linked GitHub Project board before editing.
+description: Establish scope and routing immediately before the first authorized local file, Git index, or commit mutation in a repository. Use for repository edits and for staging or committing an existing scoped diff. Do not use for ordinary questions, read-only review, diagnosis, status checks, planning, GitHub Project-only operations, or a push of an already reviewed commit with no new local mutation.
 ---
 
 # oojjrs Project Start Work
 
-Use this skill before editing a repository.
+Use this lifecycle skill once immediately before the first intended local file, index, or commit mutation. Assume `$oojjrs-guidelines` already loaded the canonical common rules; do not load them again.
 
-## Start Checklist
+## Start Gate
 
-1. Read `https://oojjrs.github.io/codex/common-work-guidelines.md`.
-2. Run `git status --short --branch` and inspect recent context with `git log --oneline --decorate -5`.
-3. Preserve unrelated dirty files. If they affect the task, work around them or report the conflict.
-4. If `Design.html` exists, read it before task work. For Design.html work, also use `$oojjrs-project-design-document-router`.
-5. Before editing existing text files, note their current encoding and line endings; preserve that exact state unless the user asks for conversion. After each edit batch, run the shared text-format checker with `-Fix` on the exact touched files, rerun it read-only, and inspect the ordinary diff before continuing.
-6. Resolve the exact requested scope and avoid bundling nearby docs/assets/runtime files unless requested.
-7. For Unity asset work, do not create or author new `.meta` files; plan to preserve or move existing `.meta` files only when they are already present and in scope.
-8. Check whether the repository is linked 1:1 to a GitHub Project. If linked, use `$oojjrs-github-project-board` to find/create the task card, convert draft to issue when moving to In Progress, assign issue-backed cards to `oojjrs`, and update status/notes with real newlines.
-9. If no linked board/card update is possible, say that explicitly before or during the work report.
-10. Start implementation only after these checks unless the user is only asking a question or review.
+1. Resolve the repository root and current user-requested scope.
+2. Inspect `git status --short --branch` and relevant recent history, normally `git log --oneline --decorate -5`.
+3. List the files or areas likely to change and separate them from existing user or parallel-task changes.
+4. If requested and existing changes overlap in the same files, or safe staging will be ambiguous, load `$oojjrs-dirty-worktree-scope-split`. Mere dirty status is not enough.
+5. Note the original encoding and line-ending state of existing text files that will be edited. For Git-only completion work, verify the existing diff instead.
+6. Select one primary domain at a time when a domain is needed. The most-specific match wins and owns its subordinate safety, documentation, and validation rules; do not stack its generic parents.
+7. Read `Design.html` only when the task changes planning content or planning-visible state. Probe or load a GitHub Project board only when the user requested board work or the task is already known to use a confirmed 1:1-linked board.
+8. Begin editing only after the scope can be isolated safely. Report a real overlap or missing decision instead of guessing.
 
-## Scope Rules
+## Conditional Public References
 
-Use the newest user message as the task boundary.
+Load these only when the intended edit matches the condition:
 
-- Generic "document" work does not include `Design.html` unless the user says planning/design doc.
-- GitHub Project board work is operational and must not be copied into `Design.html`.
-- Push, deploy, forced rollback, permanent delete, or unrecoverable rewrite still need explicit immediate instruction.
+- first-party application or business-layer names in a game/server: `https://oojjrs.github.io/codex/semantic-layer-naming-guideline.md`
+- Unity C# code: `https://oojjrs.github.io/codex/unity-csharp-coding-convention.md`
+- first-party log messages: `https://oojjrs.github.io/codex/logging-guideline.md`
 
-## Report
+## Start Output
 
-In the first substantive update or final report, mention the branch/dirty state and whether a GitHub Project board/card was updated.
+Keep a compact scope note containing branch, requested files/areas, unrelated dirty work, selected primary domain, conditional helpers/references, and any blocker. Do not mutate a board or another external service merely to complete this start gate.

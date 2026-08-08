@@ -5,14 +5,13 @@ description: Build, rebuild, recover, or substantially update project Design.htm
 
 # oojjrs Design.html Builder
 
-Use this skill for substantive `Design.html` creation or rebuild work. It supplements `$oojjrs-project-design-document-router`.
+Use this as the primary domain for substantive `Design.html` creation, recovery, or rebuild work. It owns the planning-document rules needed for that work and supersedes `$oojjrs-project-design-document-router`; do not load both.
 
 ## Required Reads
 
-1. Read `$oojjrs-guidelines`.
-2. Read `codex/guideline-design-generation.review.md`.
-3. Read the current `Design.html` if it exists.
-4. When a referenced model document is named, inspect that live document instead of relying on memory.
+1. Read `https://oojjrs.github.io/codex/guideline-design-generation.review.md`.
+2. Read the current `Design.html` if it exists.
+3. When a referenced model document is named, inspect that live document instead of relying on memory.
 
 ## Source Priority
 

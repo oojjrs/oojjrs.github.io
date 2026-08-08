@@ -1,11 +1,11 @@
 ---
 name: oojjrs-dirty-worktree-scope-split
-description: Work safely in dirty git repositories by preserving unrelated user or parallel-thread changes, splitting mixed work into narrow scopes, staging exact files, creating review worktrees when useful, and preparing clean commits without sweeping in unrelated Unity, document, asset, or generated-file changes.
+description: Isolate requested work in a dirty Git repository when target files overlap existing changes, hunks are interleaved, or safe staging/commit separation is genuinely ambiguous. Do not use merely because git status is dirty, for read-only dirty-state diagnosis, or for unrelated changes that can simply be left untouched.
 ---
 
 # oojjrs Dirty Worktree Scope Split
 
-Use this skill whenever `git status` shows unrelated or mixed changes and the user asks for a narrow fix, commit, review, or cleanup.
+Use this helper only after the start gate confirms a real overlap or staging-isolation problem. Use `$oojjrs-windows-repo-forensics` instead when the question is why a path or repository appears dirty.
 
 ## First Pass
 

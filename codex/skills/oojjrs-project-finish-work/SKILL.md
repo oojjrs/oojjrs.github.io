@@ -1,39 +1,52 @@
 ---
 name: oojjrs-project-finish-work
-description: Finish repository work with validation, narrow git scope, Design.html synchronization when planning state changed, GitHub Project board updates, and Korean reporting. Use immediately after the last edit when entering validation, stage, commit, push, handoff, or final reporting; a task-start or earlier read does not count, and the skill must be re-read before every commit.
+description: Close repository work after task-local edits, or complete scoped validation, stage, commit, push, or deploy work for an existing diff or commit. Use to audit validation, text format, versioning, docs, Design, asset metadata, publication/runtime synchronization, board state, commit, and push/deploy decisions. Do not use for ordinary read-only review, diagnosis, planning, or status reporting with no Git completion action.
 ---
 
 # oojjrs Project Finish Work
 
-Use this skill only when entering the finish phase after the last edit, and again before every commit, push, final response, or handoff.
+Use this lifecycle skill after the last intended edit, or when the task is to finish an already-scoped diff or commit. Assume the canonical common rules were already loaded once; do not reload them. If this audit causes another edit, restart from the final diff after that edit.
 
-## Activation Timing
+## Stable-Diff Loop
 
-1. Do not preload this skill at task start. A task-start or earlier read never satisfies a later finish phase.
-2. After the last edit, re-read the shared rules and then read this file in a completed tool call. Wait for and apply the returned instructions before validation, staging, committing, pushing, handing off, or reporting.
-3. If any file changes after that read, the finish phase is invalid. Restart it by re-reading the shared rules and this file.
-4. Before every `git commit`, complete the checklist and review the cached-diff output in an earlier completed tool call. The later commit command must re-read the shared rules and this file and rerun `git diff --cached --check` before invoking Git.
-5. Never combine the first finish-phase read, unseen validation output, and `git commit` in one tool call.
+1. Inspect `git status --short --branch` and the final ordinary diff for the requested scope.
+2. Complete every decision in the impact table. Never silently omit a row.
+3. Reuse the current primary domain when a row needs its procedure. If a different primary domain is required, close the current phase and route a sequential follow-up phase; do not preload both or load a domain merely to declare a row not applicable.
+4. If a version, document, Design, metadata, or other required update changes files, return to step 1.
+5. Once stable, run the exact-file text-format check below, `git diff --check`, and task-relevant builds/tests or a documented skip. Review the diff again after any automatic fix.
 
-## Finish Checklist
+## Required Impact Decisions
 
-1. Re-check `git status --short --branch`.
-2. Review the diff and keep staging narrow to the requested scope.
-3. Run the relevant validation: at minimum `git diff --check`; add project build/tests when the task touched executable behavior.
-4. Run the shared text-format checker with `-Fix` on every touched text file, rerun it without `-Fix`, and review the ordinary diff. It must compare uniform tracked files across the whole file because `git diff --check` and changed-line-only checks can miss EOL normalization.
-5. For Unity asset work, verify the staged diff does not add newly authored `.meta` files unless the user explicitly requested them; moved or preserved existing `.meta` files are acceptable.
-6. If `Design.html` exists and the work changed planning state, update it using `$oojjrs-project-design-document-router`.
-7. If a repository-linked GitHub Project board exists, use `$oojjrs-github-project-board` to update the task card assignee/status/body/notes with real newlines. Report if no update was possible.
-8. Before commit, inspect `git diff --cached --name-status` and `git diff --cached --check` in a completed tool call and review their output before issuing a later commit call.
-9. Push only when the immediately previous user message explicitly requested push.
-10. Keep feedback in Korean and include relevant `git log` context.
+| Decision | Apply when | Required result |
+|---|---|---|
+| Validation | Always evaluate | checks run and result, or precise skip reason |
+| Text format | Text files changed | exact touched-file result, or manual-review blocker |
+| Version | A package/release unit, public API, compatibility, or published artifact changed | updated value, or not needed with reason |
+| Docs/README | User behavior, public API, install/use steps, or published claims changed | synchronized files, or not needed with reason |
+| Design | Planning state, asset inventory, UX decision, or completion state changed | synchronized `Design.html`, or not needed with reason |
+| Asset metadata | Unity or other metadata-bearing assets changed | verified companion metadata, or not applicable |
+| Publication/runtime sync | Canonical public guidance, skill source, installer, or deployed runtime content changed | source/published/installed hash parity, pending authorization/publication, or not applicable |
+| Task board | The user requested it or this task already uses a confirmed linked board | update result, outside scope, or permission blocker |
+| Commit | Always evaluate | commit hash, not authorized/requested, or blocker |
+| Push/deploy | Always evaluate | result, not explicitly authorized, or not applicable |
 
-## Commit Shape
+## Text Format Gate
 
-Prefer small semantic commits. Do not include `Design.html`, document assets, version bumps, generated files, or unrelated dirty changes unless the task explicitly includes them.
+Run the checker from the installed `$oojjrs-guidelines` skill on exact touched text files, first with `-Fix` and then without it:
 
-If the user requested "all project planning docs" or similar cross-repo work, commit per repository and verify each branch matches its origin after push.
+```powershell
+powershell -ExecutionPolicy Bypass -File <oojjrs-guidelines-skill-dir>\scripts\Test-OojjrsTextFormat.ps1 -Path <exact-touched-files> -Fix
+powershell -ExecutionPolicy Bypass -File <oojjrs-guidelines-skill-dir>\scripts\Test-OojjrsTextFormat.ps1 -Path <exact-touched-files>
+```
+
+If `-Fix` changes a file or reports a mixed-EOL manual review, return to the stable-diff loop before staging or reporting.
+
+## Stage And Commit Gate
+
+Stage only exact requested paths, and only when a commit is authorized. Do not stage files merely to produce a final report.
+
+Before committing, review `git diff --cached --name-status`, the staged diff, and `git diff --cached --check` in a completed inspection step. Commit only while that reviewed staged content remains unchanged. If staging changes, inspect it again. Push or deploy only under explicit current authorization.
 
 ## Final Report
 
-Report files changed, validation run or skipped reason, commit/push status, GitHub Project board/card status, and remaining dirty files or risks.
+Report in Korean: changed files/scope, validation, every impact decision above, commit/push/deploy state, relevant recent Git context, unrelated dirty files left untouched, and remaining risks. A concise table is preferred when several decisions are not applicable.

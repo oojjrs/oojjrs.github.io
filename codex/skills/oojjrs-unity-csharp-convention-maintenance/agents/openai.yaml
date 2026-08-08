@@ -1,0 +1,4 @@
+interface:
+  display_name: "oojjrs Unity C# Convention Maintenance"
+  short_description: "Synchronize Unity C# convention documents"
+  default_prompt: "Use $oojjrs-unity-csharp-convention-maintenance to update and synchronize every Unity C# convention representation."

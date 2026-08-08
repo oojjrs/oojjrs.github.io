@@ -1,4 +1,4 @@
 interface:
   display_name: "oojjrs Project Start Work"
-  short_description: "Start repo work with board and scope checks."
-  default_prompt: "Use $oojjrs-project-start-work to begin this repository task safely."
+  short_description: "Gate repository and Git mutations by scope"
+  default_prompt: "Use $oojjrs-project-start-work immediately before the first authorized local file, index, or commit mutation to isolate scope and select only the required domain workflow."

@@ -1,6 +1,6 @@
 ---
 name: oojjrs-image-first-art-workflow
-description: Enforce the user's image-first art workflow for any image, UI art, game asset, visual mockup, static sprite, icon-like raster asset, generated reference, or art-direction task. Use together with `imagegen` whenever Codex might create or alter visual assets, except when making 2D sprite animation. The first image/art-style pass must be imagegen; preview-only imagegen calls are forbidden; previews must come from actual generated/accepted files. ImageMagick/oxipng are the default second-pass raster tools after an acceptable imagegen result exists, while System.Drawing, PIL, canvas, SVG, HTML/CSS, and procedural/code drawing are fallback or native-source tools only.
+description: Enforce imagegen-first creation or revision of general raster art, UI art, static sprites, icon-like assets, references, and art-direction visuals. Do not use for 2D sprite animation, H:\Mines work covered by $oojjrs-mines-art-asset-pipeline, pure HTML/CSS layout, code-native controls, or an existing SVG/vector system. Preview-only imagegen calls are forbidden; deterministic tools are second-pass only.
 ---
 
 # oojjrs Image-First Art Workflow
@@ -44,7 +44,7 @@ When writing literal `$Trash` paths in PowerShell, quote them, for example `'.\$
 
 When image work touches existing text metadata, manifests, import settings, or project files, preserve each file's current encoding and line endings exactly. Do not normalize to CRLF unless that was the file's original state or the user explicitly asks.
 
-When creating or exporting Unity assets, do not create or author new Unity `.meta` files. Save the asset output only; preserve or move existing `.meta` files only when they were already present and explicitly in scope.
+When creating or exporting Unity assets, do not create or modify Unity `.meta` files. Preserve or move an existing companion with its asset, include a user- or Unity-generated in-scope companion even when Git reports it as new or untracked, and stop before commit or push if an expected companion is absent.
 
 ## Required Sequence
 

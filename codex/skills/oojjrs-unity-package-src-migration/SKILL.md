@@ -1,6 +1,6 @@
 ---
 name: oojjrs-unity-package-src-migration
-description: Assets 아래에 있던 Unity 패키지를 Packages/src 루트 패키지로 정리하고, Unity 패키지 관례에 맞춰 Runtime, Editor, Tests, Samples~, Documentation~를 구성한다. package.json, .meta, asmdef, 에디터 코드, 포함/제외할 에셋 판단, 경로/문서/버전 갱신, 선택적 stage/commit/push가 필요한 작업에 사용한다.
+description: Assets 아래 Unity 패키지를 Packages/src 루트로 실제 구조 이관할 때만 사용한다. 이관에 수반되는 package.json, .meta, asmdef, 경로, 버전, 문서 판단을 이 스킬 하나가 소유하며, release, README, 일반 asset 스킬을 함께 쓰지 않는다. stage, commit, push는 project finish가 소유한다.
 ---
 
 # oojjrs Unity Package Src Migration
@@ -11,7 +11,7 @@ For existing text files, preserve the current encoding and line endings exactly;
 
 ## Unity Meta Files
 
-Do not create or author new Unity `.meta` files when making assets, folders, samples, package structure, or documentation. Move or preserve existing `.meta` files only when they already exist and belong to the scoped move; if a new asset or folder has no existing `.meta`, leave it absent for the user or Unity to generate later.
+Codex must not create or modify Unity `.meta` files when making assets, folders, samples, package structure, or documentation. Preserve or move existing in-scope `.meta` files with their corresponding assets. If the user or Unity generates an in-scope `.meta` file, stage and commit it with its asset even when Git reports it as new or untracked; exclude only unrelated out-of-scope `.meta` files. If an expected corresponding `.meta` file is absent, stop before commit or push and let the user or Unity generate it.
 
 이 스킬은 Unity 패키지가 `Assets` 아래에 들어 있어 실제 패키지 루트를 `Packages/src`로 정리하는 절차를 다룬다. 이 사용자의 로컬 개발 규칙에서는 `com.oojjrs.*` 같은 패키지명 폴더 대신 `src`를 패키지 루트 폴더명으로 사용한다.
 
@@ -29,9 +29,8 @@ Unity 패키지 관례상 패키지 루트 아래에 `package.json`이 있고, �
 - 테스트 코드는 패키지 테스트로 유지할 때만 `Packages/src/Tests/Editor` 또는 `Packages/src/Tests/Runtime` 아래에 둔다.
 - 실제 판단 기준은 `package.json`, asmdef, `Editor` 분리, `.meta` 유지, 기존 참조 경로 검증, 패키지 배포 대상 여부다.
 - `Library`, `Temp`, `obj`, `Logs` 같은 생성 산출물은 조사 대상에서 제외한다.
-- 문서, 로그, 커밋 메시지는 한국어 기준으로 작성한다.
+- 문서와 로그는 한국어 기준으로 작성한다.
 - 검증하지 않은 설치 방법은 문서에 적지 않는다.
-- 커밋과 푸시는 사용자가 요청했을 때만 진행한다.
 
 ## 포함 대상 판단
 
@@ -98,18 +97,6 @@ Unity 패키지 관례상 패키지 루트 아래에 `package.json`이 있고, �
 - 패키지 루트 이동, 소스 재배치, 설치 구조 변경은 마이너 버전을 사용한다.
 - 호환성이 깨지는 공개 API 변경이 명확하면 메이저 버전을 검토한다.
 
-## 커밋 정책
-
-- 커밋 전에 사용자가 요청한 버전 정책이 반영됐는지 다시 확인한다.
-- 커밋 메시지는 반복적인 군더더기 없이 한국어로 짧게 작성한다.
-- 예시: `패키지 구조를 Packages/src로 이동`
-- README 후속 수정은 별도 커밋으로 분리할 수 있다.
-
-## 푸시 정책
-
-- 원격과 현재 브랜치를 확인하고, 사용자가 요청했을 때만 푸시한다.
-- 푸시 전 `git status --short`가 의도한 변경만 담고 있는지 확인한다.
-
 ## 최종 보고 체크리스트
 
 - `Packages/src`가 실제 패키지 루트인지
@@ -120,4 +107,3 @@ Unity 패키지 관례상 패키지 루트 아래에 `package.json`이 있고, �
 - 버전이 의도대로 올라갔는지
 - `manifest.json`과 `packages-lock.json`이 `file:src`를 반영하는지
 - 빌드 또는 Unity 인식 검증을 수행했는지
-- 커밋/푸시 수행 여부

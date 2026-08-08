@@ -1,4 +1,4 @@
 interface:
   display_name: "oojjrs Project Finish Work"
-  short_description: "Reload and run the finish checklist after the last edit."
-  default_prompt: "Use $oojjrs-project-finish-work only after the last edit; a task-start read does not count, so re-read it for validation, stage, commit, push, handoff, or final reporting and again before every git commit."
+  short_description: "Audit validation, version, docs, and commit"
+  default_prompt: "Use $oojjrs-project-finish-work after actual edits or for scoped Git completion work to stabilize the diff or commit and explicitly decide every validation, version, documentation, publication, metadata, board, commit, and push/deploy gate."
