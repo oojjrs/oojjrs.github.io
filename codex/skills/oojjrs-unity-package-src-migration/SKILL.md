@@ -66,7 +66,7 @@ Unity 패키지 관례상 패키지 루트 아래에 `package.json`이 있고, �
 5. 패키지 메타를 이동한다.
 - `Assets/package.json`과 `Assets/package.json.meta`를 `Packages/src`로 이동한다.
 - `package.json`에 `repository.url`이 있다면 `?path=/Packages/src` 기준으로 맞춘다.
-- 구조 변경 규모가 크면 패치가 아닌 마이너 버전을 올린다.
+- 패키지 루트·기능 파일의 이동은 마이너 버전을 올린다.
 
 6. 소스, asmdef, 에셋을 이동한다.
 - 포함 대상으로 결정한 공유 스크립트와 관련 `.meta`를 `Packages/src/Runtime` 아래로 이동한다.
@@ -90,12 +90,6 @@ Unity 패키지 관례상 패키지 루트 아래에 `package.json`이 있고, �
 - `package.json` 버전, repository path, `manifest.json`, `packages-lock.json`과 `Packages/src` 구조가 일치하는지 다시 읽는다.
 - JSON 파일은 파싱 검증한다.
 - 가능하면 현재 솔루션을 빌드하거나 Unity가 패키지를 정상 인식하는지 확인한다.
-
-## 버전 정책
-
-- 메타데이터만 소폭 수정하면 패치 버전 갱신을 검토한다.
-- 패키지 루트 이동, 소스 재배치, 설치 구조 변경은 마이너 버전을 사용한다.
-- 호환성이 깨지는 공개 API 변경이 명확하면 메이저 버전을 검토한다.
 
 ## 최종 보고 체크리스트
 

@@ -1,4 +1,4 @@
 interface:
   display_name: "oojjrs Unity Package Release"
-  short_description: "Finish Unity package release bundles"
-  default_prompt: "Use $oojjrs-unity-package-release to inspect release readiness or synchronize version, metadata, docs, and validation exactly as requested for an explicit Unity package release bundle."
+  short_description: "Version and release UnityO library packages"
+  default_prompt: "Use $oojjrs-unity-package-release to classify and apply UnityO library package versions or review release readiness."

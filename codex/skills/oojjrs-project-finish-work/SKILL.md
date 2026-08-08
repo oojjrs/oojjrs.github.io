@@ -21,7 +21,7 @@ Use this lifecycle skill after the last intended edit, or when the task is to fi
 |---|---|---|
 | Validation | Always evaluate | checks run and result, or precise skip reason |
 | Text format | Text files changed | exact touched-file result, or manual-review blocker |
-| Version | A package/release unit, public API, compatibility, or published artifact changed | updated value, or not needed with reason |
+| Version | A versioned unit changed | policy result and value, or not needed with reason |
 | Docs/README | User behavior, public API, install/use steps, or published claims changed | synchronized files, or not needed with reason |
 | Design | Planning state, asset inventory, UX decision, or completion state changed | synchronized `Design.html`, or not needed with reason |
 | Asset metadata | Unity or other metadata-bearing assets changed | verified companion metadata, or not applicable |

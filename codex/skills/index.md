@@ -43,7 +43,7 @@ $oojjrs-guidelines
 | Domain | `$oojjrs-skill-maintenance` | Public skill source, metadata, routing, install, or validation changes | Owns related common-rule routing alignment; do not add guideline maintenance |
 | Domain | `$oojjrs-steamworks` | Steamworks integration, SDK, API, SteamPipe, partner, or operations work | Uses Valve official docs; no generic web research substitute |
 | Domain | `$oojjrs-unity-package-src-migration` | Moving an Assets-based Unity package into `Packages/src` | Supersedes release, README, and generic asset skills for the migration |
-| Domain | `$oojjrs-unity-package-release` | Explicit release/version bundle or release-readiness review | Not for ordinary package edits; generic finish owns commit/push authorization |
+| Domain | `$oojjrs-unity-package-release` | UnityO library version decision/change or release-readiness review | Not for game versions or package-root migration; generic finish owns commit/push authorization |
 | Domain | `$oojjrs-unity-asset-safety` | General Unity asset mutation with no more-specific workflow | Fallback only; do not stack with package, Mines, art, sprite, audio, or prefab domains |
 | Domain | `$oojjrs-unity-csharp-entity-workflow` | Unity entity/model/binding/runtime-helper changes | Package release is a later separate phase only when requested |
 | Domain | `$oojjrs-unity-prefab-guid-usage-lookup` | Read-only Unity serialized reference/GUID tracing | No start/finish until the request changes to an edit |
