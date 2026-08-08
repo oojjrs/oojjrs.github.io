@@ -122,9 +122,9 @@ function Get-PinnedRemoteBaseUrl {
     $webClient = New-Object System.Net.WebClient
     try {
         $webClient.Headers["User-Agent"] = "oojjrs-skill-installer"
-        $commitJson = $webClient.DownloadString("https://api.github.com/repos/$RemoteRepository/commits/$RemoteBranch")
-        $commit = $commitJson | ConvertFrom-Json
-        $commitSha = [string]$commit.sha
+        $refJson = $webClient.DownloadString("https://api.github.com/repos/$RemoteRepository/git/ref/heads/$RemoteBranch")
+        $ref = $refJson | ConvertFrom-Json
+        $commitSha = [string]$ref.object.sha
     } finally {
         $webClient.Dispose()
     }
