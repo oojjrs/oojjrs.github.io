@@ -1,6 +1,6 @@
 ---
 name: oojjrs-ai-music-generator
-description: Generate and download instrumental music from ai-music-generator.ai through a dedicated Chrome debugging profile and the bundled PowerShell automation. Use when Codex is asked to create AI background music, instrumental tracks, game music, or paired downloadable MP3 versions on the user's oojjrs account, including requests that specify a description, title, style, output folder, or generation timeout.
+description: Generate and download instrumental music from ai-music-generator.ai through the dedicated Chrome profile and bundled PowerShell automation. Use when generation/download is the current explicit phase. Do not preload it for a larger game-audio editing, looping, installation, or documentation task; that task uses $oojjrs-game-audio-asset-workflow and routes here only when its paid generation phase begins.
 ---
 
 # oojjrs AI Music Generator

@@ -1,18 +1,15 @@
 ---
 name: oojjrs-project-design-document-router
-description: Route project Design.html planning-document creation, review, cleanup, or update through the user's public work and design rules. Use when Codex needs to create, update, reorganize, validate, or keep Design.html separate from workflow, queue, commit, and GitHub Project board instructions.
+description: Route focused project Design.html planning-document review, cleanup, or update through the public design rules. Use for ordinary Design.html work that does not require image-heavy creation, recovery, or a substantial rebuild. For those larger tasks use $oojjrs-design-html-builder instead, not both.
 ---
 
 # oojjrs Project Design Document Router
 
-Use this skill as a thin router for project planning documents. Do not duplicate the full rules here; the current rules live in the public Markdown documents.
+Use this skill as the primary domain for focused project planning-document work. Do not duplicate the full rules here or stack it with `$oojjrs-design-html-builder`.
 
-## Required References
+## Required Reference
 
-Before creating, reviewing, restructuring, or editing a project `Design.html`, open and follow both references:
-
-- Codex work rules: `https://oojjrs.github.io/codex/common-work-guidelines.md`
-- Design.html rules: `https://oojjrs.github.io/codex/guideline-design-generation.review.md`
+Before reviewing or editing a project `Design.html`, open and follow `https://oojjrs.github.io/codex/guideline-design-generation.review.md`. The lifecycle router already loaded the common rules.
 
 ## Workflow
 

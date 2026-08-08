@@ -1,11 +1,11 @@
 ---
 name: oojjrs-visual-qa
-description: Visually verify websites, HTML planning documents, generated docs, local apps, game UI previews, image-heavy pages, and rendered frontend changes. Use when Codex must check screenshots, browser rendering, responsive layout, image loading, text overlap, canvas/3D nonblank output, color balance, or fallback static validation when browser automation is blocked.
+description: Visually verify websites, HTML planning documents, generated docs, local apps, game UI previews, image-heavy pages, and rendered frontend changes. Use when rendered visual verification is the request or a materially necessary validation gate. Do not load it automatically for every visual-file edit when the primary domain's static checks are sufficient.
 ---
 
 # oojjrs Visual QA
 
-Use this skill after creating or changing visual surfaces.
+Use this conditional helper when rendered evidence is required. It is not an automatic second domain after every visual edit.
 
 ## Preferred Flow
 

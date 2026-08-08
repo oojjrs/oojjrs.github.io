@@ -4,7 +4,7 @@ title: "Semantic Layer Naming"
 lang: en
 alternate_url: /kr/csharp/semantic-layer-naming/
 category: "NAMING DESIGN"
-description: "A language-, engine-, and platform-neutral naming rule that maps identifier boundaries to ownership, structure, relation, and role layers in the code model."
+description: "A naming rule for reading identifier boundaries as ownership, structure, relation, and role layers in game-project and server-application business logic."
 permalink: /en/csharp/semantic-layer-naming/
 toc_items:
   - id: principle
@@ -27,7 +27,7 @@ toc_items:
 
 <p class="article-backlink"><a href="{{ "/en/" | relative_url }}">← Document index</a></p>
 
-<p class="article-lead">A boundary inside an identifier is not a visual spelling break. Each boundary declares that the structure represented by the name has gained another layer, regardless of language, engine, or platform.</p>
+<p class="article-lead">A boundary inside an identifier is not a visual spelling break. In game-project and server-application business logic, each boundary declares that the structure represented by the name has gained another layer. The surface syntax may vary by language and platform, but this decision remains the same.</p>
 
 <div class="article-principle">
   <p>Each semantic token in a name represents one real semantic layer. Write one layer as one token. Let ownership, structure, relations, and responsibilities in the code—not the dictionary or surface casing—decide the boundary.</p>
@@ -88,7 +88,7 @@ DbCharacterRecord
 
 Names such as `RoomLobbyService` and `RoomPlayerView` are valid when the aggregate and role boundaries actually exist.
 
-The principle itself depends on neither Unity nor ASP.NET. Other languages, engines, and platforms use the same semantic layers while rendering them with their own naming syntax.
+The decision method does not depend on a particular language, engine, or server framework's surface syntax. Its scope, however, is the business logic of the game project itself or the server application itself; it is not generalized into engine, library, or low-level layers.
 
 ## Two-dimensional coordinates {#matrix}
 
@@ -157,7 +157,11 @@ Before accepting a new or changed name, ask:
 
 ## Scope and history {#scope}
 
-Apply this rule to every first-party name created or changed during coding, regardless of language, engine, or platform. It covers code identifiers and code-owned names such as types, members, modules, packages, files, resources, serialized objects, DTOs, persistence types, and service roles.
+Apply this rule to first-party names created or changed in the business or product logic of the game project itself or the server application itself. Within that layer, it covers code identifiers and code-owned names such as types, members, modules, packages, files, resources, serialized objects, DTOs, persistence types, and service roles.
+
+Code whose domain rules and content keep expanding during live service accumulates unique dedicated types and files for narrow responsibilities. Once each unit becomes sufficiently focused, it tends to stabilize instead of continually gaining features, while new requirements add sibling units. Exposing semantic layers as structural coordinates makes those growing name families navigable.
+
+Do not apply this rule inside engines, runtimes, frameworks, reusable libraries, infrastructure primitives, or fully low-level code. Reusable API shape, abstraction boundaries, protocols or ABIs, allocation and performance constraints, and established platform vocabulary take precedence there, so those layers follow their own conventions.
 
 First decide the semantic layers, then express them with the syntax, separators, and casing required by the target convention.
 

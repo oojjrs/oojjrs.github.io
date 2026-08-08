@@ -1,6 +1,6 @@
 # Semantic Layer Naming Guideline for Codex
 
-Read this before any task that requires coding. Apply it to every first-party name the task creates or changes, regardless of language, engine, or platform. This guideline defines the semantic layers represented by an identifier; language-specific syntax, separators, and ordinary casing remain governed by the applicable coding convention.
+Read this before coding in the application or business-logic layer of a game project or server application. Apply it to first-party names the task creates or changes in that layer. The rule is language- and platform-neutral within that scope, but it does not govern engine, runtime, framework, library, or fully low-level code. It defines the semantic layers represented by an identifier; language-specific syntax, separators, and ordinary casing remain governed by the applicable coding convention.
 
 ## Core Principle
 
@@ -72,7 +72,9 @@ Before accepting a new or changed name, answer these questions:
 
 ## Scope and Precedence
 
-- Apply this guideline to every first-party name created or changed during coding, regardless of language, engine, or platform. This includes code identifiers and code-owned names such as types, members, modules, packages, files, resources, serialized objects, DTOs, persistence types, and service roles.
+- Apply this guideline only to product-owned application or business-logic names in the game project itself or the server application itself. Within that layer, it includes code identifiers and code-owned names such as types, members, modules, packages, files, resources, serialized objects, DTOs, persistence types, and service roles.
+- This rule is designed for codebases where live service continually adds domain rules and content. Narrow responsibilities accumulate as unique dedicated types and files; once each unit becomes sufficiently focused, it tends to stabilize while new requirements add sibling units. Semantic coordinates keep those growing name families navigable.
+- Do not apply this guideline inside engines, runtimes, frameworks, reusable libraries, infrastructure primitives, or fully low-level code. Reusable API shape, abstraction boundaries, protocols or ABIs, allocation and performance constraints, and established platform vocabulary take precedence there; follow that layer's own convention.
 - First decide the semantic layers, then express them with the syntax, separators, and casing required by the target convention.
 - Exclude generated, vendor, imported sample, dependency-cache, and framework-owned names from first-party consistency judgments.
 - When inferring an established convention, weight recent first-party code more strongly than old code, and separate other authors' team legacy from the user's own naming practice.

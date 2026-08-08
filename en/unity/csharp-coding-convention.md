@@ -402,7 +402,7 @@ TitlemenuButton
 LifeTime
 ```
 
-Keep one semantic layer in one token. A new uppercase boundary does not merely separate spelling; it declares one more ownership, structure, relation, or role layer. `Nickname` is one concept, while `TitleMenuButton` represents a real `Title -> Menu -> Button` structure. Let the code structure, not the dictionary, decide the boundary. See [Semantic Layer Naming]({{ "/en/csharp/semantic-layer-naming/" | relative_url }}) for the full decision criteria.
+In project-level business logic, keep one semantic layer in one token. A new uppercase boundary does not merely separate spelling; it declares one more ownership, structure, relation, or role layer. `Nickname` is one concept, while `TitleMenuButton` represents a real `Title -> Menu -> Button` structure. Let the code structure, not the dictionary, decide the boundary. This design rule does not govern engine, library, or fully low-level code. See [Semantic Layer Naming]({{ "/en/csharp/semantic-layer-naming/" | relative_url }}) for the full scoped criteria.
 
 ### 16. Avoid names that are substrings of other keywords
 

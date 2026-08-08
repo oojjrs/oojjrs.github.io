@@ -9,7 +9,7 @@ Steamworks 문서 전체를 외워서 재현하지 말고, 사용자의 요청�
 
 ## 핵심 원칙
 
-1. 실제 저장소·코드·문서·자산 작업이면 먼저 $oojjrs-guidelines와 해당 프로젝트 스킬을 적용한다.
+1. 공통 수명주기 라우팅은 이미 적용되었다고 가정하고, 이 스킬에서는 Steamworks 절차와 관련 공식 문서만 추가한다.
 2. 매 작업에서 [공식 문서 지도](references/official-documentation-map.md)를 읽고 관련 최신 영문 Steamworks 문서를 다시 확인한다.
 3. 공식 문서를 복제해 오래된 사본을 만들지 않는다. 이 스킬에는 라우팅, 안전 경계, 검증 절차, 재사용 자동화만 둔다.
 4. Steamworks SDK, Web API, SteamCMD/SteamPipe, Partner 사이트, 안내 전용 작업을 구분한다.

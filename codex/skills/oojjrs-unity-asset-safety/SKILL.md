@@ -1,11 +1,11 @@
 ---
 name: oojjrs-unity-asset-safety
-description: Safely create, update, move, or delete Unity project assets without corrupting Unity metadata. Use for Unity asset work involving Assets, Packages, Sprites, prefabs, animations, materials, audio, images, generated art, or any task where .meta files, GUIDs, import state, Design.html references, or temporary asset candidates matter.
+description: Safely create, update, move, or delete general Unity project assets without corrupting metadata. Use as the primary domain only when no more-specific art, sprite, audio, package, Mines, or prefab workflow applies. Those specialized skills own their Unity safety rules and must not be stacked with this fallback.
 ---
 
 # oojjrs Unity Asset Safety
 
-Use this skill for Unity asset work before touching files under `Assets`, `Packages`, or project design-asset folders.
+Use this skill for general Unity asset work under `Assets`, `Packages`, or project design-asset folders when no more-specific primary domain applies.
 
 ## Hard Rules
 
@@ -18,14 +18,12 @@ Use this skill for Unity asset work before touching files under `Assets`, `Packa
 
 ## Asset Workflow
 
-1. Read `$oojjrs-guidelines`.
-2. Inspect `git status --short --branch` and identify unrelated dirty files.
-3. If `Design.html` exists and the asset affects planning state, read it and plan a matching update.
-4. Find existing assets, dimensions, naming, and references before creating replacements.
-5. Before creating a Unity UI asset or recommending its size, inspect the target project's actual Canvas size and, when applicable, its `Canvas Scaler` reference resolution. Never assume FHD, QHD, or 4K; evaluate the intended placement at the project's scale, base source pixel dimensions and size recommendations on those project-specific values, and ask for them rather than guessing when they cannot be verified.
-6. For image/art assets, use `$oojjrs-image-first-art-workflow` for the first visual pass and post-process only accepted outputs.
-7. When replacing a tracked asset, preserve the original file name only if existing references depend on it; otherwise update references deliberately.
-8. Validate local references with exact path/GUID searches where possible.
+1. If `Design.html` exists and the asset affects planning state, read it and plan a matching update.
+2. Find existing assets, dimensions, naming, and references before creating replacements.
+3. Before creating a Unity UI asset or recommending its size, inspect the target project's actual Canvas size and, when applicable, its `Canvas Scaler` reference resolution. Never assume FHD, QHD, or 4K; evaluate the intended placement at the project's scale, base source pixel dimensions and size recommendations on those project-specific values, and ask for them rather than guessing when they cannot be verified.
+4. If the task becomes generated raster art, route to `$oojjrs-image-first-art-workflow` as the primary domain instead of stacking both skills.
+5. When replacing a tracked asset, preserve the original file name only if existing references depend on it; otherwise update references deliberately.
+6. Validate local references with exact path/GUID searches where possible.
 
 ## Checks
 

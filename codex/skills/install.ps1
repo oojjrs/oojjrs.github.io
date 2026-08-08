@@ -6,7 +6,10 @@ param(
 
 $ErrorActionPreference = "Stop"
 
-$BaseUrl = "https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills"
+$RemoteRepository = "oojjrs/oojjrs.github.io"
+$RemoteBranch = "master"
+$ResolvedRemoteBaseUrl = $null
+$ResolvedRemoteCommit = $null
 $CanonicalSkills = @(
     "oojjrs-guidelines",
     "oojjrs-github-project-board",
@@ -15,6 +18,7 @@ $CanonicalSkills = @(
     "oojjrs-project-design-document-router",
     "oojjrs-design-html-builder",
     "oojjrs-guideline-maintenance",
+    "oojjrs-unity-csharp-convention-maintenance",
     "oojjrs-skill-maintenance",
     "oojjrs-steamworks",
     "oojjrs-readme-doc-generation",
@@ -92,6 +96,49 @@ function Test-CommandAvailable {
     return $null -ne (Get-Command $Command -ErrorAction SilentlyContinue)
 }
 
+function Get-BytesSha256 {
+    param([byte[]]$Bytes)
+
+    $sha = [System.Security.Cryptography.SHA256]::Create()
+    try {
+        $hash = $sha.ComputeHash($Bytes)
+        return (($hash | ForEach-Object { $_.ToString("x2") }) -join "")
+    } finally {
+        $sha.Dispose()
+    }
+}
+
+function Get-FileSha256 {
+    param([string]$Path)
+
+    return ((Get-FileHash -LiteralPath $Path -Algorithm SHA256).Hash.ToLowerInvariant())
+}
+
+function Get-PinnedRemoteBaseUrl {
+    if ($script:ResolvedRemoteBaseUrl) {
+        return $script:ResolvedRemoteBaseUrl
+    }
+
+    $webClient = New-Object System.Net.WebClient
+    try {
+        $webClient.Headers["User-Agent"] = "oojjrs-skill-installer"
+        $commitJson = $webClient.DownloadString("https://api.github.com/repos/$RemoteRepository/commits/$RemoteBranch")
+        $commit = $commitJson | ConvertFrom-Json
+        $commitSha = [string]$commit.sha
+    } finally {
+        $webClient.Dispose()
+    }
+
+    if ($commitSha -notmatch "^[0-9a-fA-F]{40}$") {
+        throw "Could not resolve an immutable Git commit for '$RemoteRepository/$RemoteBranch'."
+    }
+
+    $script:ResolvedRemoteCommit = $commitSha.ToLowerInvariant()
+    $script:ResolvedRemoteBaseUrl = "https://raw.githubusercontent.com/$RemoteRepository/$($script:ResolvedRemoteCommit)/codex/skills"
+    Write-Host "Pinned remote skill source: $($script:ResolvedRemoteCommit)"
+    return $script:ResolvedRemoteBaseUrl
+}
+
 function Install-ToolDependency {
     param([hashtable]$Tool)
 
@@ -141,6 +188,8 @@ foreach ($name in $TargetSkills) {
 
 New-Item -ItemType Directory -Force -Path $Destination | Out-Null
 
+$useLocalSource = Test-Path -LiteralPath (Join-Path $PSScriptRoot "oojjrs-guidelines\SKILL.md")
+
 foreach ($name in $TargetSkills) {
     if ($LegacyAliases.ContainsKey($name)) {
         $canonicalName = $LegacyAliases[$name]
@@ -167,17 +216,43 @@ foreach ($name in $TargetSkills) {
         }
 
         # Preserve source bytes exactly. Do not normalize encoding or line endings during install.
-        if (Test-Path -LiteralPath $sourcePath) {
+        $expectedSha256 = $null
+        if ($useLocalSource) {
+            if (-not (Test-Path -LiteralPath $sourcePath)) {
+                throw "Local skill bundle is incomplete: '$sourcePath' is missing."
+            }
+            $expectedSha256 = Get-FileSha256 -Path $sourcePath
             [System.IO.File]::Copy($sourcePath, $localPath, $true)
         } else {
+            $remoteBaseUrl = Get-PinnedRemoteBaseUrl
             $webClient = New-Object System.Net.WebClient
             try {
-                $bytes = $webClient.DownloadData("$BaseUrl/$canonicalName/$webPath")
+                $bytes = $webClient.DownloadData("$remoteBaseUrl/$canonicalName/$webPath")
+                $expectedSha256 = Get-BytesSha256 -Bytes $bytes
                 [System.IO.File]::WriteAllBytes($localPath, $bytes)
             } finally {
                 $webClient.Dispose()
             }
         }
+
+        $actualSha256 = Get-FileSha256 -Path $localPath
+        if ($actualSha256 -ne $expectedSha256) {
+            throw "SHA-256 mismatch after installing '$canonicalName/$relativePath'."
+        }
+    }
+
+    $skillRoot = $skillDir.TrimEnd([System.IO.Path]::DirectorySeparatorChar) + [System.IO.Path]::DirectorySeparatorChar
+    $expectedRelativePaths = @($files | ForEach-Object { $_ -replace "/", [System.IO.Path]::DirectorySeparatorChar })
+    $unexpectedFiles = @(
+        Get-ChildItem -LiteralPath $skillDir -File -Recurse | ForEach-Object {
+            $relativeInstalledPath = $_.FullName.Substring($skillRoot.Length)
+            if ($expectedRelativePaths -notcontains $relativeInstalledPath) {
+                $relativeInstalledPath
+            }
+        }
+    )
+    if ($unexpectedFiles.Count -gt 0) {
+        Write-Warning "Unexpected stale files remain under '$skillDir': $($unexpectedFiles -join ', ')"
     }
 
     foreach ($legacyName in $LegacyAliases.Keys) {
@@ -191,7 +266,7 @@ foreach ($name in $TargetSkills) {
         }
     }
 
-    Write-Host "Installed $canonicalName -> $skillDir"
+    Write-Host "Installed $canonicalName -> $skillDir ($($files.Count) files SHA-256 verified; $($unexpectedFiles.Count) unexpected stale files)"
 
     if (-not $SkipToolInstall -and $ToolDependencies.ContainsKey($canonicalName)) {
         foreach ($tool in $ToolDependencies[$canonicalName]) {
