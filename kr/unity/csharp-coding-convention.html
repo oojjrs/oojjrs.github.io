@@ -1578,6 +1578,54 @@ private void ApplyAndLog()
           <p>한 번만 쓰는 값은 다음 호출, 대입, <code>return</code>, 표현식에 직접 인라인한다. 같은 값을 두 번 이상 쓰거나 C# 문법·실행 의미상 저장이 필요할 때만 지역 변수를 선언한다.</p>
         </div>
       </article>
+      <article class="rule-card">
+        <div class="rule-index">41</div>
+        <div class="rule-body">
+          <h3>Unity 객체에는 null 조건부·병합 연산자를 쓰지 않는다</h3>
+          <div class="example-pair">
+            <div class="example good">
+              <div class="example-label">올바른 사용</div>
+              <pre><code>private void ResetTarget(Transform target)
+{
+    if (target != null)
+        target.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
+}
+
+private Transform SelectTarget(Transform target, Transform fallback)
+{
+    if (target != null)
+        return target;
+
+    return fallback;
+}
+
+private void SetTargetFallback(Transform fallback)
+{
+    if (_target == null)
+        _target = fallback;
+}</code></pre>
+            </div>
+            <div class="example bad">
+              <div class="example-label">잘못된 사용</div>
+              <pre><code>private void ResetTarget(Transform target)
+{
+    target?.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
+}
+
+private Transform SelectTarget(Transform target, Transform fallback)
+{
+    return target ?? fallback;
+}
+
+private void SetTargetFallback(Transform fallback)
+{
+    _target ??= fallback;
+}</code></pre>
+            </div>
+          </div>
+          <p>네이티브 Unity 객체가 파괴된 뒤에도 관리되는 <code>UnityEngine.Object</code> 래퍼는 남을 수 있다. Unity가 오버로드한 동등 비교와 암시적 Boolean은 이 분리된 래퍼를 null로 판정하지만, <code>?.</code>, <code>??</code>, <code>??=</code>는 CLR null만 검사하므로 파괴 상태를 우회한다. 현재 생명주기가 안전해 보여도 <code>GameObject</code>, <code>Component</code>, <code>MonoBehaviour</code>, <code>ScriptableObject</code>를 비롯한 Unity 객체 참조에는 이 연산자를 쓰지 않는다. 접근 직전에 <code>target != null</code> 또는 <code>if (target)</code>로 검사하고 fallback은 명시적 분기로 선택한다. <code>object</code>, 인터페이스, 제네릭이 Unity 객체를 감출 수 있으면 먼저 <code>UnityEngine.Object</code>로 복원해 검사한다. 일반 관리 객체, nullable 표기, 삼항 연산자 <code>?:</code>, <code>OnCompleted?.Invoke(item)</code> 같은 delegate·event에는 이 제한을 적용하지 않는다. 자세한 동작은 <a href="https://docs.unity3d.com/6000.0/Documentation/ScriptReference/Object.html">UnityEngine.Object 공식 문서</a>를 참고한다.</p>
+        </div>
+      </article>
     </section>
     </div>
     </div>
