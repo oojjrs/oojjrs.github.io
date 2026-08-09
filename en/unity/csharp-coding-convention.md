@@ -72,24 +72,41 @@ private FunctionInterface functionInterface;
 
 Keep the interface marker only in the type name.
 
-### 02. Static member variables use two underscores
+### 02. Static-field prefixes depend on the immediate declaring type
 
-Correct:
-
-```csharp
-public static int __Index;
-private static int __index;
-```
-
-Incorrect:
+Correct naming:
 
 ```csharp
-public static int Index;
-private static int _index;
-private static int index;
+public sealed class Cache
+{
+    public static int __Capacity;
+    private static int __index;
+}
+
+public static class CacheRegistry
+{
+    public static int _Capacity;
+    private static int _index;
+}
 ```
 
-Use `__PascalCase` for public static fields and `__camelCase` for private static fields.
+Incorrect naming:
+
+```csharp
+public sealed class Cache
+{
+    public static int _Capacity;
+    private static int _index;
+}
+
+public static class CacheRegistry
+{
+    public static int __Capacity;
+    private static int __index;
+}
+```
+
+Except for `const` and `readonly`, use `__PascalCase` for public static fields and `__camelCase` for private static fields when the immediate declaring type is non-static. In a `static class`, use `_PascalCase` and `_camelCase` respectively. For nested types, inspect only the type that directly declares the field, not an outer type. Apply this naming rule mechanically while the field exists, regardless of its design status.
 
 ### 03. `const` and `readonly` use PascalCase
 
@@ -97,6 +114,7 @@ Correct:
 
 ```csharp
 private const int MaxCount = 10;
+private static readonly int InitialCapacity = 16;
 private readonly int StartIndex;
 ```
 
@@ -105,9 +123,11 @@ Incorrect:
 ```csharp
 private const int max_count = 10;
 private readonly int start_index;
+private static readonly int __initialCapacity = 16;
+private static readonly int _initialCapacity = 16;
 ```
 
-Constant-like members should read like type or property names.
+Use PascalCase without an underscore prefix for `const` and `readonly` fields regardless of whether they are static or which type declares them, so they read like type or property names. However, when a `static readonly` field references a mutable object, rule 24's static-state design criterion still applies even though its name follows this rule.
 
 ### 04. Properties are nouns or adjectives
 
@@ -700,7 +720,9 @@ public sealed class RewardButton : ButtonBase, TooltipInterface, ClickableInterf
 }
 ```
 
-Within each category, order variables, properties, and functions as static members, inherited-implementation members, then local instance members. Constructors and the finalizer precede those groups among functions; `const` and `readonly` precede them among variables. Variables and properties that support an inherited implementation belong to that parent or interface group. Do not mix static, inherited-implementation, and local groups. In an ordinary non-static object type, avoid static functions unless the behavior clearly belongs to the type itself. In a `MonoBehaviour`, Unity message functions are treated like the first inherited group. Put them before explicitly inherited parent and interface members, and sort them alphabetically by function name, such as `Awake`, `OnDestroy`, `OnEnable`, and `Start`. Do not order them by the Unity lifecycle. After that, use parent > child order. Among explicit parents, follow the inheritance declaration order. Multiple interfaces and their implementations are ordered alphabetically.
+Within each category, order variables, properties, and functions as static members, inherited-implementation members, then local instance members. Constructors and the finalizer precede those groups among functions; `const` and `readonly` precede them among variables. Variables and properties that support an inherited implementation belong to that parent or interface group. Do not mix static, inherited-implementation, and local groups. In a `MonoBehaviour`, Unity message functions are treated like the first inherited group. Put them before explicitly inherited parent and interface members, and sort them alphabetically by function name, such as `Awake`, `OnDestroy`, `OnEnable`, and `Start`. Do not order them by the Unity lifecycle. After that, use parent > child order. Among explicit parents, follow the inheritance declaration order. Multiple interfaces and their implementations are ordered alphabetically.
+
+**Design principle:** In an ordinary non-static object type, avoid mutable static state as a rule and treat it as exceptional or temporary. When the state genuinely belongs to the type as a whole, make its lifetime, initialization and reset, cleanup, and concurrency responsibilities explicit; treat convenience `Instance`, `Current`, or service-access fields as temporary design debt. Avoid static functions unless the behavior clearly belongs to the type itself.
 
 ### 25. Do not create unnecessary functions
 
@@ -764,25 +786,31 @@ public sealed class TooltipButton : TooltipInterface
 Correct:
 
 ```csharp
-private const int MaxCount = 10;
+public sealed class Cache
+{
+    private const int MaxCount = 10;
 
-private readonly int StartIndex;
+    private readonly int StartIndex;
 
-private static int __cacheCount;
-private static int __index;
+    private static int __cacheCount;
+    private static int __index;
 
-private int count;
-private int index;
+    private int count;
+    private int index;
+}
 ```
 
 Incorrect:
 
 ```csharp
-private const int MaxCount = 10;
-private int index;
-private readonly int StartIndex;
-private static int __cacheCount;
-private int count;
+public sealed class Cache
+{
+    private const int MaxCount = 10;
+    private int index;
+    private readonly int StartIndex;
+    private static int __cacheCount;
+    private int count;
+}
 ```
 
 Treat `const`, `readonly`, `static`, and ordinary variables as separate sections. Order ordinary variables by rule 24 and alphabetize only within the same inheritance group.
