@@ -1,6 +1,6 @@
 ---
 name: oojjrs-project-finish-work
-description: Close repository work after task-local edits, or complete scoped validation, stage, commit, push, or deploy work for an existing diff or commit. Use to audit validation, text format, versioning, docs, Design, asset metadata, publication/runtime synchronization, board state, commit, and push/deploy decisions. Do not use for ordinary read-only review, diagnosis, planning, or status reporting with no Git completion action.
+description: Close repository work after task-local edits, or complete scoped validation, stage, commit, push, or deploy work for an existing diff or commit. Use to audit validation, text format, the mandatory pre-commit version-policy check, docs, Design, asset metadata, publication/runtime synchronization, board state, commit, and push/deploy decisions. Do not use for ordinary read-only review, diagnosis, planning, or status reporting with no Git completion action.
 ---
 
 # oojjrs Project Finish Work
@@ -11,9 +11,10 @@ Use this lifecycle skill after the last intended edit, or when the task is to fi
 
 1. Inspect `git status --short --branch` and the final ordinary diff for the requested scope.
 2. Complete every decision in the impact table. Never silently omit a row.
-3. Reuse the current primary domain when a row needs its procedure. If a different primary domain is required, close the current phase and route a sequential follow-up phase; do not preload both or load a domain merely to declare a row not applicable.
-4. If a version, document, Design, metadata, or other required update changes files, return to step 1.
-5. Once stable, run the exact-file text-format check below, `git diff --check`, and task-relevant builds/tests or a documented skip. Review the diff again after any automatic fix.
+3. If a commit is authorized, the Version decision always applies. Inspect the exact commit scope and read every applicable published version policy before the final staged review. Route UnityO library changes through `$oojjrs-unity-package-release`; package-root migration keeps its migration-owned decision. If no versioned unit exists, record why. If a versioned unit has no governing policy, stop before commit instead of inventing one.
+4. Reuse the current primary domain when a row needs its procedure. If a different primary domain owns an applicable version policy or another required procedure, close the current phase and route a sequential follow-up phase; do not preload both or load a domain merely to declare a row not applicable.
+5. If a version, document, Design, metadata, or other required update changes files, return to step 1.
+6. Once stable, run the exact-file text-format check below, `git diff --check`, and task-relevant builds/tests or a documented skip. Review the diff again after any automatic fix.
 
 ## Required Impact Decisions
 
@@ -21,7 +22,7 @@ Use this lifecycle skill after the last intended edit, or when the task is to fi
 |---|---|---|
 | Validation | Always evaluate | checks run and result, or precise skip reason |
 | Text format | Text files changed | exact touched-file result, or manual-review blocker |
-| Version | A versioned unit changed | policy result and value, or not needed with reason |
+| Version | A versioned unit changed, a commit is authorized, or a version/release decision was requested | exact scope inspected; applicable policy read and bump/no-bump/value reported, no versioned unit with reason, or a missing-policy blocker |
 | Docs/README | User behavior, public API, install/use steps, or published claims changed | synchronized files, or not needed with reason |
 | Design | Planning state, asset inventory, UX decision, or completion state changed | synchronized `Design.html`, or not needed with reason |
 | Asset metadata | Unity or other metadata-bearing assets changed | verified companion metadata, or not applicable |
@@ -43,9 +44,9 @@ If `-Fix` changes a file or reports a mixed-EOL manual review, return to the sta
 
 ## Stage And Commit Gate
 
-Stage only exact requested paths, and only when a commit is authorized. Do not stage files merely to produce a final report.
+Stage only exact requested paths, and only when a commit is authorized. Do not stage files merely to produce a final report. Do not begin the final staged review until the Version decision is complete.
 
-Before committing, review `git diff --cached --name-status`, the staged diff, and `git diff --cached --check` in a completed inspection step. Commit only while that reviewed staged content remains unchanged. If staging changes, inspect it again. Push or deploy only under explicit current authorization.
+Before committing, review `git diff --cached --name-status`, the staged diff, and `git diff --cached --check` in a completed inspection step. Commit only while that reviewed staged content remains unchanged. If staged paths or content change, repeat the Version decision for the new exact scope and inspect the staged content again. Push or deploy only under explicit current authorization.
 
 ## Final Report
 

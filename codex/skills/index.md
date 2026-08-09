@@ -20,7 +20,7 @@ $oojjrs-guidelines
 
 - Ordinary conversation, factual Q&A, translation, and rewriting: no workflow skill.
 - Read-only review or diagnosis: guidelines only when shared work rules matter, then the smallest non-overlapping read-only domains sequentially; no start or finish.
-- Local repository edits or scoped stage/commit: guidelines once, start immediately before the first mutation, one primary domain at a time when needed, then finish.
+- Local repository edits or scoped stage/commit: guidelines once, start immediately before the first mutation, one primary domain at a time when needed, then finish; every authorized commit completes finish's version-policy check before the final staged review.
 - Push/deploy of an already reviewed commit: guidelines once and finish authorization gate; start is unnecessary when local state will not change first.
 - A more-specific domain owns its subordinate safety, docs, and validation rules. Do not load generic parents alongside it.
 - Split genuinely independent deliverables into sequential phases instead of preloading several primary domains.
@@ -31,7 +31,7 @@ $oojjrs-guidelines
 |---|---|---|---|
 | Core | `$oojjrs-guidelines` | Actual repository, code, document, asset, Git, validation, maintenance, or deployment work | Fetch canonical URL once; no per-command reload, cache, or workspace substitute |
 | Lifecycle | `$oojjrs-project-start-work` | Immediately before the first authorized local file/index/commit mutation | Not for review, diagnosis, planning, board-only, or push-only tasks |
-| Lifecycle | `$oojjrs-project-finish-work` | After task edits or for scoped validation/stage/commit/push/deploy of an existing diff/commit | Not for ordinary no-action reporting; repeat only if its audit causes an edit |
+| Lifecycle | `$oojjrs-project-finish-work` | After task edits or for scoped validation/stage/commit/push/deploy of an existing diff/commit | Not for ordinary no-action reporting; before every authorized commit, inspect the exact scope, consult each applicable version policy, and block if a changed versioned unit has no policy; repeat if the audit causes an edit |
 | Helper | `$oojjrs-dirty-worktree-scope-split` | Target changes overlap existing hunks or safe stage/commit isolation is ambiguous | Mere dirty status is insufficient; dirty provenance diagnosis uses Windows forensics |
 | Helper | `$oojjrs-github-project-board` | User requests board work, or a cheap probe confirms a relevant 1:1 board this task must update | Do not load for every repo; load once, not again at finish |
 | Helper | `$oojjrs-visual-qa` | Rendered visual evidence is the request or a materially necessary validation gate | Do not auto-add after every visual-file edit |
@@ -43,9 +43,9 @@ $oojjrs-guidelines
 | Domain | `$oojjrs-skill-maintenance` | Public skill source, metadata, routing, install, or validation changes | Owns related common-rule routing alignment; do not add guideline maintenance |
 | Domain | `$oojjrs-steamworks` | Steamworks integration, SDK, API, SteamPipe, partner, or operations work | Uses Valve official docs; no generic web research substitute |
 | Domain | `$oojjrs-unity-package-src-migration` | Moving an Assets-based Unity package into `Packages/src` | Supersedes release, README, and generic asset skills for the migration |
-| Domain | `$oojjrs-unity-package-release` | UnityO library version decision/change or release-readiness review | Not for game versions or package-root migration; generic finish owns commit/push authorization |
+| Domain | `$oojjrs-unity-package-release` | Before committing any UnityO library change, or for its version decision/change or release-readiness review | Not for game versions or package-root migration; generic finish owns commit/push authorization |
 | Domain | `$oojjrs-unity-asset-safety` | General Unity asset mutation with no more-specific workflow | Fallback only; do not stack with package, Mines, art, sprite, audio, or prefab domains |
-| Domain | `$oojjrs-unity-csharp-entity-workflow` | Unity entity/model/binding/runtime-helper changes | Package release is a later separate phase only when requested |
+| Domain | `$oojjrs-unity-csharp-entity-workflow` | Unity entity/model/binding/runtime-helper changes | Before committing UnityO package changes, route package version evaluation as a later separate release phase |
 | Domain | `$oojjrs-unity-prefab-guid-usage-lookup` | Read-only Unity serialized reference/GUID tracing | No start/finish until the request changes to an edit |
 | Domain | `$oojjrs-2d-sprite-animation` | 2D animation frames, sheets, pivots, or preview GIFs | Supersedes image-first art for animation frames |
 | Domain | `$oojjrs-image-first-art-workflow` | General new or revised raster art and visual assets | Not for 2D animation or a more-specific Mines pipeline |

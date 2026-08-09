@@ -19,7 +19,7 @@ Use this skill for Unity C# model/entity/runtime helper work.
 2. Keep reference-type default expressions explicit as `null` when that is the established convention.
 3. Avoid broad naming churn unless the request is specifically a naming cleanup.
 4. When adding an entity-like type, update only directly required binders, tables, docs, and tests.
-5. Keep package/runtime documentation and version updates separate. If the user requests a release bundle, finish this code phase and route a later sequential phase to `$oojjrs-unity-package-release`; do not preload both domains.
+5. Keep package/runtime documentation and version updates separate. Before an authorized commit containing UnityO package changes, or for an explicit release/version request, finish this code phase and route a later sequential phase to `$oojjrs-unity-package-release`; do not preload both domains.
 
 ## Validation
 
