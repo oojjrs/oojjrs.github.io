@@ -79,6 +79,11 @@ alternate_url: /kr/
       <strong>Common Work Guidelines</strong>
     </a>
 
+    <a class="utility-link utility-link-codex" href="{{ "/codex/validation-guideline.md" | relative_url }}">
+      <span>VALIDATION</span>
+      <strong>Minimal Validation Rules</strong>
+    </a>
+
     <a class="utility-link utility-link-unity" href="{{ "/en/unity/csharp-coding-convention.html" | relative_url }}">
       <span>UNITY</span>
       <strong>Unity C# Convention</strong>

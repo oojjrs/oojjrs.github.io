@@ -19,7 +19,7 @@ Before reviewing or editing a project `Design.html`, open and follow `https://oo
 4. Do not add shared guideline links to the `Design.html` header; Codex reads public Markdown rules from user-level work rules.
 5. Current code/assets beat stale planning text. Reconcile planning to implementation and user intent.
 6. Keep assets in live runtime paths or `DesignAssets/...`; temporary material belongs in `$Trash`.
-7. Validate changed HTML for links, anchors, image click-throughs, local assets, original encoding and line-ending preservation, obvious tag balance, and diff scope. CRLF checks mean matching the file's pre-edit state, not forcing CRLF.
+7. Validate only changed HTML elements: parse their structure, resolve changed links, anchors, image click-throughs, and local asset paths, and compare changed open/collapsed state with the requested design. Use browser checks only when requested or when layout or responsive behavior changed.
 
 ## Boundaries
 

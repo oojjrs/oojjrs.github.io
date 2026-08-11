@@ -79,6 +79,11 @@ alternate_url: /en/
       <strong>공통 작업 지침</strong>
     </a>
 
+    <a class="utility-link utility-link-codex" href="{{ "/codex/validation-guideline.md" | relative_url }}">
+      <span>VALIDATION</span>
+      <strong>최소 검증 원칙</strong>
+    </a>
+
     <a class="utility-link utility-link-unity" href="{{ "/kr/unity/csharp-coding-convention.html" | relative_url }}">
       <span>UNITY</span>
       <strong>Unity C# 컨벤션</strong>

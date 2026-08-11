@@ -104,23 +104,6 @@ function Get-EncodingWriter {
     }
 }
 
-function Get-GitChangedLines {
-    param([string]$RepoRoot, [string]$RelativePath)
-
-    $lines = New-Object 'System.Collections.Generic.HashSet[int]'
-    $diff = & git.exe -C $RepoRoot diff --unified=0 --no-ext-diff -- $RelativePath
-    foreach ($diffLine in $diff) {
-        if ($diffLine -match '^@@ -\d+(?:,\d+)? \+(\d+)(?:,(\d+))? @@') {
-            $start = [int]$Matches[1]
-            $count = if ($Matches[2]) { [int]$Matches[2] } else { 1 }
-            for ($lineNumber = $start; $lineNumber -lt ($start + $count); $lineNumber++) {
-                [void]$lines.Add($lineNumber)
-            }
-        }
-    }
-    return $lines
-}
-
 function Get-LineEndingMismatchLines {
     param([string]$Text, [string]$ExpectedLineEnding)
 
@@ -167,7 +150,6 @@ foreach ($file in $files | Sort-Object FullName -Unique) {
     $repoRoot = (& git.exe -C $file.DirectoryName rev-parse --show-toplevel 2>$null)
     $reference = $null
     $source = "NewFile"
-    $changedLines = New-Object 'System.Collections.Generic.HashSet[int]'
     if ($LASTEXITCODE -eq 0 -and $repoRoot) {
         $repoRoot = [System.IO.Path]::GetFullPath($repoRoot.Trim())
         $relative = $file.FullName.Substring($repoRoot.Length).TrimStart('\', '/').Replace('\', '/')
@@ -175,15 +157,12 @@ foreach ($file in $files | Sort-Object FullName -Unique) {
         if ($null -ne $referenceBytes) {
             $reference = Get-TextFormat $referenceBytes
             $source = "GitHead"
-            $changedLines = Get-GitChangedLines $repoRoot $relative
         }
     }
 
     if ($null -eq $reference) {
         $expectedEncoding = "UTF8NoBom"
         $expectedLineEnding = "CRLF"
-        $lineCount = ([regex]::Matches($current.Text, "`r`n|`n|`r")).Count
-        for ($lineNumber = 1; $lineNumber -le $lineCount; $lineNumber++) { [void]$changedLines.Add($lineNumber) }
     } elseif (-not $reference.IsText) {
         continue
     } else {
@@ -223,7 +202,6 @@ foreach ($file in $files | Sort-Object FullName -Unique) {
         ExpectedEncoding = $expectedEncoding
         LineEnding = $current.LineEnding
         ExpectedLineEnding = $expectedLineEnding
-        GitChangedLines = $changedLines.Count
         MismatchLines = ($mismatchLines -join ',')
         Path = $file.FullName
     }

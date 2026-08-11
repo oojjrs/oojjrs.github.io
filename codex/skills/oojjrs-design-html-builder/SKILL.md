@@ -40,12 +40,11 @@ Build image previews, comparison boards, contact sheets, and visual inventories 
 
 ## Validation
 
-Check:
+Check only changed document behavior:
 
-- image references exist
-- duplicate IDs and broken anchors
-- intended collapsed/open section state
-- UTF-8 No-BOM and original line endings
-- `git diff --check -- Design.html`
+- changed image references resolve
+- changed IDs are unique and changed anchors resolve
+- changed collapsed/open section state matches the requested design
+- changed HTML structure parses without obvious imbalance
 
-If browser validation is blocked, use static checks and say so.
+Use browser validation only when the user requests it or when layout or responsive behavior changed. In that case, inspect only the affected desktop and mobile surfaces; static checks are sufficient for content-only edits.

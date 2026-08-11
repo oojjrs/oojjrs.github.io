@@ -81,7 +81,7 @@ $comment = @"
 Work record:
 - User feedback: Track ongoing decisions and improvements as issue comments.
 - Decision: Keep issue bodies focused on summary, scope, and completion criteria.
-- Validation: git diff --check passed.
+- Result: Updated the requested project workflow guidance.
 "@
 gh issue comment ISSUE_NUMBER --repo OWNER/REPO --body $comment
 ```
@@ -89,8 +89,6 @@ gh issue comment ISSUE_NUMBER --repo OWNER/REPO --body $comment
 ## Card Body Formatting
 
 Use real newlines in card and issue bodies. Never write literal `\n` text.
-
-If this workflow also touches local text files, preserve each existing file's encoding and line endings exactly. Do not normalize to CRLF unless the file already used CRLF or the user asks.
 
 In PowerShell, prefer a here-string:
 
@@ -100,8 +98,8 @@ Changes:
 - First item
 - Second item
 
-Checks:
-- git diff --check passed
+Outcome:
+- Updated the requested project fields
 "@
 ```
 

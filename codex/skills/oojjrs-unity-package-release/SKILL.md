@@ -22,8 +22,10 @@ Judge consumer use by whether they directly attach, create, reference, or call t
 
 Normally include one version change per atomic commit. For ordered commits, apply each bump from the version produced by the preceding commit; the highest change within one commit wins.
 
-## Release Check
+## Release Evidence
 
-Verify the package root, `package.json`, applicable manifest/lock entries, README install version, repo-specific build, and companion `.meta` files. Codex must not create or modify `.meta` files; include only in-scope user- or Unity-generated metadata.
+Verify only affected release surfaces: the package root and `package.json`, version-dependent manifest or lock entries, changed README install references, and expected companion `.meta` files. Codex must not create or modify `.meta` files; include only in-scope user- or Unity-generated metadata.
+
+Run builds or tests only when the user explicitly requests them. A test may support a release claim only when its expected result comes from an independent user requirement, authoritative contract, previously confirmed behavior, or reproducible bug with a known correct outcome; do not derive both implementation and expectation from the same guess.
 
 Review-only requests stay read-only. Staging, commit, and push remain finish-work decisions.

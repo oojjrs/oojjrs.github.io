@@ -27,6 +27,10 @@ Prefer:
 
 ## Validation
 
-Check links and code blocks where feasible. For package docs, verify `package.json`, manifest snippets, and root README version text agree.
+Validate only changed content against independent project sources:
 
-Preserve existing encoding and line endings.
+- resolve changed links and referenced files
+- compare changed commands and code blocks with live code or package metadata
+- when version text changed, compare it with the applicable `package.json` or manifest
+
+Do not run builds or tests, or add a separate generic format or diff pass, for README-only changes.

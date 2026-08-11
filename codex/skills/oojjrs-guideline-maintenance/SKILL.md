@@ -11,8 +11,8 @@ Use this skill when durable public guidance must change.
 
 - The active common-rules authority is `https://oojjrs.github.io/codex/common-work-guidelines.md`.
 - `codex/common-work-guidelines.md` in this repository is its publication source, not a runtime override.
-- Before claiming what the active common rules say, read the canonical URL. Before editing, inspect the publication source and its diff.
-- Until a change is committed, pushed, and published, report that the canonical URL still serves the previous body.
+- Before claiming what the active common rules say, read the canonical URL. Before editing, inspect the exact publication source and any existing changes to that target.
+- When publication is requested, do not claim the active page changed until the source is committed, pushed, and published.
 
 ## Placement
 
@@ -26,9 +26,9 @@ Use this skill when durable public guidance must change.
 ## Editing And Validation
 
 1. Keep the change narrow and remove superseded or duplicated wording rather than layering another exception on top.
-2. Preserve existing encoding and line endings; validate exact touched files with the shared text-format checker and inspect the ordinary diff.
+2. Validate only changed guidance semantics and affected references against independent source material.
 3. When guidance changes public skills, keep the affected `SKILL.md`, `agents/openai.yaml`, routing index, and installer aligned.
 4. When adding, moving, or publishing a public document, add a discoverable site-root navigation path and verify it when deployment is in scope.
-5. Run targeted structure/link checks and `git diff --check -- <changed-files>`.
+5. Parse only changed structured content and resolve only changed links. Do not add a second generic format, diff, build, or test pass in this domain.
 
-After publication, compare the canonical body or page with the intended source and report any GitHub Pages/raw-content delay.
+After a requested publication, compare only the changed canonical body or page with the intended source and report a mismatch or material GitHub Pages/raw-content delay.

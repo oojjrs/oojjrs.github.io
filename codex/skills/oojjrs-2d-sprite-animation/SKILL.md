@@ -13,7 +13,6 @@ Use a layered-parts workflow. Do not start by slicing, warping, or spline-bendin
    - Identify which pixels must stay fixed, which parts move, and which parts occlude others.
    - Preserve the existing runtime contract: frame size, sheet layout, Unity meta/import settings, animation clip references, and document previews.
    - Do not create or modify Unity `.meta` files. Preserve or move an existing companion with its asset, include a user- or Unity-generated in-scope companion even when untracked, and stop before commit or push if an expected companion is absent.
-   - For existing text metadata or project files, preserve the current encoding and line endings exactly; do not normalize to CRLF unless that was the original state or the user asks.
 
 2. Prefer true source layers.
    - Use PSD-derived layers or separate PNG parts when available.
@@ -47,11 +46,10 @@ Use a layered-parts workflow. Do not start by slicing, warping, or spline-bendin
 Before calling the animation done:
 
 - Visually inspect the sprite sheet and preview GIF.
-- Check that fixed layer sample pixels are identical across frames.
-- Check dimensions, frame count, and transparent background.
+- When fixed layers exist, check that their sample pixels are identical across frames.
+- Check the changed dimensions, frame count, and transparent background against the target runtime format.
 - Check for clipping, seams, ghosting, dark fringes, broken occlusion, and palette artifacts.
 - For Unity assets, verify existing `.meta` GUIDs, sprite rects/internal IDs, and animation clip references; include user- or Unity-generated in-scope companions and do not commit or push an asset whose expected companion is absent.
-- Run the project-appropriate diff/format checks before reporting completion.
 
 ## Quality Rules
 

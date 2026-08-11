@@ -40,9 +40,7 @@ Do not create or use ad-hoc `tmp`, `temp`, `scratch`, or similarly named folders
 
 When writing literal `$Trash` paths in PowerShell, quote them, for example `'.\$Trash'`, so `$Trash` is not treated as a variable.
 
-## Text Metadata Files
-
-When image work touches existing text metadata, manifests, import settings, or project files, preserve each file's current encoding and line endings exactly. Do not normalize to CRLF unless that was the file's original state or the user explicitly asks.
+## Unity Metadata
 
 When creating or exporting Unity assets, do not create or modify Unity `.meta` files. Preserve or move an existing companion with its asset, include a user- or Unity-generated in-scope companion even when Git reports it as new or untracked, and stop before commit or push if an expected companion is absent.
 
@@ -127,12 +125,4 @@ If there is any doubt, bias toward imagegen for the first visual asset.
 
 ## Reporting
 
-When finishing image work, state:
-
-- whether imagegen was used for the first art pass
-- where temporary/intermediate files were kept, and confirm whether `$Trash` was used
-- what second-pass tools were used, if any
-- whether previews were composed from actual generated/accepted image files, if any previews were made
-- where the final selected asset was saved
-- whether any Unity `.meta` files were preserved or moved, and confirm no new `.meta` files were generated
-- whether any placeholder/code-made visuals remain and why
+Report the selected output path, the material result, and any unresolved visual or runtime risk. Mention temporary files, second-pass tools, preview construction, Unity metadata, or remaining placeholders only when they were actually involved or affect the result; do not enumerate inapplicable checks.

@@ -1,4 +1,4 @@
 interface:
   display_name: "oojjrs Project Finish Work"
-  short_description: "Audit version policy, validation, and commit"
-  default_prompt: "Use $oojjrs-project-finish-work after actual edits or for scoped Git completion work to perform the mandatory version-policy check before every authorized commit, stabilize the diff, and explicitly decide every finish gate."
+  short_description: "Complete requested Git or publication actions"
+  default_prompt: "Use $oojjrs-project-finish-work only for an explicitly requested stage, commit, push, deploy, release, or scoped Git-completion action, and perform each triggered check once."

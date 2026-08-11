@@ -105,7 +105,7 @@
 
   <rect class="page" x="0" y="0" width="1600" height="1220"/>
   <text class="title" x="64" y="64">oojjrs Codex 작업 스킬 라우팅</text>
-  <text class="subtitle" x="64" y="94">공통 가이드라인을 먼저 적용하고, 필요한 최소 스킬 스택만 추가로 로드한다.</text>
+  <text class="subtitle" x="64" y="94">공통 규칙과 도메인 스킬만 최소로 쓰고, 검증은 한 번·Git 완료는 요청 시에만 수행한다.</text>
 
   <rect class="lane" x="50" y="130" width="320" height="960" rx="14"/>
   <rect class="lane" x="400" y="130" width="360" height="960" rx="14"/>
@@ -115,7 +115,7 @@
   <text class="lane-title" x="80" y="170">1. 시작 레이어</text>
   <text class="lane-title" x="430" y="170">2. 범위/상태 레이어</text>
   <text class="lane-title" x="820" y="170">3. 도메인 스킬</text>
-  <text class="lane-title" x="1280" y="170">4. 검증/마무리</text>
+  <text class="lane-title" x="1280" y="170">4. 조건부 검증/완료</text>
 
   <g id="entry">
     <rect class="node primary" x="90" y="220" width="240" height="92" rx="12"/>
@@ -133,10 +133,10 @@
 
   <g id="start">
     <rect class="node primary" x="90" y="520" width="240" height="112" rx="12"/>
-    <text class="label" x="120" y="552">repo 시작 점검</text>
+    <text class="label" x="120" y="552">repo 변경 준비</text>
     <text class="skill" x="120" y="578">$oojjrs-project-start-work</text>
-    <text class="small" x="120" y="598">git 상태, 최근 로그</text>
-    <text class="small" x="120" y="618">Design.html/보드 확인</text>
+    <text class="small" x="120" y="598">충돌 위험 시 status 1회</text>
+    <text class="small" x="120" y="618">history/보드는 근거 필요 시</text>
   </g>
 
   <g id="dirty">
@@ -204,23 +204,30 @@
     <rect class="node utility" x="1285" y="250" width="230" height="112" rx="12"/>
     <text class="label" x="1315" y="282">시각 검수</text>
     <text class="skill" x="1315" y="308">$oojjrs-visual-qa</text>
-    <text class="small" x="1315" y="328">HTML/SVG/이미지</text>
-    <text class="small" x="1315" y="348">브라우저 또는 정적 검사</text>
+    <text class="small" x="1315" y="328">요청/렌더 결과 필요 시</text>
+    <text class="small" x="1315" y="348">영향받은 화면만 확인</text>
+  </g>
+
+  <g id="default-finish">
+    <rect class="node finish" x="1285" y="430" width="230" height="105" rx="12"/>
+    <text class="label" x="1315" y="462">일반 편집 마감</text>
+    <text class="small" x="1315" y="488">형식 check-only 1회</text>
+    <text class="small" x="1315" y="510">scoped diff 1회</text>
   </g>
 
   <g id="finish">
-    <rect class="node finish" x="1285" y="520" width="230" height="122" rx="12"/>
-    <text class="label" x="1315" y="552">마무리</text>
-    <text class="skill" x="1315" y="578">$oojjrs-project-finish-work</text>
-    <text class="small" x="1315" y="600">검증, stage</text>
-    <text class="small" x="1315" y="620">commit/push는 요청 시</text>
+    <rect class="node finish" x="1285" y="590" width="230" height="115" rx="12"/>
+    <text class="label" x="1315" y="622">Git/배포 완료</text>
+    <text class="skill" x="1315" y="648">$oojjrs-project-finish-work</text>
+    <text class="small" x="1315" y="672">stage/commit/push/deploy</text>
+    <text class="small" x="1315" y="692">현재 요청에 있을 때만</text>
   </g>
 
   <g id="report">
-    <rect class="node finish" x="1285" y="750" width="230" height="92" rx="12"/>
-    <text class="label" x="1315" y="782">한국어 보고</text>
-    <text class="small" x="1315" y="808">변경, 검증, 남은 위험</text>
-    <text class="small" x="1315" y="828">git 상태 포함</text>
+    <rect class="node finish" x="1285" y="780" width="230" height="92" rx="12"/>
+    <text class="label" x="1315" y="812">한국어 보고</text>
+    <text class="small" x="1315" y="838">실행한 검사·남은 위험</text>
+    <text class="small" x="1315" y="858">N/A·반복 Git 보고 없음</text>
   </g>
 
   <path class="edge" d="M 210 312 L 210 370"/>
@@ -234,12 +241,17 @@
   <path class="edge soft" d="M 730 646 C 770 646 770 826 830 826"/>
   <path class="edge soft" d="M 1180 270 C 1240 270 1240 306 1285 306"/>
   <path class="edge soft" d="M 1180 643 C 1240 643 1240 306 1285 306"/>
-  <path class="edge finish" d="M 1180 450 C 1240 450 1240 581 1285 581"/>
-  <path class="edge finish" d="M 1180 826 C 1240 826 1240 581 1285 581"/>
-  <path class="edge finish" d="M 1400 642 L 1400 750"/>
+  <path class="edge soft" d="M 1400 362 L 1400 430"/>
+  <path class="edge finish" d="M 1180 270 C 1230 270 1230 482 1285 482"/>
+  <path class="edge finish" d="M 1180 450 C 1230 450 1230 482 1285 482"/>
+  <path class="edge finish" d="M 1180 643 C 1230 643 1230 482 1285 482"/>
+  <path class="edge finish" d="M 1180 826 C 1230 826 1230 482 1285 482"/>
+  <path class="edge soft" d="M 1400 535 L 1400 590"/>
+  <path class="edge finish" d="M 1400 705 L 1400 780"/>
+  <path class="edge finish" d="M 1515 482 C 1540 482 1540 826 1515 826"/>
 
   <rect class="node utility" x="82" y="930" width="1390" height="104" rx="12"/>
   <text class="legend-title" x="112" y="962">읽는 법</text>
-  <text class="legend-text" x="112" y="988">두꺼운 기본 흐름은 항상 고려한다. 점선은 필요할 때만 붙는 보조 검수다. 도메인 스킬은 전부 읽는 것이 아니라 요청에 가장 가까운 것만 고른다.</text>
-  <text class="legend-text" x="112" y="1014">예: Mines 타일 이미지 작업 = guidelines → project-start → unity-asset-safety → mines-art-asset-pipeline/image-first → visual-qa → project-finish.</text>
+  <text class="legend-text" x="112" y="988">실선은 기본 흐름이고 점선은 요청이나 독립 근거가 있을 때만 붙는다. 도메인 스킬은 요청에 가장 가까운 하나만 고른다.</text>
+  <text class="legend-text" x="112" y="1014">예: Mines 타일 편집 = guidelines → project-start → mines-art-asset-pipeline → 형식/diff 1회 → 보고. 시각 검수와 Git 완료는 조건부다.</text>
 </svg>

@@ -46,7 +46,6 @@ Unity 패키지 관례상 패키지 루트 아래에 `package.json`이 있고, �
 1. 현재 상태를 읽는다.
 - `Assets`, `Packages`, `Packages/src` 존재 여부를 확인한다.
 - `Assets/package.json`, `Assets/*.asmdef`, `Assets/Editor`, `Assets/Sources`, 테스트나 샘플 폴더 존재 여부를 확인한다.
-- `git status --short`로 작업 트리 상태를 확인한다.
 
 2. 이전 경로 참조를 찾는다.
 - `Assets/package.json`, `Assets/Editor`, `Assets/*.asmdef`, `Assets/Sources` 같은 경로를 프로젝트 안에서 검색한다.
@@ -86,12 +85,15 @@ Unity 패키지 관례상 패키지 루트 아래에 `package.json`이 있고, �
 - 설치 방법은 실제로 검증했을 때만 적고, 불확실하면 생략한다.
 
 9. 변경 결과를 확인한다.
-- `git status --short`에서 이동 결과가 의도대로 잡혔는지 확인한다.
+- 계획한 원본/대상 경로 목록과 실제 파일 구조를 비교해 이동 결과를 확인한다.
 - `package.json` 버전, repository path, `manifest.json`, `packages-lock.json`과 `Packages/src` 구조가 일치하는지 다시 읽는다.
 - JSON 파일은 파싱 검증한다.
-- 가능하면 현재 솔루션을 빌드하거나 Unity가 패키지를 정상 인식하는지 확인한다.
+- 기존 GUID와 참조 경로가 유지되는지 변경된 구조에서 직접 확인한다.
+- 빌드, 테스트, Unity 실행 검증은 사용자가 명시적으로 요청한 경우에만 수행한다. 테스트 기대값은 명시된 요구사항, 공식 계약, 기존에 확인된 동작, 올바른 결과가 알려진 재현 버그 같은 독립 근거가 있을 때만 사용한다.
 
-## 최종 보고 체크리스트
+## 완료 기준
+
+실제 이관 범위에 적용되는 구조만 독립 근거로 확인한다.
 
 - `Packages/src`가 실제 패키지 루트인지
 - `Packages/src/Runtime`과 `Packages/src/Documentation~`가 있는지
@@ -100,4 +102,3 @@ Unity 패키지 관례상 패키지 루트 아래에 `package.json`이 있고, �
 - 제외 대상이 `Assets` 쪽에 `.meta`와 함께 남아 있는지
 - 버전이 의도대로 올라갔는지
 - `manifest.json`과 `packages-lock.json`이 `file:src`를 반영하는지
-- 빌드 또는 Unity 인식 검증을 수행했는지

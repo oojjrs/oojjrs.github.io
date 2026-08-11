@@ -1,4 +1,4 @@
 interface:
   display_name: "oojjrs Unity Package Release"
-  short_description: "Enforce UnityO package version policy"
-  default_prompt: "Use $oojjrs-unity-package-release to classify every changed UnityO package against its version rule before an authorized commit or during release-readiness review, report the result, and apply it only when the current task authorizes changes."
+  short_description: "Apply scoped UnityO version policy"
+  default_prompt: "Use $oojjrs-unity-package-release to classify changed UnityO packages, verify only affected release metadata, and run builds or tests only when explicitly requested with an independent expected result."

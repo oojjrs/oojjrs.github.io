@@ -20,10 +20,10 @@ Use this as the primary domain for project-integrated game audio work. When a ne
 
 ## Loop and SFX Checks
 
-For loopable music, check the seam by listening when possible or by inspecting waveform/fade structure when playback is unavailable.
+When a loop seam changed, check it by listening when possible or by inspecting the edited waveform and fade structure when playback is unavailable.
 
 For SFX, choose duration, envelope, tail, loudness, and texture from the immediate gameplay or UI context; do not assume all UI feedback must be short or tail-less. When the user is not directly editing audio, use `ffmpeg` filters such as oscillators, noise sources, fades, EQ, pitch/time changes, delay, and mixing to create reviewable variants.
 
 ## Reporting
 
-Report source file, final file, whether the original was preserved, and what validation was possible.
+Report the final files, material result, and any unresolved listening or runtime risk. Mention source preservation or tooling only when it affected the work; do not enumerate generic validation skips.

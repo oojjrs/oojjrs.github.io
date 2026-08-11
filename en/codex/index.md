@@ -23,6 +23,13 @@ permalink: /en/codex/
     <span class="card-link">Open note <span aria-hidden="true">→</span></span>
   </a>
 
+  <a class="document-card" href="../../codex/validation-guideline.md">
+    <span class="document-kind">GUIDELINE</span>
+    <h2>Codex Validation Rules</h2>
+    <p>One-pass format and diff checks, independent oracles, and opt-in execution.</p>
+    <span class="card-link">Open note <span aria-hidden="true">→</span></span>
+  </a>
+
   <a class="document-card" href="../../codex/skills/">
     <span class="document-kind">INDEX</span>
     <h2>oojjrs Codex Skills</h2>

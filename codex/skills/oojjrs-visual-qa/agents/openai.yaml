@@ -1,4 +1,4 @@
 interface:
   display_name: "oojjrs Visual QA"
-  short_description: "Verify visual surfaces and layouts"
-  default_prompt: "Use $oojjrs-visual-qa to inspect rendered output, screenshots, responsive layout, image loading, and static fallbacks when browser checks are blocked; QA previews must come from actual surfaces/assets, never preview-only imagegen calls."
+  short_description: "Verify only affected rendered surfaces"
+  default_prompt: "Use $oojjrs-visual-qa only when rendered evidence is requested or changed layout cannot be established statically, inspect the affected viewport and state, and derive QA previews from actual surfaces or assets."

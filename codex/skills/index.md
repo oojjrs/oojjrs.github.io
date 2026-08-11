@@ -5,7 +5,7 @@ Use the smallest stack that can complete the task. A skill URL being listed here
 ## Host Custom Instruction
 
 ```text
-코드·문서·자산·Git·검증·배포 등 실제 작업 스레드에서는 $oojjrs-guidelines로 canonical URL을 한 번만 읽어라. 저장소를 실제 변경할 때만 $oojjrs-project-start-work와 가장 구체적인 도메인 스킬 하나를 사용하고, 마지막 편집 뒤에는 $oojjrs-project-finish-work로 마감하라. 명령마다 지침을 재독하거나 모든 스킬을 미리 읽지 말고, 단순 질문에는 이 워크플로를 사용하지 마라.
+코드·문서·자산·Git·검증·배포 등 실제 작업 스레드에서는 $oojjrs-guidelines로 canonical URL을 한 번만 읽어라. 저장소를 실제 변경할 때만 $oojjrs-project-start-work와 가장 구체적인 도메인 스킬 하나를 사용하라. 일반 편집은 수정 파일 형식과 scoped diff를 마지막에 한 번만 확인하고, stage·commit·push·deploy·release가 현재 요청에 있을 때만 $oojjrs-project-finish-work를 사용하라. 빌드·테스트는 사용자가 요청한 경우에만 수행하라.
 ```
 
 ## Minimal Stack
@@ -15,13 +15,15 @@ $oojjrs-guidelines
 + [$oojjrs-project-start-work: local file or Git-state mutation]
 + [primary domain: zero or one most-specific match]
 + [helper: only after its condition is confirmed]
-+ [$oojjrs-project-finish-work: edits or scoped Git completion]
++ [$oojjrs-project-finish-work: requested Git/publication completion only]
 ```
 
 - Ordinary conversation, factual Q&A, translation, and rewriting: no workflow skill.
 - Read-only review or diagnosis: guidelines only when shared work rules matter, then the smallest non-overlapping read-only domains sequentially; no start or finish.
-- Local repository edits or scoped stage/commit: guidelines once, start immediately before the first mutation, one primary domain at a time when needed, then finish; every authorized commit completes finish's version-policy check before the final staged review.
+- Local repository edits: guidelines once, start immediately before the first mutation, one primary domain at a time when needed, then one check-only exact-file format pass and one scoped diff review; no finish skill.
+- Scoped stage/commit: add finish only when the current request includes the Git action. Apply version policy only to a governed versioned unit in the final staged scope.
 - Push/deploy of an already reviewed commit: guidelines once and finish authorization gate; start is unnecessary when local state will not change first.
+- Builds, tests, runtime servers, browsers, and new tests are opt-in and require the public validation guideline's independent-oracle rule.
 - A more-specific domain owns its subordinate safety, docs, and validation rules. Do not load generic parents alongside it.
 - Split genuinely independent deliverables into sequential phases instead of preloading several primary domains.
 
@@ -30,8 +32,8 @@ $oojjrs-guidelines
 | Role | Skill | Load when | Exclusions and precedence |
 |---|---|---|---|
 | Core | `$oojjrs-guidelines` | Actual repository, code, document, asset, Git, validation, maintenance, or deployment work | Fetch canonical URL once; no per-command reload, cache, or workspace substitute |
-| Lifecycle | `$oojjrs-project-start-work` | Immediately before the first authorized local file/index/commit mutation | Not for review, diagnosis, planning, board-only, or push-only tasks |
-| Lifecycle | `$oojjrs-project-finish-work` | After task edits or for scoped validation/stage/commit/push/deploy of an existing diff/commit | Not for ordinary no-action reporting; before every authorized commit, inspect the exact scope, consult each applicable version policy, and block if a changed versioned unit has no policy; repeat if the audit causes an edit |
+| Lifecycle | `$oojjrs-project-start-work` | Once before the first authorized local file or Git-index mutation | Routine status at most once; history only when evidence requires it; not for review, diagnosis, planning, board-only, or push-only tasks |
+| Lifecycle | `$oojjrs-project-finish-work` | Explicitly requested stage, commit, push, deploy, release, or scoped Git completion | Never after ordinary edits; run only triggered checks once and omit inactive gates |
 | Helper | `$oojjrs-dirty-worktree-scope-split` | Target changes overlap existing hunks or safe stage/commit isolation is ambiguous | Mere dirty status is insufficient; dirty provenance diagnosis uses Windows forensics |
 | Helper | `$oojjrs-github-project-board` | User requests board work, or a cheap probe confirms a relevant 1:1 board this task must update | Do not load for every repo; load once, not again at finish |
 | Helper | `$oojjrs-visual-qa` | Rendered visual evidence is the request or a materially necessary validation gate | Do not auto-add after every visual-file edit |
@@ -43,7 +45,7 @@ $oojjrs-guidelines
 | Domain | `$oojjrs-skill-maintenance` | Public skill source, metadata, routing, install, or validation changes | Owns related common-rule routing alignment; do not add guideline maintenance |
 | Domain | `$oojjrs-steamworks` | Steamworks integration, SDK, API, SteamPipe, partner, or operations work | Uses Valve official docs; no generic web research substitute |
 | Domain | `$oojjrs-unity-package-src-migration` | Moving an Assets-based Unity package into `Packages/src` | Supersedes release, README, and generic asset skills for the migration |
-| Domain | `$oojjrs-unity-package-release` | Before committing any UnityO library change, or for its version decision/change or release-readiness review | Not for game versions or package-root migration; generic finish owns commit/push authorization |
+| Domain | `$oojjrs-unity-package-release` | A governed UnityO package is in an authorized commit, or its version/release is explicitly requested | Not for game versions or package-root migration; generic finish owns commit/push authorization |
 | Domain | `$oojjrs-unity-asset-safety` | General Unity asset mutation with no more-specific workflow | Fallback only; do not stack with package, Mines, art, sprite, audio, or prefab domains |
 | Domain | `$oojjrs-unity-csharp-entity-workflow` | Unity entity/model/binding/runtime-helper changes | Before committing UnityO package changes, route package version evaluation as a later separate release phase |
 | Domain | `$oojjrs-unity-prefab-guid-usage-lookup` | Read-only Unity serialized reference/GUID tracing | No start/finish until the request changes to an edit |
@@ -58,6 +60,7 @@ $oojjrs-guidelines
 
 These are documents, not additional primary skills. Load only when the edit matches:
 
+- validation scope, build/test authority, or success-oracle decisions: `https://oojjrs.github.io/codex/validation-guideline.md`
 - application/business-layer first-party naming: `https://oojjrs.github.io/codex/semantic-layer-naming-guideline.md`
 - Unity C# code: `https://oojjrs.github.io/codex/unity-csharp-coding-convention.md`
 - first-party logs: `https://oojjrs.github.io/codex/logging-guideline.md`
@@ -81,12 +84,12 @@ Install selected skills:
 & $path -Skill @("oojjrs-guidelines", "oojjrs-project-start-work", "oojjrs-project-finish-work")
 ```
 
-Default destination is `$CODEX_HOME/skills`, or `~/.codex/skills` when `$CODEX_HOME` is unset. A local installer uses one complete local publication tree; a downloaded installer resolves `master` once and fetches the whole bundle from that immutable Git commit. It preserves source bytes, verifies each destination SHA-256, and reports unexpected stale files instead of treating them as current manifest content. Add `-SkipToolInstall` to skip optional workstation-tool installation.
+Default destination is `$CODEX_HOME/skills`, or `~/.codex/skills` when `$CODEX_HOME` is unset. A local installer uses one complete local publication tree; a downloaded installer resolves `master` once and fetches the whole bundle from that immutable Git commit. It preserves source bytes, verifies each destination SHA-256, and reports unexpected stale files instead of treating them as current manifest content. For a public deployment, push first and run the downloaded installer once from that immutable commit instead of installing unpublished working-tree bytes. Add `-SkipToolInstall` to skip optional workstation-tool installation.
 
 `oojjrs-guidelines` installs both scripts:
 
 - `Read-OojjrsGuidelines.ps1` directly fetches only the canonical common-rules URL, rejects a different final URL, and reports the fetched body's `active-sha256`. It has no local or cache fallback.
-- `Test-OojjrsTextFormat.ps1` checks exact touched files against their tracked encoding/EOL state and never auto-normalizes a mixed-EOL original.
+- `Test-OojjrsTextFormat.ps1` checks exact touched files once against their tracked encoding/EOL state and never auto-normalizes a mixed-EOL original. Use check-only mode by default; `-Fix` already verifies its own write.
 
 The repository file `codex/common-work-guidelines.md` is the publication source. It does not override the active canonical URL before commit, push, and site publication.
 

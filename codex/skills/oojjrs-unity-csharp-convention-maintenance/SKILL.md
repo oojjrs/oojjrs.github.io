@@ -14,9 +14,9 @@ Treat the Unity C# convention as one document set:
 
 ## Workflow
 
-1. Inspect every representation and the current diff before editing.
+1. Inspect every representation before editing.
 2. Update all applicable representations in the same task. Never publish a rule that exists in only one language or copy.
 3. Keep rule order, numbering, meaning, decision criteria, and correct/incorrect examples aligned. The concise Codex copy may omit long examples but must not omit or weaken a rule.
-4. Preserve each file's encoding and line endings and validate exact touched files with the shared text-format checker.
-5. Compare rule inventories across all representations, validate HTML structure where applicable, and run targeted `git diff --check`.
-6. Report any intentionally unchanged redirect and any publication delay after commit/push.
+4. Preserve each file's encoding and line endings while editing.
+5. Compare rule inventories across all representations, and validate HTML structure only when an HTML representation changed.
+6. Report a redirect problem or publication delay only when one actually affects the result.

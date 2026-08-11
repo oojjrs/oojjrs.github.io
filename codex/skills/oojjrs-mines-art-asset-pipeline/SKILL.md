@@ -11,7 +11,7 @@ Use this skill for `H:\Mines` art and planning-surface asset work.
 
 1. Use this as the single primary domain; it owns the required Mines image-first, Unity metadata, and Design synchronization rules. Do not stack the generic image, Unity asset, or Design domain skills.
 2. Read `Design.html` before changing art direction, asset inventory, or planning-visible state.
-3. Inspect current assets, dimensions, naming, and git history before generating replacements.
+3. Inspect current assets, dimensions, and naming before generating replacements. Inspect history only when the task is to recover or compare earlier work.
 4. For new or substantially revised raster art, use imagegen for the first aesthetic pass; build previews only from actual candidates or accepted finals. Route true 2D sprite animation to `$oojjrs-2d-sprite-animation` instead.
 5. Check `$Trash` and recent git history when the user asks to find earlier candidates.
 
@@ -39,10 +39,8 @@ Handle these as first-class repeated workflows:
 
 ## Validation
 
-Use targeted checks:
+Check only changed asset properties:
 
-- image dimensions and frame counts for sheets/GIFs
-- referenced file existence from `Design.html`
+- image dimensions and frame counts when sheets or GIFs changed
+- changed file references from `Design.html`
 - no Codex-created or modified `.meta` files, and every in-scope asset has its existing or user/Unity-generated companion when expected
-- no unrelated dirty files staged
-- `git diff --check` on touched text files

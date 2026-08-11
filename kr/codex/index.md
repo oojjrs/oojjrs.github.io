@@ -23,6 +23,13 @@ permalink: /kr/codex/
     <span class="card-link">문서 열기 <span aria-hidden="true">→</span></span>
   </a>
 
+  <a class="document-card" href="../../codex/validation-guideline.md">
+    <span class="document-kind">GUIDELINE</span>
+    <h2>Codex 검증 원칙</h2>
+    <p>한 번의 형식·diff 검사, 독립 오라클, 실행형 검증의 요청 기준을 정의합니다.</p>
+    <span class="card-link">문서 열기 <span aria-hidden="true">→</span></span>
+  </a>
+
   <a class="document-card" href="../../codex/skills/">
     <span class="document-kind">INDEX</span>
     <h2>oojjrs Codex 스킬</h2>
