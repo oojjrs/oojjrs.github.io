@@ -27,6 +27,12 @@ permalink: /kr/unity/
     <p>엔진 객체 복제를 그대로 진실로 삼지 않고, 작고 명확한 공유 객체 상태를 기준으로 로컬 표현을 재구성하는 구조입니다.</p>
     <span class="card-link">문서 열기 <span aria-hidden="true">→</span></span>
   </a>
+  <a class="document-card" href="{{ "/kr/unity/hub-architecture/" | relative_url }}">
+    <span class="document-kind">ARCHITECTURE</span>
+    <h2>Hub 구조와 분류 원칙</h2>
+    <p>Mines를 현재 기준으로 전역 접근 구조, 카테고리 경계, 영문 용어와 항목 추가 판단 순서를 정리합니다.</p>
+    <span class="card-link">문서 열기 <span aria-hidden="true">→</span></span>
+  </a>
 </div>
 
 <p class="supplementary-link">개인 작업 참고: <a href="{{ "/kr/unity/project-bootstrap/" | relative_url }}">신규 Unity 프로젝트 초기 설정</a> · <a href="{{ "/kr/unity/game-ui-notes/" | relative_url }}">게임 UI 실무 노트</a></p>

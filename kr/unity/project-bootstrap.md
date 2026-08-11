@@ -91,7 +91,7 @@ Core를 연결하기 전에 프로젝트가 사용할 전역 상태와 서비스
 - 애플리케이션 종료 상태
 - 프로젝트가 필요로 하는 1초 Tick
 
-구체적인 저장 위치와 이름은 프로젝트의 `Hub` 구조에 맞춘다. `Oh`는 이 상태를 소유하지 않고 프로젝트 Receiver를 통해 연결한다.
+구체적인 저장 위치와 이름은 [Hub 구조와 분류 원칙]({{ "/kr/unity/hub-architecture/" | relative_url }})에 맞춘다. `Oh`는 이 상태를 소유하지 않고 프로젝트 Receiver를 통해 연결한다.
 
 ## 8. Core GameObject 구성
 

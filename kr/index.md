@@ -94,6 +94,11 @@ alternate_url: /en/
       <strong>의미 계층 네이밍</strong>
     </a>
 
+    <a class="utility-link utility-link-unity" href="{{ "/kr/unity/hub-architecture/" | relative_url }}">
+      <span>ARCHITECTURE</span>
+      <strong>Hub 구조와 분류 원칙</strong>
+    </a>
+
     <a class="utility-link utility-link-unity" href="{{ "/kr/csharp/naming-census/" | relative_url }}">
       <span>NAMING DATA</span>
       <strong>네이밍 전수조사</strong>
