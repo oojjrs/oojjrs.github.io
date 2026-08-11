@@ -4,17 +4,18 @@ Use validation to answer a concrete uncertainty about the changed result. Do not
 
 ## Budget
 
-1. Routine validation should normally take no more than one minute and target at most 25% of task-local editing time.
-2. Do not start an unrequested check expected to take longer than the implementation. Ask or skip when the cost exceeds the likely value.
-3. A longer check is justified only when the user requests it or a high-risk action has a clear, independent success criterion.
-4. Never repeat a successful check against unchanged content.
+1. Let `E` be task-local implementation or editing time after scope is understood. Routine validation targets `min(E × 25%, 15 seconds)` of agent-controlled wall time.
+2. Minimum assurance is an operation, not a time floor: run the exact touched-text format check and the single scoped diff as one terminal batch. Start that batch even when 25% of `E` is smaller, and let the already-started batch finish within the 15-second hard cap.
+3. Measure the hard cap from the first routine validation call through its last result, including agent and tool round trips. At 15 seconds, stop an unfinished unrequested check and report the missing evidence; do not extend the budget with retries or substitute checks.
+4. Add a domain-specific check only when time remains and an independent oracle answers a concrete uncertainty. User-requested execution and necessary readback of a high-risk external action are outside the routine budget, but still must not duplicate unchanged evidence.
+5. If a check exposes a defect, correcting that defect returns the task to implementation. Validate the changed result once; never repeat a successful check against unchanged content.
 
 ## Default Finish
 
 1. Preserve the existing encoding and line endings while editing.
-2. After the last edit, run the shared text-format checker once in check-only mode on the exact touched text files.
+2. After the last edit, batch the shared text-format checker on the exact touched text files and the single scoped diff in one terminal call when the available tool supports it.
 3. If that check finds a mismatch, correct only the affected files. `-Fix` verifies its own write, so do not add an unconditional second run.
-4. Read the scoped ordinary diff once. Do not scan the whole repository when the task changed only named paths.
+4. Read the scoped diff once. When a commit is part of the same task, let the final staged review serve as that diff instead of reading both ordinary and staged versions of unchanged content. Do not scan the whole repository when the task changed only named paths.
 5. Do not load the Git completion workflow unless stage, commit, push, deploy, release, or explicit completion of an existing diff is requested.
 
 ## Code And Tests
@@ -43,7 +44,7 @@ Do not invent both implementation behavior and its expected test output from the
 
 ## Git Completion
 
-Use an initial status only when needed to isolate pre-existing work. When a commit is requested, stage exact paths and review the final staged name/status, diff, and whitespace check once. Re-review only if staged content changes. Apply version policy only to governed versioned units in that staged scope. Do not report absent units or inapplicable gates.
+Use an initial status only when needed to isolate pre-existing work. When a commit is requested, stage exact paths and review the final staged name/status, diff, and whitespace check once. That staged review replaces an ordinary diff over the same unchanged content. Re-review only if staged content changes. Apply version policy only to governed versioned units in that staged scope. Do not report absent units or inapplicable gates.
 
 ## Reporting
 

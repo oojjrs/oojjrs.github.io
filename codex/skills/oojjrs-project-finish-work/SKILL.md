@@ -9,7 +9,7 @@ Use this lifecycle skill only for requested Git or publication completion. Ordin
 
 ## One-Pass Completion
 
-1. Reuse any post-last-edit text-format and scoped-diff result while the files remain unchanged. If none exists, run those exact checks once.
+1. Reuse any post-last-edit text-format result while the files remain unchanged. If none exists, run that exact check once. For a commit in the same task, defer the single scoped diff to the final staged review instead of reading both ordinary and staged versions; for non-commit completion, reuse or run the ordinary scoped diff once.
 2. Do not start a build, test, server, browser, or new test suite merely because code changed. Follow the user's explicit execution request and the independent-oracle rule in the public validation guideline.
 3. Evaluate only conditions that actually trigger. Documentation, Design, asset metadata, publication sync, board work, and versioning belong to their owning domain or current request; do not create or report `not applicable` decisions.
 4. If a commit is requested, inspect the exact intended paths for governed versioned units. Read and apply only policies that govern units present in that scope; do not report that unrelated or absent units do not exist.
