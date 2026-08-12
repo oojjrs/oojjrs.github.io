@@ -364,110 +364,23 @@
 </head>
 <body>
   <main>
-    <header>
-      <div class="header-copy">
-        <h1>Unity C# 코딩 컨벤션</h1>
-      </div>
-      <div class="header-actions">
-        <select class="language-select" data-language-select aria-label="언어"><option value="" data-language="kr" selected>한국어</option><option value="../../en/unity/csharp-coding-convention.html" data-language="en">English</option></select>
-        <a class="home-link" href="../">Home</a>
-      </div>
-    </header>
-
-    <section class="purpose-summary" aria-label="컨벤션 목적">
-      <strong>목적</strong>
-      <ul>
-        <li>코드 모양을 고민하는 시간을 0에 가깝게 줄인다.</li>
-        <li>도메인 숙련도가 높아질수록 코드 분석 속도가 0에 가까워지게 한다.</li>
-      </ul>
-    </section>
-
-    <section class="method-summary" aria-label="컨벤션 수단">
-      <strong>수단</strong>
-      <ul>
-        <li>IDE와 표준 도구의 기본 규칙을 최대한 그대로 쓴다.</li>
-        <li>수동 코딩 중 판단 기준을 단순하게 유지한다.</li>
-        <li>동사-함수, 명사-변수처럼 컨텍스트 정보를 일관되게 둔다.</li>
-        <li>최종 검수와 수동 코딩 기준을 맞추기 위해 AI에게도 동일하게 요구한다.</li>
-      </ul>
-    </section>
-
-    <div class="scope-rule">서드파티 코드 영역은 이 컨벤션 적용 대상이 아니다. 기존 도메인이 존재하는 곳은 항상 기존 원칙을 우선한다.</div>
-
-    <section class="reference-strip" aria-label="상위 기준">
-      <strong>적용 우선순위</strong>
-      <ol class="priority-list">
-        <li><span>이 문서</span></li>
-        <li><a href="https://unity.com/how-to/naming-and-code-style-tips-c-scripting-unity" target="_blank" rel="noopener noreferrer">Unity C# Style</a></li>
-        <li><a href="https://learn.microsoft.com/en-us/visualstudio/ide/code-styles-and-code-cleanup?view=vs-2022" target="_blank" rel="noopener noreferrer">Visual Studio Code Style 기본 옵션</a> / <a href="https://docs.microsoft.com/en-us/dotnet/csharp/fundamentals/coding-style/coding-conventions" target="_blank" rel="noopener noreferrer">C# Coding Conventions</a></li>
-      </ol>
-      <p class="reference-note">이 문서에서 언급하지 않은 컨벤션은 Unity 기준과 Visual Studio Code Style 기본 옵션을 따른다.</p>
-    </section>
-
-    <section class="reference-strip" aria-label="로그 작성 지침">
-      <strong>관련 필수 지침</strong>
-      <p>로그를 추가하거나 수정할 때는 종류, 대문자 문구, identifier 참조, 안정성 규칙을 정한 <a href="logging-guideline.html">로그 작성 지침</a>을 함께 따른다.</p>
-    </section>
-
+    <header><div class="header-copy"><h1>Unity C# 코딩 컨벤션</h1></div><div class="header-actions"><select class="language-select" data-language-select aria-label="언어"><option value="" data-language="kr" selected>한국어</option><option value="../../en/unity/csharp-coding-convention.html" data-language="en">English</option></select><a class="home-link" href="../">Home</a></div></header>
+    <div class="scope-rule">1차 Unity C#에만 적용한다. 기존 규칙을 우선하며 생성·서드파티·vendor·sample·PackageCache 코드는 제외한다.</div>
     <div class="document-layout">
-    <nav class="toc" aria-label="문서 섹션">
-      <a href="#핵심 규칙">핵심 규칙</a><a href="#명명">명명</a><a href="#파일과 Unity 객체">파일과 Unity 객체</a><a href="#단어">단어</a><a href="#구문과 구성">구문과 구성</a>
-    </nav>
+    <nav class="toc" aria-label="문서 섹션"><a href="#핵심 규칙">핵심 규칙</a><a href="#명명">명명</a><a href="#파일과 Unity 객체">파일과 Unity 객체</a><a href="#단어">단어</a><a href="#구문과 구성">구문과 구성</a></nav>
     <div class="document-content">
-
     <section id="핵심 규칙">
-      <div class="section-heading">
-        <span>SECTION</span>
-        <h2>핵심 규칙</h2>
-      </div>
+      <div class="section-heading"><span>SECTION</span><h2>핵심 규칙</h2></div>
       <article class="rule-card">
         <div class="rule-index">01</div>
         <div class="rule-body">
           <h3>세미콜론 문장과 함수 선언·호출을 임의로 줄바꿈하지 않는다</h3>
           <div class="example-pair">
-            <div class="example good">
-              <div class="example-label">올바른 사용</div>
-              <pre><code>private Dictionary&lt;string, Item&gt; items = new(StringComparer.Ordinal);
-
-private void ApplyReward(int rewardCount, RewardTypeEnum rewardType, bool isBonus, Action onComplete)
-{
-}
-
-private void Register&lt;TItem, TFactory&gt;(TItem item, TFactory factory) where TItem : Item where TFactory : ItemFactoryInterface
-{
-}
-
-private void GrantReward()
-{
-    ApplyReward(item, rewardCount, rewardType, isBonus, onComplete);
-}</code></pre>
-            </div>
-            <div class="example bad">
-              <div class="example-label">잘못된 사용</div>
-              <pre><code>private Dictionary&lt;string, Item&gt; items =
-    new(StringComparer.Ordinal);
-
-private void ApplyReward(
-    int rewardCount, RewardTypeEnum rewardType,
-    bool isBonus, Action onComplete)
-{
-}
-
-private void Register&lt;TItem, TFactory&gt;(TItem item, TFactory factory)
-    where TItem : Item
-    where TFactory : ItemFactoryInterface
-{
-}
-
-private void GrantReward()
-{
-    ApplyReward(
-        item, rewardCount, rewardType,
-        isBonus, onComplete);
-}</code></pre>
-            </div>
+            <div class="example good"><div class="example-label">올바른 사용</div><pre><code>ApplyReward(item, count);</code></pre></div>
+            <div class="example bad"><div class="example-label">잘못된 사용</div><pre><code>ApplyReward(
+    item, count);</code></pre></div>
           </div>
-          <p>세미콜론으로 끝나는 각 코드 문장은 첫 토큰부터 세미콜론까지 하나의 물리적 줄에 둔다. 함수 선언의 파라미터 목록, 호출 인수 목록, 제네릭 <code>where</code> 절을 포함한 선언 머리도 길이와 관계없이 하나의 물리적 줄에 둔다. 줄 길이는 줄바꿈의 근거가 아니다. 한 줄이 너무 길어 줄바꿈이 필요해 보이면 서식 문제가 아니라 코드 설계 문제로 판단하고, 임의로 줄바꿈하거나 요청받지 않은 리팩터링을 하지 않은 채 그대로 둔다. Codex와 자동 서식 도구는 코드 줄바꿈을 새로 만들거나, 제거하거나, 재배치하지 않는다. 의도적인 수동 줄바꿈은 사용자만 결정하며, 이미 존재하는 사용자 작성 줄바꿈은 사용자가 명시적으로 변경을 요청하지 않는 한 그대로 보존한다.</p>
+          <p>새로 쓰거나 수정하는 문장, 함수 선언부와 호출 인수는 길이와 관계없이 한 줄로 쓴다. 기존 수동 줄바꿈은 요청 없이 바꾸지 않는다.</p>
         </div>
       </article>
       <article class="rule-card">
@@ -475,167 +388,42 @@ private void GrantReward()
         <div class="rule-body">
           <h3>단일 내장문 본문은 중괄호 생략을 강력히 권장한다</h3>
           <div class="example-pair">
-            <div class="example good">
-              <div class="example-label">올바른 사용</div>
-              <pre><code>if (isReady)
-    StartGame();
-
-foreach (var enemy in enemies)
-    enemy.Update();
-
-foreach (var index in Indexes)
+            <div class="example good"><div class="example-label">올바른 사용</div><pre><code>if (ready)
+    Start();</code></pre></div>
+            <div class="example bad"><div class="example-label">잘못된 사용</div><pre><code>if (ready)
 {
-    if (index.CanAdd(entity, primaryKey) == false)
-        return false;
-}
-
-if (isReady)
-{
-    StartGame();
-}
-else if (canRetry)
-{
-    ResetGame();
-    RetryGame();
-}
-else
-{
-    CancelGame();
-}</code></pre>
-            </div>
-            <div class="example bad">
-              <div class="example-label">명확한 사유가 없다면 잘못된 사용</div>
-              <pre><code>foreach (var enemy in enemies)
-{
-    enemy.Update();
-}
-
-foreach (var index in Indexes)
-    if (index.CanAdd(entity, primaryKey) == false)
-        return false;</code></pre>
-            </div>
+    Start();
+}</code></pre></div>
           </div>
-          <p>단일 내장문 본문은 명확한 이유가 있을 때만 중괄호를 유지한다. 다만 중괄호 없는 제어문을 연속으로 중첩하지 않는다. <code>else if</code> 연쇄를 제외하고, 제어문의 유일한 본문이 다른 제어문이면 바깥 본문에 중괄호를 쓰고 가장 안쪽의 단일 실행문에서만 생략한다. 같은 <code>if</code> 연쇄에서 한 분기라도 중괄호가 필요하면 모든 분기에 쓴다.</p>
+          <p>단일문은 중괄호를 생략한다. 제어문 하나를 감싸는 제어문은 else if를 제외하고 바깥쪽에 중괄호를 쓴다. 같은 if 연쇄는 중괄호 사용을 통일한다.</p>
         </div>
       </article>
       <article class="rule-card">
         <div class="rule-index">03</div>
         <div class="rule-body">
           <h3>Attribute는 한 줄에 하나씩 명시한다</h3>
-          <div class="example-pair">
-            <div class="example good">
-              <div class="example-label">올바른 사용</div>
-              <pre><code>[Header("Settings")]
-[SerializeField]
-private int count;</code></pre>
-            </div>
-            <div class="example bad">
-              <div class="example-label">잘못된 사용</div>
-              <pre><code>[Header("Settings"), SerializeField]
-private int count;
-
-[SerializeField] private int index;</code></pre>
-            </div>
-          </div>
+          <p>Attribute는 선언 바로 위에 한 줄에 하나씩 쓴다.</p>
         </div>
       </article>
       <article class="rule-card">
         <div class="rule-index">04</div>
         <div class="rule-body">
           <h3>빈 줄은 정확히 한 줄의 완전히 빈 줄로 쓴다</h3>
-          <div class="example-pair">
-            <div class="example good">
-              <div class="example-label">올바른 사용</div>
-              <pre><code>private void Run()
-{
-    Prepare();
-
-    Execute();
-}</code></pre>
-            </div>
-            <div class="example bad">
-              <div class="example-label">잘못된 사용</div>
-              <pre><code>private void Run()
-{
-
-    Prepare();
-
-
-    Execute();
-
-}</code></pre>
-            </div>
-          </div>
-          <p>필요한 곳에는 완전히 빈 줄을 한 줄만 둔다. 연속되거나 공백 문자가 든 빈 줄과 중괄호 바로 안쪽의 빈 줄은 사용하지 않으며, 마지막 <code>using</code> 뒤에는 빈 줄을 한 줄 둔다.</p>
+          <p>필요한 경계와 using 뒤에는 완전히 빈 줄 하나만 둔다. 연속 빈 줄, 공백이 든 빈 줄, 중괄호 바로 안쪽 빈 줄은 금지한다.</p>
         </div>
       </article>
       <article class="rule-card">
         <div class="rule-index">05</div>
         <div class="rule-body">
           <h3>타입 범위의 그룹은 빈 줄로 구분한다</h3>
-          <div class="example-pair">
-            <div class="example good">
-              <div class="example-label">올바른 사용</div>
-              <pre><code>[SerializeField]
-private int _count;
-private bool _ready;
-
-public int Count =&gt; _count;
-
-// 실행 진입점.
-public void Run()
-{
-}
-
-public void Stop()
-{
-}</code></pre>
-            </div>
-            <div class="example bad">
-              <div class="example-label">잘못된 사용</div>
-              <pre><code>[SerializeField]
-
-private int _count;
-private bool _ready;
-public int Count =&gt; _count;
-public void Run()
-{
-}</code></pre>
-            </div>
-          </div>
-          <p>타입 범위에서는 멤버 섹션, 상속 그룹, 중첩 타입, 함수 구현 사이를 한 줄 띄운다. 같은 그룹의 선언은 붙이고 Attribute, 문서, 선행 주석은 대상 선언에 붙인다.</p>
+          <p>타입 범위의 멤버 섹션, 상속 그룹, 중첩 타입, 함수 사이는 한 줄 띄운다. 같은 그룹과 선언에 붙는 메타데이터는 분리하지 않는다.</p>
         </div>
       </article>
       <article class="rule-card">
         <div class="rule-index">06</div>
         <div class="rule-body">
           <h3>블록 안에서는 논리 문단 사이에만 빈 줄을 둔다</h3>
-          <div class="example-pair">
-            <div class="example good">
-              <div class="example-label">올바른 사용</div>
-              <pre><code>private IEnumerator RunCoroutine()
-{
-    var item = Select();
-    item.Prepare();
-
-    yield return item.RunCoroutine();
-
-    OnCompleted?.Invoke(item);
-}</code></pre>
-            </div>
-            <div class="example bad">
-              <div class="example-label">잘못된 사용</div>
-              <pre><code>private IEnumerator RunCoroutine()
-{
-    var item = Select();
-
-    item.Prepare();
-    yield return item.RunCoroutine();
-    OnCompleted?.Invoke(item);
-}</code></pre>
-            </div>
-          </div>
-          <p>블록 안에서는 즉시 목적이 다른 완결된 문장 그룹 사이만 한 줄 띄운다. 값을 만든 문장과 바로 검증하거나 소비하는 문장은 붙이고, <code>else</code>나 닫는 중괄호 앞은 띄우지 않는다.</p>
+          <p>블록에서는 목적이 다른 완결된 문장 그룹 사이만 한 줄 띄운다. 값은 즉시 검증&#183;소비와 붙이고 else나 닫는 중괄호 앞은 띄우지 않는다.</p>
         </div>
       </article>
       <article class="rule-card">
@@ -643,79 +431,21 @@ public void Run()
         <div class="rule-body">
           <h3>Unity 객체에는 null 조건부·병합 연산자를 쓰지 않는다</h3>
           <div class="example-pair">
-            <div class="example good">
-              <div class="example-label">올바른 사용</div>
-              <pre><code>private void ResetTarget(Transform target)
-{
-    if (target != null)
-        target.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
-}
-
-private Transform SelectTarget(Transform target, Transform fallback)
-{
-    if (target != null)
-        return target;
-
-    return fallback;
-}
-
-private void SetTargetFallback(Transform fallback)
-{
-    if (_target == null)
-        _target = fallback;
-}</code></pre>
-            </div>
-            <div class="example bad">
-              <div class="example-label">잘못된 사용</div>
-              <pre><code>private void ResetTarget(Transform target)
-{
-    target?.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
-}
-
-private Transform SelectTarget(Transform target, Transform fallback)
-{
-    return target ?? fallback;
-}
-
-private void SetTargetFallback(Transform fallback)
-{
-    _target ??= fallback;
-}</code></pre>
-            </div>
+            <div class="example good"><div class="example-label">올바른 사용</div><pre><code>if (target != null)
+    target.Reset();</code></pre></div>
+            <div class="example bad"><div class="example-label">잘못된 사용</div><pre><code>target?.Reset();</code></pre></div>
           </div>
-          <p>네이티브 Unity 객체가 파괴된 뒤에도 관리되는 <code>UnityEngine.Object</code> 래퍼는 남을 수 있다. Unity가 오버로드한 동등 비교와 암시적 Boolean은 이 분리된 래퍼를 null로 판정하지만, <code>?.</code>, <code>??</code>, <code>??=</code>는 CLR null만 검사하므로 파괴 상태를 우회한다. 현재 생명주기가 안전해 보여도 <code>GameObject</code>, <code>Component</code>, <code>MonoBehaviour</code>, <code>ScriptableObject</code>를 비롯한 Unity 객체 참조에는 이 연산자를 쓰지 않는다. 접근 직전에 <code>target != null</code> 또는 <code>if (target)</code>로 검사하고 fallback은 명시적 분기로 선택한다. <code>object</code>, 인터페이스, 제네릭이 Unity 객체를 감출 수 있으면 먼저 <code>UnityEngine.Object</code>로 복원해 검사한다. 일반 관리 객체, nullable 표기, 삼항 연산자 <code>?:</code>, <code>OnCompleted?.Invoke(item)</code> 같은 delegate·event에는 이 제한을 적용하지 않는다. 자세한 동작은 <a href="https://docs.unity3d.com/6000.0/Documentation/ScriptReference/Object.html">UnityEngine.Object 공식 문서</a>를 참고한다.</p>
+          <p>UnityEngine.Object에는 ?., ??, ??=를 쓰지 말고 Unity null 검사와 명시적 fallback을 쓴다. 가려진 Unity 객체는 복원해 검사한다. 일반 관리 객체, nullable, 삼항식, delegate와 event는 제외한다.</p>
         </div>
       </article>
     </section>
-
     <section id="명명">
-      <div class="section-heading">
-        <span>SECTION</span>
-        <h2>명명</h2>
-      </div>
+      <div class="section-heading"><span>SECTION</span><h2>명명</h2></div>
       <article class="rule-card">
         <div class="rule-index">08</div>
         <div class="rule-body">
           <h3>인터페이스는 Interface 접미사를 쓴다</h3>
-          <div class="example-pair">
-            <div class="example good">
-              <div class="example-label">올바른 사용</div>
-              <pre><code>public interface FunctionInterface
-{
-}
-
-private FunctionInterface function;</code></pre>
-            </div>
-            <div class="example bad">
-              <div class="example-label">잘못된 사용</div>
-              <pre><code>public interface IFunction
-{
-}
-
-private FunctionInterface functionInterface;</code></pre>
-            </div>
-          </div>
-          <p>Interface 표시는 타입명에만 둔다.</p>
+          <p>인터페이스 타입에만 Interface 접미사를 쓴다.</p>
         </div>
       </article>
       <article class="rule-card">
@@ -723,439 +453,126 @@ private FunctionInterface functionInterface;</code></pre>
         <div class="rule-body">
           <h3>static 필드의 밑줄 수는 직접 선언한 타입으로 정한다</h3>
           <div class="example-pair">
-            <div class="example good">
-              <div class="example-label">이름 규칙상 올바른 사용</div>
-              <pre><code>public sealed class Cache
-{
-    public static int __Capacity;
-    private static int __index;
-}
-
-public static class CacheRegistry
-{
-    public static int _Capacity;
-    private static int _index;
-}</code></pre>
-            </div>
-            <div class="example bad">
-              <div class="example-label">이름 규칙상 잘못된 사용</div>
-              <pre><code>public sealed class Cache
-{
-    public static int _Capacity;
-    private static int _index;
-}
-
-public static class CacheRegistry
-{
-    public static int __Capacity;
-    private static int __index;
-}</code></pre>
-            </div>
+            <div class="example good"><div class="example-label">올바른 사용</div><pre><code>public static int __Count;
+private static int __count;</code></pre></div>
+            <div class="example bad"><div class="example-label">잘못된 사용</div><pre><code>public static int _Count;
+private static int _count;</code></pre></div>
           </div>
-          <p><code>const</code>와 <code>readonly</code>를 제외한 static 필드는 필드를 직접 선언한 타입이 non-static이면 public은 <code>__PascalCase</code>, private은 <code>__camelCase</code>로 두고, <code>static class</code>이면 각각 <code>_PascalCase</code>, <code>_camelCase</code>로 둔다. 중첩 타입도 바깥 타입이 아니라 필드를 직접 선언한 타입만 본다. 필드가 존재하는 동안 설계 상태와 관계없이 이 이름 규칙을 기계적으로 적용한다.</p>
+          <p>const&#183;readonly 외 static 필드는 일반 타입에서 public __PascalCase/private __camelCase, static class에서 public _PascalCase/private _camelCase를 쓴다. 직접 선언한 타입으로 판단한다.</p>
         </div>
       </article>
       <article class="rule-card">
         <div class="rule-index">10</div>
         <div class="rule-body">
           <h3>const와 readonly는 PascalCase를 쓴다</h3>
-          <div class="example-pair">
-            <div class="example good">
-              <div class="example-label">올바른 사용</div>
-              <pre><code>private const int MaxCount = 10;
-private static readonly int InitialCapacity = 16;
-private readonly int StartIndex;</code></pre>
-            </div>
-            <div class="example bad">
-              <div class="example-label">잘못된 사용</div>
-              <pre><code>private const int max_count = 10;
-private readonly int start_index;
-private static readonly int __initialCapacity = 16;
-private static readonly int _initialCapacity = 16;</code></pre>
-            </div>
-          </div>
-          <p><code>const</code>와 <code>readonly</code>는 static 여부와 직접 선언한 타입에 관계없이 접두 밑줄 없는 PascalCase로 두어 타입/속성 이름처럼 읽히게 한다. 단, <code>static readonly</code>가 변경 가능한 객체를 참조하면 이름은 이 규칙을 따르더라도 31번의 static 상태 설계 원칙은 별도로 적용한다.</p>
+          <p>const와 readonly는 접두 밑줄 없는 PascalCase를 쓴다. 변경 가능한 static readonly 객체는 31번도 따른다.</p>
         </div>
       </article>
       <article class="rule-card">
         <div class="rule-index">11</div>
         <div class="rule-body">
           <h3>속성은 명사 또는 형용사로 쓴다</h3>
-          <div class="example-pair">
-            <div class="example good">
-              <div class="example-label">올바른 사용</div>
-              <pre><code>public bool IsActive { get; }
-public bool HasReward { get; }
-public Item AsItem { get; }</code></pre>
-            </div>
-            <div class="example bad">
-              <div class="example-label">잘못된 사용</div>
-              <pre><code>public bool Active { get; }
-public bool Activate { get; }
-public bool Reward { get; }</code></pre>
-            </div>
-          </div>
-          <p>묻는 형태의 bool 속성은 Is, Has 같은 접두사로 IDE 검색을 모은다.</p>
+          <p>속성은 명사&#183;형용사로 짓고 Boolean 질문은 동작명 대신 Is&#183;Has를 쓴다.</p>
         </div>
       </article>
       <article class="rule-card">
         <div class="rule-index">12</div>
         <div class="rule-body">
           <h3>Can과 -able의 의미를 구분한다</h3>
-          <div class="example-pair">
-            <div class="example good">
-              <div class="example-label">올바른 사용</div>
-              <pre><code>public bool CanGather { get; }
-public bool Gatherable { get; }</code></pre>
-            </div>
-            <div class="example bad">
-              <div class="example-label">잘못된 사용</div>
-              <pre><code>public bool CanGathered { get; }
-public bool Gather { get; }</code></pre>
-            </div>
-          </div>
-          <p>CanGather는 객체가 하는 행위, Gatherable은 객체가 가진 속성이다.</p>
+          <p>CanX는 실행 능력, Xable은 속성을 뜻한다.</p>
         </div>
       </article>
       <article class="rule-card">
         <div class="rule-index">13</div>
         <div class="rule-body">
           <h3>검색성이 중요한 속성에는 타입 postfix를 붙인다</h3>
-          <div class="example-pair">
-            <div class="example good">
-              <div class="example-label">올바른 사용</div>
-              <pre><code>public Sprite IconSprite { get; }
-public GameObject HitEffect { get; }
-public string DescriptionTooltip { get; }</code></pre>
-            </div>
-            <div class="example bad">
-              <div class="example-label">잘못된 사용</div>
-              <pre><code>public Sprite Icon { get; }
-public GameObject Hit { get; }
-public string Description { get; }</code></pre>
-            </div>
-          </div>
-          <p>String, Sprite, Prefab, Effect, Tooltip처럼 검색 필터가 필요한 경우만 쓴다.</p>
+          <p>String, Sprite, Prefab, Effect, Tooltip 같은 속성 타입 접미사는 검색성이 좋아질 때만 쓴다.</p>
         </div>
       </article>
       <article class="rule-card">
         <div class="rule-index">14</div>
         <div class="rule-body">
           <h3>함수는 동사 또는 동사구로 쓴다</h3>
-          <div class="example-pair">
-            <div class="example good">
-              <div class="example-label">올바른 사용</div>
-              <pre><code>public void GiveReward()
-{
-}</code></pre>
-            </div>
-            <div class="example bad">
-              <div class="example-label">잘못된 사용</div>
-              <pre><code>public void Reward()
-{
-}</code></pre>
-            </div>
-          </div>
-          <p>동작은 함수명에서 바로 드러나야 한다.</p>
         </div>
       </article>
       <article class="rule-card">
         <div class="rule-index">15</div>
         <div class="rule-body">
           <h3>Enum 타입은 Enum 접미사를 쓴다</h3>
-          <div class="example-pair">
-            <div class="example good">
-              <div class="example-label">올바른 사용</div>
-              <pre><code>public enum ItemGroupEnum
-{
-}
-
-private ItemGroupEnum itemGroup;</code></pre>
-            </div>
-            <div class="example bad">
-              <div class="example-label">잘못된 사용</div>
-              <pre><code>public enum ItemGroup
-{
-}
-
-private ItemGroup itemGroupEnum;</code></pre>
-            </div>
-          </div>
-          <p>변수명에는 Enum을 반복하지 않는다.</p>
+          <p>enum 타입에는 Enum 접미사를 붙이고 변수명에는 반복하지 않는다.</p>
         </div>
       </article>
       <article class="rule-card">
         <div class="rule-index">16</div>
         <div class="rule-body">
           <h3>코루틴 함수는 Coroutine 접미사를 쓴다</h3>
-          <div class="example-pair">
-            <div class="example good">
-              <div class="example-label">올바른 사용</div>
-              <pre><code>private IEnumerator FadeCoroutine()
-{
-    yield return null;
-}</code></pre>
-            </div>
-            <div class="example bad">
-              <div class="example-label">잘못된 사용</div>
-              <pre><code>private IEnumerator Fade()
-{
-    yield return null;
-}</code></pre>
-            </div>
-          </div>
-          <p>실행 방식이 다른 함수를 이름에서 구분한다.</p>
         </div>
       </article>
     </section>
-
     <section id="파일과 Unity 객체">
-      <div class="section-heading">
-        <span>SECTION</span>
-        <h2>파일과 Unity 객체</h2>
-      </div>
+      <div class="section-heading"><span>SECTION</span><h2>파일과 Unity 객체</h2></div>
       <article class="rule-card">
         <div class="rule-index">17</div>
         <div class="rule-body">
           <h3>파일명과 대표 정의명을 맞춘다</h3>
-          <div class="example-pair">
-            <div class="example good">
-              <div class="example-label">올바른 사용</div>
-              <pre><code>// File: PlayerController.cs
-public sealed class PlayerController
-{
-}</code></pre>
-            </div>
-            <div class="example bad">
-              <div class="example-label">잘못된 사용</div>
-              <pre><code>// File: Player.cs
-public sealed class PlayerController
-{
-}</code></pre>
-            </div>
-          </div>
-          <p>IDE와 IntelliSense에서 파일과 타입을 바로 찾을 수 있어야 한다.</p>
         </div>
       </article>
       <article class="rule-card">
         <div class="rule-index">18</div>
         <div class="rule-body">
           <h3>파일 1개에는 대표 정의 1개만 둔다</h3>
-          <div class="example-pair">
-            <div class="example good">
-              <div class="example-label">올바른 사용</div>
-              <pre><code>// File: PlayerController.cs
-public sealed class PlayerController
-{
-    private enum StateEnum
-    {
-    }
-}</code></pre>
-            </div>
-            <div class="example bad">
-              <div class="example-label">잘못된 사용</div>
-              <pre><code>// File: PlayerController.cs
-public sealed class PlayerController
-{
-}
-
-public struct PlayerState
-{
-}
-
-public enum PlayerModeEnum
-{
-}</code></pre>
-            </div>
-          </div>
-          <p>class, struct, enum 등 대표 정의는 파일을 나눈다. 중첩 정의는 예외다.</p>
+          <p>파일 하나에는 대표 최상위 class&#183;struct&#183;enum 하나만 둔다. 중첩 타입은 제외한다.</p>
         </div>
       </article>
       <article class="rule-card">
         <div class="rule-index">19</div>
         <div class="rule-body">
           <h3>중첩 타입은 enum, struct, interface, class 순서로 둔다</h3>
-          <div class="example-pair">
-            <div class="example good">
-              <div class="example-label">올바른 사용</div>
-              <pre><code>public sealed class PlayerController
-{
-    private enum StateEnum
-    {
-    }
-
-    private struct Entry
-    {
-    }
-
-    private interface CacheInterface
-    {
-    }
-
-    private sealed class Cache
-    {
-    }
-}</code></pre>
-            </div>
-            <div class="example bad">
-              <div class="example-label">잘못된 사용</div>
-              <pre><code>public sealed class PlayerController
-{
-    private sealed class Cache
-    {
-    }
-
-    private interface CacheInterface
-    {
-    }
-
-    private enum StateEnum
-    {
-    }
-
-    private struct Entry
-    {
-    }
-}</code></pre>
-            </div>
-          </div>
-          <p>한 파일의 여러 타입 선언은 대표 정의 1개 원칙 때문에 보통 중첩 타입에만 허용한다. 중첩 타입 선언 순서는 enum &gt; struct &gt; interface &gt; class다.</p>
         </div>
       </article>
       <article class="rule-card">
         <div class="rule-index">20</div>
         <div class="rule-body">
           <h3>파일명과 클래스명은 명사로 둔다</h3>
-          <div class="example-pair">
-            <div class="example good">
-              <div class="example-label">올바른 사용</div>
-              <pre><code>// File: PlayerMover.cs
-public sealed class PlayerMover
-{
-}</code></pre>
-            </div>
-            <div class="example bad">
-              <div class="example-label">잘못된 사용</div>
-              <pre><code>// File: MovePlayer.cs
-public sealed class MovePlayer
-{
-}</code></pre>
-            </div>
-          </div>
-          <p>역할은 타입명에, 동작은 함수명에 둔다.</p>
+          <p>파일&#183;클래스는 역할 명사로 짓고 동작은 함수명에 둔다.</p>
         </div>
       </article>
       <article class="rule-card">
         <div class="rule-index">21</div>
         <div class="rule-body">
           <h3>Unity 객체 이름과 스크립트 이름을 맞춘다</h3>
-          <div class="example-pair">
-            <div class="example good">
-              <div class="example-label">올바른 사용</div>
-              <pre><code>Prefab: InventoryPanel
-Script: InventoryPanel.cs
-Class: InventoryPanel</code></pre>
-            </div>
-            <div class="example bad">
-              <div class="example-label">잘못된 사용</div>
-              <pre><code>Prefab: Inventory
-Script: BagPanel.cs
-Class: BagPanel</code></pre>
-            </div>
-          </div>
-          <p>Inspector 이름과 코드 검색 이름이 같은 개념을 가리켜야 한다.</p>
         </div>
       </article>
     </section>
-
     <section id="단어">
-      <div class="section-heading">
-        <span>SECTION</span>
-        <h2>단어</h2>
-      </div>
+      <div class="section-heading"><span>SECTION</span><h2>단어</h2></div>
       <article class="rule-card">
         <div class="rule-index">22</div>
         <div class="rule-body">
           <h3>PascalCase 경계는 의미 계층을 나타낸다</h3>
-          <div class="example-pair">
-            <div class="example good">
-              <div class="example-label">올바른 사용</div>
-              <pre><code>Nickname
-TitleMenuButton
-LobbyRoomListEntryHostText</code></pre>
-            </div>
-            <div class="example bad">
-              <div class="example-label">잘못된 사용</div>
-              <pre><code>NickName
-TitlemenuButton
-LifeTime</code></pre>
-            </div>
-          </div>
-          <p>프로젝트 수준의 비즈니스 로직에서는 한 의미 계층을 한 토큰으로 쓴다. 새 대문자 경계는 철자를 끊는 표시가 아니라 실제 소유·구조·관계·역할 계층을 하나 추가한다는 선언이다. <code>Nickname</code>은 한 개념이고, <code>TitleMenuButton</code>은 실제 <code>Title → Menu → Button</code> 구조다. 사전이 아니라 코드 구조로 경계를 판정한다. 이 설계 규칙은 엔진·라이브러리·완전 저수준 코드에는 적용하지 않는다. 자세한 적용 범위와 기준은 <a href="{{ "/kr/csharp/semantic-layer-naming/" | relative_url }}">의미 계층 기반 네이밍</a>에서 다룬다.</p>
+          <p>프로젝트 비즈니스 로직의 PascalCase는 실제 소유&#183;구조&#183;관계&#183;역할 계층만 나눈다. 엔진&#183;라이브러리&#183;저수준 코드는 제외한다.</p>
         </div>
       </article>
       <article class="rule-card">
         <div class="rule-index">23</div>
         <div class="rule-body">
           <h3>다른 키워드의 부분 문자열이면 피한다</h3>
-          <div class="example-pair">
-            <div class="example good">
-              <div class="example-label">올바른 사용</div>
-              <pre><code>StageState
-IntermissionState</code></pre>
-            </div>
-            <div class="example bad">
-              <div class="example-label">잘못된 사용</div>
-              <pre><code>MissionState
-IntermissionState</code></pre>
-            </div>
-          </div>
-          <p>Intermission 안에 Mission이 들어간다. 검색하면 Mission이 의도치 않게 같이 잡힌다.</p>
         </div>
       </article>
       <article class="rule-card">
         <div class="rule-index">24</div>
         <div class="rule-body">
           <h3>복수 그룹은 현재 -s/-es를 허용한다</h3>
-          <div class="example-pair">
-            <div class="example good">
-              <div class="example-label">올바른 사용</div>
-              <pre><code>Items
-Enemies
-Rewards</code></pre>
-            </div>
-            <div class="example bad">
-              <div class="example-label">잘못된 사용</div>
-              <pre><code>ItemList
-EnemyArray
-RewardBucket</code></pre>
-            </div>
-          </div>
-          <p>List, Array는 헝가리언처럼 보일 수 있다. 더 나은 대안은 미정이다.</p>
+          <p>그룹은 -s&#183;-es 복수형을 쓰고 List&#183;Array&#183;Bucket 같은 타입 소음 접미사는 피한다.</p>
         </div>
       </article>
     </section>
-
     <section id="구문과 구성">
-      <div class="section-heading">
-        <span>SECTION</span>
-        <h2>구문과 구성</h2>
-      </div>
+      <div class="section-heading"><span>SECTION</span><h2>구문과 구성</h2></div>
       <article class="rule-card">
         <div class="rule-index">25</div>
         <div class="rule-body">
           <h3>외부 생명주기 객체는 읽기 전용 속성으로 둔다</h3>
-          <div class="example-pair">
-            <div class="example good">
-              <div class="example-label">올바른 사용</div>
-              <pre><code>public Player Player { get; }</code></pre>
-            </div>
-            <div class="example bad">
-              <div class="example-label">잘못된 사용</div>
-              <pre><code>public Player Player;</code></pre>
-            </div>
-          </div>
-          <p>생성과 소유권이 외부에 있으면 setter를 닫는다.</p>
         </div>
       </article>
       <article class="rule-card">
@@ -1163,147 +580,36 @@ RewardBucket</code></pre>
         <div class="rule-body">
           <h3>객체 생성에서 타입을 중복 기재하지 않는다</h3>
           <div class="example-pair">
-            <div class="example good">
-              <div class="example-label">올바른 사용</div>
-              <pre><code>public sealed class Inventory
-{
-    private Dictionary&lt;string, Item&gt; items = new(StringComparer.Ordinal);
-
-    public List&lt;Item&gt; Items { get; } = new();
-
-    private void Refresh()
-    {
-        var rewards = new List&lt;Reward&gt;();
-    }
-}</code></pre>
-            </div>
-            <div class="example bad">
-              <div class="example-label">잘못된 사용</div>
-              <pre><code>public sealed class Inventory
-{
-    private Dictionary&lt;string, Item&gt; items = new Dictionary&lt;string, Item&gt;(StringComparer.Ordinal);
-
-    public List&lt;Item&gt; Items { get; } = new List&lt;Item&gt;();
-
-    private void Refresh()
-    {
-        List&lt;Reward&gt; rewards = new List&lt;Reward&gt;();
-    }
-}</code></pre>
-            </div>
+            <div class="example good"><div class="example-label">올바른 사용</div><pre><code>Item item = new();</code></pre></div>
+            <div class="example bad"><div class="example-label">잘못된 사용</div><pre><code>Item item = new Item();</code></pre></div>
           </div>
-          <p>지역 변수는 오른쪽 생성식에 타입이 명시되어 있으면 <code>var</code>를 쓴다. 선언부나 대입 대상에 타입이 이미 명시되어 있으면, 특히 클래스 멤버 변수와 속성에서는 target-typed <code>new(arguments)</code> 또는 <code>new()</code>를 쓴다. 같은 생성 타입을 양쪽에 반복하지 않는다.</p>
+          <p>생성 타입을 반복하지 않는다. 생성식에 타입이 있으면 var, 대상에 타입이 있으면 new(...)&#183;new()를 쓴다.</p>
         </div>
       </article>
       <article class="rule-card">
         <div class="rule-index">27</div>
         <div class="rule-body">
           <h3>신규 using 형태는 사용하지 않는다</h3>
-          <div class="example-pair">
-            <div class="example good">
-              <div class="example-label">올바른 사용</div>
-              <pre><code>using (var stream = File.OpenRead(path))
-{
-}</code></pre>
-            </div>
-            <div class="example bad">
-              <div class="example-label">잘못된 사용</div>
-              <pre><code>using var stream = File.OpenRead(path);</code></pre>
-            </div>
-          </div>
-          <p>기존 using 블록 형태를 유지한다.</p>
         </div>
       </article>
       <article class="rule-card">
         <div class="rule-index">28</div>
         <div class="rule-body">
           <h3>sealed는 override 앞에 둔다</h3>
-          <div class="example-pair">
-            <div class="example good">
-              <div class="example-label">올바른 사용</div>
-              <pre><code>public sealed override void Dispose()
-{
-}</code></pre>
-            </div>
-            <div class="example bad">
-              <div class="example-label">잘못된 사용</div>
-              <pre><code>public override sealed void Dispose()
-{
-}</code></pre>
-            </div>
-          </div>
-          <p>접근 제한자, sealed, override 순서로 읽히게 한다.</p>
         </div>
       </article>
       <article class="rule-card">
         <div class="rule-index">29</div>
         <div class="rule-body">
           <h3>클래스 내부 섹션은 변수, 속성, 이벤트, 함수 순서로 둔다</h3>
-          <div class="example-pair">
-            <div class="example good">
-              <div class="example-label">올바른 사용</div>
-              <pre><code>private enum StateEnum { }
-private struct Entry { }
-private interface CacheInterface { }
-private sealed class Cache { }
-private const int MaxCount = 10;
-public int Count { get; }
-public event Action Changed;
-public void Refresh() { }</code></pre>
-            </div>
-            <div class="example bad">
-              <div class="example-label">잘못된 사용</div>
-              <pre><code>public void Refresh() { }
-public int Count { get; }
-private enum StateEnum { }</code></pre>
-            </div>
-          </div>
-          <p>inner enum, inner struct, inner interface, inner class 다음은 변수 &gt; 속성 &gt; 이벤트 &gt; 함수 순서다.</p>
+          <p>class 섹션은 중첩 타입 &gt; 변수 &gt; 속성 &gt; 이벤트 &gt; 함수 순서로 둔다.</p>
         </div>
       </article>
       <article class="rule-card">
         <div class="rule-index">30</div>
         <div class="rule-body">
           <h3>각 카테고리 내부는 abc순으로 둔다</h3>
-          <div class="example-pair">
-            <div class="example good">
-              <div class="example-label">올바른 사용</div>
-              <pre><code>private int alphaCount;
-private int betaCount;
-private int rewardCount;
-
-public bool IsActive { get; }
-public int RewardCount { get; }
-public string TooltipText { get; }
-
-public event Action Changed;
-public event Action Selected;
-
-public void ApplyReward()
-{
-}
-
-public void RefreshTooltip()
-{
-}</code></pre>
-            </div>
-            <div class="example bad">
-              <div class="example-label">잘못된 사용</div>
-              <pre><code>private int rewardCount;
-private int alphaCount;
-public void ApplyReward()
-{
-}
-public bool IsActive { get; }
-public event Action Selected;
-public string TooltipText { get; }
-public event Action Changed;
-public void RefreshTooltip()
-{
-}</code></pre>
-            </div>
-          </div>
-          <p>abc 정렬은 섹션 순서와 공통 멤버 순서를 먼저 적용한 뒤 같은 상속 그룹의 같은 카테고리 내부에서만 적용한다. 변수는 <code>const</code> &gt; <code>readonly</code> &gt; <code>static</code> &gt; 상속 구현 &gt; 자기 인스턴스 멤버, 속성은 <code>static</code> &gt; 상속 구현 &gt; 자기 인스턴스 멤버, 함수는 생성자·소멸자 &gt; <code>static</code> &gt; 상속 구현 &gt; 자기 인스턴스 함수 순서다. abc 정렬 때문에 부모/인터페이스 구현 그룹을 섞지 않는다.</p>
+          <p>29&#183;31&#183;34번을 먼저 적용하고 같은 category&#183;상속 그룹 안에서만 이름순으로 정렬한다.</p>
         </div>
       </article>
       <article class="rule-card">
@@ -1311,261 +617,55 @@ public void RefreshTooltip()
         <div class="rule-body">
           <h3>변수·속성·함수는 static, 상속 구현, 자기 것 순서로 둔다</h3>
           <div class="example-pair">
-            <div class="example good">
-              <div class="example-label">올바른 사용</div>
-              <pre><code>public sealed class RewardButton : ButtonBase, ClickableInterface, TooltipInterface
-{
-    private static int __rewardTypeCount;
-
-    private int buttonIndex;
-    private int clickableCount;
-    private int tooltipCount;
-    private int rewardCount;
-
-    public static int RewardTypeCount { get; }
-
-    public bool IsButtonActive { get; }
-    public bool IsClickable { get; }
-    public string TooltipText { get; }
-    public int RewardCount { get; }
-
-    private static void RegisterRewardType()
-    {
-    }
-
-    private void Awake()
-    {
-    }
-
-    private void OnDestroy()
-    {
-    }
-
-    private void OnEnable()
-    {
-    }
-
-    private void Start()
-    {
-    }
-
-    protected override void RefreshButton()
-    {
-    }
-
-    void ClickableInterface.Click()
-    {
-    }
-
-    void TooltipInterface.ShowTooltip()
-    {
-    }
-
-    public void GiveReward()
-    {
-    }
-}</code></pre>
-            </div>
-            <div class="example bad">
-              <div class="example-label">잘못된 사용</div>
-              <pre><code>public sealed class RewardButton : ButtonBase, TooltipInterface, ClickableInterface
-{
-    private int rewardCount;
-    private static int __rewardTypeCount;
-    private int tooltipCount;
-    private int buttonIndex;
-
-    public int RewardCount { get; }
-    public static int RewardTypeCount { get; }
-    public string TooltipText { get; }
-
-    public void GiveReward()
-    {
-    }
-
-    private static void RegisterRewardType()
-    {
-    }
-
-    public void ShowTooltip()
-    {
-    }
-
-    private void Awake()
-    {
-    }
-
-    protected override void RefreshButton()
-    {
-    }
-}</code></pre>
-            </div>
+            <div class="example good"><div class="example-label">올바른 사용</div><pre><code>private static void ResetAll() { }
+protected override void Refresh() { }
+private void Run() { }</code></pre></div>
+            <div class="example bad"><div class="example-label">잘못된 사용</div><pre><code>private void Run() { }
+protected override void Refresh() { }
+private static void ResetAll() { }</code></pre></div>
           </div>
-          <p>변수, 속성, 함수는 각 카테고리 안에서 <code>static</code> 멤버 &gt; 상속 구현 멤버 &gt; 자기 인스턴스 멤버 순서로 둔다. 함수에서는 생성자와 소멸자를 이 순서보다 먼저 두고, 변수에서는 <code>const</code>와 <code>readonly</code>를 먼저 둔다. 상속 구현을 지원하는 변수와 속성도 해당 부모 또는 인터페이스의 상속 그룹에 포함한다. <code>static</code>, 상속 구현, 자기 것 그룹을 섞지 않는다. <code>MonoBehaviour</code>에서는 Unity 메시지 함수를 암시적으로 가장 먼저 상속받은 그룹처럼 취급한다. 명시적으로 상속받은 부모와 인터페이스 멤버보다 먼저 두고, <code>Awake</code>, <code>OnDestroy</code>, <code>OnEnable</code>, <code>Start</code>처럼 함수명 abc순으로 정렬한다. Unity 생명주기 순서로 정렬하지 않는다. 그 뒤에는 부모 &gt; 자식 순서를 적용한다. 명시적 부모 간에는 상속 선언 순서를 따르고, 여러 인터페이스의 선언과 구현은 abc순으로 둔다.</p>
-          <p><strong>설계 원칙:</strong> <code>static</code> 클래스가 아닌 일반 객체 타입에서는 변경 가능한 <code>static</code> 상태를 원칙적으로 피하고 예외적이거나 임시적인 상태로 취급한다. 상태가 실제로 타입 전체에 속한다면 수명, 초기화와 재설정, 해제, 동시성 책임을 명시하며, 편의를 위한 <code>Instance</code>, <code>Current</code>, 서비스 접근 필드는 임시 설계 부채로 취급한다. <code>static</code> 함수도 동작이 타입 자체의 책임인 경우가 아니면 가급적 사용하지 않는다.</p>
+          <p>그룹은 static &gt; 상속 구현 &gt; 자기 것 순서이며 생성자&#183;소멸자는 함수 그룹보다 앞선다. 지원 field&#183;property는 해당 상속 그룹에 둔다. MonoBehaviour는 Unity 메시지(이름순) &gt; 부모(선언순) &gt; interface(이름순) &gt; 자기 것 순서다. static은 타입 소유일 때만 쓰고 생명주기&#183;reset&#183;cleanup&#183;동시성을 정한다.</p>
         </div>
       </article>
       <article class="rule-card">
         <div class="rule-index">32</div>
         <div class="rule-body">
           <h3>불필요한 함수를 만들지 않는다</h3>
-          <div class="example-pair">
-            <div class="example good">
-              <div class="example-label">올바른 사용</div>
-              <pre><code>private void ApplyReward()
-{
-    rewardCount += bonusCount;
-    RefreshTooltip();
-}</code></pre>
-            </div>
-            <div class="example bad">
-              <div class="example-label">잘못된 사용</div>
-              <pre><code>private void AddBonus()
-{
-    rewardCount += bonusCount;
-}
-
-private void ApplyReward()
-{
-    AddBonus();
-    RefreshTooltip();
-}</code></pre>
-            </div>
-          </div>
-          <p>재사용, 독립된 책임이나 계약, 더 명확한 문맥 경계가 생기지 않는 일회성 로직은 호출부에 둔다. Unity 메시지, <code>override</code>, 명시적 인터페이스 구현, 등록된 콜백, 프레임워크 진입점은 예외다. 지역 함수는 상위 함수 내부 재사용, 종속 코루틴, 접어 둘 만큼 긴 블록에만 쓴다.</p>
+          <p>재사용, 독립 책임&#183;계약, 명확한 문맥 경계가 있을 때만 함수를 추출한다. framework 진입점&#183;override&#183;명시적 interface&#183;callback은 제외한다. local 함수는 호출자 안 재사용, 종속 coroutine, 긴 접기 블록에만 쓴다.</p>
         </div>
       </article>
       <article class="rule-card">
         <div class="rule-index">33</div>
         <div class="rule-body">
           <h3>인터페이스 구현은 타입 explicit으로 둔다</h3>
-          <div class="example-pair">
-            <div class="example good">
-              <div class="example-label">올바른 사용</div>
-              <pre><code>public sealed class TooltipButton : TooltipInterface
-{
-    string TooltipInterface.TooltipText =&gt; tooltipText;
-
-    void TooltipInterface.ShowTooltip()
-    {
-    }
-}</code></pre>
-            </div>
-            <div class="example bad">
-              <div class="example-label">잘못된 사용</div>
-              <pre><code>public sealed class TooltipButton : TooltipInterface
-{
-    public string TooltipText =&gt; tooltipText;
-
-    public void ShowTooltip()
-    {
-    }
-}</code></pre>
-            </div>
-          </div>
+          <p>interface는 InterfaceName.MemberName 형태로 명시적으로 구현한다.</p>
         </div>
       </article>
       <article class="rule-card">
         <div class="rule-index">34</div>
         <div class="rule-body">
           <h3>멤버 변수 섹션은 const, readonly, static, member 순서로 둔다</h3>
-          <div class="example-pair">
-            <div class="example good">
-              <div class="example-label">올바른 사용</div>
-              <pre><code>public sealed class Cache
-{
-    private const int MaxCount = 10;
-
-    private readonly int StartIndex;
-
-    private static int __cacheCount;
-    private static int __index;
-
-    private int count;
-    private int index;
-}</code></pre>
-            </div>
-            <div class="example bad">
-              <div class="example-label">잘못된 사용</div>
-              <pre><code>public sealed class Cache
-{
-    private const int MaxCount = 10;
-    private int index;
-    private readonly int StartIndex;
-    private static int __cacheCount;
-    private int count;
-}</code></pre>
-            </div>
-          </div>
-          <p><code>const</code>, <code>readonly</code>, <code>static</code>, 일반 변수는 별도 섹션으로 두고, 일반 변수는 31번 순서에 따라 같은 상속 그룹 안에서만 이름순으로 정렬한다.</p>
+          <p>변수는 const &gt; readonly &gt; static &gt; 상속 구현 &gt; 자기 것 순서이며 같은 상속 그룹 안에서만 이름순으로 정렬한다.</p>
         </div>
       </article>
       <article class="rule-card">
         <div class="rule-index">35</div>
         <div class="rule-body">
           <h3>증감 연산자는 전위형으로 쓴다</h3>
-          <div class="example-pair">
-            <div class="example good">
-              <div class="example-label">올바른 사용</div>
-              <pre><code>++index;
---index;</code></pre>
-            </div>
-            <div class="example bad">
-              <div class="example-label">잘못된 사용</div>
-              <pre><code>index++;
-index--;</code></pre>
-            </div>
-          </div>
         </div>
       </article>
       <article class="rule-card">
         <div class="rule-index">36</div>
         <div class="rule-body">
           <h3>논리 부정 연산자는 Boolean 토글 대입에만 쓴다</h3>
-          <div class="example-pair">
-            <div class="example good">
-              <div class="example-label">올바른 사용</div>
-              <pre><code>isActive = !isActive;
-
-if (isActive == false)
-    Activate();</code></pre>
-            </div>
-            <div class="example bad">
-              <div class="example-label">잘못된 사용</div>
-              <pre><code>if (!isActive)
-    Activate();
-
-return !isActive;</code></pre>
-            </div>
-          </div>
-          <p><code>!</code>는 같은 Boolean 변수의 토글 대입에만 사용하고, 그 밖에는 <code>== false</code>로 비교한다.</p>
+          <p>!는 Boolean 값을 뒤집어 다시 대입할 때만 쓰고 그 외에는 false와 비교한다.</p>
         </div>
       </article>
       <article class="rule-card">
         <div class="rule-index">37</div>
         <div class="rule-body">
           <h3>접근 제한자에 따라 멤버를 정렬하지 않는다</h3>
-          <div class="example-pair">
-            <div class="example good">
-              <div class="example-label">올바른 사용</div>
-              <pre><code>public int AlphaCount { get; }
-private int BetaCount { get; }
-protected int EnemyCount { get; }
-private int ItemCount { get; }
-public int RewardCount { get; }
-protected int StageCount { get; }</code></pre>
-            </div>
-            <div class="example bad">
-              <div class="example-label">잘못된 사용</div>
-              <pre><code>public int AlphaCount { get; }
-public int RewardCount { get; }
-protected int EnemyCount { get; }
-protected int StageCount { get; }
-private int BetaCount { get; }
-private int ItemCount { get; }</code></pre>
-            </div>
-          </div>
-          <p>접근 제한자는 멤버 순서에 영향을 주지 않는다. 29~31번과 34번을 따른다.</p>
+          <p>접근 제한자로 멤버를 묶거나 정렬하지 않고 29~31번과 34번을 따른다.</p>
         </div>
       </article>
       <article class="rule-card">
@@ -1573,89 +673,29 @@ private int ItemCount { get; }</code></pre>
         <div class="rule-body">
           <h3>비교식은 괄호로 감싸되 완결된 단일 항목은 감싸지 않는다</h3>
           <div class="example-pair">
-            <div class="example good">
-              <div class="example-label">올바른 사용</div>
-              <pre><code>if (isReady &amp;&amp; (item != null))
-    Use(item);
-
-if (CanStart() || ((count &gt; 0) &amp;&amp; (item != null)))
-    Start();</code></pre>
-            </div>
-            <div class="example bad">
-              <div class="example-label">잘못된 사용</div>
-              <pre><code>if ((isReady) &amp;&amp; (item != null))
-    Use(item);
-
-if (CanStart() || count &gt; 0 &amp;&amp; item != null)
-    Start();</code></pre>
-            </div>
+            <div class="example good"><div class="example-label">올바른 사용</div><pre><code>if ((count &gt; 0) &amp;&amp; ready)</code></pre></div>
+            <div class="example bad"><div class="example-label">잘못된 사용</div><pre><code>if (count &gt; 0 &amp;&amp; (ready))</code></pre></div>
           </div>
-          <p>논리 연산자로 연결한 비교식과 중첩 복합 조건식은 각각 괄호로 감싼다. 단독 Boolean 변수, 속성, 함수 호출은 감싸지 않는다.</p>
+          <p>논리식에서는 비교식과 중첩 복합식에 괄호를 쓰고 독립된 Boolean 항목에는 쓰지 않는다.</p>
         </div>
       </article>
       <article class="rule-card">
         <div class="rule-index">39</div>
         <div class="rule-body">
           <h3>올바른 케이스와 주요 관심 분기를 먼저 둔다</h3>
-          <div class="example-pair">
-            <div class="example good">
-              <div class="example-label">올바른 사용</div>
-              <pre><code>if (item != null)
-    Use(item);
-else
-    ReportMissingItem();</code></pre>
-            </div>
-            <div class="example bad">
-              <div class="example-label">잘못된 사용</div>
-              <pre><code>if (item == null)
-    ReportMissingItem();
-else
-    Use(item);</code></pre>
-            </div>
-          </div>
         </div>
       </article>
       <article class="rule-card">
         <div class="rule-index">40</div>
         <div class="rule-body">
           <h3>로그 작성 지침을 따른다</h3>
-          <p>로그를 추가하거나 수정할 때는 <a href="logging-guideline.html">로그 작성 지침</a>을 따른다.</p>
         </div>
       </article>
       <article class="rule-card">
         <div class="rule-index">41</div>
         <div class="rule-body">
           <h3>한 번만 쓰는 값은 지역 변수로 이름 붙이지 않는다</h3>
-          <div class="example-pair">
-            <div class="example good">
-              <div class="example-label">올바른 사용</div>
-              <pre><code>private int Run(Player player)
-{
-    Apply(FindItem());
-
-    return CalculateScore(player);
-}
-
-private void ApplyAndLog()
-{
-    var item = FindItem();
-    Apply(item);
-    Log(item);
-}</code></pre>
-            </div>
-            <div class="example bad">
-              <div class="example-label">잘못된 사용</div>
-              <pre><code>private int Run(Player player)
-{
-    var item = FindItem();
-    Apply(item);
-
-    var score = CalculateScore(player);
-    return score;
-}</code></pre>
-            </div>
-          </div>
-          <p>한 번만 쓰는 값은 다음 호출, 대입, <code>return</code>, 표현식에 직접 인라인한다. 같은 값을 두 번 이상 쓰거나 C# 문법·실행 의미상 저장이 필요할 때만 지역 변수를 선언한다.</p>
+          <p>한 번만 쓰는 값은 인라인한다. 두 번 이상 쓰거나 문법&#183;실행 의미상 저장이 필요할 때만 지역 변수를 둔다.</p>
         </div>
       </article>
     </section>
