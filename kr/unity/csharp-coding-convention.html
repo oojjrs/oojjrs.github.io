@@ -411,9 +411,282 @@
 
     <div class="document-layout">
     <nav class="toc" aria-label="문서 섹션">
-      <a href="#명명">명명</a><a href="#파일과 Unity 객체">파일과 Unity 객체</a><a href="#단어">단어</a><a href="#구문과 구성">구문과 구성</a>
+      <a href="#핵심 규칙">핵심 규칙</a><a href="#명명">명명</a><a href="#파일과 Unity 객체">파일과 Unity 객체</a><a href="#단어">단어</a><a href="#구문과 구성">구문과 구성</a>
     </nav>
     <div class="document-content">
+
+    <section id="핵심 규칙">
+      <div class="section-heading">
+        <span>SECTION</span>
+        <h2>핵심 규칙</h2>
+      </div>
+      <article class="rule-card">
+        <div class="rule-index">01</div>
+        <div class="rule-body">
+          <h3>세미콜론 문장과 함수 선언·호출을 임의로 줄바꿈하지 않는다</h3>
+          <div class="example-pair">
+            <div class="example good">
+              <div class="example-label">올바른 사용</div>
+              <pre><code>private Dictionary&lt;string, Item&gt; items = new(StringComparer.Ordinal);
+
+private void ApplyReward(int rewardCount, RewardTypeEnum rewardType, bool isBonus, Action onComplete)
+{
+}
+
+private void Register&lt;TItem, TFactory&gt;(TItem item, TFactory factory) where TItem : Item where TFactory : ItemFactoryInterface
+{
+}
+
+private void GrantReward()
+{
+    ApplyReward(item, rewardCount, rewardType, isBonus, onComplete);
+}</code></pre>
+            </div>
+            <div class="example bad">
+              <div class="example-label">잘못된 사용</div>
+              <pre><code>private Dictionary&lt;string, Item&gt; items =
+    new(StringComparer.Ordinal);
+
+private void ApplyReward(
+    int rewardCount, RewardTypeEnum rewardType,
+    bool isBonus, Action onComplete)
+{
+}
+
+private void Register&lt;TItem, TFactory&gt;(TItem item, TFactory factory)
+    where TItem : Item
+    where TFactory : ItemFactoryInterface
+{
+}
+
+private void GrantReward()
+{
+    ApplyReward(
+        item, rewardCount, rewardType,
+        isBonus, onComplete);
+}</code></pre>
+            </div>
+          </div>
+          <p>세미콜론으로 끝나는 각 코드 문장은 첫 토큰부터 세미콜론까지 하나의 물리적 줄에 둔다. 함수 선언의 파라미터 목록, 호출 인수 목록, 제네릭 <code>where</code> 절을 포함한 선언 머리도 길이와 관계없이 하나의 물리적 줄에 둔다. 줄 길이는 줄바꿈의 근거가 아니다. 한 줄이 너무 길어 줄바꿈이 필요해 보이면 서식 문제가 아니라 코드 설계 문제로 판단하고, 임의로 줄바꿈하거나 요청받지 않은 리팩터링을 하지 않은 채 그대로 둔다. Codex와 자동 서식 도구는 코드 줄바꿈을 새로 만들거나, 제거하거나, 재배치하지 않는다. 의도적인 수동 줄바꿈은 사용자만 결정하며, 이미 존재하는 사용자 작성 줄바꿈은 사용자가 명시적으로 변경을 요청하지 않는 한 그대로 보존한다.</p>
+        </div>
+      </article>
+      <article class="rule-card">
+        <div class="rule-index">02</div>
+        <div class="rule-body">
+          <h3>단일 내장문 본문은 중괄호 생략을 강력히 권장한다</h3>
+          <div class="example-pair">
+            <div class="example good">
+              <div class="example-label">올바른 사용</div>
+              <pre><code>if (isReady)
+    StartGame();
+
+foreach (var enemy in enemies)
+    enemy.Update();
+
+foreach (var index in Indexes)
+{
+    if (index.CanAdd(entity, primaryKey) == false)
+        return false;
+}
+
+if (isReady)
+{
+    StartGame();
+}
+else if (canRetry)
+{
+    ResetGame();
+    RetryGame();
+}
+else
+{
+    CancelGame();
+}</code></pre>
+            </div>
+            <div class="example bad">
+              <div class="example-label">명확한 사유가 없다면 잘못된 사용</div>
+              <pre><code>foreach (var enemy in enemies)
+{
+    enemy.Update();
+}
+
+foreach (var index in Indexes)
+    if (index.CanAdd(entity, primaryKey) == false)
+        return false;</code></pre>
+            </div>
+          </div>
+          <p>단일 내장문 본문은 명확한 이유가 있을 때만 중괄호를 유지한다. 다만 중괄호 없는 제어문을 연속으로 중첩하지 않는다. <code>else if</code> 연쇄를 제외하고, 제어문의 유일한 본문이 다른 제어문이면 바깥 본문에 중괄호를 쓰고 가장 안쪽의 단일 실행문에서만 생략한다. 같은 <code>if</code> 연쇄에서 한 분기라도 중괄호가 필요하면 모든 분기에 쓴다.</p>
+        </div>
+      </article>
+      <article class="rule-card">
+        <div class="rule-index">03</div>
+        <div class="rule-body">
+          <h3>Attribute는 한 줄에 하나씩 명시한다</h3>
+          <div class="example-pair">
+            <div class="example good">
+              <div class="example-label">올바른 사용</div>
+              <pre><code>[Header("Settings")]
+[SerializeField]
+private int count;</code></pre>
+            </div>
+            <div class="example bad">
+              <div class="example-label">잘못된 사용</div>
+              <pre><code>[Header("Settings"), SerializeField]
+private int count;
+
+[SerializeField] private int index;</code></pre>
+            </div>
+          </div>
+        </div>
+      </article>
+      <article class="rule-card">
+        <div class="rule-index">04</div>
+        <div class="rule-body">
+          <h3>빈 줄은 정확히 한 줄의 완전히 빈 줄로 쓴다</h3>
+          <div class="example-pair">
+            <div class="example good">
+              <div class="example-label">올바른 사용</div>
+              <pre><code>private void Run()
+{
+    Prepare();
+
+    Execute();
+}</code></pre>
+            </div>
+            <div class="example bad">
+              <div class="example-label">잘못된 사용</div>
+              <pre><code>private void Run()
+{
+
+    Prepare();
+
+
+    Execute();
+
+}</code></pre>
+            </div>
+          </div>
+          <p>필요한 곳에는 완전히 빈 줄을 한 줄만 둔다. 연속되거나 공백 문자가 든 빈 줄과 중괄호 바로 안쪽의 빈 줄은 사용하지 않으며, 마지막 <code>using</code> 뒤에는 빈 줄을 한 줄 둔다.</p>
+        </div>
+      </article>
+      <article class="rule-card">
+        <div class="rule-index">05</div>
+        <div class="rule-body">
+          <h3>타입 범위의 그룹은 빈 줄로 구분한다</h3>
+          <div class="example-pair">
+            <div class="example good">
+              <div class="example-label">올바른 사용</div>
+              <pre><code>[SerializeField]
+private int _count;
+private bool _ready;
+
+public int Count =&gt; _count;
+
+// 실행 진입점.
+public void Run()
+{
+}
+
+public void Stop()
+{
+}</code></pre>
+            </div>
+            <div class="example bad">
+              <div class="example-label">잘못된 사용</div>
+              <pre><code>[SerializeField]
+
+private int _count;
+private bool _ready;
+public int Count =&gt; _count;
+public void Run()
+{
+}</code></pre>
+            </div>
+          </div>
+          <p>타입 범위에서는 멤버 섹션, 상속 그룹, 중첩 타입, 함수 구현 사이를 한 줄 띄운다. 같은 그룹의 선언은 붙이고 Attribute, 문서, 선행 주석은 대상 선언에 붙인다.</p>
+        </div>
+      </article>
+      <article class="rule-card">
+        <div class="rule-index">06</div>
+        <div class="rule-body">
+          <h3>블록 안에서는 논리 문단 사이에만 빈 줄을 둔다</h3>
+          <div class="example-pair">
+            <div class="example good">
+              <div class="example-label">올바른 사용</div>
+              <pre><code>private IEnumerator RunCoroutine()
+{
+    var item = Select();
+    item.Prepare();
+
+    yield return item.RunCoroutine();
+
+    OnCompleted?.Invoke(item);
+}</code></pre>
+            </div>
+            <div class="example bad">
+              <div class="example-label">잘못된 사용</div>
+              <pre><code>private IEnumerator RunCoroutine()
+{
+    var item = Select();
+
+    item.Prepare();
+    yield return item.RunCoroutine();
+    OnCompleted?.Invoke(item);
+}</code></pre>
+            </div>
+          </div>
+          <p>블록 안에서는 즉시 목적이 다른 완결된 문장 그룹 사이만 한 줄 띄운다. 값을 만든 문장과 바로 검증하거나 소비하는 문장은 붙이고, <code>else</code>나 닫는 중괄호 앞은 띄우지 않는다.</p>
+        </div>
+      </article>
+      <article class="rule-card">
+        <div class="rule-index">07</div>
+        <div class="rule-body">
+          <h3>Unity 객체에는 null 조건부·병합 연산자를 쓰지 않는다</h3>
+          <div class="example-pair">
+            <div class="example good">
+              <div class="example-label">올바른 사용</div>
+              <pre><code>private void ResetTarget(Transform target)
+{
+    if (target != null)
+        target.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
+}
+
+private Transform SelectTarget(Transform target, Transform fallback)
+{
+    if (target != null)
+        return target;
+
+    return fallback;
+}
+
+private void SetTargetFallback(Transform fallback)
+{
+    if (_target == null)
+        _target = fallback;
+}</code></pre>
+            </div>
+            <div class="example bad">
+              <div class="example-label">잘못된 사용</div>
+              <pre><code>private void ResetTarget(Transform target)
+{
+    target?.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
+}
+
+private Transform SelectTarget(Transform target, Transform fallback)
+{
+    return target ?? fallback;
+}
+
+private void SetTargetFallback(Transform fallback)
+{
+    _target ??= fallback;
+}</code></pre>
+            </div>
+          </div>
+          <p>네이티브 Unity 객체가 파괴된 뒤에도 관리되는 <code>UnityEngine.Object</code> 래퍼는 남을 수 있다. Unity가 오버로드한 동등 비교와 암시적 Boolean은 이 분리된 래퍼를 null로 판정하지만, <code>?.</code>, <code>??</code>, <code>??=</code>는 CLR null만 검사하므로 파괴 상태를 우회한다. 현재 생명주기가 안전해 보여도 <code>GameObject</code>, <code>Component</code>, <code>MonoBehaviour</code>, <code>ScriptableObject</code>를 비롯한 Unity 객체 참조에는 이 연산자를 쓰지 않는다. 접근 직전에 <code>target != null</code> 또는 <code>if (target)</code>로 검사하고 fallback은 명시적 분기로 선택한다. <code>object</code>, 인터페이스, 제네릭이 Unity 객체를 감출 수 있으면 먼저 <code>UnityEngine.Object</code>로 복원해 검사한다. 일반 관리 객체, nullable 표기, 삼항 연산자 <code>?:</code>, <code>OnCompleted?.Invoke(item)</code> 같은 delegate·event에는 이 제한을 적용하지 않는다. 자세한 동작은 <a href="https://docs.unity3d.com/6000.0/Documentation/ScriptReference/Object.html">UnityEngine.Object 공식 문서</a>를 참고한다.</p>
+        </div>
+      </article>
+    </section>
 
     <section id="명명">
       <div class="section-heading">
@@ -421,7 +694,7 @@
         <h2>명명</h2>
       </div>
       <article class="rule-card">
-        <div class="rule-index">01</div>
+        <div class="rule-index">08</div>
         <div class="rule-body">
           <h3>인터페이스는 Interface 접미사를 쓴다</h3>
           <div class="example-pair">
@@ -446,7 +719,7 @@ private FunctionInterface functionInterface;</code></pre>
         </div>
       </article>
       <article class="rule-card">
-        <div class="rule-index">02</div>
+        <div class="rule-index">09</div>
         <div class="rule-body">
           <h3>static 필드의 밑줄 수는 직접 선언한 타입으로 정한다</h3>
           <div class="example-pair">
@@ -483,7 +756,7 @@ public static class CacheRegistry
         </div>
       </article>
       <article class="rule-card">
-        <div class="rule-index">03</div>
+        <div class="rule-index">10</div>
         <div class="rule-body">
           <h3>const와 readonly는 PascalCase를 쓴다</h3>
           <div class="example-pair">
@@ -501,11 +774,11 @@ private static readonly int __initialCapacity = 16;
 private static readonly int _initialCapacity = 16;</code></pre>
             </div>
           </div>
-          <p><code>const</code>와 <code>readonly</code>는 static 여부와 직접 선언한 타입에 관계없이 접두 밑줄 없는 PascalCase로 두어 타입/속성 이름처럼 읽히게 한다. 단, <code>static readonly</code>가 변경 가능한 객체를 참조하면 이름은 이 규칙을 따르더라도 24번의 static 상태 설계 원칙은 별도로 적용한다.</p>
+          <p><code>const</code>와 <code>readonly</code>는 static 여부와 직접 선언한 타입에 관계없이 접두 밑줄 없는 PascalCase로 두어 타입/속성 이름처럼 읽히게 한다. 단, <code>static readonly</code>가 변경 가능한 객체를 참조하면 이름은 이 규칙을 따르더라도 31번의 static 상태 설계 원칙은 별도로 적용한다.</p>
         </div>
       </article>
       <article class="rule-card">
-        <div class="rule-index">04</div>
+        <div class="rule-index">11</div>
         <div class="rule-body">
           <h3>속성은 명사 또는 형용사로 쓴다</h3>
           <div class="example-pair">
@@ -526,7 +799,7 @@ public bool Reward { get; }</code></pre>
         </div>
       </article>
       <article class="rule-card">
-        <div class="rule-index">05</div>
+        <div class="rule-index">12</div>
         <div class="rule-body">
           <h3>Can과 -able의 의미를 구분한다</h3>
           <div class="example-pair">
@@ -545,7 +818,7 @@ public bool Gather { get; }</code></pre>
         </div>
       </article>
       <article class="rule-card">
-        <div class="rule-index">06</div>
+        <div class="rule-index">13</div>
         <div class="rule-body">
           <h3>검색성이 중요한 속성에는 타입 postfix를 붙인다</h3>
           <div class="example-pair">
@@ -566,7 +839,7 @@ public string Description { get; }</code></pre>
         </div>
       </article>
       <article class="rule-card">
-        <div class="rule-index">07</div>
+        <div class="rule-index">14</div>
         <div class="rule-body">
           <h3>함수는 동사 또는 동사구로 쓴다</h3>
           <div class="example-pair">
@@ -587,7 +860,7 @@ public string Description { get; }</code></pre>
         </div>
       </article>
       <article class="rule-card">
-        <div class="rule-index">08</div>
+        <div class="rule-index">15</div>
         <div class="rule-body">
           <h3>Enum 타입은 Enum 접미사를 쓴다</h3>
           <div class="example-pair">
@@ -612,7 +885,7 @@ private ItemGroup itemGroupEnum;</code></pre>
         </div>
       </article>
       <article class="rule-card">
-        <div class="rule-index">09</div>
+        <div class="rule-index">16</div>
         <div class="rule-body">
           <h3>코루틴 함수는 Coroutine 접미사를 쓴다</h3>
           <div class="example-pair">
@@ -642,7 +915,7 @@ private ItemGroup itemGroupEnum;</code></pre>
         <h2>파일과 Unity 객체</h2>
       </div>
       <article class="rule-card">
-        <div class="rule-index">10</div>
+        <div class="rule-index">17</div>
         <div class="rule-body">
           <h3>파일명과 대표 정의명을 맞춘다</h3>
           <div class="example-pair">
@@ -665,7 +938,7 @@ public sealed class PlayerController
         </div>
       </article>
       <article class="rule-card">
-        <div class="rule-index">11</div>
+        <div class="rule-index">18</div>
         <div class="rule-body">
           <h3>파일 1개에는 대표 정의 1개만 둔다</h3>
           <div class="example-pair">
@@ -699,7 +972,7 @@ public enum PlayerModeEnum
         </div>
       </article>
       <article class="rule-card">
-        <div class="rule-index">12</div>
+        <div class="rule-index">19</div>
         <div class="rule-body">
           <h3>중첩 타입은 enum, struct, interface, class 순서로 둔다</h3>
           <div class="example-pair">
@@ -750,7 +1023,7 @@ public enum PlayerModeEnum
         </div>
       </article>
       <article class="rule-card">
-        <div class="rule-index">13</div>
+        <div class="rule-index">20</div>
         <div class="rule-body">
           <h3>파일명과 클래스명은 명사로 둔다</h3>
           <div class="example-pair">
@@ -773,7 +1046,7 @@ public sealed class MovePlayer
         </div>
       </article>
       <article class="rule-card">
-        <div class="rule-index">14</div>
+        <div class="rule-index">21</div>
         <div class="rule-body">
           <h3>Unity 객체 이름과 스크립트 이름을 맞춘다</h3>
           <div class="example-pair">
@@ -801,7 +1074,7 @@ Class: BagPanel</code></pre>
         <h2>단어</h2>
       </div>
       <article class="rule-card">
-        <div class="rule-index">15</div>
+        <div class="rule-index">22</div>
         <div class="rule-body">
           <h3>PascalCase 경계는 의미 계층을 나타낸다</h3>
           <div class="example-pair">
@@ -822,7 +1095,7 @@ LifeTime</code></pre>
         </div>
       </article>
       <article class="rule-card">
-        <div class="rule-index">16</div>
+        <div class="rule-index">23</div>
         <div class="rule-body">
           <h3>다른 키워드의 부분 문자열이면 피한다</h3>
           <div class="example-pair">
@@ -841,7 +1114,7 @@ IntermissionState</code></pre>
         </div>
       </article>
       <article class="rule-card">
-        <div class="rule-index">17</div>
+        <div class="rule-index">24</div>
         <div class="rule-body">
           <h3>복수 그룹은 현재 -s/-es를 허용한다</h3>
           <div class="example-pair">
@@ -869,7 +1142,7 @@ RewardBucket</code></pre>
         <h2>구문과 구성</h2>
       </div>
       <article class="rule-card">
-        <div class="rule-index">18</div>
+        <div class="rule-index">25</div>
         <div class="rule-body">
           <h3>외부 생명주기 객체는 읽기 전용 속성으로 둔다</h3>
           <div class="example-pair">
@@ -886,7 +1159,7 @@ RewardBucket</code></pre>
         </div>
       </article>
       <article class="rule-card">
-        <div class="rule-index">19</div>
+        <div class="rule-index">26</div>
         <div class="rule-body">
           <h3>객체 생성에서 타입을 중복 기재하지 않는다</h3>
           <div class="example-pair">
@@ -894,8 +1167,7 @@ RewardBucket</code></pre>
               <div class="example-label">올바른 사용</div>
               <pre><code>public sealed class Inventory
 {
-    private Dictionary&lt;string, Item&gt; items =
-        new(StringComparer.Ordinal);
+    private Dictionary&lt;string, Item&gt; items = new(StringComparer.Ordinal);
 
     public List&lt;Item&gt; Items { get; } = new();
 
@@ -909,8 +1181,7 @@ RewardBucket</code></pre>
               <div class="example-label">잘못된 사용</div>
               <pre><code>public sealed class Inventory
 {
-    private Dictionary&lt;string, Item&gt; items =
-        new Dictionary&lt;string, Item&gt;(StringComparer.Ordinal);
+    private Dictionary&lt;string, Item&gt; items = new Dictionary&lt;string, Item&gt;(StringComparer.Ordinal);
 
     public List&lt;Item&gt; Items { get; } = new List&lt;Item&gt;();
 
@@ -925,7 +1196,7 @@ RewardBucket</code></pre>
         </div>
       </article>
       <article class="rule-card">
-        <div class="rule-index">20</div>
+        <div class="rule-index">27</div>
         <div class="rule-body">
           <h3>신규 using 형태는 사용하지 않는다</h3>
           <div class="example-pair">
@@ -944,7 +1215,7 @@ RewardBucket</code></pre>
         </div>
       </article>
       <article class="rule-card">
-        <div class="rule-index">21</div>
+        <div class="rule-index">28</div>
         <div class="rule-body">
           <h3>sealed는 override 앞에 둔다</h3>
           <div class="example-pair">
@@ -965,7 +1236,7 @@ RewardBucket</code></pre>
         </div>
       </article>
       <article class="rule-card">
-        <div class="rule-index">22</div>
+        <div class="rule-index">29</div>
         <div class="rule-body">
           <h3>클래스 내부 섹션은 변수, 속성, 이벤트, 함수 순서로 둔다</h3>
           <div class="example-pair">
@@ -991,7 +1262,7 @@ private enum StateEnum { }</code></pre>
         </div>
       </article>
       <article class="rule-card">
-        <div class="rule-index">23</div>
+        <div class="rule-index">30</div>
         <div class="rule-body">
           <h3>각 카테고리 내부는 abc순으로 둔다</h3>
           <div class="example-pair">
@@ -1036,7 +1307,7 @@ public void RefreshTooltip()
         </div>
       </article>
       <article class="rule-card">
-        <div class="rule-index">24</div>
+        <div class="rule-index">31</div>
         <div class="rule-body">
           <h3>변수·속성·함수는 static, 상속 구현, 자기 것 순서로 둔다</h3>
           <div class="example-pair">
@@ -1135,7 +1406,7 @@ public void RefreshTooltip()
         </div>
       </article>
       <article class="rule-card">
-        <div class="rule-index">25</div>
+        <div class="rule-index">32</div>
         <div class="rule-body">
           <h3>불필요한 함수를 만들지 않는다</h3>
           <div class="example-pair">
@@ -1165,7 +1436,7 @@ private void ApplyReward()
         </div>
       </article>
       <article class="rule-card">
-        <div class="rule-index">26</div>
+        <div class="rule-index">33</div>
         <div class="rule-body">
           <h3>인터페이스 구현은 타입 explicit으로 둔다</h3>
           <div class="example-pair">
@@ -1195,7 +1466,7 @@ private void ApplyReward()
         </div>
       </article>
       <article class="rule-card">
-        <div class="rule-index">27</div>
+        <div class="rule-index">34</div>
         <div class="rule-body">
           <h3>멤버 변수 섹션은 const, readonly, static, member 순서로 둔다</h3>
           <div class="example-pair">
@@ -1226,59 +1497,11 @@ private void ApplyReward()
 }</code></pre>
             </div>
           </div>
-          <p><code>const</code>, <code>readonly</code>, <code>static</code>, 일반 변수는 별도 섹션으로 두고, 일반 변수는 24번 순서에 따라 같은 상속 그룹 안에서만 이름순으로 정렬한다.</p>
+          <p><code>const</code>, <code>readonly</code>, <code>static</code>, 일반 변수는 별도 섹션으로 두고, 일반 변수는 31번 순서에 따라 같은 상속 그룹 안에서만 이름순으로 정렬한다.</p>
         </div>
       </article>
       <article class="rule-card">
-        <div class="rule-index">28</div>
-        <div class="rule-body">
-          <h3>단일 내장문 본문은 중괄호 생략을 강력히 권장한다</h3>
-          <div class="example-pair">
-            <div class="example good">
-              <div class="example-label">올바른 사용</div>
-              <pre><code>if (isReady)
-    StartGame();
-
-foreach (var enemy in enemies)
-    enemy.Update();
-
-foreach (var index in Indexes)
-{
-    if (index.CanAdd(entity, primaryKey) == false)
-        return false;
-}
-
-if (isReady)
-{
-    StartGame();
-}
-else if (canRetry)
-{
-    ResetGame();
-    RetryGame();
-}
-else
-{
-    CancelGame();
-}</code></pre>
-            </div>
-            <div class="example bad">
-              <div class="example-label">명확한 사유가 없다면 잘못된 사용</div>
-              <pre><code>foreach (var enemy in enemies)
-{
-    enemy.Update();
-}
-
-foreach (var index in Indexes)
-    if (index.CanAdd(entity, primaryKey) == false)
-        return false;</code></pre>
-            </div>
-          </div>
-          <p>단일 내장문 본문은 명확한 이유가 있을 때만 중괄호를 유지한다. 다만 중괄호 없는 제어문을 연속으로 중첩하지 않는다. <code>else if</code> 연쇄를 제외하고, 제어문의 유일한 본문이 다른 제어문이면 바깥 본문에 중괄호를 쓰고 가장 안쪽의 단일 실행문에서만 생략한다. 같은 <code>if</code> 연쇄에서 한 분기라도 중괄호가 필요하면 모든 분기에 쓴다.</p>
-        </div>
-      </article>
-      <article class="rule-card">
-        <div class="rule-index">29</div>
+        <div class="rule-index">35</div>
         <div class="rule-body">
           <h3>증감 연산자는 전위형으로 쓴다</h3>
           <div class="example-pair">
@@ -1296,7 +1519,7 @@ index--;</code></pre>
         </div>
       </article>
       <article class="rule-card">
-        <div class="rule-index">30</div>
+        <div class="rule-index">36</div>
         <div class="rule-body">
           <h3>논리 부정 연산자는 Boolean 토글 대입에만 쓴다</h3>
           <div class="example-pair">
@@ -1319,7 +1542,7 @@ return !isActive;</code></pre>
         </div>
       </article>
       <article class="rule-card">
-        <div class="rule-index">31</div>
+        <div class="rule-index">37</div>
         <div class="rule-body">
           <h3>접근 제한자에 따라 멤버를 정렬하지 않는다</h3>
           <div class="example-pair">
@@ -1342,32 +1565,11 @@ private int BetaCount { get; }
 private int ItemCount { get; }</code></pre>
             </div>
           </div>
-          <p>접근 제한자는 멤버 순서에 영향을 주지 않는다. 22~24번과 27번을 따른다.</p>
+          <p>접근 제한자는 멤버 순서에 영향을 주지 않는다. 29~31번과 34번을 따른다.</p>
         </div>
       </article>
       <article class="rule-card">
-        <div class="rule-index">32</div>
-        <div class="rule-body">
-          <h3>Attribute는 한 줄에 하나씩 명시한다</h3>
-          <div class="example-pair">
-            <div class="example good">
-              <div class="example-label">올바른 사용</div>
-              <pre><code>[Header("Settings")]
-[SerializeField]
-private int count;</code></pre>
-            </div>
-            <div class="example bad">
-              <div class="example-label">잘못된 사용</div>
-              <pre><code>[Header("Settings"), SerializeField]
-private int count;
-
-[SerializeField] private int index;</code></pre>
-            </div>
-          </div>
-        </div>
-      </article>
-      <article class="rule-card">
-        <div class="rule-index">33</div>
+        <div class="rule-index">38</div>
         <div class="rule-body">
           <h3>비교식은 괄호로 감싸되 완결된 단일 항목은 감싸지 않는다</h3>
           <div class="example-pair">
@@ -1392,7 +1594,7 @@ if (CanStart() || count &gt; 0 &amp;&amp; item != null)
         </div>
       </article>
       <article class="rule-card">
-        <div class="rule-index">34</div>
+        <div class="rule-index">39</div>
         <div class="rule-body">
           <h3>올바른 케이스와 주요 관심 분기를 먼저 둔다</h3>
           <div class="example-pair">
@@ -1414,163 +1616,14 @@ else
         </div>
       </article>
       <article class="rule-card">
-        <div class="rule-index">35</div>
+        <div class="rule-index">40</div>
         <div class="rule-body">
           <h3>로그 작성 지침을 따른다</h3>
           <p>로그를 추가하거나 수정할 때는 <a href="logging-guideline.html">로그 작성 지침</a>을 따른다.</p>
         </div>
       </article>
       <article class="rule-card">
-        <div class="rule-index">36</div>
-        <div class="rule-body">
-          <h3>함수 선언의 파라미터와 호출의 인수를 한 줄에 하나씩 배치하지 않는다</h3>
-          <div class="example-pair">
-            <div class="example good">
-              <div class="example-label">올바른 사용</div>
-              <pre><code>private void ApplyReward(
-    int rewardCount, RewardTypeEnum rewardType,
-    bool isBonus, Action onComplete)
-{
-}
-
-private void Register&lt;TItem, TFactory&gt;(TItem item, TFactory factory)
-    where TItem : Item
-    where TFactory : ItemFactoryInterface
-{
-}
-
-private void GrantReward()
-{
-    ApplyReward(
-        item, rewardCount, rewardType,
-        isBonus, onComplete);
-}</code></pre>
-            </div>
-            <div class="example bad">
-              <div class="example-label">잘못된 사용</div>
-              <pre><code>private void ApplyReward(
-    int rewardCount,
-    RewardTypeEnum rewardType,
-    bool isBonus,
-    Action onComplete)
-{
-}
-
-private void GrantReward()
-{
-    ApplyReward(
-        item,
-        rewardCount,
-        rewardType,
-        isBonus,
-        onComplete);
-}</code></pre>
-            </div>
-          </div>
-          <p>함수 선언 파라미터와 호출 인수는 가능한 한 한 줄에 두고, 줄바꿈하면 한 줄에 여러 항목을 둔다. 제네릭 <code>where</code> 절만 한 줄에 하나씩 둘 수 있다.</p>
-        </div>
-      </article>
-      <article class="rule-card">
-        <div class="rule-index">37</div>
-        <div class="rule-body">
-          <h3>빈 줄은 정확히 한 줄의 완전히 빈 줄로 쓴다</h3>
-          <div class="example-pair">
-            <div class="example good">
-              <div class="example-label">올바른 사용</div>
-              <pre><code>private void Run()
-{
-    Prepare();
-
-    Execute();
-}</code></pre>
-            </div>
-            <div class="example bad">
-              <div class="example-label">잘못된 사용</div>
-              <pre><code>private void Run()
-{
-
-    Prepare();
-
-
-    Execute();
-
-}</code></pre>
-            </div>
-          </div>
-          <p>필요한 곳에는 완전히 빈 줄을 한 줄만 둔다. 연속되거나 공백 문자가 든 빈 줄과 중괄호 바로 안쪽의 빈 줄은 사용하지 않으며, 마지막 <code>using</code> 뒤에는 빈 줄을 한 줄 둔다.</p>
-        </div>
-      </article>
-      <article class="rule-card">
-        <div class="rule-index">38</div>
-        <div class="rule-body">
-          <h3>타입 범위의 그룹은 빈 줄로 구분한다</h3>
-          <div class="example-pair">
-            <div class="example good">
-              <div class="example-label">올바른 사용</div>
-              <pre><code>[SerializeField]
-private int _count;
-private bool _ready;
-
-public int Count =&gt; _count;
-
-// 실행 진입점.
-public void Run()
-{
-}
-
-public void Stop()
-{
-}</code></pre>
-            </div>
-            <div class="example bad">
-              <div class="example-label">잘못된 사용</div>
-              <pre><code>[SerializeField]
-
-private int _count;
-private bool _ready;
-public int Count =&gt; _count;
-public void Run()
-{
-}</code></pre>
-            </div>
-          </div>
-          <p>타입 범위에서는 멤버 섹션, 상속 그룹, 중첩 타입, 함수 구현 사이를 한 줄 띄운다. 같은 그룹의 선언은 붙이고 Attribute, 문서, 선행 주석은 대상 선언에 붙인다.</p>
-        </div>
-      </article>
-      <article class="rule-card">
-        <div class="rule-index">39</div>
-        <div class="rule-body">
-          <h3>블록 안에서는 논리 문단 사이에만 빈 줄을 둔다</h3>
-          <div class="example-pair">
-            <div class="example good">
-              <div class="example-label">올바른 사용</div>
-              <pre><code>private IEnumerator RunCoroutine()
-{
-    var item = Select();
-    item.Prepare();
-
-    yield return item.RunCoroutine();
-
-    OnCompleted?.Invoke(item);
-}</code></pre>
-            </div>
-            <div class="example bad">
-              <div class="example-label">잘못된 사용</div>
-              <pre><code>private IEnumerator RunCoroutine()
-{
-    var item = Select();
-
-    item.Prepare();
-    yield return item.RunCoroutine();
-    OnCompleted?.Invoke(item);
-}</code></pre>
-            </div>
-          </div>
-          <p>블록 안에서는 즉시 목적이 다른 완결된 문장 그룹 사이만 한 줄 띄운다. 값을 만든 문장과 바로 검증하거나 소비하는 문장은 붙이고, <code>else</code>나 닫는 중괄호 앞은 띄우지 않는다.</p>
-        </div>
-      </article>
-      <article class="rule-card">
-        <div class="rule-index">40</div>
+        <div class="rule-index">41</div>
         <div class="rule-body">
           <h3>한 번만 쓰는 값은 지역 변수로 이름 붙이지 않는다</h3>
           <div class="example-pair">
@@ -1603,54 +1656,6 @@ private void ApplyAndLog()
             </div>
           </div>
           <p>한 번만 쓰는 값은 다음 호출, 대입, <code>return</code>, 표현식에 직접 인라인한다. 같은 값을 두 번 이상 쓰거나 C# 문법·실행 의미상 저장이 필요할 때만 지역 변수를 선언한다.</p>
-        </div>
-      </article>
-      <article class="rule-card">
-        <div class="rule-index">41</div>
-        <div class="rule-body">
-          <h3>Unity 객체에는 null 조건부·병합 연산자를 쓰지 않는다</h3>
-          <div class="example-pair">
-            <div class="example good">
-              <div class="example-label">올바른 사용</div>
-              <pre><code>private void ResetTarget(Transform target)
-{
-    if (target != null)
-        target.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
-}
-
-private Transform SelectTarget(Transform target, Transform fallback)
-{
-    if (target != null)
-        return target;
-
-    return fallback;
-}
-
-private void SetTargetFallback(Transform fallback)
-{
-    if (_target == null)
-        _target = fallback;
-}</code></pre>
-            </div>
-            <div class="example bad">
-              <div class="example-label">잘못된 사용</div>
-              <pre><code>private void ResetTarget(Transform target)
-{
-    target?.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
-}
-
-private Transform SelectTarget(Transform target, Transform fallback)
-{
-    return target ?? fallback;
-}
-
-private void SetTargetFallback(Transform fallback)
-{
-    _target ??= fallback;
-}</code></pre>
-            </div>
-          </div>
-          <p>네이티브 Unity 객체가 파괴된 뒤에도 관리되는 <code>UnityEngine.Object</code> 래퍼는 남을 수 있다. Unity가 오버로드한 동등 비교와 암시적 Boolean은 이 분리된 래퍼를 null로 판정하지만, <code>?.</code>, <code>??</code>, <code>??=</code>는 CLR null만 검사하므로 파괴 상태를 우회한다. 현재 생명주기가 안전해 보여도 <code>GameObject</code>, <code>Component</code>, <code>MonoBehaviour</code>, <code>ScriptableObject</code>를 비롯한 Unity 객체 참조에는 이 연산자를 쓰지 않는다. 접근 직전에 <code>target != null</code> 또는 <code>if (target)</code>로 검사하고 fallback은 명시적 분기로 선택한다. <code>object</code>, 인터페이스, 제네릭이 Unity 객체를 감출 수 있으면 먼저 <code>UnityEngine.Object</code>로 복원해 검사한다. 일반 관리 객체, nullable 표기, 삼항 연산자 <code>?:</code>, <code>OnCompleted?.Invoke(item)</code> 같은 delegate·event에는 이 제한을 적용하지 않는다. 자세한 동작은 <a href="https://docs.unity3d.com/6000.0/Documentation/ScriptReference/Object.html">UnityEngine.Object 공식 문서</a>를 참고한다.</p>
         </div>
       </article>
     </section>

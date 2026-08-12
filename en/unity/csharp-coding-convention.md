@@ -7,6 +7,8 @@ category: "CONVENTION"
 description: "A practical Unity C# convention for making code shape predictable and code reading fast."
 permalink: /en/unity/csharp-coding-convention.html
 toc_items:
+  - id: core-rules
+    label: "Core rules"
   - id: naming
     label: "Naming"
   - id: files-unity-objects
@@ -46,9 +48,277 @@ Third-party code is not subject to this convention. In an existing domain, the e
 
 Conventions not mentioned here follow Unity standards and Visual Studio Code Style defaults.
 
+## Core rules {#core-rules}
+
+### 01. Do not wrap semicolon-terminated statements, function declarations, or calls
+
+Correct:
+
+```csharp
+private Dictionary<string, Item> items = new(StringComparer.Ordinal);
+
+private void ApplyReward(int rewardCount, RewardTypeEnum rewardType, bool isBonus, Action onComplete)
+{
+}
+
+private void Register<TItem, TFactory>(TItem item, TFactory factory) where TItem : Item where TFactory : ItemFactoryInterface
+{
+}
+
+private void GrantReward()
+{
+    ApplyReward(item, rewardCount, rewardType, isBonus, onComplete);
+}
+```
+
+Incorrect:
+
+```csharp
+private Dictionary<string, Item> items =
+    new(StringComparer.Ordinal);
+
+private void ApplyReward(
+    int rewardCount, RewardTypeEnum rewardType,
+    bool isBonus, Action onComplete)
+{
+}
+
+private void Register<TItem, TFactory>(TItem item, TFactory factory)
+    where TItem : Item
+    where TFactory : ItemFactoryInterface
+{
+}
+
+private void GrantReward()
+{
+    ApplyReward(
+        item, rewardCount, rewardType,
+        isBonus, onComplete);
+}
+```
+
+Keep every semicolon-terminated code statement on one physical line from its first token through its semicolon. Keep function declaration parameter lists, call argument lists, and the full declaration header including generic `where` clauses on one physical line regardless of length. Line length never justifies wrapping. If a line appears to require wrapping, treat the code design as the problem and leave the line unchanged instead of wrapping it or performing an unrequested refactor. Codex and automated formatters must not introduce, remove, or rearrange code line breaks. Only the user may decide a deliberate manual wrap; preserve existing user-authored wraps unless the user explicitly asks to change them.
+
+### 02. Strongly prefer omitting braces from single embedded-statement bodies
+
+Correct:
+
+```csharp
+if (isReady)
+    StartGame();
+else if (canRetry)
+    RetryGame();
+else
+    CancelGame();
+
+foreach (var enemy in enemies)
+    enemy.Update();
+
+foreach (var index in Indexes)
+{
+    if (index.CanAdd(entity, primaryKey) == false)
+        return false;
+}
+```
+
+Also correct when any branch needs multiple statements:
+
+```csharp
+if (isReady)
+{
+    StartGame();
+}
+else if (canRetry)
+{
+    ResetGame();
+    RetryGame();
+}
+else
+{
+    CancelGame();
+}
+```
+
+Incorrect without a concrete reason:
+
+```csharp
+foreach (var enemy in enemies)
+{
+    enemy.Update();
+}
+
+foreach (var index in Indexes)
+    if (index.CanAdd(entity, primaryKey) == false)
+        return false;
+```
+
+Omit braces from any single embedded-statement body unless there is a concrete reason to keep them. Do not nest brace-free control statements: when a control statement's only body is another control statement, except for an `else if` chain, put braces around the outer body and omit braces only from the innermost single action. If one branch in an `if` chain needs braces, use braces for every branch.
+
+### 03. Write one attribute per line
+
+Correct:
+
+```csharp
+[Header("Settings")]
+[SerializeField]
+private int count;
+```
+
+Incorrect:
+
+```csharp
+[Header("Settings"), SerializeField]
+private int count;
+
+[SerializeField] private int index;
+```
+
+### 04. Use one completely empty blank line
+
+Correct:
+
+```csharp
+private void Run()
+{
+    Prepare();
+
+    Execute();
+}
+```
+
+Incorrect:
+
+```csharp
+private void Run()
+{
+
+    Prepare();
+
+
+    Execute();
+
+}
+```
+
+Use exactly one empty line where separation is required. Do not use consecutive or whitespace-only blank lines, or a blank line directly inside braces. Put one blank line after `using` directives.
+
+### 05. Separate type-scope groups with blank lines
+
+Correct:
+
+```csharp
+[SerializeField]
+private int _count;
+private bool _ready;
+
+public int Count => _count;
+
+// Execution entry point.
+public void Run()
+{
+}
+
+public void Stop()
+{
+}
+```
+
+Incorrect:
+
+```csharp
+[SerializeField]
+
+private int _count;
+private bool _ready;
+public int Count => _count;
+public void Run()
+{
+}
+```
+
+At type scope, put one blank line between member sections, inheritance groups, nested types, and function implementations. Keep declarations in the same group together, and keep attributes, documentation, and leading comments attached to their declaration.
+
+### 06. Use blank lines only between logical paragraphs inside blocks
+
+Correct:
+
+```csharp
+private IEnumerator RunCoroutine()
+{
+    var item = Select();
+    item.Prepare();
+
+    yield return item.RunCoroutine();
+
+    OnCompleted?.Invoke(item);
+}
+```
+
+Incorrect:
+
+```csharp
+private IEnumerator RunCoroutine()
+{
+    var item = Select();
+
+    item.Prepare();
+    yield return item.RunCoroutine();
+    OnCompleted?.Invoke(item);
+}
+```
+
+Inside blocks, use blank lines only between complete statement groups with different purposes. Keep a produced value with its immediate validation or consumer, and do not put a blank line before `else` or a closing brace.
+
+### 07. Do not use null-conditional or null-coalescing operators on Unity objects
+
+Correct:
+
+```csharp
+private void ResetTarget(Transform target)
+{
+    if (target != null)
+        target.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
+}
+
+private Transform SelectTarget(Transform target, Transform fallback)
+{
+    if (target != null)
+        return target;
+
+    return fallback;
+}
+
+private void SetTargetFallback(Transform fallback)
+{
+    if (_target == null)
+        _target = fallback;
+}
+```
+
+Incorrect:
+
+```csharp
+private void ResetTarget(Transform target)
+{
+    target?.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
+}
+
+private Transform SelectTarget(Transform target, Transform fallback)
+{
+    return target ?? fallback;
+}
+
+private void SetTargetFallback(Transform fallback)
+{
+    _target ??= fallback;
+}
+```
+
+After a native Unity object is destroyed, its managed `UnityEngine.Object` wrapper can remain. Unity's overloaded equality and implicit Boolean treat that detached wrapper as null, but `?.`, `??`, and `??=` test only CLR null and bypass the destroyed-object state. Never use these operators on `GameObject`, `Component`, `MonoBehaviour`, `ScriptableObject`, or another Unity object reference, even when its current lifetime appears safe. Check `target != null` or `if (target)` immediately before access and select fallbacks with an explicit branch. If an `object`, interface, or generic may hide a Unity object, recover and check it as `UnityEngine.Object` first. Ordinary managed objects, nullable annotations, the ternary operator `?:`, and delegates or events such as `OnCompleted?.Invoke(item)` remain allowed. See the [UnityEngine.Object documentation](https://docs.unity3d.com/6000.0/Documentation/ScriptReference/Object.html).
+
 ## Naming {#naming}
 
-### 01. Interfaces use the `Interface` suffix
+### 08. Interfaces use the `Interface` suffix
 
 Correct:
 
@@ -72,7 +342,7 @@ private FunctionInterface functionInterface;
 
 Keep the interface marker only in the type name.
 
-### 02. Static-field prefixes depend on the immediate declaring type
+### 09. Static-field prefixes depend on the immediate declaring type
 
 Correct naming:
 
@@ -108,7 +378,7 @@ public static class CacheRegistry
 
 Except for `const` and `readonly`, use `__PascalCase` for public static fields and `__camelCase` for private static fields when the immediate declaring type is non-static. In a `static class`, use `_PascalCase` and `_camelCase` respectively. For nested types, inspect only the type that directly declares the field, not an outer type. Apply this naming rule mechanically while the field exists, regardless of its design status.
 
-### 03. `const` and `readonly` use PascalCase
+### 10. `const` and `readonly` use PascalCase
 
 Correct:
 
@@ -127,9 +397,9 @@ private static readonly int __initialCapacity = 16;
 private static readonly int _initialCapacity = 16;
 ```
 
-Use PascalCase without an underscore prefix for `const` and `readonly` fields regardless of whether they are static or which type declares them, so they read like type or property names. However, when a `static readonly` field references a mutable object, rule 24's static-state design criterion still applies even though its name follows this rule.
+Use PascalCase without an underscore prefix for `const` and `readonly` fields regardless of whether they are static or which type declares them, so they read like type or property names. However, when a `static readonly` field references a mutable object, rule 31's static-state design criterion still applies even though its name follows this rule.
 
-### 04. Properties are nouns or adjectives
+### 11. Properties are nouns or adjectives
 
 Correct:
 
@@ -149,7 +419,7 @@ public bool Reward { get; }
 
 Boolean properties that ask a question should collect under prefixes such as `Is` and `Has` in IDE search.
 
-### 05. Distinguish `Can` from `-able`
+### 12. Distinguish `Can` from `-able`
 
 Correct:
 
@@ -167,7 +437,7 @@ public bool Gather { get; }
 
 `CanGather` describes an action the object can perform. `Gatherable` describes an attribute the object has.
 
-### 06. Add type postfixes to properties when searchability matters
+### 13. Add type postfixes to properties when searchability matters
 
 Correct:
 
@@ -187,7 +457,7 @@ public string Description { get; }
 
 Use postfixes such as `String`, `Sprite`, `Prefab`, `Effect`, and `Tooltip` only when they improve search filtering.
 
-### 07. Functions use verbs or verb phrases
+### 14. Functions use verbs or verb phrases
 
 Correct:
 
@@ -207,7 +477,7 @@ public void Reward()
 
 The action should be visible from the function name.
 
-### 08. Enum types use the `Enum` suffix
+### 15. Enum types use the `Enum` suffix
 
 Correct:
 
@@ -231,7 +501,7 @@ private ItemGroup itemGroupEnum;
 
 Do not repeat `Enum` in the variable name.
 
-### 09. Coroutine functions use the `Coroutine` suffix
+### 16. Coroutine functions use the `Coroutine` suffix
 
 Correct:
 
@@ -255,7 +525,7 @@ The name should distinguish functions with a different execution model.
 
 ## Files and Unity objects {#files-unity-objects}
 
-### 10. Match the file name and the representative definition name
+### 17. Match the file name and the representative definition name
 
 Correct:
 
@@ -277,7 +547,7 @@ public sealed class PlayerController
 
 The file and type should be easy to find through IDE and IntelliSense.
 
-### 11. One file has one representative definition
+### 18. One file has one representative definition
 
 Correct:
 
@@ -310,7 +580,7 @@ public enum PlayerModeEnum
 
 Representative definitions such as class, struct, and enum should be split by file. Nested definitions are the exception.
 
-### 12. Nested types are ordered enum, struct, interface, class
+### 19. Nested types are ordered enum, struct, interface, class
 
 Correct:
 
@@ -360,7 +630,7 @@ public sealed class PlayerController
 
 Because one file normally has one representative definition, multiple type declarations usually appear only as nested types. Nested type order is `enum > struct > interface > class`.
 
-### 13. File names and class names are nouns
+### 20. File names and class names are nouns
 
 Correct:
 
@@ -382,7 +652,7 @@ public sealed class MovePlayer
 
 Put roles in type names and actions in function names.
 
-### 14. Match Unity object names and script names
+### 21. Match Unity object names and script names
 
 Correct:
 
@@ -404,7 +674,7 @@ Inspector names and code-search names should point to the same concept.
 
 ## Words {#words}
 
-### 15. PascalCase boundaries represent semantic layers
+### 22. PascalCase boundaries represent semantic layers
 
 Correct:
 
@@ -424,7 +694,7 @@ LifeTime
 
 In project-level business logic, keep one semantic layer in one token. A new uppercase boundary does not merely separate spelling; it declares one more ownership, structure, relation, or role layer. `Nickname` is one concept, while `TitleMenuButton` represents a real `Title -> Menu -> Button` structure. Let the code structure, not the dictionary, decide the boundary. This design rule does not govern engine, library, or fully low-level code. See [Semantic Layer Naming]({{ "/en/csharp/semantic-layer-naming/" | relative_url }}) for the full scoped criteria.
 
-### 16. Avoid names that are substrings of other keywords
+### 23. Avoid names that are substrings of other keywords
 
 Correct:
 
@@ -442,7 +712,7 @@ IntermissionState
 
 `Mission` appears inside `Intermission`, so searching for `Mission` catches unintended results.
 
-### 17. Plural groups currently allow `-s` and `-es`
+### 24. Plural groups currently allow `-s` and `-es`
 
 Correct:
 
@@ -464,7 +734,7 @@ RewardBucket
 
 ## Syntax and structure {#syntax-structure}
 
-### 18. External lifecycle objects are read-only properties
+### 25. External lifecycle objects are read-only properties
 
 Correct:
 
@@ -480,15 +750,14 @@ public Player Player;
 
 If creation and ownership live outside this object, close the setter.
 
-### 19. Do not repeat types in object creation
+### 26. Do not repeat types in object creation
 
 Correct:
 
 ```csharp
 public sealed class Inventory
 {
-    private Dictionary<string, Item> items =
-        new(StringComparer.Ordinal);
+    private Dictionary<string, Item> items = new(StringComparer.Ordinal);
 
     public List<Item> Items { get; } = new();
 
@@ -504,8 +773,7 @@ Incorrect:
 ```csharp
 public sealed class Inventory
 {
-    private Dictionary<string, Item> items =
-        new Dictionary<string, Item>(StringComparer.Ordinal);
+    private Dictionary<string, Item> items = new Dictionary<string, Item>(StringComparer.Ordinal);
 
     public List<Item> Items { get; } = new List<Item>();
 
@@ -518,7 +786,7 @@ public sealed class Inventory
 
 Use `var` when a local variable's right-side creation expression names the type. When the declaration or assignment target already names the type, especially for class fields and properties, use target-typed `new(arguments)` or `new()`. Do not repeat the same construction type on both sides.
 
-### 20. Do not use the newer using-declaration form
+### 27. Do not use the newer using-declaration form
 
 Correct:
 
@@ -536,7 +804,7 @@ using var stream = File.OpenRead(path);
 
 Keep the existing `using` block form.
 
-### 21. Put `sealed` before `override`
+### 28. Put `sealed` before `override`
 
 Correct:
 
@@ -556,7 +824,7 @@ public override sealed void Dispose()
 
 Read the declaration in access modifier, `sealed`, `override` order.
 
-### 22. Class sections are variables, properties, events, functions
+### 29. Class sections are variables, properties, events, functions
 
 Correct:
 
@@ -581,7 +849,7 @@ private enum StateEnum { }
 
 After inner enum, inner struct, inner interface, and inner class, use variables > properties > events > functions.
 
-### 23. Sort inside each category alphabetically
+### 30. Sort inside each category alphabetically
 
 Correct:
 
@@ -625,7 +893,7 @@ public void RefreshTooltip()
 
 Alphabetical order applies only inside the same category of the same inheritance group, after section order and the shared member order. Variables use `const` > `readonly` > `static` > inherited implementation > local instance member, properties use `static` > inherited implementation > local instance member, and functions use constructors and finalizer > `static` > inherited implementation > local instance function. Do not mix parent or interface implementation groups just to satisfy alphabetical order.
 
-### 24. Order variables, properties, and functions as static, inherited, then local
+### 31. Order variables, properties, and functions as static, inherited, then local
 
 Correct:
 
@@ -724,7 +992,7 @@ Within each category, order variables, properties, and functions as static membe
 
 **Design principle:** In an ordinary non-static object type, avoid mutable static state as a rule and treat it as exceptional or temporary. When the state genuinely belongs to the type as a whole, make its lifetime, initialization and reset, cleanup, and concurrency responsibilities explicit; treat convenience `Instance`, `Current`, or service-access fields as temporary design debt. Avoid static functions unless the behavior clearly belongs to the type itself.
 
-### 25. Do not create unnecessary functions
+### 32. Do not create unnecessary functions
 
 Correct:
 
@@ -753,7 +1021,7 @@ private void ApplyReward()
 
 Keep one-off logic in its caller unless extraction creates reuse, an independent responsibility or contract, or a clearer context boundary. Unity messages, overrides, explicit interface implementations, registered callbacks, and framework entry points are exceptions. Use a local function only for caller-local reuse, a dependent coroutine, or a long foldable block.
 
-### 26. Interface implementation is explicit by type
+### 33. Interface implementation is explicit by type
 
 Correct:
 
@@ -781,7 +1049,7 @@ public sealed class TooltipButton : TooltipInterface
 }
 ```
 
-### 27. Member-variable sections are const, readonly, static, member
+### 34. Member-variable sections are const, readonly, static, member
 
 Correct:
 
@@ -813,64 +1081,9 @@ public sealed class Cache
 }
 ```
 
-Treat `const`, `readonly`, `static`, and ordinary variables as separate sections. Order ordinary variables by rule 24 and alphabetize only within the same inheritance group.
+Treat `const`, `readonly`, `static`, and ordinary variables as separate sections. Order ordinary variables by rule 31 and alphabetize only within the same inheritance group.
 
-### 28. Strongly prefer omitting braces from single embedded-statement bodies
-
-Correct:
-
-```csharp
-if (isReady)
-    StartGame();
-else if (canRetry)
-    RetryGame();
-else
-    CancelGame();
-
-foreach (var enemy in enemies)
-    enemy.Update();
-
-foreach (var index in Indexes)
-{
-    if (index.CanAdd(entity, primaryKey) == false)
-        return false;
-}
-```
-
-Also correct when any branch needs multiple statements:
-
-```csharp
-if (isReady)
-{
-    StartGame();
-}
-else if (canRetry)
-{
-    ResetGame();
-    RetryGame();
-}
-else
-{
-    CancelGame();
-}
-```
-
-Incorrect without a concrete reason:
-
-```csharp
-foreach (var enemy in enemies)
-{
-    enemy.Update();
-}
-
-foreach (var index in Indexes)
-    if (index.CanAdd(entity, primaryKey) == false)
-        return false;
-```
-
-Omit braces from any single embedded-statement body unless there is a concrete reason to keep them. Do not nest brace-free control statements: when a control statement's only body is another control statement, except for an `else if` chain, put braces around the outer body and omit braces only from the innermost single action. If one branch in an `if` chain needs braces, use braces for every branch.
-
-### 29. Use prefix increment and decrement operators
+### 35. Use prefix increment and decrement operators
 
 Correct:
 
@@ -886,7 +1099,7 @@ index++;
 index--;
 ```
 
-### 30. Use logical negation only for Boolean toggle assignments
+### 36. Use logical negation only for Boolean toggle assignments
 
 Correct:
 
@@ -908,7 +1121,7 @@ return !isActive;
 
 Use `!` only when assigning a Boolean toggle back to the same value; otherwise compare explicitly with `== false`.
 
-### 31. Do not sort members by access modifier
+### 37. Do not sort members by access modifier
 
 Correct:
 
@@ -932,28 +1145,9 @@ private int BetaCount { get; }
 private int ItemCount { get; }
 ```
 
-Access modifiers do not affect member order. Follow rules 22-24 and 27.
+Access modifiers do not affect member order. Follow rules 29-31 and 34.
 
-### 32. Write one attribute per line
-
-Correct:
-
-```csharp
-[Header("Settings")]
-[SerializeField]
-private int count;
-```
-
-Incorrect:
-
-```csharp
-[Header("Settings"), SerializeField]
-private int count;
-
-[SerializeField] private int index;
-```
-
-### 33. Wrap comparisons, but not complete single-term conditions
+### 38. Wrap comparisons, but not complete single-term conditions
 
 Correct:
 
@@ -977,7 +1171,7 @@ if (CanStart() || count > 0 && item != null)
 
 Parenthesize every comparison or nested compound operand joined by logical operators. Do not wrap standalone Boolean variables, properties, or calls.
 
-### 34. Put the valid and primary-interest branch first
+### 39. Put the valid and primary-interest branch first
 
 Correct:
 
@@ -997,156 +1191,11 @@ else
     Use(item);
 ```
 
-### 35. Follow the logging guideline
+### 40. Follow the logging guideline
 
 Before adding or changing logs, follow `logging-guideline.md`.
 
-### 36. Do not put one function parameter or call argument per line
-
-Correct:
-
-```csharp
-private void ApplyReward(
-    int rewardCount, RewardTypeEnum rewardType,
-    bool isBonus, Action onComplete)
-{
-}
-
-private void Register<TItem, TFactory>(TItem item, TFactory factory)
-    where TItem : Item
-    where TFactory : ItemFactoryInterface
-{
-}
-
-private void GrantReward()
-{
-    ApplyReward(
-        item, rewardCount, rewardType,
-        isBonus, onComplete);
-}
-```
-
-Incorrect:
-
-```csharp
-private void ApplyReward(
-    int rewardCount,
-    RewardTypeEnum rewardType,
-    bool isBonus,
-    Action onComplete)
-{
-}
-
-private void GrantReward()
-{
-    ApplyReward(
-        item,
-        rewardCount,
-        rewardType,
-        isBonus,
-        onComplete);
-}
-```
-
-Keep declaration parameters and call arguments on one line when practical. When wrapping, keep multiple items per line. Only generic `where` clauses may be placed one per line.
-
-### 37. Use one completely empty blank line
-
-Correct:
-
-```csharp
-private void Run()
-{
-    Prepare();
-
-    Execute();
-}
-```
-
-Incorrect:
-
-```csharp
-private void Run()
-{
-
-    Prepare();
-
-
-    Execute();
-
-}
-```
-
-Use exactly one empty line where separation is required. Do not use consecutive or whitespace-only blank lines, or a blank line directly inside braces. Put one blank line after `using` directives.
-
-### 38. Separate type-scope groups with blank lines
-
-Correct:
-
-```csharp
-[SerializeField]
-private int _count;
-private bool _ready;
-
-public int Count => _count;
-
-// Execution entry point.
-public void Run()
-{
-}
-
-public void Stop()
-{
-}
-```
-
-Incorrect:
-
-```csharp
-[SerializeField]
-
-private int _count;
-private bool _ready;
-public int Count => _count;
-public void Run()
-{
-}
-```
-
-At type scope, put one blank line between member sections, inheritance groups, nested types, and function implementations. Keep declarations in the same group together, and keep attributes, documentation, and leading comments attached to their declaration.
-
-### 39. Use blank lines only between logical paragraphs inside blocks
-
-Correct:
-
-```csharp
-private IEnumerator RunCoroutine()
-{
-    var item = Select();
-    item.Prepare();
-
-    yield return item.RunCoroutine();
-
-    OnCompleted?.Invoke(item);
-}
-```
-
-Incorrect:
-
-```csharp
-private IEnumerator RunCoroutine()
-{
-    var item = Select();
-
-    item.Prepare();
-    yield return item.RunCoroutine();
-    OnCompleted?.Invoke(item);
-}
-```
-
-Inside blocks, use blank lines only between complete statement groups with different purposes. Keep a produced value with its immediate validation or consumer, and do not put a blank line before `else` or a closing brace.
-
-### 40. Inline values that a local variable would use only once
+### 41. Inline values that a local variable would use only once
 
 Correct:
 
@@ -1180,50 +1229,3 @@ private int Run(Player player)
 ```
 
 Inline a value used only once. Declare a local only when the same value is used at least twice or C# syntax or execution semantics require storage.
-
-### 41. Do not use null-conditional or null-coalescing operators on Unity objects
-
-Correct:
-
-```csharp
-private void ResetTarget(Transform target)
-{
-    if (target != null)
-        target.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
-}
-
-private Transform SelectTarget(Transform target, Transform fallback)
-{
-    if (target != null)
-        return target;
-
-    return fallback;
-}
-
-private void SetTargetFallback(Transform fallback)
-{
-    if (_target == null)
-        _target = fallback;
-}
-```
-
-Incorrect:
-
-```csharp
-private void ResetTarget(Transform target)
-{
-    target?.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
-}
-
-private Transform SelectTarget(Transform target, Transform fallback)
-{
-    return target ?? fallback;
-}
-
-private void SetTargetFallback(Transform fallback)
-{
-    _target ??= fallback;
-}
-```
-
-After a native Unity object is destroyed, its managed `UnityEngine.Object` wrapper can remain. Unity's overloaded equality and implicit Boolean treat that detached wrapper as null, but `?.`, `??`, and `??=` test only CLR null and bypass the destroyed-object state. Never use these operators on `GameObject`, `Component`, `MonoBehaviour`, `ScriptableObject`, or another Unity object reference, even when its current lifetime appears safe. Check `target != null` or `if (target)` immediately before access and select fallbacks with an explicit branch. If an `object`, interface, or generic may hide a Unity object, recover and check it as `UnityEngine.Object` first. Ordinary managed objects, nullable annotations, the ternary operator `?:`, and delegates or events such as `OnCompleted?.Invoke(item)` remain allowed. See the [UnityEngine.Object documentation](https://docs.unity3d.com/6000.0/Documentation/ScriptReference/Object.html).
