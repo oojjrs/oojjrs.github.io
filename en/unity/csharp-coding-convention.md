@@ -1155,10 +1155,7 @@ else
     Use(item);
 ```
 
-### 40. Follow the [logging guideline](logging-guideline.md)
-
-
-### 41. Inline values that a local variable would use only once
+### 40. Inline values that a local variable would use only once
 
 Correct:
 

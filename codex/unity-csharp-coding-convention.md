@@ -55,5 +55,4 @@ First-party only. Priority: local > here > Unity > VS/Microsoft. Exclude generat
 37. Never group/order by access; follow 29-31/34.
 38. Logical expression: parenthesize comparisons/nested compound operands, not standalone Boolean terms.
 39. Valid/normal/primary branch first.
-40. Logs: follow `logging-guideline.md`.
-41. Inline single-use value; local requires 2+ uses or syntax/execution semantics.
+40. Inline single-use value; local requires 2+ uses or syntax/execution semantics.
