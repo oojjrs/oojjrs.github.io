@@ -1,4 +1,4 @@
 interface:
   display_name: "oojjrs Guideline Maintenance"
   short_description: "Maintain focused public workflow guidance"
-  default_prompt: "Use $oojjrs-guideline-maintenance to place a reusable rule in the smallest durable public source and keep affected routing and metadata aligned."
+  default_prompt: "Use $oojjrs-guideline-maintenance to place a reusable rule in the smallest durable public guideline without reloading common rules or taking ownership of skill-source maintenance."

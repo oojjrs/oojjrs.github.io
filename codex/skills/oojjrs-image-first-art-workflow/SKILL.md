@@ -5,123 +5,44 @@ description: Enforce imagegen-first creation or revision of general raster art, 
 
 # oojjrs Image-First Art Workflow
 
-## Core Rule
+## Scope And Source
 
-For any new raster image or visual art asset, create the first aesthetic source with imagegen. This is mandatory for UI art as well as non-UI images.
+Use `$imagegen` / built-in `image_gen` to create the first aesthetic source for new or revised general raster art, including UI art, static sprites, object cutouts, backgrounds, illustrations, marketing images, `Design.html` references, mockups, and art-direction candidates. This is mandatory whenever the user evaluates style, silhouette, material, lighting, mood, or visual quality.
 
-Exception: do not use imagegen when the task is to make a 2D sprite animation. Animated 2D sprites require frame consistency, pivot stability, timing, hitbox/collision readability, and controllable sprite-sheet layout. Build those with sprite/animation tooling, hand-authored frames, engine timelines, pixel-art tools, or deterministic editing pipelines instead. Imagegen may be used only for separate static concept art if the user asks for it, not for generating the animation frames.
+Do not establish that source with System.Drawing, PIL, SharpDX, canvas, SVG, HTML/CSS, ImageMagick, procedural shapes, gradients, noise, or a code-made placeholder. Exact dimensions, nine-slice borders, state slices, and engine import requirements do not exempt UI art. If the accepted style, subject, composition, or artifacts need artistic revision, iterate with imagegen rather than polishing a weak procedural substitute.
 
-Do not use System.Drawing, PIL, canvas, SVG, HTML/CSS, ImageMagick, procedural shapes, or other deterministic drawing code as the first art pass when the user expects visual quality or art direction.
+Direct code, vector, or native-source editing is allowed when the task instead extends an existing SVG/vector system, preserves exact geometry in a provided native source, draws a non-art diagram/wireframe/technical overlay, implements layout or typography around accepted art, builds code-native controls, or explicitly requests deterministic vector/code output. `H:\Mines` art routes to `$oojjrs-mines-art-asset-pipeline`. When the distinction is uncertain, use imagegen for the first visual asset.
 
-Local/code tools are allowed only after imagegen has established the art style, subject, and overall visual quality. Use those tools only to make the accepted imagegen output production-ready: exact sizing, slicing, padding, alpha cleanup, format conversion, state variants, atlas packing, masks, guides, or other deterministic post-processing.
+## 2D Sprite Animation Exception
 
-Preview-only imagegen calls are forbidden. Result previews, contact sheets, Design.html preview images, comparison boards, review sheets, and display-only mockups must be composed from the actual generated/accepted image files with deterministic local tools. Do not call imagegen separately just to visualize, re-preview, or mock up an already generated result; use imagegen only when creating or revising source/candidate artwork.
+Never use imagegen to create 2D sprite animation frames or frame sheets. Use hand-authored or edited frames, pixel/sprite tools, engine timelines or flipbooks, deterministic transforms from an accepted static source, and local layout/guide tooling so frame consistency, pivots, timing, hitbox or collision readability, onion-skin references, and sheet layout remain controllable.
 
-## Recommended Local Tools
+Imagegen may create a separate static style reference only when requested; it must not generate or become production animation frames. Any explicitly requested imagegen-based animation exploration remains non-production.
 
-For second-pass raster work, use ImageMagick 7 (`magick.exe`) as the default local editing tool when it is installed. Use it for image inspection, resize/crop/pad/trim, alpha and mask work, compositing, contact sheets, and visual diffs. Use `oxipng.exe` for final PNG optimization after the visual output is approved.
+## Production Sequence
 
-Do not choose System.Drawing for raster editing when `magick.exe` can do the job. Keep System.Drawing only as a last-resort fallback for simple deterministic transforms when ImageMagick is unavailable, or when the project already has a native .NET image-processing path that must be preserved. Treat older skill or guideline wording that recommends System.Drawing for image editing as outdated when it conflicts with this section.
+1. Generate the first source or candidate with imagegen, then inspect style fit, subject clarity, composition, and visible artifacts.
+2. Iterate artistically with imagegen until the source is acceptable.
+3. Use deterministic tools only afterward for production work: inspect, resize, crop, pad, trim, slice, normalize, clean alpha or chroma key, convert formats, name or compress files, composite, pack sheets or atlases, add masks/outlines/guides/nine-slice guides, or derive exact-size, theme, disabled, pressed, and hover variants.
+4. Put the selected final asset in the project or requested output location; do not leave a project reference pointing only to a generated-image cache.
 
-When this skill is installed through the public `codex/skills/install.ps1` script, the installer attempts to install these workstation tools with `winget`:
+Preview-only imagegen calls are forbidden. Compose previews, contact sheets, `Design.html` previews, comparison or review boards, visual diffs, and display-only mockups from the actual generated or accepted files with deterministic tools. Imagegen is only for creating or artistically revising source or candidate artwork.
 
-- `ImageMagick.ImageMagick` for `magick.exe`
-- `shssoichiro.oxipng` for `oxipng.exe`
+## Local Tools
 
-If `winget` is unavailable or installation fails, continue with available local tools and report the missing tool. Do not add ImageMagick or oxipng as project dependencies; they are workstation utilities for Codex image work.
+Use ImageMagick 7 (`magick.exe`) as the default second-pass raster tool when installed, and `oxipng.exe` for final PNG optimization after visual approval. Use System.Drawing only for simple deterministic transforms when ImageMagick is unavailable or when preserving an existing native .NET image path; conflicting older recommendations are outdated. Other code tools remain limited to deterministic preparation or native-source work.
 
-## Temporary File Location
+The public installer attempts to install `ImageMagick.ImageMagick` and `shssoichiro.oxipng` with `winget`. If that is unavailable or fails, continue with available tools and report the missing utility. These are workstation utilities, never project dependencies.
 
-All image workflow temporary and intermediate files must go under a literal `$Trash` folder. This includes raw generated candidates, downloaded imagegen results, contact sheets, masks, alpha-cleanup inputs, resized/cropped variants, rejected experiments, and post-processing scratch files.
+## Temporary Files
 
-When the task has a repo or project root, use that root's `$Trash` folder. If no root is clear, use a `$Trash` folder under the current working directory or the explicitly requested output directory.
+Put every temporary or intermediate image file under a literal `$Trash` folder, including raw or downloaded candidates, rejected experiments, contact sheets, masks, cleanup inputs, previews, and resized, cropped, or post-processed variants. Use the repository or project root's `$Trash`; if no root is clear, use one under the current directory or explicitly requested output directory.
 
-Do not create or use ad-hoc `tmp`, `temp`, `scratch`, or similarly named folders for image generation work. If a tool default points to a temp location, override it before writing files. If writing to `$Trash` is blocked, stop and report the blocker instead of silently falling back to another folder.
-
-When writing literal `$Trash` paths in PowerShell, quote them, for example `'.\$Trash'`, so `$Trash` is not treated as a variable.
+Do not create ad-hoc `tmp`, `temp`, or `scratch` folders. Override a tool's temp default before it writes; if `$Trash` is blocked, stop and report the blocker. Quote literal PowerShell paths such as `'.\$Trash'` so `$Trash` is not expanded as a variable.
 
 ## Unity Metadata
 
-When creating or exporting Unity assets, do not create or modify Unity `.meta` files. Preserve or move an existing companion with its asset, include a user- or Unity-generated in-scope companion even when Git reports it as new or untracked, and stop before commit or push if an expected companion is absent.
-
-## Required Sequence
-
-1. Use `$imagegen` / built-in `image_gen` for the first generated image, concept, static sprite, illustration, UI art, object cutout, background, icon-like raster asset, mockup, or visual reference. Do not use imagegen for 2D sprite animation frames.
-2. Inspect the generated result for style fit, subject clarity, composition, and obvious artifacts.
-3. Iterate with imagegen if the art style is wrong. Do not try to rescue a bad first-pass drawing with System.Drawing or simple code effects.
-4. After the imagegen result is acceptable, use local tools only for deterministic production steps: resize, crop, pad, trim, alpha cleanup, chroma-key removal, format conversion, sprite-sheet packing, atlas layout, file naming, compression, masks, guide overlays, or exact UI-size variants.
-5. Build any result preview from the actual generated/accepted image files. A preview is packaging or presentation, not a reason for another imagegen call.
-6. Put the final selected asset in the project or requested output location. Do not leave project-referenced assets only in a generated-images cache.
-
-## UI Work
-
-UI work still follows the image-first rule when visual art is involved. Exact dimensions, nine-slice borders, state slices, or engine import requirements do not justify starting with System.Drawing or another code drawing tool.
-
-- For UI buttons, panels, icons, item art, profile frames, badges, splash screens, backgrounds, empty states, and decorative art, establish the visual style with imagegen first.
-- Convert the accepted imagegen output into UI-ready assets afterward with second-pass tools: slicing, padding, size normalization, states, masks, nine-slice guides, or theme variants.
-- Do not create crude placeholder art with System.Drawing just because the target is UI.
-- Pure layout, typography, code-native controls, and existing SVG/icon-system extensions may be built directly in code only when they are not being used as visual art generation.
-
-## Non-UI Work
-
-For non-UI images, the requirement is stronger: use imagegen for the first image unless the user explicitly asks for deterministic vector/code output or an edit to an existing native source file.
-
-Examples that require imagegen first:
-
-- static game sprites, profile objects, tiles, backgrounds, VFX concept frames
-- illustration, character, item, environment, and style exploration
-- document/reference images for `Design.html`
-- product/marketing/hero images
-- visual comparison candidates where the user will judge art direction
-
-## oojjrs 2D Sprite Animation Exception
-
-Do not use imagegen to make 2D sprite animations or animation-frame sheets. This exception overrides the imagegen-first rule.
-
-For 2D sprite animation, use tools and workflows that preserve deterministic motion and frame-to-frame consistency:
-
-- hand-authored or edited sprite frames
-- pixel-art or sprite animation tools
-- engine animation timelines and flipbooks
-- deterministic frame transforms from an accepted static source
-- local tooling for sprite-sheet layout, pivot guides, onion-skin references, hitbox guides, and timing previews
-
-If the task needs a static style reference for the animated sprite, imagegen can create that separate reference first. Do not turn imagegen output into the animation frame source unless the user explicitly asks for a non-production visual exploration.
-
-## Local Raster Tools And Code Drawing
-
-ImageMagick 7 (`magick.exe`) is the default second-pass raster editor when it is installed. System.Drawing, PIL, SharpDX, canvas, SVG, HTML/CSS, and procedural scripts are fallback or native-source deterministic tools for geometry and file preparation, not first-pass art direction.
-
-Use them only after imagegen has produced the accepted visual source. They may reinforce, normalize, or package an imagegen result; they must not invent the initial art style, silhouette, material feel, lighting, mood, or visual quality.
-
-Allowed second-pass uses:
-
-- resize/crop/pad to exact dimensions
-- generate contact sheets from imagegen outputs
-- compose previews, comparison boards, and review sheets from actual generated/accepted image files
-- trim transparent borders or add margins
-- remove chroma-key backgrounds after imagegen
-- pack sprite sheets or atlases
-- create disabled/pressed/hover variants from an accepted base asset
-- add deterministic masks, outlines, guides, or export variants
-
-Forbidden first-pass uses:
-
-- drawing the initial art asset with simple shapes, gradients, noise, or procedural strokes
-- substituting a code-made placeholder for art that the user is meant to evaluate visually
-- calling imagegen only to create a separate preview, mockup, contact sheet, comparison board, or display-only visualization
-- spending iterations polishing a low-quality procedural image when imagegen should have established the style
-
-## Exceptions
-
-Use direct code/vector/native editing only when the task is not asking for generated visual art:
-
-- extending an existing repo-native SVG/vector icon system
-- editing a provided native design/source file where preserving exact geometry matters
-- drawing simple diagrams, wireframes, or technical overlays that are not art-direction assets
-- implementing UI layout around already accepted art
-
-If there is any doubt, bias toward imagegen for the first visual asset.
+When creating or exporting Unity assets, do not create or modify `.meta` files. Preserve or move an existing companion with its asset, include an in-scope companion generated by the user or Unity even when it is new or untracked, and stop before commit or push if an expected companion is absent.
 
 ## Reporting
 

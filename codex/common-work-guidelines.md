@@ -2,19 +2,31 @@
 
 Canonical URL: `https://oojjrs.github.io/codex/common-work-guidelines.md`
 
-This URL is the only authoritative runtime source. Read it once at the start of each actual-work thread or subagent. Do not re-read it before every command or tool call. Reload only in a new thread or subagent, after context restoration, or when the user explicitly asks. Repository and cached copies are never runtime substitutes.
+The URL above is the sole runtime authority. Load it once per actual-work thread or subagent and reuse it through commands and validation. Reload only in a new thread or subagent, after context restoration, or on an explicit recheck. Never substitute repository, memory, or cached copies.
 
-1. Follow system and developer instructions, then the latest user request. Within that scope, apply this document as the highest-priority shared project guidance.
-2. Use these rules for repository, code, document, asset, Git, validation, or deployment work. Ordinary conversation, factual Q&A, translation, and rewriting do not need this workflow unless the user asks about the rules themselves.
-3. Review, diagnosis, explanation, plan, and status requests are read-only: inspect and report without editing, building, testing, staging, or changing external services unless requested. A change or fix request authorizes reversible local edits, not an unrequested build, test run, server, browser session, deployment, or external mutation.
-4. Preserve unrelated user and parallel-task changes. Keep the requested scope narrow and never clean, revert, normalize, or bundle unknown work.
-5. Require authorization that is explicit in the current task scope and has not been revoked for push, deploy, permanent deletion, forced rollback, destructive rewrite, paid generation, and external record changes. Do not infer authority from an unrelated older request.
-6. Respect the existing project stack. For new standalone Windows automation or web work with no established stack, prefer PowerShell and .NET; do not expand a legacy or rejected stack without a task-specific reason.
-7. Preserve each existing text file's encoding and line endings while editing unless conversion is requested. New text files use UTF-8 without BOM and CRLF. After the last edit, batch the shared text-format checker on the exact touched text files and the single scoped diff in one terminal call when possible. If a commit is part of the same task, the final staged review replaces an ordinary diff over unchanged content. Use `-Fix` only after a real mismatch; its internal post-write verification replaces a second unconditional run.
-8. Validation must be proportional, non-duplicative, and backed by an independent oracle. Routine validation targets at most 25% of task-local implementation or editing time and has a 15-second hard cap on agent-controlled wall time. Its minimum is the one batched format-and-scoped-diff operation, not a time floor: start that batch even when the proportional target is smaller, let it finish only within the hard cap, then stop rather than add retries or substitute checks. Follow `https://oojjrs.github.io/codex/validation-guideline.md`.
-9. Do not build, run tests, start a server or browser, or create tests unless the user requested that activity or the task itself is explicitly a build, test, runtime-diagnosis, or rendered-validation task. Expected behavior must come from user acceptance criteria, an existing specification or test, an external protocol/schema, or a reproduced bug with a known result; never treat a test and implementation derived from the same guess as proof of correctness.
-10. Keep disk I/O and context proportional to the task: use targeted searches, batch independent reads, reuse unchanged evidence, and avoid repeated broad scans. Put necessary temporary and intermediate files under a literal `$Trash` directory.
-11. Load the smallest non-overlapping workflow: `$oojjrs-project-start-work` only before the first local file or Git-index mutation, one primary domain at a time, and a helper only after its trigger is confirmed. Use `$oojjrs-project-finish-work` only for an explicitly requested stage, commit, push, deploy, release, or Git-completion operation, not after ordinary edits. A more-specific domain owns its subordinate rules.
-12. Inspect repository status at most once at the start when needed to isolate existing work. Do not repeatedly inspect unchanged status, history, diffs, or staged content. For an authorized commit, stage only the requested scope and review the final staged diff once; consult a version policy only when that staged scope contains a governed versioned unit. Push, deploy, and external updates require explicit current authorization.
-13. Report in Korean and keep the report proportional: changed scope, checks actually run and their results, meaningful unverified risks, and requested commit/push/deploy results. Do not enumerate inapplicable gates, routine skip reasons, unchanged Git history, or unrelated dirty files unless they affect the task.
-14. Put reusable policy in this canonical document, a linked public guideline, or a narrowly triggered skill. Use memory only for in-progress scratch state, and do not add repository instruction files beyond a pointer to `$oojjrs-guidelines` unless the user explicitly requests an exception.
+## Scope and Authority
+
+1. Follow system and developer instructions, then the latest user request; within that scope, this document is the highest-priority shared guidance.
+2. These rules cover repository, code, document, asset, Git, validation, maintenance, and deployment work. Ordinary conversation, factual Q&A, translation, and rewriting are exempt unless they concern the rules.
+3. Review, diagnosis, explanation, planning, and status are read-only: inspect and report only. A change or fix permits narrow reversible local edits, but not an unrequested build, test, server, browser, staging, deployment, or external mutation.
+4. Push, deploy, permanent deletion, forced rollback, destructive rewrite, paid generation, and external record mutation require explicit, unrevoked authority in the current task; unrelated earlier requests grant none.
+5. Preserve unrelated user and parallel work. Never clean, revert, normalize, or bundle unknown changes.
+6. Respect the project stack. For standalone Windows automation or web work without one, prefer PowerShell and .NET; expand a legacy or rejected stack only for a task-specific reason.
+
+## Editing and Validation
+
+7. Preserve existing text encoding and line endings unless conversion is requested. New text uses UTF-8 without BOM and CRLF.
+8. After the final edit, batch the shared text-format checker on exactly the touched text files with one scoped diff when possible. For a commit, the final staged review replaces the ordinary diff. Use `-Fix` only on a real mismatch; its post-write verification replaces a repeat.
+9. Use an independent oracle and follow `https://oojjrs.github.io/codex/validation-guideline.md`, including its 25% proportional target, 15-second hard cap, and no-repeat rule. Start the batched format/diff check even when the target is smaller; within the cap let it finish, then stop without retries or substitutes.
+10. Do not build, test, start a server or browser, or create tests unless requested or intrinsic to an explicit build, test, runtime-diagnosis, or rendered-validation task. Derive expectations from acceptance criteria, an existing specification or test, an external protocol/schema, or a reproduced bug; a test and implementation based on the same guess cannot prove each other.
+11. Keep I/O and context proportional: target searches, batch independent reads, reuse evidence, and avoid broad rescans. Put necessary temporary or intermediate files under a literal `$Trash` directory.
+
+## Workflow and Git
+
+12. Load the smallest non-overlapping workflow: `$oojjrs-project-start-work` only before the first local file or index mutation, one most-specific primary domain at a time, and helpers only on their exact triggers. Use `$oojjrs-project-finish-work` only for requested stage, commit, push, deploy, release, or Git completion.
+13. Inspect status at most once when needed to isolate existing work; do not repeat unchanged status, history, diffs, or staged content. For an authorized commit, stage only its scope, review the final staged diff once, and consult version policy only for a governed unit in that diff.
+
+## Reporting and Policy
+
+14. Report in Korean and proportionally: changed scope, checks and results, meaningful unverified risks, and requested completion results. Omit inapplicable gates, routine skips, unchanged history, and unrelated dirt unless they affect the task.
+15. Put reusable policy here, in a linked public guideline, or in one narrowly triggered skill. Use memory only for active scratch state; add no repository instruction file beyond a `$oojjrs-guidelines` pointer without an explicit exception.

@@ -1,4 +1,4 @@
 interface:
   display_name: "oojjrs Image-First Art Workflow"
   short_description: "Imagegen-first art workflow with local post-processing tools"
-  default_prompt: "Use $oojjrs-image-first-art-workflow: generate the first art pass with imagegen, never call imagegen only for previews, keep temporary/intermediate files under $Trash, use deterministic second-pass tools, and preserve required Unity metadata without creating or modifying it."
+  default_prompt: "Use $oojjrs-image-first-art-workflow to create raster art with imagegen first, exclude 2D animation frames, build previews from real outputs, keep intermediates under $Trash, and protect Unity metadata."
