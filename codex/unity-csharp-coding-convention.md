@@ -5,7 +5,7 @@ First-party only. Priority: local > here > Unity > VS/Microsoft. Exclude generat
 ## Core
 
 1. New/edited statements through `;`, declaration headers including parameters/`where`, and call arguments stay on one physical line regardless of length. Preserve user wraps unless asked.
-2. Single body: no braces. Nested control-only body: brace outer except `else if`. One braced `if` branch: brace all.
+2. One-line simple-statement body: no braces. When the body is another control statement, brace the outer statement except `else if`; nested `using` follows 27. One braced `if` branch: brace all.
 3. One attribute per line directly above its declaration.
 4. One empty line at required boundaries and after `using`; never consecutive, whitespace-only, or directly inside braces.
 5. Type scope: one line between member sections, inheritance groups, nested types, functions. Keep groups and attached metadata together.
@@ -42,7 +42,7 @@ First-party only. Priority: local > here > Unity > VS/Microsoft. Exclude generat
 
 25. Externally created/owned lifecycle object: get-only property, not mutable public field.
 26. Do not repeat a construction type: initializer names it -> `var`; target names it -> `new(...)`/`new()`.
-27. Use `using (...)` blocks, never `using var`.
+27. Use `using (...)` statements, never `using var`. A one-line, semicolon-terminated simple-statement body omits braces; every other body uses braces. In nested `using`, each outer `using` whose body is another `using` uses braces; the innermost omits them when its body meets the one-line rule.
 28. Modifiers: access > `sealed` > `override`.
 29. Sections: nested types > variables > properties > events > functions.
 30. After 29/31/34, alphabetize only within one category/inheritance group; never mix groups.

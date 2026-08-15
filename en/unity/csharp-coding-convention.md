@@ -98,7 +98,7 @@ private void GrantReward()
 ```
 
 
-### 02. Strongly prefer omitting braces from single embedded-statement bodies
+### 02. Omit braces from one-line simple-statement bodies
 
 Correct:
 
@@ -138,7 +138,7 @@ else
 }
 ```
 
-Incorrect without a concrete reason:
+Incorrect:
 
 ```csharp
 foreach (var enemy in enemies)
@@ -761,13 +761,20 @@ public sealed class Inventory
 ```
 
 
-### 27. Do not use the newer using-declaration form
+### 27. Use `using (...)`; omit braces for one-line simple bodies and require them otherwise
+
+Use the `using (...)` statement form instead of a using declaration. A one-line, semicolon-terminated simple-statement body omits braces; every other body uses braces. In nested `using` statements, each outer `using` whose body is another `using` uses braces; the innermost `using` omits them when its body meets the one-line rule.
 
 Correct:
 
 ```csharp
 using (var stream = File.OpenRead(path))
+    Process(stream);
+
+using (var input = File.OpenRead(sourcePath))
 {
+    using (var output = File.Create(destinationPath))
+        input.CopyTo(output);
 }
 ```
 
@@ -775,6 +782,20 @@ Incorrect:
 
 ```csharp
 using var stream = File.OpenRead(path);
+
+using (var input = File.OpenRead(sourcePath))
+using (var output = File.Create(destinationPath))
+{
+    input.CopyTo(output);
+}
+
+using (var input = File.OpenRead(sourcePath))
+{
+    using (var output = File.Create(destinationPath))
+    {
+        input.CopyTo(output);
+    }
+}
 ```
 
 

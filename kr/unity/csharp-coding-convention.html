@@ -467,7 +467,7 @@ private void GrantReward()
       <article class="rule-card">
         <div class="rule-index">02</div>
         <div class="rule-body">
-          <h3>단일 내장문 본문은 중괄호 생략을 강력히 권장한다</h3>
+          <h3>한 줄짜리 단순문 본문은 중괄호를 생략한다</h3>
           <div class="example-pair">
             <div class="example good">
               <div class="example-label">올바른 사용</div>
@@ -498,7 +498,7 @@ else
 }</code></pre>
             </div>
             <div class="example bad">
-              <div class="example-label">명확한 사유가 없다면 잘못된 사용</div>
+              <div class="example-label">잘못된 사용</div>
               <pre><code>foreach (var enemy in enemies)
 {
     enemy.Update();
@@ -1168,17 +1168,37 @@ RewardBucket</code></pre>
       <article class="rule-card">
         <div class="rule-index">27</div>
         <div class="rule-body">
-          <h3>신규 using 형태는 사용하지 않는다</h3>
+          <h3>using var 선언은 쓰지 않고, 한 줄 단순문 본문은 중괄호를 생략하며 그 밖에는 쓴다</h3>
+          <p>using (...) 본문이 세미콜론으로 끝나는 한 줄 단순문 하나면 중괄호를 생략하고, 그 밖의 본문에는 중괄호를 쓴다. using이 중첩되면 다른 using을 본문으로 갖는 바깥 using에는 중괄호를 쓰고, 가장 안쪽 using의 본문이 한 줄 단순문이면 중괄호를 생략한다.</p>
           <div class="example-pair">
             <div class="example good">
               <div class="example-label">올바른 사용</div>
               <pre><code>using (var stream = File.OpenRead(path))
+    Process(stream);
+
+using (var input = File.OpenRead(sourcePath))
 {
+    using (var output = File.Create(destinationPath))
+        input.CopyTo(output);
 }</code></pre>
             </div>
             <div class="example bad">
               <div class="example-label">잘못된 사용</div>
-              <pre><code>using var stream = File.OpenRead(path);</code></pre>
+              <pre><code>using var stream = File.OpenRead(path);
+
+using (var input = File.OpenRead(sourcePath))
+using (var output = File.Create(destinationPath))
+{
+    input.CopyTo(output);
+}
+
+using (var input = File.OpenRead(sourcePath))
+{
+    using (var output = File.Create(destinationPath))
+    {
+        input.CopyTo(output);
+    }
+}</code></pre>
             </div>
           </div>
         </div>
