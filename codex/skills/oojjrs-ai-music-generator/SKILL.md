@@ -10,9 +10,11 @@ Use the bundled `scripts/Generate-AiMusic-Chrome.ps1`. The current site uses Rai
 ## Workflow
 
 1. Resolve inputs.
-   - Require a music description of 1-199 characters.
+   - Draft or translate the music description into natural English, then require the final English prompt to be 1-199 characters.
+   - Submit only English generation instructions through `-Prompt` and optional `-Style`, regardless of the user's language. A title may keep the user's requested language.
+   - When previewing or explaining the prompt to the user in chat, show only its Korean translation. Never submit that translation to the site or pass it to the script.
    - Accept an optional title of up to 80 characters.
-   - Accept an optional style of up to 120 characters; when style is present, require a title.
+   - Accept an optional English style of up to 120 characters; when style is present, require a title.
    - Keep instrumental mode enabled. Do not add lyrics or expose an option to disable instrumental mode.
    - Use the requested output directory. Otherwise use `$Trash` in the active workspace.
 
