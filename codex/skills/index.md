@@ -30,6 +30,7 @@ Load the core once, add start only before mutation, select one most-specific dom
 | Domain | `$oojjrs-image-first-art-workflow` | General raster art; not 2D animation or the Mines pipeline |
 | Domain | `$oojjrs-mines-art-asset-pipeline` | `H:\Mines` art and planning-surface assets; supersedes generic parents |
 | Domain | `$oojjrs-game-audio-asset-workflow` | Audio editing, looping, installation, previews, or Design sync |
+| Domain | `$oojjrs-suno-music` | Suno creation, source inputs, generated results, and Library workflows |
 | Domain | `$oojjrs-ai-music-generator` | Explicit paid instrumental generation/download phase only |
 | Domain | `$oojjrs-windows-repo-forensics` | Windows path, repository, OneDrive, case, or false-dirty diagnosis |
 

@@ -1,11 +1,11 @@
 ---
 name: oojjrs-game-audio-asset-workflow
-description: Use as the primary domain for game audio tasks that include editing, looping, SFX preparation, runtime placement, preview tables, Design.html synchronization, or Unity-safe installation. Generation/download-only requests use $oojjrs-ai-music-generator. A larger integrated task switches to that generator only during its explicit generation phase, never as a preload.
+description: Use as the primary domain for game audio tasks that include editing, looping, SFX preparation, runtime placement, preview tables, Design.html synchronization, or Unity-safe installation. Generation/download-only requests use $oojjrs-suno-music when Suno is explicit and $oojjrs-ai-music-generator for ai-music-generator.ai. A larger integrated task switches to only the selected generator during its explicit generation phase, never as a preload.
 ---
 
 # oojjrs Game Audio Asset Workflow
 
-Use this as the primary domain for project-integrated game audio work. When a new paid track is explicitly required, close the current phase, route the generation phase to `$oojjrs-ai-music-generator`, then return with its downloaded results; do not preload both skills.
+Use this as the primary domain for project-integrated game audio work. When a new paid track is explicitly required, close the current phase, route the generation phase to `$oojjrs-suno-music` when Suno is explicit or to `$oojjrs-ai-music-generator` for ai-music-generator.ai, then return with its results; do not preload either generator with this skill.
 
 ## Workflow
 

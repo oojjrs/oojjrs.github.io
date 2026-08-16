@@ -31,6 +31,7 @@ $CanonicalSkills = @(
     "oojjrs-image-first-art-workflow",
     "oojjrs-mines-art-asset-pipeline",
     "oojjrs-game-audio-asset-workflow",
+    "oojjrs-suno-music",
     "oojjrs-ai-music-generator",
     "oojjrs-visual-qa",
     "oojjrs-dirty-worktree-scope-split",
@@ -73,6 +74,15 @@ $SkillFiles = @{
         "SKILL.md",
         "agents/openai.yaml",
         "scripts/Generate-AiMusic-Chrome.ps1"
+    )
+    "oojjrs-suno-music" = @(
+        "SKILL.md",
+        "agents/openai.yaml",
+        "references/browser-session.md",
+        "references/create-options.md",
+        "references/recovery-and-validation.md",
+        "references/results-and-library.md",
+        "references/source-inputs.md"
     )
 }
 $ToolDependencies = @{
