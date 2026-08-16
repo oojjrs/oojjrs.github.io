@@ -20,6 +20,8 @@ Use stable song URLs or IDs as result identity. Never treat list position, title
 4. Mark a result ready only when its stable link exists and its Play control is enabled or another authoritative completion signal is visible.
 5. Preserve completed variants even if another variant fails or remains unresolved.
 
+Prefer the clip's persistent status and combined UI evidence over one permissive control. A stable ID with `data-clip-status="streaming"`, a spinner, or disabled Remix remains active even when its Play surface exposes `aria-disabled="false"`. Do not resubmit it. If it later completes, report its actual duration even when it differs sharply from the requested target.
+
 If the page is filtered, paginated, or sorted away from new items, use one focused change to expose the newest relevant results, then verify by ID. Do not clear unrelated user filters without a task-specific reason.
 
 ## Play and compare
@@ -32,6 +34,8 @@ Playback and visible metadata inspection are read-only. Compare variants by:
 - user-requested musical acceptance criteria.
 
 Do not start unexpected audible playback merely to prove readiness. When auditioning is requested, play one identified result at a time and report which URL is active.
+
+Prompt text, Styles, exclusions, tags, title, and duration prove requested inputs, not audible adherence. Do not evaluate motif retention, transition quality, instrumentation, energy, or aesthetic fit without an authorized audition or independent audio analysis. If the user declines agent playback, provide the stable links and wait for their acceptance before selecting a winner or chaining another derivative.
 
 ## Download
 
@@ -72,6 +76,15 @@ For any generative derivative:
 6. submit once and track new IDs independently.
 
 Do not treat permission to create an original song as permission to Remix, Extend, Remaster, or add vocals afterward.
+
+### Identity-sensitive Extend
+
+Treat Extend as generative continuation, not deterministic arrangement editing. Bracket tags, high Audio Influence, low Weirdness, exclusions, and short requested duration can guide a batch, but none guarantees preservation of the source motif, timbre, mix, energy, or join.
+
+- State this limitation when exact identity is a primary acceptance criterion.
+- For staged expansion, submit one batch for one stage, then stop for audition and explicit source selection before Get Whole Song or the next Extend. A technically complete but rejected stage must not become the next source.
+- Change one meaningful control axis between diagnostic batches when possible; do not combine many prompt, slider, source-point, and duration changes and then claim to know which one helped.
+- After repeated identity drift or user rejection, stop paid prompt-chasing. Offer Song Editor or Replace Section for a localized repair, or return exact motif preservation, stem rearrangement, looping, and deterministic assembly to `$oojjrs-game-audio-asset-workflow`.
 
 ## Share and publish
 

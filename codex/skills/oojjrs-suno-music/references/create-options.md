@@ -52,6 +52,10 @@ Use Advanced when the user specifies multiple independent controls or any source
 - **Prompt**: Describe what the lyrics should be about. Read the live lyrics-model selector. Current UI can expose `Classic` for closer prompt following and `ReMi` for more creative, potentially offensive output. Do not choose ReMi silently.
 - **Instrumental**: Select the radio and verify both its checked state and the visible no-vocals/no-lyrics message.
 
+Treat bracketed structure and instrument cues as probabilistic hints, not deterministic section automation. Do not promise that a tag will preserve a motif, assign an exact instrument, enforce a transition, or prevent an unrelated section.
+
+The current Advanced UI exposes Write, Prompt, and Instrumental as mutually exclusive modes. Entering bracket-only instructions therefore requires Write mode; starting with `[Instrumental]` is only a model hint and does not guarantee a vocal-free result. When testing this workaround, disclose the vocal-leak risk and add concrete vocal exclusions. When guaranteed lyric-free form input matters more than bracket control, use Instrumental mode and leave the Lyrics editor unavailable.
+
 Prefer an accessible radio name when the live page provides one. If the radio has no accessible name, enumerate visible `button[role="radio"]` controls within the Lyrics mode group, match the exact rendered text, click that button, and verify its `aria-checked="true"` state. Never select a global radio by index while hidden forms are present.
 
 Vocal Gender is meaningful only for a vocal mode. If the control is absent, disabled, or ignored by the current model, report that limitation instead of fabricating a value.
@@ -63,12 +67,16 @@ Vocal Gender is meaningful only for a vocal mode. If the control is absent, disa
 - Fill Exclude Styles only for concrete negative constraints such as unwanted instruments, vocal styles, or production traits.
 - Suggested styles and personalized prompts are account-dependent. Apply them only when they match user intent.
 - Read text values back after filling. A section summary is not proof that the underlying textbox holds the requested value.
+- When source identity is the priority, keep Styles compact and avoid restating a new genre, orchestration, or long-form arrangement that can compete with the attached audio. Put optional section hints in the Lyrics editor only when the user accepts the Write-mode tradeoff above.
+- Distinguish `seamless continuation`, which asks for a smooth source-to-extension join, from `seamless loop`, which asks for the ending to wrap to the beginning. Do not introduce loop wording unless the user requested a loop.
 
 ### Creative controls
 
 - **Weirdness** moves from safer expected output toward more chaotic variation. The UI currently presents 50% as expected results.
 - **Style Influence** moves from loose interpretation toward stronger adherence to Styles. The UI currently presents 50% as moderate.
 - **Audio Influence** can appear after Audio or Voice input. Set it only when present and requested; higher influence follows the source more closely.
+
+Influence values change generation probability; they do not guarantee exact motif, timbre, orchestration, energy, or edit continuity. Never describe a high Audio Influence value as an identity lock or use slider readback as evidence that the rendered audio will match.
 
 Set a slider from current evidence rather than assuming keyboard semantics:
 
@@ -87,6 +95,7 @@ Set a slider from current evidence rather than assuming keyboard semantics:
 - If the requested length is outside the live control's accepted range, report the clamped or unavailable value before submission.
 - Inspect only visible inputs inside the Duration section. The page can retain hidden inactive-mode inputs with an `Auto` placeholder.
 - A current implementation can expose a formatted `m:ss` control together with an underlying numeric input such as a 1-300 range. Infer seconds only when the current raw value and visible formatted value agree; for example, raw 180 paired with `3:00`. Fill or adjust the scoped control, commit with the supported blur or key action, then verify the final formatted time. If the unit or committed value remains ambiguous, leave Duration unresolved and do not submit.
+- Treat Duration as a generation target rather than a hard output boundary. Read each completed result's actual duration; an Extend result can overshoot substantially, so do not infer the extension length or stitched total from the configured value.
 
 ### Metadata and destination
 

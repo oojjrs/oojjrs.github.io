@@ -44,6 +44,8 @@ Use this state model:
 
 If a click may have reached Suno, never click again automatically. Inspect the Library, active placeholders, alerts, and new IDs. Leave the state `unresolved` when evidence cannot distinguish failure from delayed acceptance.
 
+Technical completion is not musical acceptance. A ready clip, matching metadata, or a prompt echoed in the result proves delivery state only; it does not prove that the arrangement, motif, transition, instrumentation, duration, or subjective quality followed the request.
+
 ## Enforce browser and account safety
 
 - Never request, read, copy, store, or expose passwords, cookies, local storage, tokens, browser profiles, or session files.
@@ -70,4 +72,4 @@ Report only what matters:
 - downloads or account mutations actually completed;
 - plan gates, user handoffs, or unverified risks that affect the result.
 
-Do not claim that a song, upload, download, publish, or deletion succeeded from a click alone.
+Do not claim that a song, upload, download, publish, or deletion succeeded from a click alone. Without an authorized audition or independent audio analysis, report configured intent and technical readiness only. Do not call a result good, faithful, seamless, or suitable from prompt text, metadata, or duration.
