@@ -685,7 +685,7 @@ private void SetTargetFallback(Transform fallback)
       <article class="rule-card">
         <div class="rule-index">08</div>
         <div class="rule-body">
-          <h3>인터페이스는 Interface 접미사를 쓴다</h3>
+          <h3>상속한 역할을 파생 클래스 이름에 남긴다</h3>
           <div class="example-pair">
             <div class="example good">
               <div class="example-label">올바른 사용</div>
@@ -693,7 +693,35 @@ private void SetTargetFallback(Transform fallback)
 {
 }
 
-private FunctionInterface function;</code></pre>
+private FunctionInterface function;
+
+public class Some
+{
+}
+
+public sealed class FooSome : Some
+{
+}
+
+public sealed class FooFunction : FunctionInterface
+{
+}
+
+public class Bar
+{
+}
+
+public class FooBar : Bar
+{
+}
+
+public sealed class SomeFooBar : FooBar
+{
+}
+
+public sealed class IngameMenu : Page
+{
+}</code></pre>
             </div>
             <div class="example bad">
               <div class="example-label">잘못된 사용</div>
@@ -701,9 +729,22 @@ private FunctionInterface function;</code></pre>
 {
 }
 
-private FunctionInterface functionInterface;</code></pre>
+private FunctionInterface functionInterface;
+
+public sealed class Foo : Some
+{
+}
+
+public sealed class FooFunctionInterface : FunctionInterface
+{
+}
+
+public sealed class IngameMenuPage : Page
+{
+}</code></pre>
             </div>
           </div>
+          <p><code>IngameMenu</code>는 21번 규칙에 따라 Unity Hierarchy 오브젝트와 스크립트 이름을 맞춰야 하므로 예외로 둔다.</p>
         </div>
       </article>
       <article class="rule-card">

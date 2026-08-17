@@ -19,6 +19,8 @@ toc_items:
     label: "Syntax and structure"
 ---
 
+<div markdown="1">
+
 [← Unity]({{ "/en/unity/" | relative_url }}) · [한국어]({{ "/kr/unity/csharp-coding-convention.html" | relative_url }})
 {: .article-backlink }
 
@@ -312,7 +314,7 @@ private void SetTargetFallback(Transform fallback)
 
 ## Naming {#naming}
 
-### 08. Interfaces use the `Interface` suffix
+### 08. Derived class names retain the inherited role
 
 Correct:
 
@@ -322,6 +324,34 @@ public interface FunctionInterface
 }
 
 private FunctionInterface function;
+
+public class Some
+{
+}
+
+public sealed class FooSome : Some
+{
+}
+
+public sealed class FooFunction : FunctionInterface
+{
+}
+
+public class Bar
+{
+}
+
+public class FooBar : Bar
+{
+}
+
+public sealed class SomeFooBar : FooBar
+{
+}
+
+public sealed class IngameMenu : Page
+{
+}
 ```
 
 Incorrect:
@@ -332,7 +362,21 @@ public interface IFunction
 }
 
 private FunctionInterface functionInterface;
+
+public sealed class Foo : Some
+{
+}
+
+public sealed class FooFunctionInterface : FunctionInterface
+{
+}
+
+public sealed class IngameMenuPage : Page
+{
+}
 ```
+
+`IngameMenu` is an exception because rule 21 requires the Unity hierarchy object and script names to match.
 
 
 ### 09. Static-field prefixes depend on the immediate declaring type
@@ -1208,3 +1252,5 @@ private int Run(Player player)
     return score;
 }
 ```
+
+</div>

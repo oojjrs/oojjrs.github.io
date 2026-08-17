@@ -14,7 +14,7 @@ First-party only. Priority: local > here > Unity > VS/Microsoft. Exclude generat
 
 ## Naming
 
-8. Interface: type suffix `Interface`; variable no marker.
+8. Inherited-role naming: append the direct base type to the derived role: `FooSome : Some`; drop only `Interface` from an interface role: `FooSome : SomeInterface`; preserve the full direct base-class name in deeper chains: `SomeFooBar : FooBar`, `FooBar : Bar`. Rule 21 Unity object/script name identity takes priority: `IngameMenu : Page`, not `IngameMenuPage`. Interface types use suffix `Interface`; variables do not.
 9. Static field except `const`/`readonly`: non-static type public `__PascalCase`/private `__camelCase`; static class public `_PascalCase`/private `_camelCase`. Judge immediate type.
 10. `const`/`readonly`: unprefixed PascalCase; mutable `static readonly` also follows 31.
 11. Property: noun/adjective; Boolean question `Is`/`Has`, not action.
