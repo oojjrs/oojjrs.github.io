@@ -3,13 +3,13 @@ layout: reference
 title: "게임 UI 실무 노트"
 lang: ko-KR
 category: "GAME UI NOTES"
-description: "FHD PC와 게임패드 지원을 기준으로 반복해서 참고할 UI 규격, 판단 근거, 측정 사례를 정리한 개인 작업 노트입니다."
+description: "FHD PC와 게임패드 지원을 기준으로 반복해서 참고할 UI 규격, 입력 경로, 판단 근거와 측정 사례를 정리한 개인 작업 노트입니다."
 permalink: /kr/unity/game-ui-notes/
 parent_url: /kr/unity/
 parent_label: "Unity 문서"
 status: "초안"
-last_updated: "2026-08-02"
-summary: "FHD PC에서 게임패드까지 지원하는 일반 버튼은 60~64px가 무난하다. 새 8px 그리드에서는 64px를 기본으로 삼고, 기존 4px 그리드에서는 60px를 유지해도 된다."
+last_updated: "2026-08-17"
+summary: "패드·키보드와 마우스·터치가 같은 기능을 실행하면 장치별 입력은 어댑터에서만 해석하고 하나의 공유 기능 진입점으로 합류시킨다. FHD의 일반 버튼 높이는 60~64px를 기본으로 삼는다."
 quick_facts:
   - label: "COMPACT"
     value: "48px"
@@ -31,6 +31,8 @@ toc_items:
     label: "버튼 폭 비율"
   - id: controller
     label: "게임패드 기준"
+  - id: input-routing
+    label: "입력 경로 통합"
   - id: know-how
     label: "설계 노하우"
   - id: measurements
@@ -96,6 +98,41 @@ toc_items:
 - 상하좌우 이동 결과가 화면 배치와 일치하도록 명시적인 navigation을 검토한다.
 - 비활성 버튼도 읽을 수 있어야 하지만 활성 버튼이나 현재 포커스와 혼동되어서는 안 된다.
 - 메인 메뉴처럼 멀리서 읽을 가능성이 있는 화면은 64~72px, 조밀한 설정 화면은 48~64px 안에서 밀도를 조절한다.
+
+## 입력 경로 통합 {#input-routing}
+
+패드·키보드와 마우스·터치가 같은 기능을 실행하면, 장치별 입력을 각자 처리한 뒤 **하나의 공유 기능 진입점**으로 합류시킨다. Receiver, UI Callback, Page는 장치나 현재 화면의 입력을 기능 의미로 번역하는 어댑터이며 기능 자체를 소유하지 않는다.
+
+```text
+패드·키보드 → Input Receiver ─┐
+                              ├→ Shared Action → 기능·상태·화면 전환
+마우스·터치 → UI Callback ───┘
+```
+
+공유 진입점은 실제 기능, 상태 변경, 화면 전환, 클릭 효과음 같은 공통 피드백을 한 번만 수행한다. 따라서 어느 입력 장치로 실행해도 결과와 피드백이 같고 한 번씩만 발생해야 한다.
+
+```csharp
+// 패드·키보드
+void PlayerActionsInterface.OnMenu(InputAction.CallbackContext context)
+{
+    if (context.performed)
+        UiActions.ShowIngameMenu();
+}
+
+// 마우스·터치
+void ButtonCallbackInterface.OnClick()
+{
+    UiActions.ShowIngameMenu();
+}
+```
+
+다음 경계를 지킨다.
+
+- 한 입력 경로가 Panel이나 게임 명령을 직접 호출하고 다른 경로만 공유 Action을 통과하게 두지 않는다.
+- Page는 현재 화면에서 입력이 무엇을 뜻하는지 매핑할 수 있지만, 기능 실행과 공통 피드백을 직접 소유하지 않는다.
+- 공유 진입점의 실제 이름과 위치는 프로젝트 구조에 맞춘다. `Hub.Actions`, command, application service 중 무엇을 쓰든 합류 책임이 같으면 된다.
+- 실제로 입력 경로가 하나뿐인 기능까지 억지로 공유 Action으로 승격하지 않는다.
+- 완료 기준은 모든 동등 입력 경로가 같은 진입점을 호출하고, 결과와 공통 피드백이 장치와 무관하게 동일하게 한 번 발생하는 것이다.
 
 ## 설계 노하우 {#know-how}
 
@@ -188,6 +225,7 @@ toc_items:
 | --- | --- | --- |
 | 2026-08-02 | 패드 지원 일반 버튼의 초안 기본값을 64px로 둔다. | 상용 게임 측정 중심 구간과 8px 그리드를 함께 만족한다. |
 | 2026-08-02 | 기존 60px 규격도 허용한다. | 4px 그리드와 잘 맞고 FHD에서 충분한 가시 높이를 확보한다. |
+| 2026-08-17 | 동등한 패드·키보드와 마우스·터치 입력은 하나의 공유 기능 진입점으로 합류시킨다. | 장치별 콜백에 기능·화면 전환·피드백이 중복되거나 서로 다른 결과를 만드는 문제를 막는다. |
 | 2026-08-02 | 기존 100px 규격은 Hero 용도로 제한한다. | 반복 메뉴의 과도한 밀도를 줄이면서 강조 위계를 보존한다. |
 
   </div>
