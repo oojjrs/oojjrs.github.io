@@ -48,6 +48,10 @@ Steamworks 문서 전체를 외워서 재현하지 말고, 사용자의 요청�
 
 이 검사는 SteamCMD를 실행하지 않고 파일과 ContentBuilder 레이아웃만 확인한다. SteamCMD는 실행 시 부트스트랩과 자동 업데이트가 발생할 수 있으므로 버전 확인만을 위해 실행하지 않는다.
 
+## SteamPipe 배포 자동화
+
+Preview와 실제 업로드에는 `scripts/Publish-SteamPipeBuild.ps1`을 사용한다. 프로젝트 저장소에 이 스크립트나 생성 VDF를 복제하지 말고, AppID·DepotID·ContentRoot·SteamCmdPath·BuildOutput·SteamUser와 필수 파일을 실행 인자로 전달한다. Preview와 Upload는 별도 호출하며 `-SetLive`는 사용자가 정확한 beta branch 변경을 요청한 경우에만 쓴다. default branch는 자동 SetLive하지 않는다.
+
 ## 구현 공백 처리
 
 다음 중 하나면 즉시 구현 필요를 알린다.

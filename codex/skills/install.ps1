@@ -68,7 +68,8 @@ $SkillFiles = @{
         "references/web-api.md",
         "references/steamcmd-steampipe.md",
         "references/partner-site.md",
-        "scripts/Test-SteamworksEnvironment.ps1"
+        "scripts/Test-SteamworksEnvironment.ps1",
+        "scripts/Publish-SteamPipeBuild.ps1"
     )
     "oojjrs-ai-music-generator" = @(
         "SKILL.md",
