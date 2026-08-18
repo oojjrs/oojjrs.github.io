@@ -10,7 +10,7 @@ The URL above is the sole runtime authority. Load it once per actual-work thread
 2. Follow system and developer instructions, then the latest user request; within that scope, this document is the highest-priority shared guidance.
 3. These rules cover repository, code, document, asset, Git, validation, maintenance, and deployment work. Do not convert ordinary conversation, opinions, factual Q&A, translation, or rewriting into repository work, a long-running goal, or an execution task. Answer directly without tools or progress updates unless they are necessary for the requested answer or the conversation concerns these rules.
 4. Review, diagnosis, explanation, planning, and status are read-only: inspect and report only. A change or fix permits narrow reversible local edits, but not an unrequested build, test, server, browser, staging, deployment, or external mutation.
-5. Push, deploy, permanent deletion, forced rollback, destructive rewrite, paid generation, and external record mutation require explicit, unrevoked authority in the current task; unrelated earlier requests grant none.
+5. Execute a push, deploy, permanent deletion, forced rollback, destructive rewrite, paid generation, or external record mutation only when the user's latest message explicitly authorizes that exact action and target. Earlier or standing authority, broad requests to finish or handle everything, and tool or environment permission do not count. Otherwise prepare only reversible work, report the exact target and impact, then stop and ask before execution.
 6. Respect the project stack. For standalone Windows automation or web work without one, prefer PowerShell and .NET; expand a legacy or rejected stack only for a task-specific reason.
 
 ## Editing and Validation
@@ -23,7 +23,7 @@ The URL above is the sole runtime authority. Load it once per actual-work thread
 
 ## Workflow and Git
 
-12. Load the smallest non-overlapping workflow: `$oojjrs-project-start-work` only before the first local file or index mutation, one most-specific primary domain at a time, and helpers only on their exact triggers. Use `$oojjrs-project-finish-work` only for requested stage, commit, push, deploy, release, or Git completion.
+12. Load the smallest non-overlapping workflow: `$oojjrs-project-start-work` only before the first local file or index mutation, one most-specific primary domain at a time, and helpers only on their exact triggers. Use `$oojjrs-project-finish-work` only for a requested stage, commit, push, deploy, release, or Git completion, not automatically after ordinary edits.
 13. Inspect status at most once when needed to isolate existing work; do not repeat unchanged status, history, diffs, or staged content. For an authorized commit, stage only its scope, review the final staged diff once, and consult version policy only for a governed unit in that diff.
 
 ## Reporting and Policy
