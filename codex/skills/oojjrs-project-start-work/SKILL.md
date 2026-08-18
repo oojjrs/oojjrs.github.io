@@ -19,7 +19,7 @@ Run this lifecycle gate once, immediately before the first authorized local file
 
 Load an applicable reference once before the relevant edit, then reuse it in downstream domain skills:
 
-- first-party application or business-layer names in a game/server: `https://oojjrs.github.io/codex/semantic-layer-naming-guideline.md`
+- first-party application or business-layer names created or changed by any coding task, regardless of language, engine, or platform: `https://oojjrs.github.io/codex/semantic-layer-naming-guideline.md`
 - Unity C# code: `https://oojjrs.github.io/codex/unity-csharp-coding-convention.md`
 - first-party log messages: `https://oojjrs.github.io/codex/logging-guideline.md`
 

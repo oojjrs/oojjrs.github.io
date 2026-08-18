@@ -36,7 +36,7 @@ The public installer attempts to install `ImageMagick.ImageMagick` and `shssoich
 
 ## Temporary Files
 
-Put every temporary or intermediate image file under a literal `$Trash` folder, including raw or downloaded candidates, rejected experiments, contact sheets, masks, cleanup inputs, previews, and resized, cropped, or post-processed variants. Use the repository or project root's `$Trash`; if no root is clear, use one under the current directory or explicitly requested output directory.
+Put every temporary or intermediate image file under a literal `$Trash` folder directly under the repository or project root, including raw or downloaded candidates, rejected experiments, contact sheets, masks, cleanup inputs, previews, and resized, cropped, or post-processed variants. Resolve the root before creating temporary files; if no root is clear, stop instead of using the current or output directory.
 
 Do not create ad-hoc `tmp`, `temp`, or `scratch` folders. Override a tool's temp default before it writes; if `$Trash` is blocked, stop and report the blocker. Quote literal PowerShell paths such as `'.\$Trash'` so `$Trash` is not expanded as a variable.
 
