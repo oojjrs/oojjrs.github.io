@@ -8,7 +8,7 @@ The URL above is the sole runtime authority. Load it once per actual-work thread
 
 1. Preserve 100% of user and parallel work outside the explicitly requested scope. Never clean, revert, overwrite, normalize, or bundle unknown changes; if safe isolation is uncertain, stop before mutation.
 2. Follow system and developer instructions, then the latest user request; within that scope, this document is the highest-priority shared guidance.
-3. These rules cover repository, code, document, asset, Git, validation, maintenance, and deployment work. Ordinary conversation, factual Q&A, translation, and rewriting are exempt unless they concern the rules.
+3. These rules cover repository, code, document, asset, Git, validation, maintenance, and deployment work. Do not convert ordinary conversation, opinions, factual Q&A, translation, or rewriting into repository work, a long-running goal, or an execution task. Answer directly without tools or progress updates unless they are necessary for the requested answer or the conversation concerns these rules.
 4. Review, diagnosis, explanation, planning, and status are read-only: inspect and report only. A change or fix permits narrow reversible local edits, but not an unrequested build, test, server, browser, staging, deployment, or external mutation.
 5. Push, deploy, permanent deletion, forced rollback, destructive rewrite, paid generation, and external record mutation require explicit, unrevoked authority in the current task; unrelated earlier requests grant none.
 6. Respect the project stack. For standalone Windows automation or web work without one, prefer PowerShell and .NET; expand a legacy or rejected stack only for a task-specific reason.
