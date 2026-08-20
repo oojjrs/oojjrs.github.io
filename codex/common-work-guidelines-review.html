@@ -1,0 +1,190 @@
+---
+layout: reference
+title: "Codex 공통 작업 지침 검토본"
+lang: ko-KR
+category: "AI WORKFLOW · REVIEW"
+description: "현재 공통 작업 지침 23개를 의미 변경 없이 섹션별 목록으로 펼쳐 보는 사람용 검토 페이지입니다."
+permalink: /codex/common-work-guidelines-review/
+parent_url: /kr/codex/
+parent_label: Codex 문서 목록
+status: REVIEW VIEW
+last_updated: 2026-08-20
+quick_facts:
+  - label: "규칙"
+    value: "23개"
+    note: "현재 공개 Markdown과 같은 순서"
+    primary: true
+  - label: "구성"
+    value: "7개 섹션"
+    note: "권한부터 보고까지"
+  - label: "권위"
+    value: "Markdown"
+    note: "이 HTML은 검토용 표현"
+summary: "내용을 수정하는 문서가 아니라 현재 원문을 빠르게 훑고 문제 규칙을 지목하기 위한 읽기 전용 보기입니다."
+toc_items:
+  - id: authority
+    label: 범위와 권한
+  - id: stack
+    label: 스택과 근거
+  - id: editing
+    label: 편집과 임시 파일
+  - id: documents
+    label: 공개 문서
+  - id: validation
+    label: 검증
+  - id: workflow
+    label: 워크플로와 Git
+  - id: policy
+    label: 정책과 보고
+---
+
+<style>
+  .work-rules-review {
+    --rule-accent: #d8ff3e;
+    --rule-panel: rgba(255, 255, 255, .035);
+    --rule-line: rgba(255, 255, 255, .11);
+  }
+  .work-rules-notice {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 18px;
+    align-items: center;
+    margin: 0 0 28px;
+    padding: 14px 16px;
+    border: 1px solid rgba(216, 255, 62, .28);
+    border-radius: 12px;
+    background: rgba(216, 255, 62, .055);
+  }
+  .work-rules-notice strong { color: var(--rule-accent); letter-spacing: .04em; }
+  .work-rules-notice span { color: var(--muted); }
+  .work-rules-notice a { margin-left: auto; font-weight: 760; white-space: nowrap; }
+  .work-rules-section {
+    scroll-margin-top: 24px;
+    margin: 0 0 26px;
+    padding: 22px;
+    border: 1px solid var(--rule-line);
+    border-radius: 16px;
+    background: linear-gradient(145deg, var(--rule-panel), rgba(255, 255, 255, .012));
+    box-shadow: 0 18px 45px rgba(0, 0, 0, .12);
+  }
+  .work-rules-section h2 {
+    display: flex;
+    gap: 10px;
+    align-items: baseline;
+    margin: 0 0 17px !important;
+    padding: 0 0 13px !important;
+    border-top: 0 !important;
+    border-bottom: 1px solid var(--rule-line);
+    font-size: 21px !important;
+  }
+  .work-rules-section h2::before { display: none !important; }
+  .work-rules-section h2 span {
+    color: var(--rule-accent);
+    font: 800 11px/1.2 ui-monospace, SFMono-Regular, Consolas, monospace;
+    letter-spacing: .12em;
+  }
+  .work-rules-list { margin: 0 !important; padding: 0 !important; list-style: none; counter-reset: none; }
+  .work-rules-list li {
+    display: grid;
+    grid-template-columns: 38px minmax(0, 1fr);
+    gap: 12px;
+    align-items: start;
+    margin: 0 !important;
+    padding: 13px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, .07);
+  }
+  .work-rules-list li:last-child { padding-bottom: 0; border-bottom: 0; }
+  .work-rules-list .rule-number {
+    display: grid;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    border: 1px solid rgba(216, 255, 62, .35);
+    border-radius: 9px;
+    background: rgba(216, 255, 62, .08);
+    color: var(--rule-accent);
+    font: 820 13px/1 ui-monospace, SFMono-Regular, Consolas, monospace;
+  }
+  .work-rules-list p { margin: 3px 0 0 !important; color: var(--text); line-height: 1.72; }
+  .work-rules-list code { font-size: .9em; }
+  @media (max-width: 700px) {
+    .work-rules-notice { align-items: flex-start; }
+    .work-rules-notice a { width: 100%; margin-left: 0; }
+    .work-rules-section { padding: 17px 15px; border-radius: 13px; }
+    .work-rules-list li { grid-template-columns: 32px minmax(0, 1fr); gap: 9px; }
+    .work-rules-list .rule-number { width: 28px; height: 28px; }
+  }
+</style>
+
+<div class="work-rules-review">
+  <div class="work-rules-notice">
+    <strong>REVIEW VIEW</strong>
+    <span>표현만 정리한 HTML이며 실행 권위는 Markdown 원문입니다.</span>
+    <a href="{{ '/codex/common-work-guidelines.md' | relative_url }}">Markdown 원문 열기 →</a>
+  </div>
+
+  <section class="work-rules-section" id="authority">
+    <h2><span>01–07</span> 범위와 권한</h2>
+    <ol class="work-rules-list">
+      <li><span class="rule-number">01</span><p>Follow system and developer instructions, then the latest user request; within that scope, this document is the highest-priority shared guidance.</p></li>
+      <li><span class="rule-number">02</span><p>Preserve 100% of user and parallel work outside the explicitly requested scope. Never clean, revert, overwrite, normalize, move, delete, stage, or bundle unknown changes; if safe isolation is uncertain, stop before mutation.</p></li>
+      <li><span class="rule-number">03</span><p>These rules cover repository, code, document, asset, Git, validation, maintenance, and deployment work. Do not convert ordinary conversation, opinions, factual Q&amp;A, translation, or rewriting into repository work, a long-running goal, or an execution task. Answer directly without tools or progress updates unless they are necessary for the requested answer or the conversation concerns these rules.</p></li>
+      <li><span class="rule-number">04</span><p>Review, diagnosis, explanation, planning, and status requests are read-only: inspect and report only. A change or fix permits narrow reversible local edits, but not an unrequested build, test, server, browser, staging, commit, deployment, or external mutation.</p></li>
+      <li><span class="rule-number">05</span><p>Perform normal reversible work authorized by the request without asking for redundant approval. Stop only for a missing decision that materially changes the result, an unsafe overlap, or an action requiring separate authority below.</p></li>
+      <li><span class="rule-number">06</span><p>Execute a push, deploy, permanent deletion, forced rollback, destructive rewrite, paid generation, or external record mutation only when the user's latest message explicitly authorizes that exact action and target. Earlier or standing authority, broad requests to finish or handle everything, and tool or environment permission do not count. Otherwise prepare only reversible work, report the exact target and impact, then stop and ask before execution.</p></li>
+      <li><span class="rule-number">07</span><p>Stage and commit only the explicitly requested scope and only when the current request authorizes that operation. Push only under rule 6.</p></li>
+    </ol>
+  </section>
+
+  <section class="work-rules-section" id="stack">
+    <h2><span>08–09</span> 스택과 근거</h2>
+    <ol class="work-rules-list">
+      <li><span class="rule-number">08</span><p>Respect the established project stack. For standalone Windows automation or web work without one, prefer PowerShell and .NET, and default new web work to ASP.NET or ASP.NET Core. Do not introduce Unix-, Linux-, macOS-, or POSIX-oriented tooling, a Node/npm/JavaScript build chain, broad open-source dependency stacks, or Python when the project does not already require them unless the user requests it or a task-specific limitation makes the preferred stack unreasonable. Treat legacy exceptions as maintenance constraints, not precedent for expansion.</p></li>
+      <li><span class="rule-number">09</span><p>Derive behavior and claims from live code, assets, package metadata, existing specifications or tests, external protocols or schemas, reproduced bugs with known results, and the latest user decision. Do not invent a convention, requirement, install method, version, feature claim, or expected result when those sources do not establish one; ask with a short candidate list when the missing choice changes the result.</p></li>
+    </ol>
+  </section>
+
+  <section class="work-rules-section" id="editing">
+    <h2><span>10–13</span> 편집과 임시 파일</h2>
+    <ol class="work-rules-list">
+      <li><span class="rule-number">10</span><p>Preserve each existing text file's encoding and line endings exactly unless conversion is requested. Treat a CRLF check as matching the original, not forcing CRLF. New text files use UTF-8 without BOM and CRLF.</p></li>
+      <li><span class="rule-number">11</span><p>After the final edit, batch the shared text-format checker on exactly the touched text files with one scoped diff when possible. For a commit, the final staged review replaces the ordinary diff. Use <code>-Fix</code> only after a real mismatch; its post-write verification replaces a repeat. Mixed-line-ending originals require manual review and must never be auto-normalized.</p></li>
+      <li><span class="rule-number">12</span><p>Keep I/O and context proportional: target searches, batch independent reads, reuse evidence, and avoid broad rescans or needless artifacts. Put every necessary temporary or intermediate file, including generated candidates and post-processing outputs, in a literal <code>$Trash</code> directory directly under the project root. Never create or use ad-hoc <code>tmp</code>, <code>temp</code>, or <code>scratch</code> folders or a <code>$Trash</code> elsewhere. Resolve the project root first; if it is unclear or blocked, stop instead of falling back to another location.</p></li>
+      <li><span class="rule-number">13</span><p>Before creating a Unity UI asset or recommending its size, inspect the target project's actual Canvas size and applicable <code>Canvas Scaler</code> reference resolution. Evaluate the intended placement at that scale and base dimensions on those values; if they cannot be verified, ask instead of assuming FHD, QHD, or 4K.</p></li>
+    </ol>
+  </section>
+
+  <section class="work-rules-section" id="documents">
+    <h2><span>14–15</span> 공개 문서</h2>
+    <ol class="work-rules-list">
+      <li><span class="rule-number">14</span><p>When adding, moving, or publishing a public site document, provide a discoverable click path from the site's existing root navigation, index, or document list and verify the full rendered or deployed path when publishing; a direct URL or successful destination response alone is insufficient.</p></li>
+      <li><span class="rule-number">15</span><p>Write reports, feedback, and user-facing documents in Korean unless the user requests another language or the artifact has an established language that must be preserved.</p></li>
+    </ol>
+  </section>
+
+  <section class="work-rules-section" id="validation">
+    <h2><span>16–17</span> 검증</h2>
+    <ol class="work-rules-list">
+      <li><span class="rule-number">16</span><p>Validation must be proportional, non-duplicative, and backed by an independent oracle. Follow <a href="{{ '/codex/validation-guideline.md' | relative_url }}"><code>validation-guideline.md</code></a>, including its 25% proportional target, 15-second agent-controlled hard cap, and no-repeat rule. Start the required batched format and scoped-diff check even when the target is smaller; within the cap let an already-started check finish, then stop without retries or substitute checks.</p></li>
+      <li><span class="rule-number">17</span><p>Do not build, test, start a server or browser, or create tests unless the user requested that activity or it is intrinsic to an explicit build, test, runtime-diagnosis, or rendered-validation task. A test and implementation derived from the same guess cannot prove each other.</p></li>
+    </ol>
+  </section>
+
+  <section class="work-rules-section" id="workflow">
+    <h2><span>18–20</span> 워크플로와 Git</h2>
+    <ol class="work-rules-list">
+      <li><span class="rule-number">18</span><p>Load the smallest non-overlapping workflow: <code>$oojjrs-project-start-work</code> only immediately before the first authorized local file or Git-index mutation, one most-specific primary domain at a time, and helpers only on their exact triggers. Use <code>$oojjrs-project-finish-work</code> only for a requested stage, commit, push, deploy, release, or Git completion, not automatically after ordinary edits or as a task-start preload.</p></li>
+      <li><span class="rule-number">19</span><p>Use <code>$oojjrs-github-project-board</code> only when board work is requested or a cheap probe confirms a relevant 1:1-linked board that this task must update. Use <code>$oojjrs-dirty-worktree-scope-split</code> only for overlapping hunks or genuinely ambiguous isolation, not merely because the tree is dirty.</p></li>
+      <li><span class="rule-number">20</span><p>Inspect repository status at most once when needed to isolate existing work; do not repeat unchanged status, history, diffs, or staged content. For an authorized commit, stage exact paths, review the final <code>git diff --cached --name-status</code>, staged diff, and <code>git diff --cached --check</code> once, and reuse that review while staged bytes remain unchanged.</p></li>
+    </ol>
+  </section>
+
+  <section class="work-rules-section" id="policy">
+    <h2><span>21–23</span> 정책과 보고</h2>
+    <ol class="work-rules-list">
+      <li><span class="rule-number">21</span><p>Put reusable policy in this canonical document, a linked public guideline, or one narrowly triggered skill. Treat memory only as active scratch or a clue for where to inspect; never use it as durable authority. If reusable workflow guidance exists only in memory, ignore it as authority and move it to an approved durable source before relying on it.</p></li>
+      <li><span class="rule-number">22</span><p>Do not add repository-local <code>AGENTS.md</code>, <code>HANDOFF.md</code>, or similar instruction files beyond a pointer to <code>$oojjrs-guidelines</code> unless the user explicitly grants an exception.</p></li>
+      <li><span class="rule-number">23</span><p>Report proportionally: changed scope, checks and results, meaningful unverified risks, and requested commit, push, deploy, or publication results. Include relevant Git history only when it affects the decision or the user requests it. Omit inapplicable gates, routine skips, unchanged history, and unrelated dirt unless they affect the task.</p></li>
+    </ol>
+  </section>
+</div>
