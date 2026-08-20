@@ -1,4 +1,4 @@
 interface:
   display_name: "oojjrs Guidelines"
-  short_description: "Load the sole canonical work-rules source once"
-  default_prompt: "Use $oojjrs-guidelines to fetch the sole canonical shared work-rules URL once, verify its final URL and SHA-256, and reuse it for this task."
+  short_description: "Load canonical work rules once per task thread"
+  default_prompt: "Use $oojjrs-guidelines to read the canonical shared work rules once, report the active SHA when available, and route only the workflow skills this task needs."

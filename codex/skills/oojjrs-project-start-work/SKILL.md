@@ -5,22 +5,26 @@ description: Establish scope and routing once before the first authorized local 
 
 # oojjrs Project Start Work
 
-Run this lifecycle gate once, immediately before the first authorized local file, index, or commit mutation. `$oojjrs-guidelines` already owns the shared work rules; do not reload them.
+Use this lifecycle skill once immediately before the first intended local file, index, or commit mutation. Assume `$oojjrs-guidelines` already loaded the canonical common rules; do not load them again.
 
 ## Start Gate
 
-1. Resolve the repository root, authorized request, and likely target paths.
-2. When needed to separate pre-existing work, inspect `git status --short --branch` once.
-3. If requested work overlaps existing changes in the same files, or exact staging would be ambiguous, load `$oojjrs-dirty-worktree-scope-split`. Dirty files elsewhere do not trigger it.
-4. Select the single most-specific primary domain for the first phase.
-5. Begin once the requested mutation can be isolated safely. Stop only for a real overlap or a missing decision that changes the result.
+1. Resolve the repository root and current user-requested scope.
+2. Inspect `git status --short --branch` once when it is needed to distinguish pre-existing work from the requested mutation. Do not read recent history unless provenance, regression, recovery, or commit context actually depends on it.
+3. Identify only the files or areas likely to change. If requested and existing changes overlap in the same files, or safe staging will be ambiguous, load `$oojjrs-dirty-worktree-scope-split`; mere dirty status is not enough.
+4. Preserve each target text file's existing encoding and line endings as a write condition. Do not add a separate pre-edit format audit unless the format is unknown or already suspicious.
+5. Select one primary domain at a time when a domain is needed. The most-specific match owns its subordinate safety and artifact rules; do not stack its generic parents.
+6. Read `Design.html` only when the task changes planning content or planning-visible state. Probe or load a GitHub Project board only when the user requested board work or the task already uses a confirmed linked board.
+7. Begin editing once the scope can be isolated safely. Report only a real overlap or missing decision instead of narrating a routine start gate.
 
 ## Conditional Public References
 
-Load an applicable reference once before the relevant edit, then reuse it in downstream domain skills:
+Load these only when the intended edit matches the condition:
 
-- first-party application or business-layer names created or changed by any coding task, regardless of language, engine, or platform: `https://oojjrs.github.io/codex/semantic-layer-naming-guideline.md`
+- first-party application or business-layer names in a game/server: `https://oojjrs.github.io/codex/semantic-layer-naming-guideline.md`
 - Unity C# code: `https://oojjrs.github.io/codex/unity-csharp-coding-convention.md`
 - first-party log messages: `https://oojjrs.github.io/codex/logging-guideline.md`
 
-Do not load a reference for skill or documentation text that merely mentions its domain.
+## Start Output
+
+Keep only the scratch state needed to protect the requested scope. Do not emit a routine start report, repeat unchanged Git evidence, or mutate a board or another external service merely to complete this gate.

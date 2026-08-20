@@ -5,13 +5,32 @@ description: Complete an explicitly requested stage, commit, push, deploy, relea
 
 # oojjrs Project Finish Work
 
-Use this lifecycle skill only for explicitly requested Git or publication completion. Shared format, validation, diff, and reporting rules remain in the canonical workflow.
+Use this lifecycle skill only for requested Git or publication completion. Ordinary edits finish under the canonical one-pass text-format and scoped-diff rule without loading this skill.
 
-## Completion Gate
+## One-Pass Completion
 
-1. Reuse a post-last-edit format result or reviewed diff while its source bytes remain unchanged. For a commit, the final staged review replaces an ordinary working-tree diff.
-2. Evaluate only finish conditions that trigger. For a commit, inspect the exact intended paths for governed versioned units and apply only policies governing units present in that scope.
-3. Stage exact requested paths. Never stage merely to prepare a report, and do not use broad staging when exact paths can express the scope.
-4. After staging is final, review `git diff --cached --name-status`, the staged diff, and `git diff --cached --check` once. Reuse that review while the staged bytes remain unchanged.
-5. If staged content changes, review only the new final staged content and any policy directly affected by the change.
-6. Commit, push, deploy, release, or publish only to the explicitly authorized target. Read back the resulting commit, remote ref, deployment, or publication state once.
+1. Reuse any post-last-edit text-format result while the files remain unchanged. If none exists, run that exact check once. For a commit in the same task, defer the single scoped diff to the final staged review instead of reading both ordinary and staged versions; for non-commit completion, reuse or run the ordinary scoped diff once.
+2. Do not start a build, test, server, browser, or new test suite merely because code changed. Follow the user's explicit execution request and the independent-oracle rule in the public validation guideline.
+3. Evaluate only conditions that actually trigger. Documentation, Design, asset metadata, publication sync, board work, and versioning belong to their owning domain or current request; do not create or report `not applicable` decisions.
+4. If a commit is requested, inspect the exact intended paths for governed versioned units. Read and apply only policies that govern units present in that scope; do not report that unrelated or absent units do not exist.
+5. Stage exact requested paths. Review `git diff --cached --name-status`, the staged diff, and `git diff --cached --check` once after staging is final.
+6. If staged content changes, re-review only the final staged content and any policy directly affected by that change.
+7. Commit, push, deploy, or publish only to the explicitly authorized target. For an external result, read back the resulting commit or deployment state once.
+
+## Text Format
+
+Run the installed shared checker in check-only mode on exact touched text files only when no unchanged final result is already available:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File <oojjrs-guidelines-skill-dir>\scripts\Test-OojjrsTextFormat.ps1 -Path <exact-touched-files>
+```
+
+If it reports a mismatch, correct only the affected files. The checker's `-Fix` path verifies its own write, so do not add an unconditional second run.
+
+## Commit Boundary
+
+Do not stage files merely to prepare a report. Do not use broad staging when exact paths can express the requested scope. The final staged review is the commit evidence; do not repeat unchanged working-tree status, history, or diffs around it.
+
+## Final Report
+
+Report in Korean: the completed Git or publication action, its resulting identifier or target, checks actually run, and any meaningful remaining risk. Omit inactive gates, routine skip reasons, unchanged Git history, and unrelated dirty files unless they affected safe completion.

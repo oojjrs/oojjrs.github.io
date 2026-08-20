@@ -1,4 +1,0 @@
-interface:
-  display_name: "Suno Music Workflow"
-  short_description: "Control Suno creation options and result workflows"
-  default_prompt: "Use $oojjrs-suno-music to configure Suno, generate music, and manage the results safely."

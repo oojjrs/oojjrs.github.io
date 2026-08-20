@@ -1,4 +1,4 @@
 interface:
   display_name: "oojjrs Unity C# Entity Workflow"
   short_description: "Guide evidence-based Unity entity changes"
-  default_prompt: "Use $oojjrs-unity-csharp-entity-workflow to reuse the once-loaded public Unity C# convention, follow nearby entity/model patterns, and update only directly affected binding and type contracts."
+  default_prompt: "Use $oojjrs-unity-csharp-entity-workflow to make narrow Unity C# entity/model changes, verify affected binding and type contracts, and run builds or tests only when explicitly requested with an independently grounded expected result."

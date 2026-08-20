@@ -16,10 +16,10 @@ permalink: /kr/codex/
     <span class="card-link">문서 열기 <span aria-hidden="true">→</span></span>
   </a>
 
-  <a class="document-card" href="../../codex/common-work-guidelines-review.html">
-    <span class="document-kind">GUIDELINE · REVIEW</span>
-    <h2>Codex 공통 작업 지침</h2>
-    <p>현재 23개 규칙을 섹션별 목록으로 정리한 사람용 검토 페이지입니다.</p>
+  <a class="document-card" href="../../codex/common-work-guidelines.md">
+    <span class="document-kind">GUIDELINE</span>
+    <h2>Codex Work Rules</h2>
+    <p>Minimal raw rules for recurring Codex work.</p>
     <span class="card-link">문서 열기 <span aria-hidden="true">→</span></span>
   </a>
 
