@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Codex 공통 작업 지침 검수본</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --paper: #f5f3ee;
+      --surface: #fff;
+      --ink: #20201d;
+      --muted: #66645d;
+      --line: #dcd8cf;
+      --accent: #235b4e;
+      --accent-soft: #e7f0ec;
+      --danger: #9a3f32;
+      --danger-soft: #f8e9e5;
+      --shadow: 0 12px 35px rgba(40, 38, 31, .08);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: "Pretendard", "Noto Sans KR", "Malgun Gothic", sans-serif;
+      line-height: 1.72;
+    }
+
+    a { color: inherit; }
+    .shell { width: min(1180px, calc(100% - 40px)); margin: 0 auto; }
+    .hero { padding: 72px 0 40px; }
+    .eyebrow {
+      margin: 0 0 12px;
+      color: var(--accent);
+      font-size: .78rem;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+    h1 { margin: 0; max-width: 820px; font-size: clamp(2.2rem, 5vw, 4.5rem); line-height: 1.08; letter-spacing: -.055em; }
+    .lead { max-width: 760px; margin: 24px 0 0; color: var(--muted); font-size: 1.08rem; }
+    .meta {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1px;
+      margin-top: 36px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: var(--line);
+    }
+    .meta div { padding: 18px 20px; background: var(--surface); }
+    .meta dt { color: var(--muted); font-size: .75rem; font-weight: 700; }
+    .meta dd { margin: 4px 0 0; font-weight: 750; overflow-wrap: anywhere; }
+
+    .layout { display: grid; grid-template-columns: 240px minmax(0, 1fr); gap: 44px; align-items: start; padding-bottom: 80px; }
+    .toc { position: sticky; top: 20px; padding: 20px; border: 1px solid var(--line); border-radius: 16px; background: rgba(255,255,255,.78); }
+    .toc strong { display: block; margin-bottom: 10px; font-size: .82rem; }
+    .toc a { display: block; padding: 7px 0; color: var(--muted); font-size: .88rem; text-decoration: none; }
+    .toc a:hover { color: var(--accent); }
+
+    section { scroll-margin-top: 24px; }
+    .section-head { margin: 0 0 18px; }
+    .section-head h2 { margin: 0; font-size: 1.5rem; letter-spacing: -.025em; }
+    .section-head p { margin: 5px 0 0; color: var(--muted); }
+    .risk-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-bottom: 48px; }
+    .risk {
+      padding: 20px;
+      border: 1px solid #e7c4bc;
+      border-radius: 14px;
+      background: var(--danger-soft);
+    }
+    .risk b { display: block; margin-bottom: 4px; color: var(--danger); }
+    .risk p { margin: 0; font-size: .92rem; }
+
+    .rules { display: grid; gap: 14px; }
+    .rule {
+      display: grid;
+      grid-template-columns: 56px minmax(0, 1fr);
+      gap: 18px;
+      padding: 24px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: var(--surface);
+      box-shadow: var(--shadow);
+    }
+    .number {
+      display: grid;
+      width: 48px;
+      height: 48px;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font: 800 .9rem/1 ui-monospace, monospace;
+    }
+    .rule h3 { margin: 0 0 7px; font-size: 1.08rem; letter-spacing: -.018em; }
+    .rule p { margin: 0; }
+    .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+    .tag { padding: 3px 9px; border-radius: 999px; background: #f0eee8; color: var(--muted); font-size: .72rem; font-weight: 750; }
+
+    details { margin-top: 48px; border: 1px solid var(--line); border-radius: 16px; background: var(--surface); }
+    summary { cursor: pointer; padding: 20px 24px; font-weight: 800; }
+    .original { padding: 0 24px 24px; color: #474640; font-family: ui-monospace, "Cascadia Code", monospace; font-size: .86rem; }
+    .original ol { margin: 0; padding-left: 24px; }
+    .original li + li { margin-top: 12px; }
+    footer { padding: 24px 0 48px; color: var(--muted); font-size: .82rem; }
+
+    @media (max-width: 820px) {
+      .shell { width: min(100% - 24px, 720px); }
+      .hero { padding-top: 42px; }
+      .meta, .risk-grid { grid-template-columns: 1fr; }
+      .layout { grid-template-columns: 1fr; gap: 24px; }
+      .toc { position: static; display: flex; gap: 6px 16px; overflow-x: auto; }
+      .toc strong { min-width: max-content; margin: 7px 4px 0 0; }
+      .toc a { min-width: max-content; }
+      .rule { grid-template-columns: 42px minmax(0, 1fr); gap: 12px; padding: 18px; }
+      .number { width: 40px; height: 40px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero shell">
+    <p class="eyebrow">Human review copy · 원문 비수정</p>
+    <h1>Codex 공통 작업 지침<br>눈으로 읽는 검수본</h1>
+    <p class="lead">다이어트 직전 상태로 복원된 영문 원문을 한국어로 풀어 쓴 읽기 전용 페이지입니다. 이 페이지는 실행 지침이 아니며, 실제 권위는 아래 원문 URL에만 있습니다.</p>
+    <dl class="meta">
+      <div><dt>검수 대상</dt><dd>공통 작업 지침 14개</dd></div>
+      <div><dt>기준</dt><dd>다이어트 직전 복원본</dd></div>
+      <div><dt>공식 원문</dt><dd><a href="https://oojjrs.github.io/codex/common-work-guidelines.md">common-work-guidelines.md</a></dd></div>
+    </dl>
+  </header>
+
+  <div class="layout shell">
+    <nav class="toc" aria-label="페이지 목차">
+      <strong>빠른 이동</strong>
+      <a href="#critical">승인 필수</a>
+      <a href="#rules">전체 규칙</a>
+      <a href="#original">영문 원문</a>
+    </nav>
+
+    <main>
+      <section id="critical">
+        <div class="section-head">
+          <h2>먼저 확인할 승인 경계</h2>
+          <p>되돌리기 어렵거나 외부 상태를 바꾸는 작업은 현재 작업에서 명시적으로 승인되어야 합니다.</p>
+        </div>
+        <div class="risk-grid">
+          <article class="risk"><b>푸시 · 배포</b><p>과거 승인이나 포괄적인 요청으로 추정하지 않고, 현재 작업 범위에서 받은 명시적 승인만 사용합니다.</p></article>
+          <article class="risk"><b>영구 삭제 · 강제 롤백</b><p>복구가 어렵거나 작업 이력을 파괴하는 변경은 대상과 범위를 확인한 뒤 별도 승인을 받습니다.</p></article>
+          <article class="risk"><b>유료 생성</b><p>비용이 발생하는 생성 작업은 현재 요청에 명시적으로 포함된 경우에만 실행합니다.</p></article>
+          <article class="risk"><b>외부 레코드 변경</b><p>GitHub Project 등 외부 서비스의 상태 변경도 명시적 현재 승인 없이는 수행하지 않습니다.</p></article>
+        </div>
+      </section>
+
+      <section id="rules">
+        <div class="section-head">
+          <h2>전체 규칙</h2>
+          <p>각 항목은 의미를 줄이지 않은 한국어 검수용 표현입니다.</p>
+        </div>
+        <div class="rules">
+          <article class="rule"><span class="number">01</span><div><h3>지침 우선순위</h3><p>시스템 및 개발자 지침을 따르고, 그다음 사용자의 최신 요청을 따른다. 그 범위 안에서 이 문서를 가장 높은 우선순위의 공통 프로젝트 지침으로 적용한다.</p><div class="tags"><span class="tag">권위</span><span class="tag">최신 요청</span></div></div></article>
+          <article class="rule"><span class="number">02</span><div><h3>적용 범위</h3><p>저장소, 코드, 문서, 에셋, Git, 검증, 배포 작업에 이 규칙을 적용한다. 일반 대화, 사실 질의응답, 번역, 재작성에는 사용자가 규칙 자체를 묻지 않는 한 이 워크플로를 적용하지 않는다.</p><div class="tags"><span class="tag">범위</span></div></div></article>
+          <article class="rule"><span class="number">03</span><div><h3>읽기 요청과 변경 요청의 경계</h3><p>검토, 진단, 설명, 계획, 상태 요청은 읽기 전용이다. 요청받지 않은 편집, 빌드, 테스트, 스테이징, 외부 서비스 변경을 하지 않는다. 변경이나 수정 요청은 되돌릴 수 있는 로컬 편집만 승인하며, 빌드·테스트·서버·브라우저·배포·외부 변경까지 자동 승인하지 않는다.</p><div class="tags"><span class="tag">읽기 전용</span><span class="tag">권한 경계</span></div></div></article>
+          <article class="rule"><span class="number">04</span><div><h3>다른 작업 보존</h3><p>사용자와 병렬 작업의 관련 없는 변경을 보존한다. 요청 범위를 좁게 유지하며, 출처를 모르는 작업을 정리·되돌리기·정규화하거나 함께 묶지 않는다.</p><div class="tags"><span class="tag">작업 보존</span><span class="tag">범위 격리</span></div></div></article>
+          <article class="rule"><span class="number">05</span><div><h3>비가역·외부 작업은 현재 승인 필수</h3><p>푸시, 배포, 영구 삭제, 강제 롤백, 파괴적 재작성, 유료 생성, 외부 레코드 변경은 현재 작업 범위에서 명시적으로 승인되었고 철회되지 않은 경우에만 실행한다. 관련 없는 과거 요청에서 권한을 추정하지 않는다.</p><div class="tags"><span class="tag">승인 필수</span><span class="tag">비가역 작업</span></div></div></article>
+          <article class="rule"><span class="number">06</span><div><h3>기존 기술 스택 존중</h3><p>프로젝트의 기존 스택을 따른다. 정해진 스택이 없는 독립 Windows 자동화나 웹 작업은 PowerShell과 .NET을 우선하며, 작업별 이유 없이 오래되었거나 거부된 스택을 확장하지 않는다.</p><div class="tags"><span class="tag">기술 스택</span></div></div></article>
+          <article class="rule"><span class="number">07</span><div><h3>텍스트 형식 보존</h3><p>변환 요청이 없다면 기존 파일의 인코딩과 줄바꿈을 유지한다. 새 텍스트 파일은 UTF-8 BOM 없음과 CRLF를 사용한다. 마지막 편집 뒤 정확히 수정한 파일의 공통 형식 검사와 범위 diff를 가능하면 한 번에 실행하며, 실제 불일치가 있을 때만 수정 모드를 사용한다.</p><div class="tags"><span class="tag">인코딩</span><span class="tag">CRLF</span><span class="tag">diff</span></div></div></article>
+          <article class="rule"><span class="number">08</span><div><h3>비례적이고 독립적인 검증</h3><p>검증은 중복하지 않고 작업 규모에 비례하며 독립적인 판정 근거를 사용한다. 일반 검증은 작업 로컬 구현·편집 시간의 최대 25%, 에이전트가 통제하는 실제 시간 15초를 상한으로 한다. 필수 최소 검증은 형식 검사와 범위 diff의 한 번짜리 묶음이며, 상한을 넘겨 재시도나 대체 검사를 추가하지 않는다.</p><div class="tags"><span class="tag">검증</span><span class="tag">15초 상한</span></div></div></article>
+          <article class="rule"><span class="number">09</span><div><h3>요청 없는 실행 금지</h3><p>사용자가 요청했거나 작업 자체가 빌드·테스트·실행 진단·렌더링 검증인 경우가 아니면 빌드, 테스트, 서버나 브라우저 실행, 테스트 생성을 하지 않는다. 기대 동작은 사용자 수용 기준, 기존 명세나 테스트, 외부 프로토콜·스키마, 알려진 결과가 있는 재현 버그에서 가져와야 한다.</p><div class="tags"><span class="tag">빌드</span><span class="tag">테스트</span><span class="tag">브라우저</span></div></div></article>
+          <article class="rule"><span class="number">10</span><div><h3>입출력과 컨텍스트 절약</h3><p>디스크 입출력과 컨텍스트 사용을 작업 규모에 맞춘다. 검색 대상을 좁히고, 독립적인 읽기는 묶어서 수행하며, 바뀌지 않은 근거를 재사용하고, 광범위한 반복 탐색을 피한다. 필요한 임시·중간 파일은 이름이 정확히 <code>$Trash</code>인 디렉터리에 둔다.</p><div class="tags"><span class="tag">효율</span><span class="tag">임시 파일</span></div></div></article>
+          <article class="rule"><span class="number">11</span><div><h3>최소 워크플로만 로드</h3><p>첫 로컬 파일 또는 Git 인덱스 변경 직전에만 프로젝트 시작 스킬을 사용하고, 한 번에 가장 구체적인 기본 도메인 하나만 사용한다. 보조 스킬은 실제 조건이 확인된 뒤에만 사용한다. 완료 스킬은 명시적으로 스테이지·커밋·푸시·배포·릴리스·Git 완료를 요청받은 경우에만 사용한다.</p><div class="tags"><span class="tag">스킬 라우팅</span></div></div></article>
+          <article class="rule"><span class="number">12</span><div><h3>Git 검사와 완료 작업 제한</h3><p>기존 작업을 분리해야 할 때 시작 시 저장소 상태를 최대 한 번 확인하며, 바뀌지 않은 상태·이력·diff·스테이지 내용을 반복 검사하지 않는다. 승인된 커밋은 요청 범위만 스테이징하고 최종 스테이지 diff를 한 번 검토한다. 푸시·배포·외부 업데이트는 현재의 명시적 승인이 필요하다.</p><div class="tags"><span class="tag">Git</span><span class="tag">스테이징</span></div></div></article>
+          <article class="rule"><span class="number">13</span><div><h3>한국어로 필요한 만큼만 보고</h3><p>변경 범위, 실제 수행한 검사와 결과, 의미 있는 미검증 위험, 요청된 커밋·푸시·배포 결과를 한국어로 작업 규모에 맞게 보고한다. 해당하지 않는 게이트, 일상적인 생략 이유, 변하지 않은 Git 이력, 작업에 영향을 주지 않는 관련 없는 파일은 나열하지 않는다.</p><div class="tags"><span class="tag">보고</span><span class="tag">한국어</span></div></div></article>
+          <article class="rule"><span class="number">14</span><div><h3>재사용 정책의 저장 위치</h3><p>재사용할 정책은 이 공식 문서, 연결된 공개 지침, 또는 좁게 발동하는 스킬에 둔다. 메모리는 진행 중인 임시 상태에만 사용한다. 사용자가 예외를 명시적으로 요청하지 않는 한 <code>$oojjrs-guidelines</code> 포인터 외의 저장소 지침 파일을 추가하지 않는다.</p><div class="tags"><span class="tag">정책 관리</span><span class="tag">메모리</span></div></div></article>
+        </div>
+      </section>
+
+      <details id="original">
+        <summary>영문 원문 14개 펼쳐 보기</summary>
+        <div class="original">
+          <ol>
+            <li>Follow system and developer instructions, then the latest user request. Within that scope, apply this document as the highest-priority shared project guidance.</li>
+            <li>Use these rules for repository, code, document, asset, Git, validation, or deployment work. Ordinary conversation, factual Q&amp;A, translation, and rewriting do not need this workflow unless the user asks about the rules themselves.</li>
+            <li>Review, diagnosis, explanation, plan, and status requests are read-only: inspect and report without editing, building, testing, staging, or changing external services unless requested. A change or fix request authorizes reversible local edits, not an unrequested build, test run, server, browser session, deployment, or external mutation.</li>
+            <li>Preserve unrelated user and parallel-task changes. Keep the requested scope narrow and never clean, revert, normalize, or bundle unknown work.</li>
+            <li>Require authorization that is explicit in the current task scope and has not been revoked for push, deploy, permanent deletion, forced rollback, destructive rewrite, paid generation, and external record changes. Do not infer authority from an unrelated older request.</li>
+            <li>Respect the existing project stack. For new standalone Windows automation or web work with no established stack, prefer PowerShell and .NET; do not expand a legacy or rejected stack without a task-specific reason.</li>
+            <li>Preserve each existing text file's encoding and line endings while editing unless conversion is requested. New text files use UTF-8 without BOM and CRLF. After the last edit, batch the shared text-format checker on the exact touched text files and the single scoped diff in one terminal call when possible. If a commit is part of the same task, the final staged review replaces an ordinary diff over unchanged content. Use <code>-Fix</code> only after a real mismatch; its internal post-write verification replaces a second unconditional run.</li>
+            <li>Validation must be proportional, non-duplicative, and backed by an independent oracle. Routine validation targets at most 25% of task-local implementation or editing time and has a 15-second hard cap on agent-controlled wall time. Its minimum is the one batched format-and-scoped-diff operation, not a time floor: start that batch even when the proportional target is smaller, let it finish only within the hard cap, then stop rather than add retries or substitute checks. Follow <a href="https://oojjrs.github.io/codex/validation-guideline.md">the validation guideline</a>.</li>
+            <li>Do not build, run tests, start a server or browser, or create tests unless the user requested that activity or the task itself is explicitly a build, test, runtime-diagnosis, or rendered-validation task. Expected behavior must come from user acceptance criteria, an existing specification or test, an external protocol/schema, or a reproduced bug with a known result; never treat a test and implementation derived from the same guess as proof of correctness.</li>
+            <li>Keep disk I/O and context proportional to the task: use targeted searches, batch independent reads, reuse unchanged evidence, and avoid repeated broad scans. Put necessary temporary and intermediate files under a literal <code>$Trash</code> directory.</li>
+            <li>Load the smallest non-overlapping workflow: <code>$oojjrs-project-start-work</code> only before the first local file or Git-index mutation, one primary domain at a time, and a helper only after its trigger is confirmed. Use <code>$oojjrs-project-finish-work</code> only for an explicitly requested stage, commit, push, deploy, release, or Git-completion operation, not after ordinary edits. A more-specific domain owns its subordinate rules.</li>
+            <li>Inspect repository status at most once at the start when needed to isolate existing work. Do not repeatedly inspect unchanged status, history, diffs, or staged content. For an authorized commit, stage only the requested scope and review the final staged diff once; consult a version policy only when that staged scope contains a governed versioned unit. Push, deploy, and external updates require explicit current authorization.</li>
+            <li>Report in Korean and keep the report proportional: changed scope, checks actually run and their results, meaningful unverified risks, and requested commit/push/deploy results. Do not enumerate inapplicable gates, routine skip reasons, unchanged Git history, or unrelated dirty files unless they affect the task.</li>
+            <li>Put reusable policy in this canonical document, a linked public guideline, or a narrowly triggered skill. Use memory only for in-progress scratch state, and do not add repository instruction files beyond a pointer to <code>$oojjrs-guidelines</code> unless the user explicitly requests an exception.</li>
+          </ol>
+        </div>
+      </details>
+    </main>
+  </div>
+
+  <footer class="shell">검수 편의를 위한 파생 페이지 · 실행 권위 없음 · 원문 내용 변경 없음</footer>
+</body>
+</html>
