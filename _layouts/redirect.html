@@ -3,11 +3,14 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f6f5f1" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#111310" media="(prefers-color-scheme: dark)">
+    <link rel="stylesheet" href="{{ "/assets/css/auto-color-scheme.css" | relative_url }}">
     <meta http-equiv="refresh" content="0; url={{ page.redirect_to | relative_url }}">
     <link rel="canonical" href="{{ page.redirect_to | absolute_url }}">
     <title>Redirecting · {{ site.title }}</title>
   </head>
-  <body>
+  <body class="standalone-page">
     <p><a href="{{ page.redirect_to | relative_url }}">Redirecting</a></p>
     <script>location.replace("{{ page.redirect_to | relative_url }}");</script>
   </body>

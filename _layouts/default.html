@@ -19,10 +19,12 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#101419">
+    <meta name="theme-color" content="#f6f5f1" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#111310" media="(prefers-color-scheme: dark)">
     <title>{% if page.title and page.title != brand_name %}{{ page.title }} · {% endif %}{{ brand_name }}</title>
     <meta name="description" content="{{ page.description | default: site.description | escape }}">
     <link rel="stylesheet" href="{{ "/assets/css/style.css" | relative_url }}?v={{ site.time | date: '%s' }}-{{ site.github.build_revision | default: 'local' }}">
+    <link rel="stylesheet" href="{{ "/assets/css/auto-color-scheme.css" | relative_url }}?v={{ site.time | date: '%s' }}-{{ site.github.build_revision | default: 'local' }}">
     {% if page.alternate_url %}
       {% if is_english %}
         <link rel="alternate" hreflang="ko-KR" href="{{ page.alternate_url | absolute_url }}">
@@ -34,7 +36,7 @@
     {% endif %}
     {% seo %}
   </head>
-  <body>
+  <body class="site-page">
     <header class="site-header">
       <div class="site-shell header-inner">
         <a class="site-brand" href="{{ home_url | relative_url }}" aria-label="{{ brand_label }}">

@@ -3,7 +3,9 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#101419">
+    <meta name="theme-color" content="#f6f5f1" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#111310" media="(prefers-color-scheme: dark)">
+    <link rel="stylesheet" href="{{ "/assets/css/auto-color-scheme.css" | relative_url }}">
     <link rel="alternate" hreflang="ko-KR" href="{{ page.kr_url | default: '/kr/' | absolute_url }}">
     <link rel="alternate" hreflang="en" href="{{ page.en_url | default: '/en/' | absolute_url }}">
     <title>{{ site.title }}</title>
@@ -38,7 +40,7 @@
       })();
     </script>
   </head>
-  <body>
+  <body class="standalone-page">
     <main>
       <p>
         <a href="{{ page.kr_url | default: '/kr/' | relative_url }}" hreflang="ko-KR">한국어</a>
