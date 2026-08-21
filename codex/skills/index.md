@@ -47,7 +47,7 @@ $oojjrs-guidelines
 | Domain | `$oojjrs-unity-package-src-migration` | Moving an Assets-based Unity package into `Packages/src` | Supersedes release, README, and generic asset skills for the migration |
 | Domain | `$oojjrs-unity-package-release` | A governed UnityO package is in an authorized commit, or its version/release is explicitly requested | Not for game versions or package-root migration; generic finish owns commit/push authorization |
 | Domain | `$oojjrs-unity-asset-safety` | General Unity asset mutation with no more-specific workflow | Fallback only; do not stack with package, Mines, art, sprite, audio, or prefab domains |
-| Domain | `$oojjrs-unity-csharp-entity-workflow` | Unity entity/model/binding/runtime-helper changes | Before committing UnityO package changes, route package version evaluation as a later separate release phase |
+| Domain | `$oojjrs-unity-csharp-entity-workflow` | Unity Entity/Data/Record/Manager additions and integrations | Classify Record-only, Data-and-Record, or Data-only first; ask about ReferenceIndex whenever Data is requested |
 | Domain | `$oojjrs-unity-prefab-guid-usage-lookup` | Read-only Unity serialized reference/GUID tracing | No start/finish until the request changes to an edit |
 | Domain | `$oojjrs-2d-sprite-animation` | 2D animation frames, sheets, pivots, or preview GIFs | Supersedes image-first art for animation frames |
 | Domain | `$oojjrs-image-first-art-workflow` | General new or revised raster art and visual assets | Not for 2D animation or a more-specific Mines pipeline |
@@ -111,7 +111,7 @@ The repository file `codex/common-work-guidelines.md` is the publication source.
 - `oojjrs-unity-package-src-migration`: `https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/oojjrs-unity-package-src-migration/SKILL.md`
 - `oojjrs-unity-package-release`: `https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/oojjrs-unity-package-release/SKILL.md`
 - `oojjrs-unity-asset-safety`: `https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/oojjrs-unity-asset-safety/SKILL.md`
-- `oojjrs-unity-csharp-entity-workflow`: `https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/oojjrs-unity-csharp-entity-workflow/SKILL.md`
+- `oojjrs-unity-csharp-entity-workflow`: [SKILL.md](https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/oojjrs-unity-csharp-entity-workflow/SKILL.md)
 - `oojjrs-unity-prefab-guid-usage-lookup`: `https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/oojjrs-unity-prefab-guid-usage-lookup/SKILL.md`
 - `oojjrs-2d-sprite-animation`: `https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/oojjrs-2d-sprite-animation/SKILL.md`
 - `oojjrs-image-first-art-workflow`: `https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/oojjrs-image-first-art-workflow/SKILL.md`

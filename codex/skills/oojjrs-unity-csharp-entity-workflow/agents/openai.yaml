@@ -1,4 +1,4 @@
 interface:
   display_name: "oojjrs Unity C# Entity Workflow"
-  short_description: "Guide evidence-based Unity entity changes"
-  default_prompt: "Use $oojjrs-unity-csharp-entity-workflow to make narrow Unity C# entity/model changes, verify affected binding and type contracts, and run builds or tests only when explicitly requested with an independently grounded expected result."
+  short_description: "Add complete Unity entity families safely"
+  default_prompt: "Use $oojjrs-unity-csharp-entity-workflow to classify the entity as Record-only, Data-and-Record, or Data-only, then add only the required DataBuilder, Manager, transport, and client integration."
