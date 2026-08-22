@@ -15,7 +15,7 @@ First-party only. Priority: local > here > Unity > VS/Microsoft. Exclude generat
 ## Naming
 
 8. Inherited-role naming: append the direct base type to the derived role: `FooSome : Some`; drop only `Interface` from an interface role: `FooSome : SomeInterface`; preserve the full direct base-class name in deeper chains: `SomeFooBar : FooBar`, `FooBar : Bar`. Rule 21 Unity object/script name identity takes priority: `IngameMenu : Page`, not `IngameMenuPage`. Interface types use suffix `Interface`; variables do not.
-9. Static field except `const`/`readonly`: non-static type public `__PascalCase`/private `__camelCase`; static class public `_PascalCase`/private `_camelCase`. Judge immediate type.
+9. First inspect the field itself: if its declaration does not contain `static`, this rule does not apply; `const`/`readonly` follow 10. For every other static field, inspect the field's immediate declaring type: one declared in a non-static type uses public `__PascalCase`/private `__camelCase`; one declared in a `static class` uses public `_PascalCase`/private `_camelCase`. A private instance field uses `_camelCase`, never `__camelCase` (for example, `private int _index` versus `private static int __index`).
 10. `const`/`readonly`: unprefixed PascalCase; mutable `static readonly` also follows 31.
 11. Property: noun/adjective; Boolean question `Is`/`Has`, not action.
 12. `CanX`: ability to act; `Xable`: attribute.

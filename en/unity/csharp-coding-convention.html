@@ -379,7 +379,9 @@ public sealed class IngameMenuPage : Page
 `IngameMenu` is an exception because rule 21 requires the Unity hierarchy object and script names to match.
 
 
-### 09. Static-field prefixes depend on the immediate declaring type
+### 09. Only static fields use prefixes based on their immediate declaring type
+
+The decision order is (1) whether the field declaration itself contains `static`, then (2) whether the type that immediately declares the field is static. If the declaration does not contain `static`, rule 09 does not apply. `const` and `readonly` are governed by rule 10. For every other static field, one declared in a non-static type uses public `__PascalCase`/private `__camelCase`; one declared in a `static class` uses public `_PascalCase`/private `_camelCase`. For nested types, ignore enclosing types.
 
 Correct naming:
 
@@ -388,6 +390,8 @@ public sealed class Cache
 {
     public static int __Capacity;
     private static int __index;
+
+    private int _index;
 }
 
 public static class CacheRegistry
@@ -404,6 +408,8 @@ public sealed class Cache
 {
     public static int _Capacity;
     private static int _index;
+
+    private int __index;
 }
 
 public static class CacheRegistry

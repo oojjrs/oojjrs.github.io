@@ -753,7 +753,8 @@ public sealed class IngameMenuPage : Page
       <article class="rule-card">
         <div class="rule-index">09</div>
         <div class="rule-body">
-          <h3>static 필드의 밑줄 수는 직접 선언한 타입으로 정한다</h3>
+          <h3>static 필드만 직접 선언한 타입에 따라 접두사를 정한다</h3>
+          <p>판정 순서는 (1) 필드 선언 자체에 <code>static</code>이 있는지, (2) 그 필드를 직접 선언한 타입이 static인지다. 필드 선언에 <code>static</code>이 없으면 9번을 적용하지 않는다. <code>const</code>와 <code>readonly</code>는 10번을 따른다. 이 관문을 통과한 나머지 static 필드는 비정적 타입에 직접 선언되면 public <code>__PascalCase</code>/private <code>__camelCase</code>, <code>static class</code>에 직접 선언되면 public <code>_PascalCase</code>/private <code>_camelCase</code>를 쓴다. 중첩 타입에서는 바깥 타입을 보지 않는다.</p>
           <div class="example-pair">
             <div class="example good">
               <div class="example-label">이름 규칙상 올바른 사용</div>
@@ -761,6 +762,8 @@ public sealed class IngameMenuPage : Page
 {
     public static int __Capacity;
     private static int __index;
+
+    private int _index;
 }
 
 public static class CacheRegistry
@@ -775,6 +778,8 @@ public static class CacheRegistry
 {
     public static int _Capacity;
     private static int _index;
+
+    private int __index;
 }
 
 public static class CacheRegistry
