@@ -5,7 +5,7 @@ Use the smallest stack that can complete the task. A skill URL being listed here
 ## Host Custom Instruction
 
 ```text
-코드·문서·자산·Git·검증·배포 등 실제 작업 스레드에서는 $oojjrs-guidelines로 canonical URL을 한 번만 읽어라. 저장소를 실제 변경할 때만 $oojjrs-project-start-work와 가장 구체적인 도메인 스킬 하나를 사용하라. 일반 편집은 수정 파일 형식과 scoped diff를 마지막에 한 번만 확인하고, stage·commit·push·deploy·release가 현재 요청에 있을 때만 $oojjrs-project-finish-work를 사용하라. 빌드·테스트는 사용자가 요청한 경우에만 수행하라.
+$oojjrs-guidelines
 ```
 
 ## Minimal Stack
@@ -18,7 +18,7 @@ $oojjrs-guidelines
 + [$oojjrs-project-finish-work: requested Git/publication completion only]
 ```
 
-- Ordinary conversation, factual Q&A, translation, and rewriting: no workflow skill.
+- Ordinary conversation, factual Q&A, translation, and rewriting: when host instructions name guidelines, apply only their final-answer presentation requirements; use no lifecycle or domain skill.
 - Read-only review or diagnosis: guidelines only when shared work rules matter, then the smallest non-overlapping read-only domains sequentially; no start or finish.
 - Local repository edits: guidelines once, start immediately before the first mutation, one primary domain at a time when needed, then one check-only exact-file format pass and one scoped diff review; no finish skill.
 - Scoped stage/commit: add finish only when the current request includes the Git action. Apply version policy only to a governed versioned unit in the final staged scope.
@@ -31,7 +31,7 @@ $oojjrs-guidelines
 
 | Role | Skill | Load when | Exclusions and precedence |
 |---|---|---|---|
-| Core | `$oojjrs-guidelines` | Actual repository, code, document, asset, Git, validation, maintenance, or deployment work | Fetch canonical URL once; no per-command reload, cache, or workspace substitute |
+| Core | `$oojjrs-guidelines` | Whenever host instructions name it, or when actual work needs the shared rules | Apply answer presentation to every final answer and operational workflow only to actual work; fetch the canonical URL once |
 | Lifecycle | `$oojjrs-project-start-work` | Once before the first authorized local file or Git-index mutation | Routine status at most once; history only when evidence requires it; not for review, diagnosis, planning, board-only, or push-only tasks |
 | Lifecycle | `$oojjrs-project-finish-work` | Explicitly requested stage, commit, push, deploy, release, or scoped Git completion | Never after ordinary edits; run only triggered checks once and omit inactive gates |
 | Helper | `$oojjrs-dirty-worktree-scope-split` | Target changes overlap existing hunks or safe stage/commit isolation is ambiguous | Mere dirty status is insufficient; dirty provenance diagnosis uses Windows forensics |
