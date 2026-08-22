@@ -1,0 +1,7 @@
+interface:
+  display_name: "동행복권 구매 도우미"
+  short_description: "로또와 연금복권을 안전한 확인 절차로 준비하고 실행"
+  default_prompt: "Use $oojjrs-run-dhlottery-buyer to prepare both lottery products safely and wait for my final confirmation."
+
+policy:
+  allow_implicit_invocation: true

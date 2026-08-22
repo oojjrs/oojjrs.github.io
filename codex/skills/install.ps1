@@ -1,7 +1,6 @@
 param(
     [string]$Destination,
-    [string[]]$Skill,
-    [switch]$SkipToolInstall
+    [string]$SourceCommit
 )
 
 $ErrorActionPreference = "Stop"
@@ -20,6 +19,7 @@ $CanonicalSkills = @(
     "oojjrs-guideline-maintenance",
     "oojjrs-unity-csharp-convention-maintenance",
     "oojjrs-skill-maintenance",
+    "oojjrs-run-dhlottery-buyer",
     "oojjrs-steamworks",
     "oojjrs-readme-doc-generation",
     "oojjrs-unity-package-src-migration",
@@ -45,8 +45,8 @@ $LegacyAliases = @{
     "2d-sprite-animation" = "oojjrs-2d-sprite-animation"
     "image-first-art-workflow" = "oojjrs-image-first-art-workflow"
     "unity-prefab-guid-usage-lookup" = "oojjrs-unity-prefab-guid-usage-lookup"
+    "run-dhlottery-buyer" = "oojjrs-run-dhlottery-buyer"
 }
-$KnownSkills = $CanonicalSkills + $LegacyAliases.Keys
 $DefaultFiles = @(
     "SKILL.md",
     "agents/openai.yaml"
@@ -119,14 +119,18 @@ function Get-PinnedRemoteBaseUrl {
         return $script:ResolvedRemoteBaseUrl
     }
 
-    $webClient = New-Object System.Net.WebClient
-    try {
-        $webClient.Headers["User-Agent"] = "oojjrs-skill-installer"
-        $refJson = $webClient.DownloadString("https://api.github.com/repos/$RemoteRepository/git/ref/heads/$RemoteBranch")
-        $ref = $refJson | ConvertFrom-Json
-        $commitSha = [string]$ref.object.sha
-    } finally {
-        $webClient.Dispose()
+    if ($SourceCommit) {
+        $commitSha = $SourceCommit
+    } else {
+        $webClient = New-Object System.Net.WebClient
+        try {
+            $webClient.Headers["User-Agent"] = "oojjrs-skill-installer"
+            $refJson = $webClient.DownloadString("https://api.github.com/repos/$RemoteRepository/git/ref/heads/$RemoteBranch")
+            $ref = $refJson | ConvertFrom-Json
+            $commitSha = [string]$ref.object.sha
+        } finally {
+            $webClient.Dispose()
+        }
     }
 
     if ($commitSha -notmatch "^[0-9a-fA-F]{40}$") {
@@ -174,29 +178,10 @@ if (-not $Destination) {
     }
 }
 
-if ($Skill -and $Skill.Count -gt 0) {
-    $TargetSkills = $Skill
-} else {
-    $TargetSkills = $CanonicalSkills
-}
-
-foreach ($name in $TargetSkills) {
-    if ($KnownSkills -notcontains $name) {
-        throw "Unknown skill '$name'. Known skills: $($CanonicalSkills -join ', ')"
-    }
-}
-
 New-Item -ItemType Directory -Force -Path $Destination | Out-Null
+$remoteBaseUrl = Get-PinnedRemoteBaseUrl
 
-$useLocalSource = Test-Path -LiteralPath (Join-Path $PSScriptRoot "oojjrs-guidelines\SKILL.md")
-
-foreach ($name in $TargetSkills) {
-    if ($LegacyAliases.ContainsKey($name)) {
-        $canonicalName = $LegacyAliases[$name]
-    } else {
-        $canonicalName = $name
-    }
-
+foreach ($canonicalName in $CanonicalSkills) {
     $skillDir = Join-Path $Destination $canonicalName
     New-Item -ItemType Directory -Force -Path $skillDir | Out-Null
 
@@ -209,30 +194,19 @@ foreach ($name in $TargetSkills) {
     foreach ($relativePath in $files) {
         $webPath = $relativePath -replace "\\", "/"
         $localPath = Join-Path $skillDir ($relativePath -replace "/", [System.IO.Path]::DirectorySeparatorChar)
-        $sourcePath = Join-Path $PSScriptRoot (Join-Path $canonicalName ($relativePath -replace "/", [System.IO.Path]::DirectorySeparatorChar))
         $localDir = Split-Path -Parent $localPath
         if ($localDir) {
             New-Item -ItemType Directory -Force -Path $localDir | Out-Null
         }
 
-        # Preserve source bytes exactly. Do not normalize encoding or line endings during install.
-        $expectedSha256 = $null
-        if ($useLocalSource) {
-            if (-not (Test-Path -LiteralPath $sourcePath)) {
-                throw "Local skill bundle is incomplete: '$sourcePath' is missing."
-            }
-            $expectedSha256 = Get-FileSha256 -Path $sourcePath
-            [System.IO.File]::Copy($sourcePath, $localPath, $true)
-        } else {
-            $remoteBaseUrl = Get-PinnedRemoteBaseUrl
-            $webClient = New-Object System.Net.WebClient
-            try {
-                $bytes = $webClient.DownloadData("$remoteBaseUrl/$canonicalName/$webPath")
-                $expectedSha256 = Get-BytesSha256 -Bytes $bytes
-                [System.IO.File]::WriteAllBytes($localPath, $bytes)
-            } finally {
-                $webClient.Dispose()
-            }
+        # Preserve GitHub source bytes exactly. Do not normalize encoding or line endings during install.
+        $webClient = New-Object System.Net.WebClient
+        try {
+            $bytes = $webClient.DownloadData("$remoteBaseUrl/$canonicalName/$webPath")
+            $expectedSha256 = Get-BytesSha256 -Bytes $bytes
+            [System.IO.File]::WriteAllBytes($localPath, $bytes)
+        } finally {
+            $webClient.Dispose()
         }
 
         $actualSha256 = Get-FileSha256 -Path $localPath
@@ -241,7 +215,7 @@ foreach ($name in $TargetSkills) {
         }
     }
 
-    $skillRoot = $skillDir.TrimEnd([System.IO.Path]::DirectorySeparatorChar) + [System.IO.Path]::DirectorySeparatorChar
+    $skillRoot = [System.IO.Path]::GetFullPath($skillDir).TrimEnd([System.IO.Path]::DirectorySeparatorChar) + [System.IO.Path]::DirectorySeparatorChar
     $expectedRelativePaths = @($files | ForEach-Object { $_ -replace "/", [System.IO.Path]::DirectorySeparatorChar })
     $unexpectedFiles = @(
         Get-ChildItem -LiteralPath $skillDir -File -Recurse | ForEach-Object {
@@ -251,8 +225,21 @@ foreach ($name in $TargetSkills) {
             }
         }
     )
-    if ($unexpectedFiles.Count -gt 0) {
-        Write-Warning "Unexpected stale files remain under '$skillDir': $($unexpectedFiles -join ', ')"
+    foreach ($unexpectedFile in $unexpectedFiles) {
+        $unexpectedPath = [System.IO.Path]::GetFullPath((Join-Path $skillDir $unexpectedFile))
+        if (-not $unexpectedPath.StartsWith($skillRoot, [System.StringComparison]::OrdinalIgnoreCase)) {
+            throw "Refusing to remove stale file outside '$skillDir': '$unexpectedPath'."
+        }
+        Remove-Item -LiteralPath $unexpectedPath -Force
+    }
+    $installedDirectories = @(
+        Get-ChildItem -LiteralPath $skillDir -Directory -Recurse |
+            Sort-Object FullName -Descending
+    )
+    foreach ($installedDirectory in $installedDirectories) {
+        if (-not (Get-ChildItem -LiteralPath $installedDirectory.FullName -Force)) {
+            Remove-Item -LiteralPath $installedDirectory.FullName -Force
+        }
     }
 
     foreach ($legacyName in $LegacyAliases.Keys) {
@@ -266,11 +253,27 @@ foreach ($name in $TargetSkills) {
         }
     }
 
-    Write-Host "Installed $canonicalName -> $skillDir ($($files.Count) files SHA-256 verified; $($unexpectedFiles.Count) unexpected stale files)"
+    Write-Host "Synchronized $canonicalName -> $skillDir ($($files.Count) files SHA-256 verified; $($unexpectedFiles.Count) stale files removed)"
 
-    if (-not $SkipToolInstall -and $ToolDependencies.ContainsKey($canonicalName)) {
+    if ($ToolDependencies.ContainsKey($canonicalName)) {
         foreach ($tool in $ToolDependencies[$canonicalName]) {
             Install-ToolDependency $tool
         }
     }
 }
+
+$destinationRoot = [System.IO.Path]::GetFullPath($Destination).TrimEnd([System.IO.Path]::DirectorySeparatorChar) + [System.IO.Path]::DirectorySeparatorChar
+$staleSkillDirectories = @(
+    Get-ChildItem -LiteralPath $Destination -Directory |
+        Where-Object { $_.Name -like "oojjrs-*" -and $CanonicalSkills -notcontains $_.Name }
+)
+foreach ($staleSkillDirectory in $staleSkillDirectories) {
+    $stalePath = [System.IO.Path]::GetFullPath($staleSkillDirectory.FullName)
+    if (-not $stalePath.StartsWith($destinationRoot, [System.StringComparison]::OrdinalIgnoreCase)) {
+        throw "Refusing to remove stale skill outside '$Destination': '$stalePath'."
+    }
+    Remove-Item -LiteralPath $stalePath -Recurse -Force
+    Write-Host "Removed stale managed skill -> $stalePath"
+}
+
+Write-Host "Synchronized $($CanonicalSkills.Count) canonical oojjrs skills from GitHub commit $ResolvedRemoteCommit"

@@ -1,6 +1,6 @@
 # Codex Skill Sources And Routing
 
-Use the smallest stack that can complete the task. A skill URL being listed here does not mean it should be loaded for every thread.
+When a task matches an available skill, use the most-specific matching skill. Keep the active stack as small as the task permits instead of loading every listed skill.
 
 ## Host Custom Instruction
 
@@ -43,6 +43,7 @@ $oojjrs-guidelines
 | Domain | `$oojjrs-guideline-maintenance` | Public guidance itself is the primary deliverable and no skill artifact changes | Skill/routing artifacts use skill maintenance; Unity C# convention sets use convention maintenance |
 | Domain | `$oojjrs-unity-csharp-convention-maintenance` | Unity C# convention rules or translations themselves change | Not for applying the convention during code edits |
 | Domain | `$oojjrs-skill-maintenance` | Public skill source, metadata, routing, install, or validation changes | Owns related common-rule routing alignment; do not add guideline maintenance |
+| Domain | `$oojjrs-run-dhlottery-buyer` | Preparing, dry-running, explicitly executing, publishing, or scheduling the local DHLottery helper | UI-only purchase flow; never collect credentials or bypass the fresh final confirmation |
 | Domain | `$oojjrs-steamworks` | Steamworks integration, SDK, API, SteamPipe, partner, or operations work | Uses Valve official docs; no generic web research substitute |
 | Domain | `$oojjrs-unity-package-src-migration` | Moving an Assets-based Unity package into `Packages/src` | Directly performs needed version and README edits; do not add release, standalone README, or generic asset skills during migration |
 | Domain | `$oojjrs-unity-package-release` | A governed UnityO package is being committed, or its version/release is explicitly requested | Not for game versions or package-root migration; generic finish owns Git completion while push/release still require explicit authorization |
@@ -72,19 +73,16 @@ These are documents, not additional primary skills. Load only when the edit matc
 PowerShell:
 
 ```powershell
-$url = "https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/install.ps1"
+$repository = "oojjrs/oojjrs.github.io"
+$ref = Invoke-RestMethod -Uri "https://api.github.com/repos/$repository/git/ref/heads/master"
+$commit = [string]$ref.object.sha
+$url = "https://raw.githubusercontent.com/$repository/$commit/codex/skills/install.ps1"
 $path = Join-Path $env:TEMP "codex-skill-install.ps1"
 Invoke-WebRequest -UseBasicParsing -Uri $url -OutFile $path
-powershell -ExecutionPolicy Bypass -File $path
+powershell -ExecutionPolicy Bypass -File $path -SourceCommit $commit
 ```
 
-Install selected skills:
-
-```powershell
-& $path -Skill @("oojjrs-guidelines", "oojjrs-project-start-work", "oojjrs-project-finish-work")
-```
-
-Default destination is `$CODEX_HOME/skills`, or `~/.codex/skills` when `$CODEX_HOME` is unset. A local installer uses one complete local publication tree; a downloaded installer resolves `master` once and fetches the whole bundle from that immutable Git commit. It preserves source bytes, verifies each destination SHA-256, and reports unexpected stale files instead of treating them as current manifest content. For a public deployment, push first and run the downloaded installer once from that immutable commit instead of installing unpublished working-tree bytes. Add `-SkipToolInstall` to skip optional workstation-tool installation.
+Every install or refresh synchronizes the complete canonical `oojjrs-*` skill set; selective or changed-only updates are not supported. The bootstrap pins one GitHub commit for both the installer and all managed files, verifies installed SHA-256 values, and removes managed stale files and retired `oojjrs-*` skill directories. Default destination is `$CODEX_HOME/skills`, or `~/.codex/skills` when `$CODEX_HOME` is unset.
 
 `oojjrs-guidelines` installs both scripts:
 
@@ -95,27 +93,28 @@ The repository file `codex/common-work-guidelines.md` is the publication source.
 
 ## Skill URLs
 
-- `oojjrs-guidelines`: `https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/oojjrs-guidelines/SKILL.md`
-- `oojjrs-project-start-work`: `https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/oojjrs-project-start-work/SKILL.md`
-- `oojjrs-project-finish-work`: `https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/oojjrs-project-finish-work/SKILL.md`
-- `oojjrs-dirty-worktree-scope-split`: `https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/oojjrs-dirty-worktree-scope-split/SKILL.md`
-- `oojjrs-github-project-board`: `https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/oojjrs-github-project-board/SKILL.md`
-- `oojjrs-visual-qa`: `https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/oojjrs-visual-qa/SKILL.md`
-- `oojjrs-project-design-document-router`: `https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/oojjrs-project-design-document-router/SKILL.md`
-- `oojjrs-design-html-builder`: `https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/oojjrs-design-html-builder/SKILL.md`
-- `oojjrs-readme-doc-generation`: `https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/oojjrs-readme-doc-generation/SKILL.md`
-- `oojjrs-guideline-maintenance`: `https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/oojjrs-guideline-maintenance/SKILL.md`
-- `oojjrs-unity-csharp-convention-maintenance`: `https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/oojjrs-unity-csharp-convention-maintenance/SKILL.md`
-- `oojjrs-skill-maintenance`: `https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/oojjrs-skill-maintenance/SKILL.md`
-- `oojjrs-steamworks`: `https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/oojjrs-steamworks/SKILL.md`
-- `oojjrs-unity-package-src-migration`: `https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/oojjrs-unity-package-src-migration/SKILL.md`
-- `oojjrs-unity-package-release`: `https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/oojjrs-unity-package-release/SKILL.md`
-- `oojjrs-unity-asset-safety`: `https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/oojjrs-unity-asset-safety/SKILL.md`
-- `oojjrs-unity-csharp-entity-workflow`: [SKILL.md](https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/oojjrs-unity-csharp-entity-workflow/SKILL.md)
-- `oojjrs-unity-prefab-guid-usage-lookup`: `https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/oojjrs-unity-prefab-guid-usage-lookup/SKILL.md`
-- `oojjrs-2d-sprite-animation`: `https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/oojjrs-2d-sprite-animation/SKILL.md`
-- `oojjrs-image-first-art-workflow`: `https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/oojjrs-image-first-art-workflow/SKILL.md`
-- `oojjrs-mines-art-asset-pipeline`: `https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/oojjrs-mines-art-asset-pipeline/SKILL.md`
-- `oojjrs-game-audio-asset-workflow`: `https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/oojjrs-game-audio-asset-workflow/SKILL.md`
-- `oojjrs-ai-music-generator`: `https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/oojjrs-ai-music-generator/SKILL.md`
-- `oojjrs-windows-repo-forensics`: `https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/oojjrs-windows-repo-forensics/SKILL.md`
+- `oojjrs-guidelines`: [웹 보기](https://oojjrs.github.io/codex/skills/oojjrs-guidelines/SKILL/) · [원문](https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/oojjrs-guidelines/SKILL.md)
+- `oojjrs-project-start-work`: [웹 보기](https://oojjrs.github.io/codex/skills/oojjrs-project-start-work/SKILL/) · [원문](https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/oojjrs-project-start-work/SKILL.md)
+- `oojjrs-project-finish-work`: [웹 보기](https://oojjrs.github.io/codex/skills/oojjrs-project-finish-work/SKILL/) · [원문](https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/oojjrs-project-finish-work/SKILL.md)
+- `oojjrs-dirty-worktree-scope-split`: [웹 보기](https://oojjrs.github.io/codex/skills/oojjrs-dirty-worktree-scope-split/SKILL/) · [원문](https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/oojjrs-dirty-worktree-scope-split/SKILL.md)
+- `oojjrs-github-project-board`: [웹 보기](https://oojjrs.github.io/codex/skills/oojjrs-github-project-board/SKILL/) · [원문](https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/oojjrs-github-project-board/SKILL.md)
+- `oojjrs-visual-qa`: [웹 보기](https://oojjrs.github.io/codex/skills/oojjrs-visual-qa/SKILL/) · [원문](https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/oojjrs-visual-qa/SKILL.md)
+- `oojjrs-project-design-document-router`: [웹 보기](https://oojjrs.github.io/codex/skills/oojjrs-project-design-document-router/SKILL/) · [원문](https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/oojjrs-project-design-document-router/SKILL.md)
+- `oojjrs-design-html-builder`: [웹 보기](https://oojjrs.github.io/codex/skills/oojjrs-design-html-builder/SKILL/) · [원문](https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/oojjrs-design-html-builder/SKILL.md)
+- `oojjrs-readme-doc-generation`: [웹 보기](https://oojjrs.github.io/codex/skills/oojjrs-readme-doc-generation/SKILL/) · [원문](https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/oojjrs-readme-doc-generation/SKILL.md)
+- `oojjrs-guideline-maintenance`: [웹 보기](https://oojjrs.github.io/codex/skills/oojjrs-guideline-maintenance/SKILL/) · [원문](https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/oojjrs-guideline-maintenance/SKILL.md)
+- `oojjrs-unity-csharp-convention-maintenance`: [웹 보기](https://oojjrs.github.io/codex/skills/oojjrs-unity-csharp-convention-maintenance/SKILL/) · [원문](https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/oojjrs-unity-csharp-convention-maintenance/SKILL.md)
+- `oojjrs-skill-maintenance`: [웹 보기](https://oojjrs.github.io/codex/skills/oojjrs-skill-maintenance/SKILL/) · [원문](https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/oojjrs-skill-maintenance/SKILL.md)
+- `oojjrs-run-dhlottery-buyer`: [웹 보기](https://oojjrs.github.io/codex/skills/oojjrs-run-dhlottery-buyer/SKILL/) · [원문](https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/oojjrs-run-dhlottery-buyer/SKILL.md)
+- `oojjrs-steamworks`: [웹 보기](https://oojjrs.github.io/codex/skills/oojjrs-steamworks/SKILL/) · [원문](https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/oojjrs-steamworks/SKILL.md)
+- `oojjrs-unity-package-src-migration`: [웹 보기](https://oojjrs.github.io/codex/skills/oojjrs-unity-package-src-migration/SKILL/) · [원문](https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/oojjrs-unity-package-src-migration/SKILL.md)
+- `oojjrs-unity-package-release`: [웹 보기](https://oojjrs.github.io/codex/skills/oojjrs-unity-package-release/SKILL/) · [원문](https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/oojjrs-unity-package-release/SKILL.md)
+- `oojjrs-unity-asset-safety`: [웹 보기](https://oojjrs.github.io/codex/skills/oojjrs-unity-asset-safety/SKILL/) · [원문](https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/oojjrs-unity-asset-safety/SKILL.md)
+- `oojjrs-unity-csharp-entity-workflow`: [웹 보기](https://oojjrs.github.io/codex/skills/oojjrs-unity-csharp-entity-workflow/SKILL/) · [원문](https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/oojjrs-unity-csharp-entity-workflow/SKILL.md)
+- `oojjrs-unity-prefab-guid-usage-lookup`: [웹 보기](https://oojjrs.github.io/codex/skills/oojjrs-unity-prefab-guid-usage-lookup/SKILL/) · [원문](https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/oojjrs-unity-prefab-guid-usage-lookup/SKILL.md)
+- `oojjrs-2d-sprite-animation`: [웹 보기](https://oojjrs.github.io/codex/skills/oojjrs-2d-sprite-animation/SKILL/) · [원문](https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/oojjrs-2d-sprite-animation/SKILL.md)
+- `oojjrs-image-first-art-workflow`: [웹 보기](https://oojjrs.github.io/codex/skills/oojjrs-image-first-art-workflow/SKILL/) · [원문](https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/oojjrs-image-first-art-workflow/SKILL.md)
+- `oojjrs-mines-art-asset-pipeline`: [웹 보기](https://oojjrs.github.io/codex/skills/oojjrs-mines-art-asset-pipeline/SKILL/) · [원문](https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/oojjrs-mines-art-asset-pipeline/SKILL.md)
+- `oojjrs-game-audio-asset-workflow`: [웹 보기](https://oojjrs.github.io/codex/skills/oojjrs-game-audio-asset-workflow/SKILL/) · [원문](https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/oojjrs-game-audio-asset-workflow/SKILL.md)
+- `oojjrs-ai-music-generator`: [웹 보기](https://oojjrs.github.io/codex/skills/oojjrs-ai-music-generator/SKILL/) · [원문](https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/oojjrs-ai-music-generator/SKILL.md)
+- `oojjrs-windows-repo-forensics`: [웹 보기](https://oojjrs.github.io/codex/skills/oojjrs-windows-repo-forensics/SKILL/) · [원문](https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/oojjrs-windows-repo-forensics/SKILL.md)
