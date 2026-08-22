@@ -15,7 +15,7 @@ Use this lifecycle skill once immediately before the first intended local file, 
 4. Preserve each target text file's existing encoding and line endings as a write condition. Do not add a separate pre-edit format audit unless the format is unknown or already suspicious.
 5. Select one primary domain at a time when a domain is needed. The most-specific match owns its subordinate safety and artifact rules; do not stack its generic parents.
 6. Read `Design.html` only when the task changes planning content or planning-visible state. Probe or load a GitHub Project board only when the user requested board work or the task already uses a confirmed linked board.
-7. Begin editing once the scope can be isolated safely. Report only a real overlap or missing decision instead of narrating a routine start gate.
+7. For code changes, complete the Code Convention Preflight below before the first code edit. For other changes, begin editing once the scope can be isolated safely. Report only a real overlap or missing decision instead of narrating a routine start gate.
 
 ## Conditional Public References
 
@@ -24,6 +24,13 @@ Load these only when the intended edit matches the condition:
 - first-party application or business-layer names in a game/server: `https://oojjrs.github.io/codex/semantic-layer-naming-guideline.md`
 - Unity C# code: `https://oojjrs.github.io/codex/unity-csharp-coding-convention.md`
 - first-party log messages: `https://oojjrs.github.io/codex/logging-guideline.md`
+
+## Code Convention Preflight
+
+1. Load only the matching conditional references above before choosing any governed name or declaration placement.
+2. Before implementation, fix the exact role and final name of every planned new or renamed first-party identifier against those references. If implementation reveals another identifier, settle it through the same gate before writing it.
+3. Before adding or moving a Unity C# declaration, determine its final section and group plus its immediate `abc` predecessor and successor. Apply rule 29 first, then 31/34, then 30; `abc` applies only inside the resulting group and never overrides an earlier grouping rule, and rule 37 forbids access-based grouping.
+4. Retain these decisions only in task scratch state through the canonical final scoped diff. Use that existing diff to confirm the implementation matches the decisions; re-derive only an unplanned item or one whose role or structure changed, never perform a second from-scratch convention audit.
 
 ## Start Output
 
