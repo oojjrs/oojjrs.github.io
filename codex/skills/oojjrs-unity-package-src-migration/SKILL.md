@@ -1,9 +1,11 @@
 ---
 name: oojjrs-unity-package-src-migration
-description: Assets 아래 Unity 패키지를 Packages/src 루트로 실제 구조 이관할 때만 사용한다. 이관에 수반되는 package.json, .meta, asmdef, 경로, 버전, 문서 판단을 이 스킬 하나가 소유하며, release, README, 일반 asset 스킬을 함께 쓰지 않는다. stage, commit, push는 project finish가 소유한다.
+description: Assets 아래 Unity 패키지를 Packages/src 루트로 실제 구조 이관할 때만 사용한다. 이관에 필요한 package.json, .meta, asmdef, 경로, 버전, README 수정을 이 스킬이 직접 수행한다. 이관 단계에서는 release, README 전용, 일반 asset 스킬을 추가로 로드하지 않으며, Git 완료는 project finish가 소유한다.
 ---
 
 # oojjrs Unity Package Src Migration
+
+README 수정은 허용된다. 이관에 필요한 README 동기화는 이 스킬이 직접 수행하고, README 자체가 별도 주 산출물인 전면 개편만 이관 단계가 끝난 뒤 `$oojjrs-readme-doc-generation`의 독립 단계로 진행한다.
 
 ## Text File Discipline
 

@@ -1,13 +1,13 @@
 ---
 name: oojjrs-unity-package-release
-description: Decide or apply versions for UnityO-prefixed Unity library packages, or review their release readiness. Use whenever a UnityO package change reaches finish/version evaluation, before every authorized commit containing such a change, and for explicit release/version requests. Do not use for game versioning or Assets-to-Packages/src migration; migration owns its incidental version decision.
+description: Decide or apply versions for UnityO-prefixed Unity library packages, or review their release readiness. Use whenever a UnityO package change reaches finish/version evaluation, before every commit containing such a change, and for explicit release/version requests. Do not use for game versioning or Assets-to-Packages/src migration; migration owns its incidental version decision.
 ---
 
 # oojjrs Unity Package Release
 
 Use this for `UnityO...` libraries only. Each package's `package.json` is its version source; game versions follow a separate release policy.
 
-Before every authorized commit containing a UnityO library change, classify each changed package against the Version Rule even when the user did not explicitly request a version bump. A no-bump result must still be reported.
+Before every commit containing a UnityO library change, classify each changed package against the Version Rule even when the user did not explicitly request a version bump. A no-bump result must still be reported.
 
 ## Version Rule
 
@@ -21,6 +21,8 @@ Before every authorized commit containing a UnityO library change, classify each
 Judge consumer use by whether they directly attach, create, reference, or call the feature, not by C# accessibility alone. A breaking public API edit inside an existing file remains patch unless it changes the package's design or mechanism.
 
 Normally include one version change per atomic commit. For ordered commits, apply each bump from the version produced by the preceding commit; the highest change within one commit wins.
+
+If a version or install-path change makes an existing README reference stale, update only that direct reference in the same task. The standalone README skill is not required for this incidental synchronization.
 
 ## Release Evidence
 

@@ -1,4 +1,4 @@
 interface:
   display_name: "oojjrs Unity Package Release"
   short_description: "Apply scoped UnityO version policy"
-  default_prompt: "Use $oojjrs-unity-package-release to classify changed UnityO packages, verify only affected release metadata, and run builds or tests only when explicitly requested with an independent expected result."
+  default_prompt: "Use $oojjrs-unity-package-release before committing changed UnityO packages, synchronize any directly stale README version or install-path reference, verify only affected release metadata, and run builds or tests only when the task targets them with an independent expected result."

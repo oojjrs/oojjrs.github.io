@@ -1,6 +1,6 @@
 ---
 name: oojjrs-guideline-maintenance
-description: Maintain shared oojjrs workflow guidance and public guideline documents when public guidance itself is the primary deliverable. Use for common-work-guidelines.md, Design.html or README guidance, logging or semantic naming guidance, and rule-placement decisions. If the task primarily changes SKILL.md, agents/openai.yaml, the skill index, or the installer, use $oojjrs-skill-maintenance instead. Unity C# convention sets use $oojjrs-unity-csharp-convention-maintenance.
+description: Maintain shared oojjrs workflow guidance and public guideline documents when the current phase changes no SKILL.md, agents/openai.yaml, skill index, or installer artifact. Use for common-work-guidelines.md, Design.html or README guidance, logging or semantic naming guidance, and rule-placement decisions. If the same alignment also changes a skill artifact, $oojjrs-skill-maintenance owns that phase. Unity C# convention sets use $oojjrs-unity-csharp-convention-maintenance.
 ---
 
 # oojjrs Guideline Maintenance
@@ -27,7 +27,7 @@ Use this skill when durable public guidance must change.
 
 1. Keep the change narrow and remove superseded or duplicated wording rather than layering another exception on top.
 2. Validate only changed guidance semantics and affected references against independent source material.
-3. When guidance changes public skills, keep the affected `SKILL.md`, `agents/openai.yaml`, routing index, and installer aligned.
+3. If guidance alignment requires a public skill artifact change, finish the independent guidance phase and route the aligned skill phase to `$oojjrs-skill-maintenance`; do not load both for the same phase.
 4. When adding, moving, or publishing a public document, add a discoverable site-root navigation path and verify it when deployment is in scope.
 5. Parse only changed structured content and resolve only changed links. Do not add a second generic format, diff, build, or test pass in this domain.
 

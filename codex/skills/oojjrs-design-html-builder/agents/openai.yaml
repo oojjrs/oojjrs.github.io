@@ -1,4 +1,4 @@
 interface:
   display_name: "oojjrs Design.html Builder"
   short_description: "Build image-heavy Design.html docs"
-  default_prompt: "Use $oojjrs-design-html-builder to rebuild or update a project Design.html from live assets, history, and the shared planning-doc rules; compose previews from actual represented files, never preview-only imagegen calls."
+  default_prompt: "Use $oojjrs-design-html-builder for substantive Design.html creation, recovery, layout conversion, or rebuild in any project including H:\\Mines; preserve narrow asset-entry sync for the owning asset domain and never make preview-only imagegen calls."

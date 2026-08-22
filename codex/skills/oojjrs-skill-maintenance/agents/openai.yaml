@@ -1,4 +1,4 @@
 interface:
   display_name: "oojjrs Skill Maintenance"
   short_description: "Maintain public skills with scoped validation"
-  default_prompt: "Use $oojjrs-skill-maintenance to update public oojjrs skill sources, validate only changed skill artifacts, and install changed skills once from the immutable pushed commit when publishing."
+  default_prompt: "Use $oojjrs-skill-maintenance to own any phase that changes SKILL/YAML/index/installer artifacts and directly related common-rule alignment, validate only changed skill artifacts, and install changed skills once from the immutable pushed commit when publishing."

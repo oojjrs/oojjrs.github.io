@@ -11,15 +11,15 @@ Use this helper only after the start gate confirms a real overlap or staging-iso
 
 1. Reuse the requested paths and overlap evidence already established for the task. Do not repeat broad Git status or history checks merely because this helper was loaded.
 2. Inspect only the files and hunks whose ownership overlaps or remains uncertain.
-3. Classify those changes as requested scope, related support files, unrelated existing work, generated/temp files, or unknown. Classification controls isolation and staging eligibility only; it never grants authority to edit content.
-4. Refresh evidence only for an affected file that changed after inspection or immediately before isolating its hunks for an authorized commit.
-5. Do not revert or clean any pre-existing, concurrent, or unknown change. Treat all of it as protected user or parallel-thread work regardless of relatedness.
+3. Classify those changes as requested scope, related support files, unrelated existing work, task-owned generated/temp files, or unknown. Classification controls isolation and staging eligibility only; it never grants authority to edit protected content.
+4. Refresh evidence only for an affected file that changed after inspection or immediately before isolating its hunks for a commit.
+5. Do not revert or clean any pre-existing, concurrent, or unknown change. Treat it as protected user or parallel-thread work regardless of relatedness. The common rules' `$Trash` and task-owned-output exception remains disposable.
 
 ## Narrow Work
 
 1. Read only the overlapping diffs needed to separate ownership.
-2. Edit only content whose change the current request explicitly authorizes or that falls under the common rules' narrow post-sign documentation/version exception. Never edit protected work merely because it was classified as requested or related for a commit.
-3. Stage exact paths or isolated hunks only when a commit is authorized; never use broad `git add -A` unless the whole dirty tree is the requested scope.
+2. Edit only the current task's content scope. Never edit protected work merely because it was classified as requested or related for a commit.
+3. Stage exact paths or isolated hunks when committing the scoped work; never use broad `git add -A` unless the whole dirty tree is the current task scope.
 4. Leave the final staged-content review to the commit workflow instead of duplicating it here.
 5. If unrelated changes are interleaved in the same file, avoid staging until you can isolate hunks safely; ask only if isolation is impossible.
 

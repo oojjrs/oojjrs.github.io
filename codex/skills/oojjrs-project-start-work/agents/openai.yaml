@@ -1,4 +1,4 @@
 interface:
   display_name: "oojjrs Project Start Work"
   short_description: "Isolate repository mutation scope once"
-  default_prompt: "Use $oojjrs-project-start-work once before the first authorized local file or Git-index mutation, keep all pre-existing or concurrent content read-only unless the current request explicitly authorizes editing it or the narrow post-sign documentation/version exception applies, and select only the required domain workflow."
+  default_prompt: "Use $oojjrs-project-start-work once before the first intended local file or Git-index mutation, protect pre-existing or concurrent work outside the current task while keeping task-owned temporary output disposable, and select only the required domain workflow."

@@ -1,6 +1,6 @@
 ---
 name: oojjrs-skill-maintenance
-description: Maintain public oojjrs Codex skill sources in codex/skills. Use when SKILL.md, agents/openai.yaml, install.ps1, or codex/skills/index.md is a primary deliverable, including related common-rule routing alignment. Do not also load $oojjrs-guideline-maintenance for that alignment; use guideline maintenance only when no skill source or routing artifact changes.
+description: Maintain public oojjrs Codex skill sources in codex/skills. Use when SKILL.md, agents/openai.yaml, install.ps1, or codex/skills/index.md changes, including directly related common-rule routing alignment. Do not load $oojjrs-guideline-maintenance for the same alignment phase; an independent public-guidance semantic change may run as a separate phase.
 ---
 
 # oojjrs Skill Maintenance

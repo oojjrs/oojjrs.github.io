@@ -1,11 +1,13 @@
 ---
 name: oojjrs-readme-doc-generation
-description: Create or update standalone GitHub-facing README and entry documentation for oojjrs repositories. Use when README or public entry documentation is the primary deliverable. Do not add it to package migration or release work whose domain skill already owns README synchronization.
+description: Create or update standalone GitHub-facing README and entry documentation for oojjrs repositories. Use only when README or public entry documentation is the primary deliverable. When another primary domain also requires a README update, that domain edits README directly; do not load this standalone skill in addition.
 ---
 
 # oojjrs README Doc Generation
 
 Use this skill for GitHub-facing README and repository entry docs.
+
+This boundary prevents duplicate workflow loading, not README edits. Package migration, release, or another primary domain may update README as part of its own scoped work.
 
 ## Source Rules
 
@@ -33,4 +35,4 @@ Validate only changed content against independent project sources:
 - compare changed commands and code blocks with live code or package metadata
 - when version text changed, compare it with the applicable `package.json` or manifest
 
-Do not run builds or tests, or add a separate generic format or diff pass, for README-only changes.
+Do not run builds or tests for README-only changes. The canonical single format and scoped-diff pass still applies; do not duplicate it inside this domain.

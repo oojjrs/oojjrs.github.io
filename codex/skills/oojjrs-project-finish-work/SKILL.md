@@ -1,27 +1,27 @@
 ---
 name: oojjrs-project-finish-work
-description: Complete an explicitly requested stage, commit, push, deploy, release, or other Git completion operation for a scoped diff or commit without inferring file-content edit authority. Use only when Git or publication completion is in scope. Do not use after ordinary edits, for read-only review or diagnosis, or merely to enumerate validation, documentation, board, version, commit, and push decisions.
+description: Complete a safe local stage or commit for scoped work, or an explicitly authorized push, deploy, release, publication, or destructive Git operation, without inferring unrelated file-content edit authority. Use only when Git or publication completion occurs, not for read-only review, diagnosis, or merely enumerating completion decisions.
 ---
 
 # oojjrs Project Finish Work
 
-Use this lifecycle skill only for requested Git or publication completion. Ordinary edits finish under the canonical one-pass text-format and scoped-diff rule without loading this skill.
+Use this lifecycle skill for actual Git or publication completion. A safe local stage or commit may complete scoped work without separate permission. Push, deploy, release, publication, and destructive Git operations require explicit current-request authorization. Ordinary edits that remain uncommitted finish under the canonical one-pass text-format and scoped-diff rule without this skill.
 
 ## Content Freeze
 
-A stage or commit instruction freezes all non-document tracked and untracked content at the state present when that instruction arrives. Asking to gather related work, stage, commit, push, deploy, release, or publish authorizes only classification, exact staging, and the named state transition; it never authorizes a new edit to frozen content.
+Staging or commit by itself never authorizes unrelated content edits. When the task also includes content work, complete every requested content action and required documentation or governed version synchronization first, then freeze that finished scope immediately before staging. Leave protected work outside that scope untouched.
 
-After that sign, the only automatic content changes are the minimum documentation synchronization and governed version-metadata update expressly required by an already applicable workflow; keep them narrow and behavior-neutral. Leave all code, prefabs, assets, data, settings, and other frozen content untouched even when it appears related, supporting, generated, defective, incomplete, contains a `TODO` or error, has missing references, or fails validation. Do not fix, complete, format, normalize, move, delete, replace, recreate, or regenerate it. If the same current request separately and explicitly authorized another content change, finish only that scope; otherwise report the defect, risk, or isolation blocker without repairing it.
+An explicitly requested merge, rebase, cherry-pick, or revert may make its normal worktree and index changes and the minimum conflict resolution needed to complete that operation. Re-review the resulting scoped bytes before commit; do not add unrelated repairs.
 
 ## One-Pass Completion
 
 1. Reuse any post-last-edit text-format result while the files remain unchanged. If none exists, run that exact check once. For a commit in the same task, defer the single scoped diff to the final staged review instead of reading both ordinary and staged versions; for non-commit completion, reuse or run the ordinary scoped diff once.
-2. Do not start a build, test, server, browser, or new test suite merely because code changed. Follow the user's explicit execution request and the independent-oracle rule in the public validation guideline.
+2. Do not start a build, test, server, browser, or new test suite merely because code changed. Follow the execution-surface and independent-oracle rules in the public validation guideline.
 3. Evaluate only conditions that actually trigger. Documentation, Design, asset metadata, publication sync, board work, and versioning belong to their owning domain or current request; do not create or report `not applicable` decisions.
-4. If a commit is requested, inspect the exact intended paths for governed versioned units. Read and apply only policies that govern units present in that scope; do not report that unrelated or absent units do not exist.
+4. If committing, inspect the exact intended paths for governed versioned units. Read and apply only policies that govern units present in that scope; do not report that unrelated or absent units do not exist.
 5. Stage the exact requested existing bytes without modifying their contents. Review `git diff --cached --name-status`, the staged diff, and `git diff --cached --check` once after staging is final.
 6. If staged content changes, re-review only the final staged content and any policy directly affected by that change.
-7. Commit, push, deploy, or publish only to the explicitly authorized target. For an external result, read back the resulting commit or deployment state once.
+7. Commit locally when it safely completes the scoped work. Push, deploy, release, publish, or perform destructive Git operations only to the explicitly authorized target. For an external result, read back the resulting state once.
 
 ## Text Format
 
@@ -31,7 +31,7 @@ Run the installed shared checker in check-only mode on exact touched text files 
 powershell -ExecutionPolicy Bypass -File <oojjrs-guidelines-skill-dir>\scripts\Test-OojjrsTextFormat.ps1 -Path <exact-touched-files>
 ```
 
-Never use `-Fix` on frozen content. Correct a mismatch only when the same current request explicitly authorized editing that affected content or the file changed under the narrow documentation/version exception; otherwise leave it untouched and report it. The checker's `-Fix` path verifies an authorized write, so do not add an unconditional second run.
+Never use `-Fix` outside the current task's content scope. Correct an in-scope mismatch before freezing the final bytes; otherwise leave it untouched and report it. The checker's `-Fix` path verifies its write, so do not add an unconditional second run.
 
 ## Commit Boundary
 

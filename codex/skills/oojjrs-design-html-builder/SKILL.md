@@ -1,11 +1,13 @@
 ---
 name: oojjrs-design-html-builder
-description: Build, rebuild, recover, or substantially update project Design.html planning documents for oojjrs projects. Use for image-heavy planning docs, Mines/MunpaWeb/Rebellion style conversions, PDF/git-history recovery, left-nav layouts, lightbox/image inventories, filename labels, visible metadata cleanup, and live asset synchronization.
+description: Build, rebuild, recover, or substantially update project Design.html planning documents for oojjrs projects. Use for image-heavy planning docs, substantial layout or template conversions, PDF/git-history recovery, left-nav layouts, lightbox/image inventories, filename labels, visible metadata cleanup, and live asset synchronization.
 ---
 
 # oojjrs Design.html Builder
 
 Use this as the primary domain for substantive `Design.html` creation, recovery, or rebuild work. It owns the planning-document rules needed for that work and supersedes `$oojjrs-project-design-document-router`; do not load both.
+
+For `H:\Mines`, this skill owns substantive document layout or structure work. The Mines art pipeline may run in a separate asset phase and may synchronize only the entries directly affected by its asset changes.
 
 ## Required Reads
 

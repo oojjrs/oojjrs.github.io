@@ -7,13 +7,13 @@ Use validation to answer a concrete uncertainty about the changed result. Do not
 1. Let `E` be task-local implementation or editing time after scope is understood. Routine validation targets `min(E × 25%, 15 seconds)` of agent-controlled wall time.
 2. After the last edit, batch the shared format checker on the exact touched text files with one scoped diff. This operation is mandatory, not a time floor: start it even if 25% of `E` is smaller and let it finish only within the 15-second hard cap.
 3. Measure that cap from the first routine validation call through its last result, including tool round trips. At 15 seconds, stop unfinished unrequested checks and report missing evidence; do not retry or substitute another check.
-4. Preserve existing encoding and line endings. Use `-Fix` only for a reported mismatch in content whose editing the current request explicitly authorizes or in a file changed under the common rules' narrow post-sign documentation/version exception. All other completion-only work and protected pre-existing or concurrent changes stay check-only: report their mismatches without writing. `-Fix` verifies its authorized write and replaces another run. Read the scoped diff once, or use the final staged review instead when committing.
+4. Preserve existing encoding and line endings. Use `-Fix` only for a reported mismatch inside the current task's content scope. Protected pre-existing or concurrent work stays check-only: report its mismatch without writing. `-Fix` verifies its authorized write and replaces another run. Read the scoped diff once, or use the final staged review instead when committing.
 5. Add a domain check only with remaining time and an independent oracle for a concrete uncertainty. User-requested execution and necessary high-risk readback are outside the routine budget but must not duplicate evidence.
-6. A discovered defect returns the task to implementation only when the current request authorizes changing the affected content or the common rules' narrow post-sign documentation/version exception applies. Otherwise leave the defect untouched and report it. Validate an authorized corrected result once; never rerun a successful check on unchanged input.
+6. A discovered defect returns the task to implementation only when changing the affected content is inside the current task scope. Otherwise leave the defect untouched and report it. Validate a corrected result once; never rerun a successful check on unchanged input.
 
 ## Code And Tests
 
-Static review may check syntax, types, null handling, branches, bounds, data flow, and caller consistency, but cannot establish unstated product intent. Builds, tests, servers, browsers, and new tests are opt-in: use them only on request or when the task explicitly targets that execution surface and has an independent oracle.
+Static review may check syntax, types, null handling, branches, bounds, data flow, and caller consistency, but cannot establish unstated product intent. Builds, tests, servers, browsers, and new tests are opt-in: use them only on request or when the task targets that execution surface and has an independent oracle. A request to change or verify rendered layout targets the rendered surface, so Visual QA may use the project's normal local server and browser; an unrelated code edit does not.
 
 Valid oracles include:
 
@@ -33,9 +33,13 @@ Do not derive both behavior and expected output from the same assumption; a self
 - Skills/structured files: fast schema or parser checks on changed artifacts.
 - External/high-risk changes: exact target before mutation and one resulting-state readback.
 
+## Task-Owned Outputs
+
+Redirect controllable temporary output into a literal `$Trash` directory. Output known to have been absent before the current task and created solely by its validation command is task-owned and may be deleted after use even when the tool writes it elsewhere. Never remove a pre-existing or provenance-uncertain path.
+
 ## Git Completion
 
-Load the Git completion workflow only for requested stage, commit, push, deploy, release, or completion of an existing diff. Use initial status only to isolate prior work. For a commit, stage exact paths and review final staged name/status, diff, and whitespace once; this replaces the ordinary diff. Re-review only changed staged content and apply version policy only to governed units in scope.
+Load the Git completion workflow when staging or committing scoped work, or for an explicitly requested push, deploy, release, publication, or completion of an existing diff. Use initial status only to isolate prior work. For a commit, stage exact paths and review final staged name/status, diff, and whitespace once; this replaces the ordinary diff. Re-review only changed staged content and apply version policy only to governed units in scope.
 
 ## Reporting
 
