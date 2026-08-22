@@ -20,8 +20,8 @@ $oojjrs-guidelines
 
 - Ordinary conversation, factual Q&A, translation, and rewriting: when host instructions name guidelines, apply only their final-answer presentation requirements; use no lifecycle or domain skill.
 - Read-only review or diagnosis: guidelines only when shared work rules matter, then the smallest non-overlapping read-only domains sequentially; no start or finish.
-- Local repository edits: guidelines once, start immediately before the first mutation, one primary domain at a time when needed, then one check-only exact-file format pass and one scoped diff review; no finish skill.
-- Scoped stage/commit: add finish only when the current request includes the Git action. Apply version policy only to a governed versioned unit in the final staged scope.
+- Local repository edits: guidelines once, start immediately before the first mutation, keep all pre-existing or concurrent content read-only unless the current request explicitly authorizes editing it, use one primary domain at a time when needed, then one check-only exact-file format pass and one scoped diff review; no finish skill.
+- Scoped stage/commit: add finish only when the current request includes the Git action. Freeze non-document content when the sign arrives and operate on its exact existing bytes; the only automatic content exceptions are minimum required documentation synchronization and governed version-metadata updates. Completion authority never grants repair, formatting, regeneration, or other product-content edit authority.
 - Push/deploy of an already reviewed commit: guidelines once and finish authorization gate; start is unnecessary when local state will not change first.
 - Builds, tests, runtime servers, browsers, and new tests are opt-in and require the public validation guideline's independent-oracle rule.
 - A more-specific domain owns its subordinate safety, docs, and validation rules. Do not load generic parents alongside it.

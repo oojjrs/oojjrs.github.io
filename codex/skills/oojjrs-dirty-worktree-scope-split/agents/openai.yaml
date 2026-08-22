@@ -1,4 +1,4 @@
 interface:
   display_name: "oojjrs Dirty Worktree Scope Split"
   short_description: "Isolate overlapping work in dirty repositories"
-  default_prompt: "Use $oojjrs-dirty-worktree-scope-split to isolate overlapping requested work from unrelated dirty files, and stage or commit only when the current request authorizes it."
+  default_prompt: "Use $oojjrs-dirty-worktree-scope-split to isolate requested work from all pre-existing or concurrent dirty content without editing protected changes beyond the narrow post-sign documentation/version exception, and stage or commit only when the current request authorizes it."

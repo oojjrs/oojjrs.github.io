@@ -7,9 +7,9 @@ Use validation to answer a concrete uncertainty about the changed result. Do not
 1. Let `E` be task-local implementation or editing time after scope is understood. Routine validation targets `min(E × 25%, 15 seconds)` of agent-controlled wall time.
 2. After the last edit, batch the shared format checker on the exact touched text files with one scoped diff. This operation is mandatory, not a time floor: start it even if 25% of `E` is smaller and let it finish only within the 15-second hard cap.
 3. Measure that cap from the first routine validation call through its last result, including tool round trips. At 15 seconds, stop unfinished unrequested checks and report missing evidence; do not retry or substitute another check.
-4. Preserve existing encoding and line endings. Fix only reported mismatches; `-Fix` verifies its write and replaces another run. Read the scoped diff once, or use the final staged review instead when committing.
+4. Preserve existing encoding and line endings. Use `-Fix` only for a reported mismatch in content whose editing the current request explicitly authorizes or in a file changed under the common rules' narrow post-sign documentation/version exception. All other completion-only work and protected pre-existing or concurrent changes stay check-only: report their mismatches without writing. `-Fix` verifies its authorized write and replaces another run. Read the scoped diff once, or use the final staged review instead when committing.
 5. Add a domain check only with remaining time and an independent oracle for a concrete uncertainty. User-requested execution and necessary high-risk readback are outside the routine budget but must not duplicate evidence.
-6. A discovered defect returns the task to implementation. Validate the corrected result once; never rerun a successful check on unchanged input.
+6. A discovered defect returns the task to implementation only when the current request authorizes changing the affected content or the common rules' narrow post-sign documentation/version exception applies. Otherwise leave the defect untouched and report it. Validate an authorized corrected result once; never rerun a successful check on unchanged input.
 
 ## Code And Tests
 

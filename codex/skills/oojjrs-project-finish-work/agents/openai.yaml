@@ -1,4 +1,4 @@
 interface:
   display_name: "oojjrs Project Finish Work"
   short_description: "Complete requested Git or publication actions"
-  default_prompt: "Use $oojjrs-project-finish-work only for an explicitly requested stage, commit, push, deploy, release, or scoped Git-completion action, and perform each triggered check once."
+  default_prompt: "Use $oojjrs-project-finish-work only for an explicitly requested stage, commit, push, deploy, release, or scoped Git-completion action; freeze non-document content at the commit sign, allow only required documentation synchronization and governed version metadata unless another edit is explicit, and perform each triggered check once."

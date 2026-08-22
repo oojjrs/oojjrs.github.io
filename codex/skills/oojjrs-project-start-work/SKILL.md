@@ -11,11 +11,12 @@ Use this lifecycle skill once immediately before the first intended local file, 
 
 1. Resolve the repository root and current user-requested scope.
 2. Inspect `git status --short --branch` once when it is needed to distinguish pre-existing work from the requested mutation. Do not read recent history unless provenance, regression, recovery, or commit context actually depends on it.
-3. Identify only the files or areas likely to change. If requested and existing changes overlap in the same files, or safe staging will be ambiguous, load `$oojjrs-dirty-worktree-scope-split`; mere dirty status is not enough.
-4. Preserve each target text file's existing encoding and line endings as a write condition. Do not add a separate pre-edit format audit unless the format is unknown or already suspicious.
-5. Select one primary domain at a time when a domain is needed. The most-specific match owns its subordinate safety and artifact rules; do not stack its generic parents.
-6. Read `Design.html` only when the task changes planning content or planning-visible state. Probe or load a GitHub Project board only when the user requested board work or the task already uses a confirmed linked board.
-7. For code changes, complete the Code Convention Preflight below before the first code edit. For other changes, begin editing once the scope can be isolated safely. Report only a real overlap or missing decision instead of narrating a routine start gate.
+3. Treat every pre-existing or concurrently appearing working-tree or index change and untracked item as protected content, even when it is related to the requested feature or commit. Inspection, validation, a `TODO`, a defect, a missing link, or stage/commit authority never grants content-edit authority; only the current request's explicit content-change scope or the common rules' narrow post-sign documentation/version exception does.
+4. Identify only the files or areas likely to change. If requested and existing changes overlap in the same files, or safe staging will be ambiguous, load `$oojjrs-dirty-worktree-scope-split`; mere dirty status is not enough.
+5. Preserve each target text file's existing encoding and line endings as a write condition. Do not add a separate pre-edit format audit unless the format is unknown or already suspicious.
+6. Select one primary domain at a time when a domain is needed. The most-specific match owns its subordinate safety and artifact rules; do not stack its generic parents.
+7. Read `Design.html` only when the task changes planning content or planning-visible state. Probe or load a GitHub Project board only when the user requested board work or the task already uses a confirmed linked board.
+8. For code changes, complete the Code Convention Preflight below before the first code edit. For other changes, begin editing once the scope can be isolated safely. Report only a real overlap or missing decision instead of narrating a routine start gate.
 
 ## Conditional Public References
 
