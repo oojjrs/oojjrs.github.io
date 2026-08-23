@@ -30,7 +30,7 @@ Use this helper only when one outcome genuinely depends on coordinated work acro
 
 ## Complete Local And Remote Handoffs
 
-1. Use `$oojjrs-project-finish-work` separately for each scoped commit. A local commit in one repository does not authorize a commit, push, deployment, or release in another.
+1. Use `$oojjrs-project-finish-work` separately for each explicitly authorized scoped commit. A local commit in one repository does not authorize a commit, push, deployment, or release in another.
 2. Before any remote operation, confirm that every repository required for the requested integrated result has a complete compatible handoff. If not, report the incomplete repository and stop the remote chain.
 3. Push or release only when the current request explicitly authorizes each target, follow the resolved compatibility-safe rollout order, and read back each resulting remote state once before continuing. Do not assume dependency order is deployment order: when old and new contracts cannot coexist, define an explicit expand, consumer-transition, and contract sequence before the first remote change.
 4. Report the dependency order and, for each repository, its resolved target, contract or reference handed off, commit or version result, validation evidence, and any remaining external configuration or compatibility risk.

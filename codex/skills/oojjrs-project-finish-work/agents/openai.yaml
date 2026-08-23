@@ -1,4 +1,4 @@
 interface:
   display_name: "oojjrs Project Finish Work"
   short_description: "Complete requested Git or publication actions"
-  default_prompt: "Use $oojjrs-project-finish-work for a safe local stage or commit, or an explicitly authorized push, deploy, release, publication, or destructive Git action; finish requested content work before freezing the scoped bytes, preserve unrelated work, and perform each triggered check once."
+  default_prompt: "Use $oojjrs-project-finish-work only for local staging, commit, push, deploy, release, publication, or destructive Git actions explicitly authorized by the current request; finish requested content work before freezing the scoped bytes, preserve unrelated work, and perform each triggered check once."

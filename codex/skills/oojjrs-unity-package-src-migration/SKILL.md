@@ -13,7 +13,7 @@ For existing text files, preserve the current encoding and line endings exactly;
 
 ## Unity Meta Files
 
-Codex must not create or modify Unity `.meta` files when making assets, folders, samples, package structure, or documentation. Preserve or move existing in-scope `.meta` files with their corresponding assets. If the user or Unity generates an in-scope `.meta` file, stage and commit it with its asset even when Git reports it as new or untracked; exclude only unrelated out-of-scope `.meta` files. If an expected corresponding `.meta` file is absent, stop before commit or push and let the user or Unity generate it.
+Codex must not create or modify Unity `.meta` files when making assets, folders, samples, package structure, or documentation. Preserve or move existing in-scope `.meta` files with their corresponding assets. When staging or committing a migrated asset is explicitly authorized, include a user- or Unity-generated in-scope `.meta` file in the same authorized scope even when Git reports it as new or untracked; exclude only unrelated out-of-scope `.meta` files. If an expected corresponding `.meta` file is absent, stop before commit or push and let the user or Unity generate it.
 
 이 스킬은 Unity 패키지가 `Assets` 아래에 들어 있어 실제 패키지 루트를 `Packages/src`로 정리하는 절차를 다룬다. 이 사용자의 로컬 개발 규칙에서는 `com.oojjrs.*` 같은 패키지명 폴더 대신 `src`를 패키지 루트 폴더명으로 사용한다.
 

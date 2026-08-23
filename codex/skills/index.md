@@ -15,13 +15,13 @@ $oojjrs-guidelines
 + [$oojjrs-project-start-work: local file or Git-state mutation]
 + [primary domain: zero or one most-specific match]
 + [helper: only after its condition is confirmed]
-+ [$oojjrs-project-finish-work: local stage/commit or authorized external completion]
++ [$oojjrs-project-finish-work: authorized local stage/commit or external completion]
 ```
 
 - Ordinary conversation, factual Q&A, translation, and rewriting: when host instructions name guidelines, apply only their final-answer presentation requirements; use no lifecycle or domain skill.
 - Read-only review or diagnosis: guidelines only when shared work rules matter, then the smallest non-overlapping read-only domains sequentially; no start or finish.
-- Local repository edits: guidelines once, start immediately before the first mutation, protect pre-existing or concurrent work outside the current task, use one primary domain at a time when needed, then one check-only exact-file format pass and one scoped diff review. Add finish only when actually staging or committing.
-- Scoped stage/commit: local staging and commit need no separate permission. Complete requested content work and required documentation or governed version synchronization first, freeze the scoped bytes immediately before staging, and preserve everything outside that scope.
+- Local repository edits: guidelines once, start immediately before the first mutation, protect pre-existing or concurrent work outside the current task, use one primary domain at a time when needed, then one check-only exact-file format pass and one scoped diff review. Leave finished changes unstaged and uncommitted for user review unless the current request explicitly authorizes Git completion.
+- Scoped stage/commit: require explicit current-request authorization. An upfront Git-completion instruction or a requested push or publication authorizes its necessary scoped staging and local commit without a second permission. Complete requested content work and required documentation or governed version synchronization first, freeze the scoped bytes immediately before staging, and preserve everything outside that scope.
 - Push/deploy of an already reviewed commit: guidelines once and finish authorization gate; start is unnecessary when local state will not change first.
 - Builds, tests, runtime servers, browsers, and new tests require a request that targets that execution surface and an independent oracle. Rendered layout work targets the rendered surface and may use Visual QA.
 - A more-specific domain owns its subordinate safety, docs, and validation rules. Do not load generic parents alongside it.
@@ -33,7 +33,7 @@ $oojjrs-guidelines
 |---|---|---|---|
 | Core | `$oojjrs-guidelines` | Whenever host instructions name it, or when actual work needs the shared rules | Apply answer presentation to every final answer and operational workflow only to actual work; fetch the canonical URL once |
 | Lifecycle | `$oojjrs-project-start-work` | Once before the first intended local file or Git-index mutation | Routine status at most once; history only when evidence requires it; not for review, diagnosis, planning, board-only, or push-only tasks |
-| Lifecycle | `$oojjrs-project-finish-work` | Actual local stage/commit, or explicitly authorized push, deploy, release, publication, or destructive Git completion | Do not load when edits remain uncommitted; run only triggered checks once and omit inactive gates |
+| Lifecycle | `$oojjrs-project-finish-work` | Explicitly authorized local stage/commit, push, deploy, release, publication, or destructive Git completion | Do not load for ordinary edits left uncommitted for user review; run only triggered checks once and omit inactive gates |
 | Helper | `$oojjrs-dirty-worktree-scope-split` | Target changes overlap existing hunks or safe stage/commit isolation is ambiguous | Mere dirty status is insufficient; dirty provenance diagnosis uses Windows forensics |
 | Helper | `$oojjrs-github-project-board` | User requests board work, or a cheap probe confirms a relevant 1:1 board this task must update | Do not load for every repo; load once, not again at finish |
 | Helper | `$oojjrs-visual-qa` | Rendered visual evidence is the request or a materially necessary validation gate | Do not auto-add after every visual-file edit |

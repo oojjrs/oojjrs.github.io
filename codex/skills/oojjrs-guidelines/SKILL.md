@@ -19,7 +19,7 @@ description: Load the user's canonical shared Codex rules once per task thread w
 - Read-only review or diagnosis: use no lifecycle skill. If the scope genuinely spans domains, inspect the smallest non-overlapping set sequentially rather than preloading them.
 - Local file, index, or commit mutation: use `$oojjrs-project-start-work` immediately before the first mutation, then one most-specific primary domain at a time.
 - Conditional helpers: load board, dirty-worktree, or visual-QA helpers only after their exact trigger is confirmed.
-- After ordinary edits: apply the canonical one-pass text-format and scoped-diff finish. If a safe local stage or commit will complete the scoped work, use `$oojjrs-project-finish-work`; no separate permission is required.
-- For push, deploy, release, publication, destructive Git completion, or another external state transition: use `$oojjrs-project-finish-work` only when the current request explicitly authorizes the action and target.
+- After ordinary edits: apply the canonical one-pass text-format and scoped-diff finish, then leave the task's changes unstaged and uncommitted for user review. Do not load `$oojjrs-project-finish-work` merely because a local commit would be safe.
+- For local staging or commit, push, deploy, release, publication, destructive Git completion, or another external state transition: use `$oojjrs-project-finish-work` only when the current request explicitly authorizes the Git or external outcome. A requested push or publication authorizes its necessary scoped staging and local commit.
 - If another primary domain becomes necessary, finish the current domain phase and route the next phase separately instead of preloading both.
 - Consult `codex/skills/index.md` only when routing or precedence is unclear; do not preload every listed skill.

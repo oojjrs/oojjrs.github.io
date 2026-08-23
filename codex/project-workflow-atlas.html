@@ -1215,7 +1215,10 @@ html&gt;body{padding:0}&lt;/style&gt;
               { label: &#x27;있음&#x27;, text: &#x27;빌드·런타임·렌더·재생 등 실제 표면 검증&#x27; },
               { label: &#x27;없음&#x27;, text: &#x27;정적 검사·형식·최종 diff로 검증&#x27; }
             ] },
-            { kind: &#x27;node&#x27;, text: &#x27;완성된 범위만 정확히 스테이징하고 로컬 커밋&#x27; },
+            { kind: &#x27;decision&#x27;, text: &#x27;현재 요청이 stage·commit 또는 원격 게시까지 명시했는가?&#x27;, branches: [
+              { label: &#x27;명시됨&#x27;, text: &#x27;완성된 범위만 정확히 스테이징하고 staged diff 검토 후 로컬 커밋&#x27; },
+              { label: &#x27;명시 안 됨&#x27;, text: &#x27;미커밋 diff를 보고하고 사용자 검토 대기&#x27;, terminal: true }
+            ] },
             { kind: &#x27;decision&#x27;, text: &#x27;Push·배포·릴리스·영구 삭제가 필요한가?&#x27;, branches: [
               { label: &#x27;명시 요청 있음&#x27;, text: &#x27;정확한 대상에 수행하고 결과를 다시 읽어 확인&#x27; },
               { label: &#x27;요청 없음&#x27;, text: &#x27;로컬 결과만 보고하고 종료&#x27;, terminal: true }
@@ -1224,7 +1227,7 @@ html&gt;body{padding:0}&lt;/style&gt;
           guards: [
             &#x27;현재 dirty 파일을 사용자 요청 범위라고 추측하지 않는다.&#x27;,
             &#x27;설명 요청을 수정 요청으로 확대하지 않는다.&#x27;,
-            &#x27;로컬 커밋 허용을 Push·배포 허용으로 확대하지 않는다.&#x27;,
+            &#x27;명시된 로컬 커밋 허용을 Push·배포 허용으로 확대하지 않는다.&#x27;,
             &#x27;작업이 만든 임시 산출물과 기존 사용자 파일을 구분한다.&#x27;
           ]
         },
@@ -1247,7 +1250,7 @@ html&gt;body{padding:0}&lt;/style&gt;
               { label: &#x27;영향 없음&#x27;, text: &#x27;스크립트 밖으로 범위를 넓히지 않음&#x27; }
             ] },
             { kind: &#x27;node&#x27;, text: &#x27;정적 검사 → compile/build → 가능한 런타임 시나리오 검증&#x27; },
-            { kind: &#x27;finish&#x27;, text: &#x27;최종 diff → 정확한 범위만 로컬 커밋&#x27; }
+            { kind: &#x27;finish&#x27;, text: &#x27;최종 미커밋 diff 보고 → 사용자 검토 대기&#x27; }
           ],
           guards: [
             &#x27;첫 제안을 사용자가 선택한 구현값으로 간주하지 않는다.&#x27;,
@@ -1276,7 +1279,7 @@ html&gt;body{padding:0}&lt;/style&gt;
               { label: &#x27;예&#x27;, text: &#x27;원인에 직접 닿는 코드만 수정&#x27; }
             ] },
             { kind: &#x27;node&#x27;, text: &#x27;같은 재현 조건으로 정적·실행 회귀 검증&#x27; },
-            { kind: &#x27;finish&#x27;, text: &#x27;정확한 diff와 미검증 조건 표시 → 로컬 커밋&#x27; }
+            { kind: &#x27;finish&#x27;, text: &#x27;정확한 미커밋 diff와 미검증 조건 보고 → 사용자 검토 대기&#x27; }
           ],
           guards: [
             &#x27;처음 눈에 띈 증상을 곧바로 원인으로 확정하지 않는다.&#x27;,
@@ -1322,7 +1325,7 @@ html&gt;body{padding:0}&lt;/style&gt;
             { kind: &#x27;gate&#x27;, text: &#x27;.meta·GUID·fileID·직렬화 필드·평가 시점 보존&#x27; },
             { kind: &#x27;node&#x27;, text: &#x27;이전 이름·누락 참조·의도치 않은 동작 변화 전수 검색&#x27; },
             { kind: &#x27;node&#x27;, text: &#x27;형식·정적 검사·compile/build·필요한 회귀 검증&#x27; },
-            { kind: &#x27;finish&#x27;, text: &#x27;요청 hunk만 스테이징·로컬 커밋&#x27; }
+            { kind: &#x27;finish&#x27;, text: &#x27;요청 hunk의 미커밋 diff 보고 → 사용자 검토 대기&#x27; }
           ],
           guards: [
             &#x27;컨벤션 정리에 실행 의미 변경을 섞지 않는다.&#x27;,
@@ -1347,7 +1350,7 @@ html&gt;body{padding:0}&lt;/style&gt;
               { label: &#x27;예&#x27;, text: &#x27;기존 방식으로 최소 동기화&#x27; },
               { label: &#x27;아니오&#x27;, text: &#x27;부수 산출물을 만들지 않음&#x27; }
             ] },
-            { kind: &#x27;finish&#x27;, text: &#x27;빌드·회귀 검증 → 기능·문서·버전을 한 범위로 커밋&#x27; }
+            { kind: &#x27;finish&#x27;, text: &#x27;빌드·회귀 검증 → 기능·문서·버전의 미커밋 diff 보고&#x27; }
           ],
           guards: [
             &#x27;방어적이라는 이유만으로 포맷·lock·추상화 계층을 늘리지 않는다.&#x27;,
@@ -1370,7 +1373,7 @@ html&gt;body{padding:0}&lt;/style&gt;
             { kind: &#x27;gate&#x27;, text: &#x27;GUID·fileID·기존 .meta·사용자 재직렬화 변경 보호&#x27; },
             { kind: &#x27;node&#x27;, text: &#x27;compile → 실제 화면·입력·해상도·상태 전이 확인&#x27; },
             { kind: &#x27;node&#x27;, text: &#x27;시각 변경이면 렌더 기반 Visual QA&#x27; },
-            { kind: &#x27;finish&#x27;, text: &#x27;스크립트와 직접 영향 Prefab만 정확히 커밋&#x27; }
+            { kind: &#x27;finish&#x27;, text: &#x27;스크립트와 직접 영향 Prefab의 미커밋 diff 보고&#x27; }
           ],
           guards: [
             &#x27;이름 검색만으로 Prefab 사용처를 단정하지 않는다.&#x27;,
@@ -1396,7 +1399,7 @@ html&gt;body{padding:0}&lt;/style&gt;
               { label: &#x27;아니오&#x27;, text: &#x27;완성 이미지와 미리보기까지만 제공&#x27; }
             ] },
             { kind: &#x27;node&#x27;, text: &#x27;실제 이미지·Unity 설정으로 Visual QA, 직접 영향 Design 항목만 동기화&#x27; },
-            { kind: &#x27;finish&#x27;, text: &#x27;최종 애셋과 직접 영향 참조만 로컬 커밋&#x27; }
+            { kind: &#x27;finish&#x27;, text: &#x27;최종 애셋과 직접 영향 참조의 미커밋 diff 보고&#x27; }
           ],
           guards: [
             &#x27;참조 이미지와 수정 대상을 뒤바꾸지 않는다.&#x27;,
@@ -1421,7 +1424,7 @@ html&gt;body{padding:0}&lt;/style&gt;
               { label: &#x27;아니오&#x27;, text: &#x27;승인된 오디오 파일까지만 제공&#x27; }
             ] },
             { kind: &#x27;node&#x27;, text: &#x27;재생·루프 경계·출처·라이선스·샘플레이트·채널 검증&#x27; },
-            { kind: &#x27;finish&#x27;, text: &#x27;오디오와 직접 영향 연결만 로컬 커밋&#x27; }
+            { kind: &#x27;finish&#x27;, text: &#x27;오디오와 직접 영향 연결의 미커밋 diff 보고&#x27; }
           ],
           guards: [
             &#x27;레퍼런스를 들어보라는 요청에 합성부터 시작하지 않는다.&#x27;,
@@ -1444,7 +1447,7 @@ html&gt;body{padding:0}&lt;/style&gt;
             { kind: &#x27;node&#x27;, text: &#x27;HTML·SVG·CSS와 직접 영향 항목 수정&#x27; },
             { kind: &#x27;gate&#x27;, text: &#x27;정적 검사로 끝내지 않고 실제 렌더 확인&#x27; },
             { kind: &#x27;node&#x27;, text: &#x27;데스크톱·좁은 화면의 겹침·누락·색상 의미 검증&#x27; },
-            { kind: &#x27;finish&#x27;, text: &#x27;렌더 재확인 → Design 관련 파일만 로컬 커밋&#x27; }
+            { kind: &#x27;finish&#x27;, text: &#x27;렌더 재확인 → Design 관련 미커밋 diff 보고&#x27; }
           ],
           guards: [
             &#x27;화살표 나열을 실제 흐름도로 보고하지 않는다.&#x27;,
@@ -1469,7 +1472,7 @@ html&gt;body{padding:0}&lt;/style&gt;
               { label: &#x27;아니오&#x27;, text: &#x27;문서 검증 계속&#x27; }
             ] },
             { kind: &#x27;node&#x27;, text: &#x27;링크·명령·코드 블록·버전·표시명 사실 검증&#x27; },
-            { kind: &#x27;finish&#x27;, text: &#x27;정확한 문서 범위만 로컬 커밋&#x27; }
+            { kind: &#x27;finish&#x27;, text: &#x27;정확한 문서 범위의 미커밋 diff 보고&#x27; }
           ],
           guards: [
             &#x27;README 전용 흐름을 안 쓰는 경우도 직접 영향 README 수정은 허용된다.&#x27;,
@@ -1492,7 +1495,7 @@ html&gt;body{padding:0}&lt;/style&gt;
               { label: &#x27;아니오&#x27;, text: &#x27;불필요한 재직렬화 파일 제외&#x27; }
             ] },
             { kind: &#x27;node&#x27;, text: &#x27;YAML parse·ID 중복·언어별 누락·이전 키 잔존 검사&#x27; },
-            { kind: &#x27;finish&#x27;, text: &#x27;정확한 테이블과 직접 영향 파일만 커밋&#x27; }
+            { kind: &#x27;finish&#x27;, text: &#x27;정확한 테이블과 직접 영향 파일의 미커밋 diff 보고&#x27; }
           ],
           guards: [
             &#x27;사용자가 지정한 키를 더 좋아 보인다는 이유로 바꾸지 않는다.&#x27;,
@@ -1544,7 +1547,7 @@ html&gt;body{padding:0}&lt;/style&gt;
             ] },
             { kind: &#x27;node&#x27;, text: &#x27;수정 후 같은 독립 기대값으로 재검증&#x27; },
             { kind: &#x27;node&#x27;, text: &#x27;작업이 만든 임시 로그·하네스는 $Trash에서 정리&#x27; },
-            { kind: &#x27;finish&#x27;, text: &#x27;통과·실패·미실행을 구분해 보고하고 필요한 범위만 커밋&#x27; }
+            { kind: &#x27;finish&#x27;, text: &#x27;통과·실패·미실행과 필요한 범위의 미커밋 diff 보고&#x27; }
           ],
           guards: [
             &#x27;컴파일 성공을 런타임·시각·성능 검증으로 바꾸어 말하지 않는다.&#x27;,
@@ -1555,12 +1558,12 @@ html&gt;body{padding:0}&lt;/style&gt;
 
         &#x27;multi-repo-integration&#x27;: {
           title: &#x27;다중 저장소 통합&#x27;,
-          scope: &#x27;의존성 순서대로 각 저장소를 독립 검증·커밋하고, 하위 계약이 확정된 뒤 상위 프로젝트를 연결합니다.&#x27;,
+          scope: &#x27;의존성 순서대로 각 저장소를 독립 검증하고 미커밋 변경을 보고하며, 명시적으로 요청된 경우만 커밋해 하위 계약을 확정한 뒤 상위 프로젝트를 연결합니다.&#x27;,
           steps: [
             { kind: &#x27;start&#x27;, text: &#x27;대상 저장소와 패키지 의존 방향을 그래프로 확정&#x27; },
             { kind: &#x27;node&#x27;, text: &#x27;각 저장소의 dirty 상태·브랜치·현재 버전 별도 확인&#x27; },
             { kind: &#x27;node&#x27;, text: &#x27;가장 아래 패키지의 API·저장 형식부터 구현&#x27; },
-            { kind: &#x27;node&#x27;, text: &#x27;저장소별 build/test·README·버전 판정·로컬 커밋&#x27; },
+            { kind: &#x27;node&#x27;, text: &#x27;저장소별 build/test·README·버전 판정·미커밋 diff 보고&#x27; },
             { kind: &#x27;node&#x27;, text: &#x27;상위 패키지와 게임이 확정된 하위 버전을 참조하도록 연결&#x27; },
             { kind: &#x27;decision&#x27;, text: &#x27;모든 저장소의 계약과 검증이 완료됐는가?&#x27;, branches: [
               { label: &#x27;아니오&#x27;, text: &#x27;미완성 저장소와 남은 검증을 표시하고 원격 작업 중단&#x27; },
@@ -1570,7 +1573,7 @@ html&gt;body{padding:0}&lt;/style&gt;
               { label: &#x27;예&#x27;, text: &#x27;의존성 순서로 정확한 저장소만 수행&#x27; },
               { label: &#x27;아니오&#x27;, text: &#x27;로컬 통합 결과로 종료&#x27;, terminal: true }
             ] },
-            { kind: &#x27;finish&#x27;, text: &#x27;저장소별 커밋·버전·검증·남은 외부 설정 요약&#x27; }
+            { kind: &#x27;finish&#x27;, text: &#x27;저장소별 변경·버전·검증·남은 외부 설정 요약&#x27; }
           ],
           guards: [
             &#x27;여러 저장소를 한 dirty 범위처럼 묶지 않는다.&#x27;,
@@ -1593,7 +1596,7 @@ html&gt;body{padding:0}&lt;/style&gt;
             { kind: &#x27;node&#x27;, text: &#x27;작은 표본으로 dry-run → diff/출력 확인&#x27; },
             { kind: &#x27;node&#x27;, text: &#x27;전체 대상 실행 후 누락·중복·인코딩·재실행 안전성 검증&#x27; },
             { kind: &#x27;node&#x27;, text: &#x27;필요한 사용법만 문서화하고 임시 파일 정리&#x27; },
-            { kind: &#x27;finish&#x27;, text: &#x27;도구와 직접 생성물만 정확히 커밋&#x27; }
+            { kind: &#x27;finish&#x27;, text: &#x27;도구와 직접 생성물의 미커밋 diff를 정확히 보고&#x27; }
           ],
           guards: [
             &#x27;일회성 보조 스크립트를 이유 없이 프로젝트 영구 구조로 승격하지 않는다.&#x27;,
