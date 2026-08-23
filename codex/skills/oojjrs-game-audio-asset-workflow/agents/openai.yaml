@@ -1,4 +1,4 @@
 interface:
   display_name: "oojjrs Game Audio Asset Workflow"
-  short_description: "Prepare and synthesize game audio assets safely"
-  default_prompt: "Use $oojjrs-game-audio-asset-workflow to preserve originals, prefer ffmpeg for unattended SFX synthesis and post-processing, install final game audio, and update project planning docs."
+  short_description: "Source, audition, edit, and install game audio"
+  default_prompt: "Use $oojjrs-game-audio-asset-workflow to compare licensed SFX sources before editing the selected original into project-ready game audio."
