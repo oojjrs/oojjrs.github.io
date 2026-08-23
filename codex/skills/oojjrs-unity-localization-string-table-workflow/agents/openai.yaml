@@ -1,0 +1,4 @@
+interface:
+  display_name: "Unity Localization String Tables"
+  short_description: "Maintain and validate Unity Localization string tables"
+  default_prompt: "Use $oojjrs-unity-localization-string-table-workflow to update and validate a Unity Localization string-table collection."

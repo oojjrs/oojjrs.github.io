@@ -1,0 +1,4 @@
+interface:
+  display_name: "UnityO Package Docset Maintenance"
+  short_description: "Build and audit complete UnityO package docsets"
+  default_prompt: "Use $oojjrs-unity-package-docset-maintenance to rebuild and audit this UnityO package documentation set."

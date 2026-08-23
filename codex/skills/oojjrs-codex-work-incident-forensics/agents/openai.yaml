@@ -1,0 +1,4 @@
+interface:
+  display_name: "Codex Work Incident Forensics"
+  short_description: "Reconstruct Codex incidents from complete evidence"
+  default_prompt: "Use $oojjrs-codex-work-incident-forensics to reconstruct this Codex incident and identify its evidence-backed cause."

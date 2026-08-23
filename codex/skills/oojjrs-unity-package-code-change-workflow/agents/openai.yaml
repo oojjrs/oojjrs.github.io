@@ -1,0 +1,4 @@
+interface:
+  display_name: "UnityO Package Code Changes"
+  short_description: "Safely change UnityO package code and public APIs"
+  default_prompt: "Use $oojjrs-unity-package-code-change-workflow to implement this UnityO Runtime or Editor C# change and assess its API impact."
