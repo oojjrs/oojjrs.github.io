@@ -1678,6 +1678,33 @@ private void ApplyAndLog()
           </div>
         </div>
       </article>
+      <article class="rule-card">
+        <div class="rule-index">41</div>
+        <div class="rule-body">
+          <h3>internal은 사용자가 명시적으로 지정한 경우에만 쓴다</h3>
+          <p>명시적 <code>internal</code> 제한자, <code>protected internal</code>처럼 internal을 포함한 복합 접근 제한자, 접근 제한자를 생략해 암시적으로 internal이 되는 최상위 타입을 모두 금지한다. 어셈블리 경계, 패키지 구현 세부, 테스트 노출, 인접 코드만으로 internal을 추론하지 않는다. 사용자가 특정 선언이나 범위를 internal로 명시적으로 지정한 경우에만 그 지정 범위에 쓸 수 있다. 그 밖에는 의도한 API 공개 범위에 맞는 internal 이외의 접근 제한자를 명시한다.</p>
+          <div class="example-pair">
+            <div class="example good">
+              <div class="example-label">사용자가 internal을 지정하지 않았을 때 올바른 사용</div>
+              <pre><code>public sealed class RewardCatalog
+{
+    private sealed class Entry
+    {
+    }
+}</code></pre>
+            </div>
+            <div class="example bad">
+              <div class="example-label">사용자의 명시적 지정이 없을 때 잘못된 사용</div>
+              <pre><code>sealed class RewardCatalog
+{
+    internal sealed class Entry
+    {
+    }
+}</code></pre>
+            </div>
+          </div>
+        </div>
+      </article>
     </section>
     </div>
     </div>

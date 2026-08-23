@@ -56,3 +56,4 @@ First-party only. Priority: local > here > Unity > VS/Microsoft. Exclude generat
 38. Logical expression: parenthesize comparisons/nested compound operands, not standalone Boolean terms.
 39. Valid/normal/primary branch first.
 40. Inline single-use value; local requires 2+ uses or syntax/execution semantics.
+41. Do not use `internal` unless the user explicitly designates that specific declaration or scope as internal. This includes explicit `internal`, compound access containing it such as `protected internal`, and omitted access on top-level types (implicit internal). Never infer it from assembly/package/test boundaries or nearby code; otherwise state the intended non-internal access explicitly.

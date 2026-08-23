@@ -1259,4 +1259,30 @@ private int Run(Player player)
 }
 ```
 
+### 41. Use `internal` only when the user explicitly designates it
+
+This restriction covers an explicit `internal` modifier, a compound access modifier containing it such as `protected internal`, and a top-level type that becomes implicitly internal when its access modifier is omitted. Do not infer `internal` from assembly boundaries, package implementation details, test exposure, or nearby code. Use it only for the specific declaration or scope that the user explicitly designates as internal. Otherwise, write the non-internal access modifier required by the intended API.
+
+Correct when the user has not designated anything as internal:
+
+```csharp
+public sealed class RewardCatalog
+{
+    private sealed class Entry
+    {
+    }
+}
+```
+
+Incorrect without an explicit user designation:
+
+```csharp
+sealed class RewardCatalog
+{
+    internal sealed class Entry
+    {
+    }
+}
+```
+
 </div>
