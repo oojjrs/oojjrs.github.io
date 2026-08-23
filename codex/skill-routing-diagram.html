@@ -1,406 +1,670 @@
 ---
 layout: page
-title: "Codex 작업 지침 라우팅 아틀라스"
+title: "Codex 작업 지침 전체 순서도"
 lang: ko-KR
 category: "AI WORKFLOW AUDIT"
-description: "요청 분류부터 권한, 도구, 49개 스킬, 검증, Git 완료, 고아 노드까지 실제 도달 가능성을 근거와 함께 보여주는 Codex 작업 지도."
+description: "요청이 어떤 지침과 도구를 거쳐 실행·검증·종료되는지, 끊어진 고아 경로까지 실제 연결선으로 보여주는 Codex 작업 순서도."
 permalink: /codex/skill-routing-diagram/
 ---
 
 <p class="article-backlink"><a href="{{ '/kr/codex/' | relative_url }}">← Codex 문서 목록</a></p>
 
-<div class="routing-atlas" data-routing-atlas>
-  <header class="atlas-hero" id="atlas-overview">
-    <div class="atlas-hero-copy">
-      <p class="atlas-kicker">ROUTING AUDIT · 2026-08-23 KST</p>
-      <h2>설계도가 아니라 실제 동작 지도</h2>
-      <p>무슨 지침이 “존재하는가”와 지금 이 환경에서 “실제로 도달 가능한가”를 분리했다. 요청 종류, 권한, 도구, 스킬 우선순위, 검증, Git 완료, 중단 조건을 따라가면 각 작업이 어디로 흐르고 어디서 막히는지 확인할 수 있다.</p>
-    </div>
-
-    <div class="atlas-stats" aria-label="조사 범위 요약">
-      <div><strong>49</strong><span>현재 노출 스킬</span></div>
-      <div><strong>96</strong><span>세션 nested tool inventory</span></div>
-      <div><strong>49</strong><span>미설치 추천 플러그인</span></div>
-      <div><strong>81</strong><span>이 페이지 게시 후 관련 이력</span></div>
-      <div><strong>57</strong><span>감사 시점·현재 task 제외 작업</span></div>
-      <div><strong>3</strong><span>기존 도식 커밋</span></div>
-    </div>
-
-    <div class="atlas-provenance" aria-label="근거 스냅샷">
-      <div class="provenance-item provenance-active"><span class="status-dot"></span><div><strong>AUDIT BASELINE</strong><span>감사 시작 원격 master <code>cd7678b</code></span></div></div>
-      <div class="provenance-item provenance-draft"><span class="status-dot"></span><div><strong>ROUTING REPAIR</strong><span>권한·board·Visual QA 정리 <code>247e660</code></span></div></div>
-      <div class="provenance-item provenance-active"><span class="status-dot"></span><div><strong>PUBLISHED SYNC</strong><span>원격 master <code>527e55f</code> · 공개 skill 25</span></div></div>
-      <div class="provenance-item provenance-history"><span class="status-dot"></span><div><strong>HISTORY</strong><span>Git 이력과 접근 가능한 작업 요약을 익명화해 교차 확인</span></div></div>
-    </div>
-
-    <p class="atlas-security-note"><strong>공개 경계:</strong> 공개 지침·스킬·공식 문서와 검증된 고수준 동작만 싣는다. 비공개 system/developer 원문, 인증 정보, 내부 도구 스키마, 개인 작업·보드 이름과 대화 원문은 공개하지 않는다.</p>
+<main class="routing-flow" data-routing-flow>
+  <header class="routing-flow-header">
+    <p class="routing-flow-eyebrow">ROUTING FLOW AUDIT · 2026-08-23 KST</p>
+    <h2>요청이 어디로 가고, 어디서 끊기는가</h2>
+    <p>카드 목록이 아니라 실제 실행 순서다. 가운데는 정상 작업축, 왼쪽은 읽기·답변 경로, 오른쪽은 UI·외부 상태·조정 경로이며, 고아 노드는 원래 진입해야 했던 지점에서 끊어진 선으로 표시한다.</p>
+    <p class="routing-flow-meta"><b>53 skill</b><span>29 public + 24 runtime</span><b>49 plugin</b><span>catalog-only</span><b>11 audit</b><span>orphan · dormant · repaired · retired</span><a href="{{ '/codex/skill-routing-diagram.svg' | relative_url }}">한 장 요약 SVG</a></p>
   </header>
 
-  <nav class="atlas-jump-nav" aria-label="라우팅 아틀라스 목차">
-    <a href="#master-route">전체 흐름</a><a href="#request-cases">요청별 경로</a><a href="#repository-route">저장소·Git</a><a href="#oojjrs-skills">oojjrs 25</a><a href="#runtime-skills">런타임 24</a><a href="#plugin-parking">플러그인 49</a><a href="#orphan-audit">고아 노드</a><a href="#history-and-sources">이력·근거</a>
+  <nav class="routing-flow-nav" aria-label="순서도 목차">
+    <a href="#request-flow">전체 요청</a>
+    <a href="#repository-flow">저장소·Git</a>
+    <a href="#public-skill-map">공개 스킬 29</a>
+    <a href="#runtime-skill-map">런타임 24</a>
+    <a href="#plugin-flow">플러그인 49</a>
+    <a href="#orphan-flow">고아·휴면 11</a>
+    <a href="#routing-evidence">근거</a>
   </nav>
 
-  <div class="routing-toolbar" role="search">
-    <label for="route-search"><span>스킬·플러그인·감사 노드 찾기</span><small>49 skill · 49 plugin · 11 audit</small></label><input id="route-search" type="search" placeholder="예: board, Unity, PDF, image, 배포" autocomplete="off" data-route-search>
-    <div class="filter-buttons" aria-label="상태 필터"><button type="button" class="is-active" data-route-filter="all" aria-pressed="true">전체</button><button type="button" data-route-filter="verified" aria-pressed="false">검증됨</button><button type="button" data-route-filter="conditional" aria-pressed="false">조건부</button><button type="button" data-route-filter="orphan" aria-pressed="false">현재 고아</button><button type="button" data-route-filter="catalog" aria-pressed="false">미설치</button><button type="button" data-route-filter="retired" aria-pressed="false">과거·폐기</button></div><output data-route-count aria-live="polite">109개 노드</output>
+  <div class="routing-flow-legend" aria-label="순서도 범례">
+    <span><i class="legend-line is-main" aria-hidden="true"></i>정상 진행</span>
+    <span><i class="legend-line is-conditional" aria-hidden="true"></i>조건부</span>
+    <span><i class="legend-line is-return" aria-hidden="true"></i>복귀·재검증</span>
+    <span><i class="legend-line is-error" aria-hidden="true"></i>중단·고아</span>
+    <span><i class="legend-shape is-decision" aria-hidden="true"></i>판정</span>
+    <span><i class="legend-shape is-terminal" aria-hidden="true"></i>종료</span>
   </div>
 
-  <section class="atlas-section" id="master-route">
-    <div class="atlas-section-head"><p class="section-index">01 · MASTER ROUTE</p><h2>모든 요청이 처음 거치는 결정 그래프</h2><p>실선은 기본 실행, 점선은 조건부 진입, 붉은 선은 승인·입력·도구가 없을 때의 중단을 뜻한다.</p></div>
-
-    <div class="edge-legend" aria-label="선 종류 범례">
-      <span><i class="edge-sample edge-run"></i>실행</span><span><i class="edge-sample edge-condition"></i>조건</span><span><i class="edge-sample edge-reference"></i>참조</span><span><i class="edge-sample edge-exclusion"></i>대체·배제</span><span><i class="edge-sample edge-block"></i>중단</span>
+  <section class="flow-section" id="request-flow">
+    <div class="flow-section-heading">
+      <p>01 · MASTER FLOW</p>
+      <h2>모든 요청이 거치는 실제 분기와 재합류</h2>
+      <span>CASE 01–12를 같은 축에 배치했다. 노드 제목은 해당 지침·도구·하위 그래프로 연결된다.</span>
     </div>
 
-    <ol class="route-spine route-spine-six" aria-label="최상위 작업 흐름">
-      <li class="flow-node flow-entry"><span class="node-step">1</span><strong>사용자 요청</strong><small>최신 목적·대상·출력</small></li>
-      <li class="flow-node flow-authority"><span class="node-step">2</span><strong>권위·안전 경계</strong><small>플랫폼 → 사용자 → 공개 공통 규칙</small></li>
-      <li class="flow-node flow-decision"><span class="node-step">3</span><strong>요청 유형</strong><small>대화 / 읽기 / 수정 / 외부 상태</small></li>
-      <li class="flow-node flow-tool"><span class="node-step">4</span><strong>정보원·도구</strong><small>로컬 / 웹 / 브라우저 / connector</small></li>
-      <li class="flow-node flow-skill"><span class="node-step">5</span><strong>최소 스킬</strong><small>가장 구체적인 domain 0–1개씩</small></li>
-      <li class="flow-node flow-exit"><span class="node-step">6</span><strong>검증·완료·보고</strong><small>증거 → 허가 상태 전환 → 결과</small></li>
-    </ol>
+    <figure class="flow-figure">
+      <figcaption><strong>전체 작업 제어 흐름</strong><span>중앙: 로컬 변경 · 왼쪽: 답변/조사 · 오른쪽: 산출물/UI/플러그인/조정</span></figcaption>
+      <div class="flowchart-scroll" tabindex="0" aria-label="전체 작업 제어 순서도. 좁은 화면에서는 좌우로 스크롤">
+        <svg class="master-flowchart" viewBox="0 0 1400 1980" role="img" aria-labelledby="master-flow-title master-flow-desc">
+          <title id="master-flow-title">Codex 요청 분류부터 검증과 최종 보고까지의 전체 순서도</title>
+          <desc id="master-flow-desc">사용자 요청이 권위와 공개 공통 규칙을 거쳐 분류되고, 읽기 전용, 로컬 변경, 산출물, 브라우저, 플러그인, 조정 경로로 갈라진 뒤 검증과 권한 판정을 거쳐 최종 보고로 재합류한다. 권한이 없거나 검증이 실패하면 중단하거나 이전 단계로 복귀한다.</desc>
+          <defs>
+            <marker id="arrow-main" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z"></path></marker>
+            <marker id="arrow-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z"></path></marker>
+            <marker id="arrow-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z"></path></marker>
+            <marker id="arrow-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z"></path></marker>
+          </defs>
 
-    <div class="decision-board">
-      <article class="decision-lane lane-conversation"><span class="route-badge status-verified">기본 종료</span><h3>일반 대화·안정적 사실·번역</h3><p class="mini-flow"><b>요청</b><span>→</span><b>답변</b></p><p>수명주기·도메인 스킬 없이 답한다. 호스트가 공통 규칙을 지정했다면 최종 답변 표현만 적용한다.</p></article>
-      <article class="decision-lane lane-readonly"><span class="route-badge status-ready">읽기 전용</span><h3>검토·진단·설명·계획·상태</h3><p class="mini-flow"><b>질문</b><span>→</span><b>최소 조사</b><span>→</span><b>보고</b></p><p>편집, staging, 빌드, 테스트, 서버, 브라우저 조작, 외부 변경을 자동으로 시작하지 않는다.</p></article>
-      <article class="decision-lane lane-mutation"><span class="route-badge status-conditional">상태 변경</span><h3>수정·구현·문서·에셋</h3><p class="mini-flow"><b>범위</b><span>→</span><b>start</b><span>→</span><b>domain</b><span>→</span><b>검증</b></p><p>보호 중인 기존 작업을 분리하고, 가장 구체적인 작업 지침을 한 단계씩 적용한다.</p></article>
-      <article class="decision-lane lane-external"><span class="route-badge status-blocked">권한 게이트</span><h3>푸시·배포·삭제·유료·외부 기록</h3><p class="mini-flow"><b>명시 요청?</b><span>→</span><b>정확한 대상?</b><span>→</span><b>실행·readback</b></p><p>현재 요청의 명시적 권한이 없거나 대상이 모호하면 실행하지 않고 중단한다.</p></article>
+          <rect class="flow-phase" x="20" y="20" width="1360" height="365"></rect>
+          <text class="flow-phase-title" x="48" y="58">A · 권위와 공개 경계</text>
+          <text class="flow-phase-subtitle" x="48" y="82">최신 사용자 목적은 작업 범위를 정하지만 플랫폼 안전·비공개 경계는 해제하지 않는다.</text>
+
+          <rect class="flow-phase" x="20" y="405" width="1360" height="1265"></rect>
+          <text class="flow-phase-title" x="48" y="443">B · 요청 분류와 실행</text>
+          <text class="flow-phase-subtitle" x="48" y="467">왼쪽 대안 경로와 오른쪽 조건부 경로는 모두 아래 최종 보고로 재합류한다.</text>
+
+          <rect class="flow-phase" x="20" y="1690" width="1360" height="250"></rect>
+          <text class="flow-phase-title" x="48" y="1728">C · 종료</text>
+
+          <path class="edge edge-main" d="M700 142 V178" marker-end="url(#arrow-main)"></path>
+          <path class="edge edge-main" d="M700 250 V288" marker-end="url(#arrow-main)"></path>
+          <path class="edge edge-main" d="M700 360 V438" marker-end="url(#arrow-main)"></path>
+
+          <g class="flow-node flow-node-active">
+            <rect x="535" y="72" width="330" height="70"></rect>
+            <text class="node-title" x="700" y="102">사용자 요청</text>
+            <text class="node-copy" x="700" y="126">최신 목적 · 대상 · 결과 · 현재 권한</text>
+          </g>
+          <g class="flow-node flow-node-conditional">
+            <rect x="535" y="178" width="330" height="72"></rect>
+            <text class="node-title" x="700" y="208">플랫폼 안전·비공개 경계</text>
+            <text class="node-copy" x="700" y="233">sandbox · credential · 내부 원문 · 도구 가용성</text>
+          </g>
+          <a href="https://oojjrs.github.io/codex/common-work-guidelines.md" target="_blank" rel="noopener noreferrer">
+            <g class="flow-node flow-node-live">
+              <rect x="535" y="288" width="330" height="72"></rect>
+              <text class="node-title" x="700" y="318">공개 공통 규칙</text>
+              <text class="node-copy" x="700" y="343">정본 1회 로드 → 가장 구체적인 스킬 선택</text>
+            </g>
+          </a>
+
+          <g class="flow-decision">
+            <polygon points="700,438 855,510 700,582 545,510"></polygon>
+            <text class="node-title" x="700" y="504">요청 종류?</text>
+            <text class="node-copy" x="700" y="529">읽기 · 변경 · UI/외부 · 조정</text>
+          </g>
+
+          <path class="edge edge-main" d="M545 510 H442 V645 H360" marker-end="url(#arrow-main)"></path>
+          <path class="edge edge-main" d="M442 645 V1050"></path>
+          <path class="edge edge-main" d="M442 780 H360" marker-end="url(#arrow-main)"></path>
+          <path class="edge edge-main" d="M442 915 H360" marker-end="url(#arrow-main)"></path>
+          <path class="edge edge-main" d="M442 1050 H360" marker-end="url(#arrow-main)"></path>
+          <text class="edge-label" x="388" y="627">CASE 01</text>
+          <text class="edge-label" x="388" y="762">CASE 02</text>
+          <text class="edge-label" x="388" y="897">CASE 03</text>
+          <text class="edge-label" x="388" y="1032">CASE 04</text>
+
+          <g class="flow-node flow-node-live">
+            <rect x="60" y="605" width="300" height="80"></rect>
+            <text class="node-title" x="210" y="636">안정적 사실·번역·일반 답변</text>
+            <text class="node-copy" x="210" y="662">직접 답변 · 저장소 생명주기 없음</text>
+          </g>
+          <a href="https://oojjrs.github.io/codex/validation-guideline.md" target="_blank" rel="noopener noreferrer">
+            <g class="flow-node flow-node-active">
+              <rect x="60" y="740" width="300" height="80"></rect>
+              <text class="node-title" x="210" y="771">현재성·고위험·정확한 출처</text>
+              <text class="node-copy" x="210" y="797">웹의 1차·공식 자료 → 근접 인용</text>
+            </g>
+          </a>
+          <a href="https://developers.openai.com/" target="_blank" rel="noopener noreferrer">
+            <g class="flow-node flow-node-active">
+              <rect x="60" y="875" width="300" height="80"></rect>
+              <text class="node-title" x="210" y="906">OpenAI·Codex 질문</text>
+              <text class="node-copy" x="210" y="932">openai-docs → 공식 문서만</text>
+            </g>
+          </a>
+          <a href="#skill-oojjrs-codex-work-incident-forensics">
+            <g class="flow-node flow-node-active">
+              <rect x="60" y="1010" width="300" height="80"></rect>
+              <text class="node-title" x="210" y="1041">검토·진단·사고 재구성</text>
+              <text class="node-copy" x="210" y="1067">일반 read-only / Codex 사고면 forensics</text>
+            </g>
+          </a>
+
+          <path class="edge edge-green" d="M60 645 H30 V1175 H80" marker-end="url(#arrow-green)"></path>
+          <path class="edge edge-green" d="M60 780 H30"></path>
+          <path class="edge edge-green" d="M60 915 H30"></path>
+          <path class="edge edge-green" d="M60 1050 H30"></path>
+          <g class="flow-terminal flow-terminal-live">
+            <rect x="80" y="1135" width="300" height="80" rx="40"></rect>
+            <text class="node-title" x="230" y="1167">읽기 전용 종료</text>
+            <text class="node-copy" x="230" y="1192">설명 · 진단 · 출처가 붙은 보고</text>
+          </g>
+
+          <path class="edge edge-main" d="M700 582 V600" marker-end="url(#arrow-main)"></path>
+          <text class="edge-label" x="722" y="594">CASE 05 · 로컬 상태 변경</text>
+          <g class="flow-node flow-node-active">
+            <rect x="535" y="600" width="330" height="72"></rect>
+            <text class="node-title" x="700" y="630">범위·보호 변경 확정</text>
+            <text class="node-copy" x="700" y="655">대상 파일 · 권한 · 기존 작업 보존</text>
+          </g>
+          <path class="edge edge-main" d="M700 672 V712" marker-end="url(#arrow-main)"></path>
+          <a href="#skill-oojjrs-project-start-work">
+            <g class="flow-node flow-node-live">
+              <rect x="535" y="712" width="330" height="72"></rect>
+              <text class="node-title" x="700" y="742">$oojjrs-project-start-work</text>
+              <text class="node-copy" x="700" y="767">첫 mutation 직전 1회 · scope와 owner 선택</text>
+            </g>
+          </a>
+          <path class="edge edge-main" d="M700 784 V818" marker-end="url(#arrow-main)"></path>
+          <g class="flow-decision">
+            <polygon points="700,818 850,884 700,950 550,884"></polygon>
+            <text class="node-title" x="700" y="878">가장 구체적인 domain?</text>
+            <text class="node-copy" x="700" y="903">문서 · 코드 · Unity · art/audio · artifact</text>
+          </g>
+          <path class="edge edge-main" d="M700 950 V980" marker-end="url(#arrow-main)"></path>
+          <a href="#public-skill-map">
+            <g class="flow-node flow-node-live">
+              <rect x="535" y="980" width="330" height="72"></rect>
+              <text class="node-title" x="700" y="1010">domain skill → 구현</text>
+              <text class="node-copy" x="700" y="1035">전문 owner 하나씩 · generic parent 중복 금지</text>
+            </g>
+          </a>
+          <path class="edge edge-main" d="M700 1052 V1086" marker-end="url(#arrow-main)"></path>
+          <g class="flow-decision">
+            <polygon points="700,1086 842,1148 700,1210 558,1148"></polygon>
+            <text class="node-title" x="700" y="1142">검증이 필요한가?</text>
+            <text class="node-copy" x="700" y="1167">CASE 06 · 관측 가능한 oracle</text>
+          </g>
+          <path class="edge edge-main" d="M700 1210 V1238" marker-end="url(#arrow-main)"></path>
+          <a href="https://oojjrs.github.io/codex/validation-guideline.md" target="_blank" rel="noopener noreferrer">
+            <g class="flow-node flow-node-active">
+              <rect x="535" y="1238" width="330" height="72"></rect>
+              <text class="node-title" x="700" y="1268">최소 관련 검증</text>
+              <text class="node-copy" x="700" y="1293">format · static · render · direct readback</text>
+            </g>
+          </a>
+          <path class="edge edge-return" d="M865 1274 H920 V1016 H865" marker-end="url(#arrow-purple)"></path>
+          <text class="edge-label is-return" x="928" y="1154">실패 → 수정 단계 복귀</text>
+          <path class="edge edge-main" d="M700 1310 V1340" marker-end="url(#arrow-main)"></path>
+          <a href="#skill-oojjrs-project-finish-work">
+            <g class="flow-node flow-node-live">
+              <rect x="535" y="1340" width="330" height="72"></rect>
+              <text class="node-title" x="700" y="1370">CASE 07 · project finish</text>
+              <text class="node-copy" x="700" y="1395">freeze → exact stage → commit/publish 판단</text>
+            </g>
+          </a>
+          <path class="edge edge-main" d="M700 1412 V1437" marker-end="url(#arrow-main)"></path>
+          <g class="flow-decision">
+            <polygon points="700,1437 842,1499 700,1561 558,1499"></polygon>
+            <text class="node-title" x="700" y="1493">완료 상태는?</text>
+            <text class="node-copy" x="700" y="1518">보고만 · local commit · 외부 변경</text>
+          </g>
+
+          <path class="edge edge-green" d="M558 1499 H485 V1605" marker-end="url(#arrow-green)"></path>
+          <text class="edge-label" x="426" y="1480">보고만 / local commit</text>
+          <g class="flow-node flow-node-live">
+            <rect x="335" y="1605" width="300" height="72"></rect>
+            <text class="node-title" x="485" y="1635">로컬 완료</text>
+            <text class="node-copy" x="485" y="1660">정확한 범위 commit 또는 변경 인계</text>
+          </g>
+          <path class="edge edge-main" d="M842 1499 H900 V1605" marker-end="url(#arrow-main)"></path>
+          <text class="edge-label" x="902" y="1480">CASE 08 · 외부/비가역</text>
+          <g class="flow-decision flow-decision-error">
+            <polygon points="900,1572 1038,1641 900,1710 762,1641"></polygon>
+            <text class="node-title" x="900" y="1635">현재 요청의 명시 권한?</text>
+            <text class="node-copy" x="900" y="1660">정확한 대상 · 비용 · 파괴 범위</text>
+          </g>
+          <path class="edge edge-green" d="M900 1710 V1740 H770" marker-end="url(#arrow-green)"></path>
+          <text class="edge-label" x="792" y="1728">예</text>
+          <g class="flow-node flow-node-live">
+            <rect x="620" y="1740" width="300" height="72"></rect>
+            <text class="node-title" x="770" y="1770">실행 → direct readback</text>
+            <text class="node-copy" x="770" y="1795">push · deploy · delete · paid · external write</text>
+          </g>
+          <path class="edge edge-error" d="M1038 1641 H1080" marker-end="url(#arrow-red)"></path>
+          <text class="edge-label is-error" x="1050" y="1620">아니오</text>
+          <g class="flow-terminal flow-terminal-error">
+            <rect x="1080" y="1605" width="260" height="72" rx="36"></rect>
+            <text class="node-title" x="1210" y="1635">중단 · 승인 요청</text>
+            <text class="node-copy" x="1210" y="1660">대상·결과가 모호하면 실행하지 않음</text>
+          </g>
+
+          <path class="edge edge-main" d="M855 510 H958 V640 H1040" marker-end="url(#arrow-main)"></path>
+          <path class="edge edge-main" d="M958 640 V1240"></path>
+          <path class="edge edge-main" d="M958 840 H1040" marker-end="url(#arrow-main)"></path>
+          <path class="edge edge-main" d="M958 1040 H1040" marker-end="url(#arrow-main)"></path>
+          <path class="edge edge-main" d="M958 1240 H1040" marker-end="url(#arrow-main)"></path>
+          <text class="edge-label" x="974" y="622">CASE 10</text>
+          <text class="edge-label" x="974" y="822">CASE 09</text>
+          <text class="edge-label" x="974" y="1022">CASE 12</text>
+          <text class="edge-label" x="974" y="1222">CASE 11</text>
+
+          <a href="#runtime-skill-map">
+            <g class="flow-node flow-node-active">
+              <rect x="1040" y="600" width="300" height="80"></rect>
+              <text class="node-title" x="1190" y="631">문서·PDF·시트·이미지·사이트</text>
+              <text class="node-copy" x="1190" y="657">artifact 유형별 runtime skill</text>
+            </g>
+          </a>
+          <a href="#skill-oojjrs-visual-qa">
+            <g class="flow-node flow-node-live">
+              <rect x="1040" y="700" width="300" height="72"></rect>
+              <text class="node-title" x="1190" y="730">render / parse / visual QA</text>
+              <text class="node-copy" x="1190" y="755">실제 surface로 layout·반응형 확인</text>
+            </g>
+          </a>
+          <path class="edge edge-main" d="M1190 680 V700" marker-end="url(#arrow-main)"></path>
+
+          <g class="flow-node flow-node-active">
+            <rect x="1040" y="800" width="300" height="80"></rect>
+            <text class="node-title" x="1190" y="831">보이는 UI·기존 로그인 상태</text>
+            <text class="node-copy" x="1190" y="857">Browser / Chrome 명시 여부</text>
+          </g>
+          <a href="https://learn.chatgpt.com/docs/browser" target="_blank" rel="noopener noreferrer">
+            <g class="flow-node flow-node-live">
+              <rect x="1040" y="900" width="300" height="72"></rect>
+              <text class="node-title" x="1190" y="930">Browser 또는 Chrome</text>
+              <text class="node-copy" x="1190" y="955">보이는 상태만 검사·상호작용</text>
+            </g>
+          </a>
+          <path class="edge edge-main" d="M1190 880 V900" marker-end="url(#arrow-main)"></path>
+
+          <g class="flow-node flow-node-active">
+            <rect x="1040" y="1000" width="300" height="80"></rect>
+            <text class="node-title" x="1190" y="1031">외부 앱·계정·사설 데이터</text>
+            <text class="node-copy" x="1190" y="1057">기존 connector 우선 · 임의 웹 우회 금지</text>
+          </g>
+          <a href="#plugin-flow">
+            <g class="flow-node flow-node-conditional">
+              <rect x="1040" y="1100" width="300" height="72"></rect>
+              <text class="node-title" x="1190" y="1130">connector / plugin gate</text>
+              <text class="node-copy" x="1190" y="1155">명시 plugin + 도구 탐색 소진 때만 제안</text>
+            </g>
+          </a>
+          <path class="edge edge-conditional" d="M1190 1080 V1100" marker-end="url(#arrow-purple)"></path>
+
+          <g class="flow-node flow-node-active">
+            <rect x="1040" y="1200" width="300" height="80"></rect>
+            <text class="node-title" x="1190" y="1231">병렬·새 작업·반복 실행</text>
+            <text class="node-copy" x="1190" y="1257">내부 subagent / user task / automation</text>
+          </g>
+          <g class="flow-node flow-node-live">
+            <rect x="1040" y="1300" width="300" height="72"></rect>
+            <text class="node-title" x="1190" y="1330">조정 표면 선택</text>
+            <text class="node-copy" x="1190" y="1355">subagent · thread tool · heartbeat/cron</text>
+          </g>
+          <path class="edge edge-main" d="M1190 1280 V1300" marker-end="url(#arrow-main)"></path>
+
+          <path class="edge edge-green" d="M1340 736 H1370 V1882 H860" marker-end="url(#arrow-green)"></path>
+          <path class="edge edge-green" d="M1340 936 H1370"></path>
+          <path class="edge edge-green" d="M1340 1136 H1370"></path>
+          <path class="edge edge-green" d="M1340 1336 H1370"></path>
+          <path class="edge edge-green" d="M380 1175 H410 V1882 H540" marker-end="url(#arrow-green)"></path>
+          <path class="edge edge-green" d="M485 1677 V1882 H540" marker-end="url(#arrow-green)"></path>
+          <path class="edge edge-green" d="M770 1812 V1842" marker-end="url(#arrow-green)"></path>
+
+          <g class="flow-terminal flow-terminal-live">
+            <rect x="540" y="1842" width="320" height="76" rx="38"></rect>
+            <text class="node-title" x="700" y="1873">근거가 붙은 최종 보고</text>
+            <text class="node-copy" x="700" y="1898">결과 · 검증 · 남은 위험 · 공개 가능한 링크</text>
+          </g>
+        </svg>
+      </div>
+    </figure>
+  </section>
+
+  <section class="flow-section" id="repository-flow">
+    <div class="flow-section-heading">
+      <p>02 · REPOSITORY FLOW</p>
+      <h2>저장소 수정, 검증, Git 완료, 프로젝트 보드</h2>
+      <span>보드는 별도 보고서가 아니라 start 단계에서 조건부로 갈라지는 helper다. <a href="{{ '/codex/project-workflow-atlas.html' | relative_url }}">Mines·Unity 상세 작업 지도</a></span>
+    </div>
+    <figure class="flow-figure">
+      <figcaption><strong>로컬 변경 생명주기</strong><span>보호 변경과 overlap이 없으면 가운데 축을 그대로 진행한다.</span></figcaption>
+      <div class="flowchart-scroll" tabindex="0" aria-label="저장소 수정과 Git 완료 순서도">
+        <svg class="repository-flowchart" viewBox="0 0 1400 900" role="img" aria-labelledby="repo-flow-title repo-flow-desc">
+          <title id="repo-flow-title">저장소 작업의 시작, 구현, 검증, Git 완료 및 프로젝트 보드 순서도</title>
+          <desc id="repo-flow-desc">사용자 변경 요청에서 시작해 보호 변경 겹침 여부를 판정하고, 필요하면 dirty worktree scope split을 거친다. project start, domain 구현, 검증, freeze, project finish, commit, push 또는 deploy, readback으로 이어진다. project start에서 보드가 명시되거나 연결되었을 때만 GitHub Project helper로 분기한다.</desc>
+          <defs>
+            <marker id="repo-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 L10 5 L0 10 z"></path></marker>
+            <marker id="repo-arrow-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 L10 5 L0 10 z"></path></marker>
+          </defs>
+          <rect class="flow-phase" x="20" y="20" width="1360" height="840"></rect>
+          <text class="flow-phase-title" x="48" y="58">정상축 · 예외 helper · 외부 상태 전환</text>
+
+          <path class="edge edge-main" d="M230 170 H335" marker-end="url(#repo-arrow)"></path>
+          <path class="edge edge-conditional" d="M485 170 H570" marker-end="url(#repo-arrow)"></path>
+          <text class="edge-label is-return" x="510" y="150">예</text>
+          <path class="edge edge-main" d="M830 170 H930" marker-end="url(#repo-arrow)"></path>
+          <path class="edge edge-green" d="M410 115 V88 H1060 V130" marker-end="url(#repo-arrow)"></path>
+          <text class="edge-label" x="718" y="78">아니오 → helper 생략</text>
+          <path class="edge edge-main" d="M1190 170 H1280 V290 H1190" marker-end="url(#repo-arrow)"></path>
+          <path class="edge edge-main" d="M930 330 H830" marker-end="url(#repo-arrow)"></path>
+          <path class="edge edge-main" d="M570 330 H485" marker-end="url(#repo-arrow)"></path>
+          <path class="edge edge-main" d="M335 330 H230" marker-end="url(#repo-arrow)"></path>
+          <path class="edge edge-green" d="M145 370 V500 H335" marker-end="url(#repo-arrow)"></path>
+          <path class="edge edge-green" d="M485 500 H570" marker-end="url(#repo-arrow)"></path>
+          <path class="edge edge-main" d="M830 500 H930" marker-end="url(#repo-arrow)"></path>
+          <path class="edge edge-green" d="M1190 500 H1280 V650 H1190" marker-end="url(#repo-arrow)"></path>
+
+          <g class="flow-node flow-node-active"><rect x="60" y="130" width="170" height="80"></rect><text class="node-title" x="145" y="163">변경 요청</text><text class="node-copy" x="145" y="188">정확한 scope</text></g>
+          <g class="flow-decision"><polygon points="410,115 485,170 410,225 335,170"></polygon><text class="node-title" x="410" y="165">overlap?</text><text class="node-copy" x="410" y="189">같은 file/hunk</text></g>
+          <a href="#skill-oojjrs-dirty-worktree-scope-split"><g class="flow-node flow-node-conditional"><rect x="570" y="130" width="260" height="80"></rect><text class="node-title" x="700" y="162">dirty scope split</text><text class="node-copy" x="700" y="188">겹칠 때만 exact hunk 분리</text></g></a>
+          <a href="#skill-oojjrs-project-start-work"><g class="flow-node flow-node-live"><rect x="930" y="130" width="260" height="80"></rect><text class="node-title" x="1060" y="162">project start</text><text class="node-copy" x="1060" y="188">scope · format · domain owner</text></g></a>
+
+          <g class="flow-node flow-node-live"><rect x="930" y="290" width="260" height="80"></rect><text class="node-title" x="1060" y="322">domain 구현</text><text class="node-copy" x="1060" y="348">가장 구체적인 skill</text></g>
+          <g class="flow-decision"><polygon points="700,275 830,330 700,385 570,330"></polygon><text class="node-title" x="700" y="325">검증 성공?</text><text class="node-copy" x="700" y="349">최소 관련 oracle</text></g>
+          <g class="flow-node flow-node-active"><rect x="335" y="290" width="150" height="80"></rect><text class="node-title" x="410" y="322">FREEZE</text><text class="node-copy" x="410" y="348">bytes 고정</text></g>
+          <a href="#skill-oojjrs-project-finish-work"><g class="flow-node flow-node-live"><rect x="60" y="290" width="170" height="80"></rect><text class="node-title" x="145" y="322">project finish</text><text class="node-copy" x="145" y="348">exact stage</text></g></a>
+
+          <g class="flow-node flow-node-live"><rect x="335" y="460" width="150" height="80"></rect><text class="node-title" x="410" y="492">commit</text><text class="node-copy" x="410" y="518">scoped diff</text></g>
+          <g class="flow-decision"><polygon points="700,445 830,500 700,555 570,500"></polygon><text class="node-title" x="700" y="495">외부 권한?</text><text class="node-copy" x="700" y="519">push/deploy/release</text></g>
+          <g class="flow-node flow-node-live"><rect x="930" y="460" width="260" height="80"></rect><text class="node-title" x="1060" y="492">push · deploy</text><text class="node-copy" x="1060" y="518">명시된 대상만</text></g>
+          <g class="flow-terminal flow-terminal-live"><rect x="930" y="610" width="260" height="80" rx="40"></rect><text class="node-title" x="1060" y="642">direct readback</text><text class="node-copy" x="1060" y="668">remote · Pages · release 확인</text></g>
+
+          <path class="edge edge-return" d="M700 275 V240 H1060 V290" marker-end="url(#repo-arrow)"></path>
+          <text class="edge-label is-return" x="820" y="232">아니오 → 구현 복귀</text>
+          <path class="edge edge-error" d="M700 555 V650 H570" marker-end="url(#repo-arrow-red)"></path>
+          <g class="flow-terminal flow-terminal-error"><rect x="310" y="610" width="260" height="80" rx="40"></rect><text class="node-title" x="440" y="642">외부 전환 보류</text><text class="node-copy" x="440" y="668">로컬 commit까지만</text></g>
+
+          <path class="edge edge-conditional" d="M1190 210 H1360 V825 H805 V790" marker-end="url(#repo-arrow)"></path>
+          <text class="edge-label is-return" x="1090" y="817">보드 명시 / cheap 1:1 probe</text>
+          <g class="flow-decision"><polygon points="805,680 935,735 805,790 675,735"></polygon><text class="node-title" x="805" y="730">관련 board?</text><text class="node-copy" x="805" y="754">현재 repo Nodes = 0</text></g>
+          <path class="edge edge-green" d="M675 735 H570" marker-end="url(#repo-arrow)"></path>
+          <g class="flow-terminal flow-terminal-live"><rect x="310" y="695" width="260" height="80" rx="40"></rect><text class="node-title" x="440" y="727">정상 종료</text><text class="node-copy" x="440" y="753">연결 보드 없음 · 작업 계속</text></g>
+          <path class="edge edge-conditional" d="M935 735 H1040" marker-end="url(#repo-arrow)"></path>
+          <a href="#skill-oojjrs-github-project-board"><g class="flow-node flow-node-conditional"><rect x="1040" y="695" width="300" height="80"></rect><text class="node-title" x="1190" y="727">GitHub Project helper</text><text class="node-copy" x="1190" y="753">card · issue · status 관리</text></g></a>
+          <path class="edge edge-error edge-broken" d="M1190 210 H1320 V610" marker-end="url(#repo-arrow-red)"></path>
+          <text class="edge-label is-error" x="1260" y="592">과거: first confirmer 없음 ×</text>
+        </svg>
+      </div>
+    </figure>
+  </section>
+
+  <section class="flow-section" id="public-skill-map">
+    <div class="flow-section-heading">
+      <p>03 · PUBLIC SKILL ROUTER</p>
+      <h2>공개 oojjrs 스킬 29개가 실제로 갈라지는 지점</h2>
+      <span>각 노드는 현재 공개 source로 연결된다. 세로선은 같은 domain 안의 순차·대체 판정을 뜻한다.</span>
+    </div>
+    <div class="tree-scroll" tabindex="0" aria-label="공개 oojjrs 스킬 29개 라우팅 트리">
+      <div class="flow-tree flow-tree-six">
+        <div class="tree-root tree-decision">가장 구체적인 공개 스킬?</div>
+        <div class="tree-stem" aria-hidden="true"></div>
+        <div class="tree-branches">
+          <section class="tree-branch">
+            <h3>공통·수명주기</h3>
+            <div class="tree-chain">
+              <a id="skill-oojjrs-guidelines" class="tree-node is-live" data-registry-node data-state="verified" href="https://github.com/oojjrs/oojjrs.github.io/blob/master/codex/skills/oojjrs-guidelines/SKILL.md"><b>$oojjrs-guidelines</b><span>공개 공통 규칙</span></a>
+              <a id="skill-oojjrs-project-start-work" class="tree-node" data-registry-node data-state="conditional" href="https://github.com/oojjrs/oojjrs.github.io/blob/master/codex/skills/oojjrs-project-start-work/SKILL.md"><b>$oojjrs-project-start-work</b><span>첫 mutation 전 scope</span></a>
+              <a id="skill-oojjrs-project-finish-work" class="tree-node" data-registry-node data-state="conditional" href="https://github.com/oojjrs/oojjrs.github.io/blob/master/codex/skills/oojjrs-project-finish-work/SKILL.md"><b>$oojjrs-project-finish-work</b><span>stage · commit · publication</span></a>
+            </div>
+          </section>
+          <section class="tree-branch">
+            <h3>조사·조건부 helper</h3>
+            <div class="tree-chain">
+              <a id="skill-oojjrs-dirty-worktree-scope-split" class="tree-node" data-registry-node data-state="conditional" href="https://github.com/oojjrs/oojjrs.github.io/blob/master/codex/skills/oojjrs-dirty-worktree-scope-split/SKILL.md"><b>$oojjrs-dirty-worktree-scope-split</b><span>같은 file/hunk overlap</span></a>
+              <a id="skill-oojjrs-github-project-board" class="tree-node" data-registry-node data-state="conditional" href="https://github.com/oojjrs/oojjrs.github.io/blob/master/codex/skills/oojjrs-github-project-board/SKILL.md"><b>$oojjrs-github-project-board</b><span>명시 또는 1:1 board</span></a>
+              <a id="skill-oojjrs-visual-qa" class="tree-node" data-registry-node data-state="conditional" href="https://github.com/oojjrs/oojjrs.github.io/blob/master/codex/skills/oojjrs-visual-qa/SKILL.md"><b>$oojjrs-visual-qa</b><span>render evidence 필요</span></a>
+              <a id="skill-oojjrs-codex-work-incident-forensics" class="tree-node" data-registry-node data-state="conditional" href="https://github.com/oojjrs/oojjrs.github.io/blob/master/codex/skills/oojjrs-codex-work-incident-forensics/SKILL.md"><b>$oojjrs-codex-work-incident-forensics</b><span>분쟁 Codex 행동의 전체 이력 재구성</span></a>
+              <a class="tree-node" data-registry-node data-state="conditional" href="https://github.com/oojjrs/oojjrs.github.io/blob/master/codex/skills/oojjrs-windows-repo-forensics/SKILL.md"><b>$oojjrs-windows-repo-forensics</b><span>Windows·repo provenance 조사</span></a>
+            </div>
+          </section>
+          <section class="tree-branch">
+            <h3>문서·규칙</h3>
+            <div class="tree-chain">
+              <a class="tree-node" data-registry-node data-state="conditional" href="https://github.com/oojjrs/oojjrs.github.io/blob/master/codex/skills/oojjrs-project-design-document-router/SKILL.md"><b>$oojjrs-project-design-document-router</b><span>focused Design.html</span></a>
+              <a class="tree-node" data-registry-node data-state="conditional" href="https://github.com/oojjrs/oojjrs.github.io/blob/master/codex/skills/oojjrs-design-html-builder/SKILL.md"><b>$oojjrs-design-html-builder</b><span>큰 생성·복구·재구축</span></a>
+              <a class="tree-node" data-registry-node data-state="conditional" href="https://github.com/oojjrs/oojjrs.github.io/blob/master/codex/skills/oojjrs-readme-doc-generation/SKILL.md"><b>$oojjrs-readme-doc-generation</b><span>standalone README</span></a>
+              <a class="tree-node" data-registry-node data-state="conditional" href="https://github.com/oojjrs/oojjrs.github.io/blob/master/codex/skills/oojjrs-guideline-maintenance/SKILL.md"><b>$oojjrs-guideline-maintenance</b><span>공개 지침 phase</span></a>
+              <a class="tree-node" data-registry-node data-state="conditional" href="https://github.com/oojjrs/oojjrs.github.io/blob/master/codex/skills/oojjrs-skill-maintenance/SKILL.md"><b>$oojjrs-skill-maintenance</b><span>skill source·index·install</span></a>
+              <a class="tree-node" data-registry-node data-state="conditional" href="https://github.com/oojjrs/oojjrs.github.io/blob/master/codex/skills/oojjrs-unity-package-docset-maintenance/SKILL.md"><b>$oojjrs-unity-package-docset-maintenance</b><span>UnityO Documentation~·API docset</span></a>
+              <a class="tree-node" data-registry-node data-state="conditional" href="https://github.com/oojjrs/oojjrs.github.io/blob/master/codex/skills/oojjrs-unity-csharp-convention-maintenance/SKILL.md"><b>$oojjrs-unity-csharp-convention-maintenance</b><span>C# convention set 자체</span></a>
+            </div>
+          </section>
+          <section class="tree-branch">
+            <h3>Steam·Unity</h3>
+            <div class="tree-chain">
+              <a class="tree-node" data-registry-node data-state="conditional" href="https://github.com/oojjrs/oojjrs.github.io/blob/master/codex/skills/oojjrs-steamworks/SKILL.md"><b>$oojjrs-steamworks</b><span>Valve 공식 integration</span></a>
+              <a class="tree-node" data-registry-node data-state="conditional" href="https://github.com/oojjrs/oojjrs.github.io/blob/master/codex/skills/oojjrs-unity-package-src-migration/SKILL.md"><b>$oojjrs-unity-package-src-migration</b><span>Assets → Packages/src</span></a>
+              <a class="tree-node" data-registry-node data-state="conditional" href="https://github.com/oojjrs/oojjrs.github.io/blob/master/codex/skills/oojjrs-unity-package-code-change-workflow/SKILL.md"><b>$oojjrs-unity-package-code-change-workflow</b><span>UnityO Runtime·Editor C# fallback</span></a>
+              <a class="tree-node" data-registry-node data-state="conditional" href="https://github.com/oojjrs/oojjrs.github.io/blob/master/codex/skills/oojjrs-unity-package-release/SKILL.md"><b>$oojjrs-unity-package-release</b><span>UnityO version·release</span></a>
+              <a class="tree-node" data-registry-node data-state="conditional" href="https://github.com/oojjrs/oojjrs.github.io/blob/master/codex/skills/oojjrs-unity-asset-safety/SKILL.md"><b>$oojjrs-unity-asset-safety</b><span>general Unity fallback</span></a>
+              <a class="tree-node" data-registry-node data-state="conditional" href="https://github.com/oojjrs/oojjrs.github.io/blob/master/codex/skills/oojjrs-unity-csharp-entity-workflow/SKILL.md"><b>$oojjrs-unity-csharp-entity-workflow</b><span>Data·Record family</span></a>
+              <a class="tree-node" data-registry-node data-state="conditional" href="https://github.com/oojjrs/oojjrs.github.io/blob/master/codex/skills/oojjrs-unity-localization-string-table-workflow/SKILL.md"><b>$oojjrs-unity-localization-string-table-workflow</b><span>StringTable·locale·placeholder</span></a>
+              <a class="tree-node" data-registry-node data-state="conditional" href="https://github.com/oojjrs/oojjrs.github.io/blob/master/codex/skills/oojjrs-unity-prefab-guid-usage-lookup/SKILL.md"><b>$oojjrs-unity-prefab-guid-usage-lookup</b><span>GUID·fileID usage trace</span></a>
+            </div>
+          </section>
+          <section class="tree-branch">
+            <h3>아트·오디오·조사</h3>
+            <div class="tree-chain">
+              <a class="tree-node" data-registry-node data-state="conditional" href="https://github.com/oojjrs/oojjrs.github.io/blob/master/codex/skills/oojjrs-2d-sprite-animation/SKILL.md"><b>$oojjrs-2d-sprite-animation</b><span>frame·sheet·preview GIF</span></a>
+              <a class="tree-node" data-registry-node data-state="conditional" href="https://github.com/oojjrs/oojjrs.github.io/blob/master/codex/skills/oojjrs-image-first-art-workflow/SKILL.md"><b>$oojjrs-image-first-art-workflow</b><span>일반 raster imagegen-first</span></a>
+              <a class="tree-node" data-registry-node data-state="conditional" href="https://github.com/oojjrs/oojjrs.github.io/blob/master/codex/skills/oojjrs-mines-art-asset-pipeline/SKILL.md"><b>$oojjrs-mines-art-asset-pipeline</b><span>H:\Mines art owner</span></a>
+              <a class="tree-node" data-registry-node data-state="conditional" href="https://github.com/oojjrs/oojjrs.github.io/blob/master/codex/skills/oojjrs-game-audio-asset-workflow/SKILL.md"><b>$oojjrs-game-audio-asset-workflow</b><span>licensed 후보 검색·청취·편집·설치</span></a>
+              <a class="tree-node" data-registry-node data-state="conditional" href="https://github.com/oojjrs/oojjrs.github.io/blob/master/codex/skills/oojjrs-ai-music-generator/SKILL.md"><b>$oojjrs-ai-music-generator</b><span>explicit paid generation phase</span></a>
+            </div>
+          </section>
+          <section class="tree-branch">
+            <h3>통제된 로컬 실행</h3>
+            <div class="tree-chain">
+              <a class="tree-node" data-registry-node data-state="conditional" href="https://github.com/oojjrs/oojjrs.github.io/blob/master/codex/skills/oojjrs-run-dhlottery-buyer/SKILL.md"><b>$oojjrs-run-dhlottery-buyer</b><span>매 실구매마다 fresh 확인</span></a>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+    <p class="flow-note">대체 관계: 큰 Design 작업은 builder가 focused router를 대체하고, skill artifact가 바뀌면 skill-maintenance가 guideline-maintenance를 대체한다. Codex 행동 분쟁은 incident-forensics, 일반 Windows·repo provenance는 windows-repo-forensics가 맡는다. UnityO는 code·docset·release·migration을 별도 phase로 나누고, StringTable은 generic Unity asset fallback 대신 localization workflow가 소유한다. Mines art는 generic image/Unity asset 경로를 대체한다. game-audio는 먼저 라이선스가 분명한 SFX 후보를 검색·청취하고, 유료 음악 생성 단계에서만 AI music으로 넘긴다.</p>
+  </section>
+
+  <section class="flow-section" id="runtime-skill-map">
+    <div class="flow-section-heading">
+      <p>04 · RUNTIME CAPABILITY ROUTER</p>
+      <h2>세션에 추가로 노출된 런타임 스킬 24개</h2>
+      <span>공개 프로젝트 규칙이 아니라 출력 종류·도구 표면에 따라 조건부로 선택되는 층이다.</span>
+    </div>
+    <div class="tree-scroll" tabindex="0" aria-label="런타임 스킬 24개 라우팅 트리">
+      <div class="flow-tree flow-tree-four">
+        <div class="tree-root tree-decision">어떤 capability가 필요한가?</div>
+        <div class="tree-stem" aria-hidden="true"></div>
+        <div class="tree-branches">
+          <section class="tree-branch">
+            <h3>생성·공식 문서·확장</h3>
+            <div class="tree-chain">
+              <a class="tree-node is-live" data-registry-node data-state="verified" href="https://learn.chatgpt.com/docs/image-generation"><b>imagegen</b><span>raster 생성·편집</span></a>
+              <a class="tree-node is-live" data-registry-node data-state="verified" href="https://developers.openai.com/"><b>openai-docs</b><span>OpenAI·Codex 공식 문서</span></a>
+              <a class="tree-node" data-registry-node data-state="conditional" href="https://learn.chatgpt.com/docs/build-plugins"><b>plugin-creator</b><span>plugin scaffold</span></a>
+              <a class="tree-node" data-registry-node data-state="conditional" href="https://learn.chatgpt.com/docs/build-skills"><b>skill-creator</b><span>skill 생성·수정</span></a>
+              <a class="tree-node" data-registry-node data-state="conditional" href="https://learn.chatgpt.com/docs/skills-and-plugins"><b>skill-installer</b><span>curated/GitHub install</span></a>
+              <a class="tree-node" data-registry-node data-state="conditional" href="https://learn.chatgpt.com/docs/plugins"><b>plugin-management</b><span>권한·의존성·제거</span></a>
+            </div>
+          </section>
+          <section class="tree-branch">
+            <h3>브라우저·대화 시각화</h3>
+            <div class="tree-chain">
+              <a class="tree-node" data-registry-node data-state="conditional" href="https://learn.chatgpt.com/docs/browser"><b>browser:control-in-app-browser</b><span>보이는 페이지·local test</span></a>
+              <a class="tree-node" data-registry-node data-state="conditional" href="https://learn.chatgpt.com/docs/chrome-extension"><b>chrome:control-chrome</b><span>사용자 Chrome 상태</span></a>
+              <a class="tree-node" data-registry-node data-state="conditional" href="https://learn.chatgpt.com/docs/visualizations"><b>visualize</b><span>대화 안 graph·simulator</span></a>
+            </div>
+          </section>
+          <section class="tree-branch">
+            <h3>문서·파일·사이트</h3>
+            <div class="tree-chain">
+              <a class="tree-node" data-registry-node data-state="conditional" href="https://learn.chatgpt.com/docs/artifacts-viewer"><b>documents:documents</b><span>DOCX·Word render</span></a>
+              <a class="tree-node" data-registry-node data-state="conditional" href="https://learn.chatgpt.com/docs/artifacts-viewer"><b>pdf:pdf</b><span>PDF read·create·form</span></a>
+              <a class="tree-node" data-registry-node data-state="conditional" href="https://learn.chatgpt.com/docs/artifacts-viewer"><b>presentations:Presentations</b><span>PPTX·Slides</span></a>
+              <a class="tree-node" data-registry-node data-state="conditional" href="https://learn.chatgpt.com/docs/artifacts-viewer"><b>spreadsheets:Spreadsheets</b><span>standalone sheet files</span></a>
+              <a class="tree-node" data-registry-node data-state="conditional" href="#audit-excel"><b>spreadsheets:excel-live-control</b><span>연결 session 필요</span></a>
+              <a class="tree-node" data-registry-node data-state="conditional" href="https://learn.chatgpt.com/docs/build-skills"><b>template-creator</b><span>reusable artifact template</span></a>
+              <a class="tree-node" data-registry-node data-state="conditional" href="#audit-sites"><b>sites:sites-building</b><span>hosting.json trigger</span></a>
+              <a class="tree-node" data-registry-node data-state="conditional" href="#audit-sites"><b>sites:sites-hosting</b><span>version·production deploy</span></a>
+            </div>
+          </section>
+          <section class="tree-branch">
+            <h3>Higgsfield CLI</h3>
+            <div class="tree-chain">
+              <a class="tree-node" data-registry-node data-state="conditional" href="https://higgsfield.ai/"><b>higgsfield-game-generation</b><span>browser game·assets</span></a>
+              <a class="tree-node" data-registry-node data-state="conditional" href="https://higgsfield.ai/"><b>higgsfield-generate</b><span>image·video·3D·audio</span></a>
+              <a class="tree-node" data-registry-node data-state="conditional" href="https://higgsfield.ai/"><b>higgsfield-marketplace-cards</b><span>listing image set</span></a>
+              <a class="tree-node" data-registry-node data-state="conditional" href="https://higgsfield.ai/"><b>higgsfield-product-photoshoot</b><span>product creative</span></a>
+              <a class="tree-node" data-registry-node data-state="conditional" href="https://higgsfield.ai/"><b>higgsfield-soul-id</b><span>identity model training</span></a>
+              <a class="tree-node" data-registry-node data-state="conditional" href="https://higgsfield.ai/"><b>higgsfield-video-explainer</b><span>narrated blocks</span></a>
+              <a class="tree-node" data-registry-node data-state="conditional" href="https://higgsfield.ai/"><b>higgsfield-websites</b><span>CLI website/app</span></a>
+            </div>
+          </section>
+        </div>
+      </div>
     </div>
 
-    <div class="authority-graph">
-      <article><span class="evidence-badge evidence-context">C</span><h3>플랫폼 안전·기능 제약</h3><p>권한, 샌드박스, 실제 도구 가용성, 비공개 정보 보호. 내부 원문 대신 공개 가능한 동작 원칙만 요약한다.</p></article><span class="graph-chevron">›</span>
-      <article><span class="evidence-badge evidence-context">C</span><h3>최신 사용자 요청</h3><p>목적, 대상, 변경·검증·외부 상태 권한을 결정한다. 상위 안전 경계는 해제하지 못한다.</p></article><span class="graph-chevron">›</span>
-      <article><span class="evidence-badge evidence-public">P1</span><h3>canonical 공통 규칙</h3><p><a href="https://oojjrs.github.io/codex/common-work-guidelines.md">공개 정본</a>을 스레드당 한 번 읽는다. 로컬 초안은 활성 규칙이 아니다.</p></article><span class="graph-chevron">›</span>
-      <article><span class="evidence-badge evidence-skill">P2</span><h3>가장 구체적인 스킬</h3><p>트리거가 확인된 최소 집합만 사용한다. 전문 스킬이 일반 부모의 안전·문서·검증 규칙을 소유한다.</p></article>
+    <div class="permission-flow" aria-label="도구 실행 권한 흐름">
+      <div><b>읽기</b><span>진단·정보 조회</span></div><i aria-hidden="true"></i>
+      <div><b>reversible local write</b><span>요청 scope 안 변경</span></div><i aria-hidden="true"></i>
+      <div><b>workspace 밖·GUI</b><span>sandbox 승인</span></div><i aria-hidden="true"></i>
+      <div><b>external·destructive·paid</b><span>현재 명시 권한 + readback</span></div>
+    </div>
+
+    <details class="flow-appendix">
+      <summary>96개 nested tool inventory 연결 보기</summary>
+      <div class="tool-count-flow">
+        <div><strong>21</strong><b>Codex Desktop</b><span>task·automation·UI</span></div>
+        <div><strong>12</strong><b>Workspace Core</b><span>shell·patch·plan·resource</span></div>
+        <div><strong>23</strong><b>Sites</b><span>site·version·deploy·data</span></div>
+        <div><strong>21</strong><b>Mail connector</b><span>read와 external write 분리</span></div>
+        <div><strong>14</strong><b>Document·Plugin·Safety</b><span>session·permission·safety</span></div>
+        <div><strong>5</strong><b>Browser·Web·Image</b><span>browser 3 · web 1 · image 1</span></div>
+      </div>
+      <p>96은 현재 열거된 nested surface만 센 값이다. collaboration control과 outer orchestration·mode UI는 포함하지 않는다.</p>
+    </details>
+  </section>
+
+  <section class="flow-section" id="plugin-flow">
+    <div class="flow-section-heading">
+      <p>05 · PLUGIN GATE &amp; PARKING</p>
+      <h2>미설치 추천 플러그인 49개가 멈춰 있는 지점</h2>
+      <span>catalog에 있다는 사실은 설치·연결·인증·호출 가능을 뜻하지 않는다.</span>
+    </div>
+    <div class="plugin-gate-flow" aria-label="플러그인 설치 제안 순서도">
+      <div class="plugin-gate-node"><b>현재 도구로 해결?</b><span>가능하면 기존 채널</span></div><i aria-hidden="true"></i>
+      <div class="plugin-gate-decision"><b>특정 plugin 명시?</b><span>아니오 → 제안 금지</span></div><i aria-hidden="true"></i>
+      <div class="plugin-gate-decision"><b>도구 탐색 소진?</b><span>기존 연결 먼저</span></div><i aria-hidden="true"></i>
+      <div class="plugin-gate-decision"><b>추천 목록에 정확한 ID?</b><span>없는 plugin 추측 금지</span></div><i aria-hidden="true"></i>
+      <div class="plugin-gate-node is-live"><b>설치 제안</b><span>사용자 연결 후 다음 요청</span></div>
+    </div>
+
+    <details class="flow-appendix plugin-parking-map">
+      <summary>catalog-only leaf 49개와 정확한 ID 펼치기</summary>
+      <p class="flow-note">아래 각 leaf는 모두 같은 종료 상태다: <b>추천 목록에 있으나 현재 미설치</b>. 개별 공개 detail URL이 제공되지 않아 가짜 링크는 만들지 않는다. 공통 동작은 <a href="https://learn.chatgpt.com/docs/plugins">공식 Plugins 문서</a>를 따른다.</p>
+      <div class="plugin-leaf-grid" aria-label="미설치 플러그인 49개">
+        <span data-registry-node data-state="catalog">Airtable</span><span data-registry-node data-state="catalog">Alpaca</span><span data-registry-node data-state="catalog">Apollo.io</span><span data-registry-node data-state="catalog">Spotify</span><span data-registry-node data-state="catalog">Apple Music</span><span data-registry-node data-state="catalog">LONA Trading Assistant</span><span data-registry-node data-state="catalog">SciSpace</span>
+        <span data-registry-node data-state="catalog">Tarot</span><span data-registry-node data-state="catalog">Todoist</span><span data-registry-node data-state="catalog">Consensus</span><span data-registry-node data-state="catalog">Sider Scholar</span><span data-registry-node data-state="catalog">True Sky</span><span data-registry-node data-state="catalog">Bigdata.com</span><span data-registry-node data-state="catalog">Gamma</span>
+        <span data-registry-node data-state="catalog">Tredict</span><span data-registry-node data-state="catalog">Maersk</span><span data-registry-node data-state="catalog">Dropbox</span><span data-registry-node data-state="catalog">Parqet</span><span data-registry-node data-state="catalog">Interactive Brokers</span><span data-registry-node data-state="catalog">Financial Datasets</span><span data-registry-node data-state="catalog">Fathom</span>
+        <span data-registry-node data-state="catalog">vidIQ</span><span data-registry-node data-state="catalog">TickTick</span><span data-registry-node data-state="catalog">Plaud</span><span data-registry-node data-state="catalog">Wolfram</span><span data-registry-node data-state="catalog">Runway</span><span data-registry-node data-state="catalog">Caliber</span><span data-registry-node data-state="catalog">COROS</span>
+        <span data-registry-node data-state="catalog">TradingCursor</span><span data-registry-node data-state="catalog">CoinMarketCap</span><span data-registry-node data-state="catalog">Trello</span><span data-registry-node data-state="catalog">Longbridge</span><span data-registry-node data-state="catalog">freddy</span><span data-registry-node data-state="catalog">Higgsfield</span><span data-registry-node data-state="catalog">Stocktwits</span>
+        <span data-registry-node data-state="catalog">CoinGecko</span><span data-registry-node data-state="catalog">Asana</span><span data-registry-node data-state="catalog">Atlassian Rovo</span><span data-registry-node data-state="catalog">Base44</span><span data-registry-node data-state="catalog">Binance</span><span data-registry-node data-state="catalog">Box</span><span data-registry-node data-state="catalog">Canva</span>
+        <span data-registry-node data-state="catalog">ClickUp</span><span data-registry-node data-state="catalog">Cloudflare</span><span data-registry-node data-state="catalog">Codex Security</span><span data-registry-node data-state="catalog">Figma</span><span data-registry-node data-state="catalog">GitHub</span><span data-registry-node data-state="catalog">Google Calendar</span><span data-registry-node data-state="catalog">Google Drive</span>
+      </div>
+      <div class="plugin-id-list">
+        <code>airtable@openai-curated-remote</code><code>alpaca@openai-curated-remote</code><code>apollo.io@openai-curated-remote</code><code>app-68de829bf7648191acd70a907364c67c@openai-curated-remote</code><code>app-6938a94a61d881918ef32cb999ff937c@openai-curated-remote</code>
+        <code>app-694336b0c0948191a4ad234f9942885b@openai-curated-remote</code><code>app-69439d715a7c8191aed9e2f6649e105f@openai-curated-remote</code><code>app-6943a2c078b0819188de39e4fe168d9b@openai-curated-remote</code><code>app-6943b73823548191a9f9216c6790c453@openai-curated-remote</code><code>app-6943e6f4a928819195962de16fb9ffe4@openai-curated-remote</code>
+        <code>app-6948b485f5bc8191adb4df13f369cec7@openai-curated-remote</code><code>app-69490a4a06148191a0dd78606a3dbf1f@openai-curated-remote</code><code>app-69491eceef3c8191beb70788b7840429@openai-curated-remote</code><code>app-698a098735908191989f5788d7ee317e@openai-curated-remote</code><code>app-69aef5b699a0819184512d57743fc1cd@openai-curated-remote</code>
+        <code>app-69b2b5a768d4819190d3a86c5f12e6d9@openai-curated-remote</code><code>app-69b31dc2110c8191b8b47dc98fe5a052@openai-curated-remote</code><code>app-69b68652f0308191a27d7c7096cab4f6@openai-curated-remote</code><code>app-69bc11db874881918718abaca20b68ce@openai-curated-remote</code><code>app-69cacd9394a88191ba6564e1bb0430fa@openai-curated-remote</code>
+        <code>app-69d88b99c5c481918e8da9225737e1e9@openai-curated-remote</code><code>app-69dd11f3e50c8191b1ca48d03cf7e2ad@openai-curated-remote</code><code>app-69ddbaba3fb48191a825f22c21b0599d@openai-curated-remote</code><code>app-69f3c30d68288191bbd428a394a78407@openai-curated-remote</code><code>app-69fe0bf66c8481919c513d799406436e@openai-curated-remote</code>
+        <code>app-6a05e3b201788191be12b590b43e6ce3@openai-curated-remote</code><code>app-6a05e8f22d408191b13ba3897157f6df@openai-curated-remote</code><code>app-6a0694cbb2608191bbefb74ba810ab68@openai-curated-remote</code><code>app-6a0d835ff1dc8191972eeabd14967446@openai-curated-remote</code><code>app-6a172fe86f5481919f73cbc3bc3ad5bb@openai-curated-remote</code>
+        <code>app-6a20b18a639081918c1b438f8381b27e@openai-curated-remote</code><code>app-6a2baf2fad748191812393c3e00308ef@openai-curated-remote</code><code>app-6a322b52a82c8191b7fb653f9e9f7891@openai-curated-remote</code><code>app-6a3293e129088191abf0875820e839da@openai-curated-remote</code><code>app-6a427a19b1f481919c5db13838af00c2@openai-curated-remote</code>
+        <code>app-6a4f02d735388191959c8328877e0bbd@openai-curated-remote</code><code>asana@openai-curated-remote</code><code>atlassian-rovo@openai-curated-remote</code><code>base44@openai-curated-remote</code><code>binance@openai-curated-remote</code>
+        <code>box@openai-curated-remote</code><code>canva@openai-curated-remote</code><code>clickup@openai-curated-remote</code><code>cloudflare@openai-curated-remote</code><code>codex-security@openai-curated-remote</code>
+        <code>figma@openai-curated-remote</code><code>github@openai-curated-remote</code><code>google-calendar@openai-curated-remote</code><code>google-drive@openai-curated-remote</code>
+      </div>
+    </details>
+  </section>
+
+  <section class="flow-section flow-section-alert" id="orphan-flow">
+    <div class="flow-section-heading">
+      <p>06 · EXCEPTION RAIL</p>
+      <h2>고아·휴면·정상 종료·복구 이력 11개</h2>
+      <span>고아는 독립 카드가 아니라 원래 들어와야 했던 노드에서 끊긴 경로로 표시한다.</span>
+    </div>
+    <div class="fault-legend" aria-label="고아 감사 상태 범례"><span>× 현재 실행 경로 없음</span><span>⋯ 세션·모드 휴면</span><span>✓ 복구됨</span><span>□ 정상 상태 종료</span><span>† 폐기·역사</span></div>
+    <div class="fault-flow" aria-label="고아 및 휴면 경로">
+      <div class="fault-row" data-registry-node data-state="retired">
+        <a href="#skill-oojjrs-project-start-work">project-start</a><i class="fault-edge is-broken"><span>과거 자동 진입</span></i><b>first confirmer 없음 ×</b><i class="fault-edge is-repaired"><span>247e660 probe 복구</span></i><em>현재 repo board 0 · 정상 종료</em>
+      </div>
+      <div class="fault-row" data-registry-node data-state="orphan">
+        <a href="https://learn.chatgpt.com/docs/plugins">plugin-management</a><i class="fault-edge is-broken"><span>일반 검색·추천</span></i><b>discovery tool 없음 ×</b><i class="fault-edge is-error"><span>우회 제한</span></i><em>특정 plugin 명시 때만 install suggestion</em>
+      </div>
+      <div class="fault-row" data-registry-node data-state="verified">
+        <span>runtime alias 초안</span><i class="fault-edge is-repaired"><span>527e55f</span></i><b>oojjrs lottery published ✓</b><i class="fault-edge is-repaired"><span>source·index·installer</span></i><em>당시 25번째 공개 skill</em>
+      </div>
+      <div class="fault-row" id="audit-excel" data-registry-node data-state="conditional">
+        <span>Excel live-control tools</span><i class="fault-edge is-dormant"><span>session lookup</span></i><b>연결 Excel session = 0 ⋯</b><i class="fault-edge is-dormant"><span>연결 전</span></i><em>standalone sheet 경로만 가능</em>
+      </div>
+      <div class="fault-row" data-registry-node data-state="conditional">
+        <span>structured user input</span><i class="fault-edge is-dormant"><span>Plan mode only</span></i><b>현재 Default mode ⋯</b><i class="fault-edge is-dormant"><span>일반 질문 가능</span></i><em>전체 작업 고아는 아님</em>
+      </div>
+      <div class="fault-row" id="audit-sites" data-registry-node data-state="conditional">
+        <span>Sites build·hosting</span><i class="fault-edge is-dormant"><span>강제 trigger</span></i><b>.openai/hosting.json 없음 ⋯</b><i class="fault-edge is-dormant"><span>state inactive</span></i><em>현재 GitHub Pages 경로</em>
+      </div>
+      <div class="fault-row" data-registry-node data-state="orphan">
+        <a href="https://partner.steamgames.com/doc/sdk/uploading">Steamworks</a><i class="fault-edge is-broken"><span>SteamPipe 실행</span></i><b>SteamCMD executable 없음 ×</b><i class="fault-edge is-error"><span>설치·partner 권한</span></i><em>진단·코드·문서는 가능</em>
+      </div>
+      <div class="fault-row" data-registry-node data-state="conditional">
+        <span>Unity skill set</span><i class="fault-edge is-dormant"><span>Editor validation</span></i><b>Editor·version·license 미확인 ⋯</b><i class="fault-edge is-dormant"><span>증거 분리</span></i><em>static YAML/C# 검사만 확인</em>
+      </div>
+      <div class="fault-row" data-registry-node data-state="verified">
+        <span>기존 SVG 22-node</span><i class="fault-edge is-broken"><span>링크·skill 누락</span></i><b>직접 확인 경로 끊김</b><i class="fault-edge is-repaired"><span>이번 재구축</span></i><em>29 source leaf + 실제 edge ✓</em>
+      </div>
+      <div class="fault-row" data-registry-node data-state="verified">
+        <span>Steamworks·C# convention</span><i class="fault-edge is-broken"><span>2026-07 도식 정지</span></i><b>추가 후 시각 문서 미동기화</b><i class="fault-edge is-repaired"><span>현재 공개 tree</span></i><em>누락 복구 ✓</em>
+      </div>
+      <div class="fault-row" data-registry-node data-state="retired">
+        <span>Suno music</span><i class="fault-edge is-retired"><span>2026-08-20 rollback</span></i><b>retired †</b><i class="fault-edge is-retired"><span>실행 노드 아님</span></i><em>역사 기록만 보존</em>
+      </div>
     </div>
   </section>
-  <section class="atlas-section" id="request-cases">
-    <div class="atlas-section-head"><p class="section-index">02 · CASE ROUTES</p><h2>요청 유형별 전체 진입·종료 경로</h2><p>각 카드에는 trigger, 실제 경로, 종료 조건과 적용 근거가 함께 있다.</p></div>
-    <div class="case-grid">
-      <article class="case-card"><span class="case-number">01</span><h3>일반 대화·Q&amp;A·번역·재작성</h3><p class="mini-flow"><b>요청</b><span>→</span><b>안정성 판단</b><span>→</span><b>직접 답변</b></p><dl><dt>적용</dt><dd>공통 규칙의 답변 표현</dd><dt>미적용</dt><dd>project-start, domain, validation, finish</dd></dl></article>
-      <article class="case-card"><span class="case-number">02</span><h3>최신·불확실·고위험·출처 요청</h3><p class="mini-flow"><b>변경 가능성</b><span>→</span><b>공식/1차 출처</b><span>→</span><b>인용 답변</b></p><dl><dt>trigger</dt><dd>뉴스, 가격, 법·규정, 일정, 최신 사양, 의료·법률·금융, 직접 링크·인용</dd><dt>근거</dt><dd><a href="https://learn.chatgpt.com/docs/web-search">Web search</a></dd></dl></article>
-      <article class="case-card"><span class="case-number">03</span><h3>OpenAI·Codex 제품 질문</h3><p class="mini-flow"><b>정확한 주제</b><span>→</span><b>공식 OpenAI 문서</b><span>→</span><b>현재 정보</b></p><dl><dt>스킬</dt><dd><code>openai-docs</code></dd><dt>제약</dt><dd>공식 OpenAI 도메인만 인용</dd></dl></article>
-      <article class="case-card"><span class="case-number">04</span><h3>읽기 전용 검토·진단·계획</h3><p class="mini-flow"><b>범위</b><span>→</span><b>증거 수집</b><span>→</span><b>원인·판단 보고</b></p><dl><dt>허용</dt><dd>파일·Git·허용된 외부 정보 읽기</dd><dt>금지</dt><dd>수정·실행·외부 상태 변화의 자동 확대</dd></dl></article>
-      <article class="case-card"><span class="case-number">05</span><h3>로컬 수정·구현</h3><p class="mini-flow"><b>scope</b><span>→</span><b>project-start</b><span>→</span><b>domain</b><span>→</span><b>format+diff</b></p><dl><dt>보호</dt><dd>기존·동시 working tree/index/untracked</dd><dt>종료</dt><dd>요청 범위의 reversible local change</dd></dl></article>
-      <article class="case-card"><span class="case-number">06</span><h3>실행·검증 요청</h3><p class="mini-flow"><b>불확실성</b><span>→</span><b>validation 정본</b><span>→</span><b>독립 oracle</b><span>→</span><b>증거</b></p><dl><dt>예</dt><dd>build, test, server, browser, render</dd><dt>근거</dt><dd><a href="https://oojjrs.github.io/codex/validation-guideline.md">검증 지침</a></dd></dl></article>
-      <article class="case-card"><span class="case-number">07</span><h3>stage·commit / push·deploy·release</h3><p class="mini-flow"><b>콘텐츠 완료</b><span>→</span><b>bytes 동결</b><span>→</span><b>project-finish</b><span>→</span><b>readback</b></p><dl><dt>로컬</dt><dd>안전한 stage·commit은 별도 허가 없이 범위 완료 가능</dd><dt>외부</dt><dd>push·deploy·release는 현재 요청의 명시 권한 필요</dd></dl></article>
-      <article class="case-card"><span class="case-number">08</span><h3>영구 삭제·강제 롤백·유료 생성·외부 기록</h3><p class="mini-flow"><b>현재 명시 권한?</b><span>→</span><b>절대 대상 검증</b><span>→</span><b>최소 실행</b></p><dl><dt>예외</dt><dd>현재 작업이 만든 <code>$Trash</code>·검증 output은 task-owned</dd><dt>중단</dt><dd>권한·대상·복구 가능성이 불명확</dd></dl></article>
-      <article class="case-card"><span class="case-number">09</span><h3>웹 화면·앱 Browser·Chrome</h3><p class="mini-flow"><b>화면 상태?</b><span>→</span><b>Browser</b><span>·</span><b>Chrome 상태?</b><span>→</span><b>Chrome</b></p><dl><dt>제약</dt><dd>URL만 있다고 클릭 요청으로 확대하지 않음</dd><dt>근거</dt><dd><a href="https://learn.chatgpt.com/docs/browser">Browser</a></dd></dl></article>
-      <article class="case-card"><span class="case-number">10</span><h3>문서·PDF·시트·슬라이드</h3><p class="mini-flow"><b>파일 종류</b><span>→</span><b>전용 skill</b><span>→</span><b>render/parse</b><span>→</span><b>시각 검증</b></p><dl><dt>분리</dt><dd>독립 spreadsheet와 활성 Excel session은 다른 경로</dd><dt>근거</dt><dd><a href="https://learn.chatgpt.com/docs/artifacts-viewer">Work with files</a></dd></dl></article>
-      <article class="case-card"><span class="case-number">11</span><h3>작업·하위 에이전트·자동화</h3><p class="mini-flow"><b>내부 병렬?</b><span>→</span><b>subagent</b><span>·</span><b>새 사용자 작업?</b><span>→</span><b>명시 요청</b></p><dl><dt>반복</dt><dd>연속성은 heartbeat, 독립 실행은 project cron</dd><dt>근거</dt><dd><a href="https://learn.chatgpt.com/docs/agent-configuration/subagents">Subagents</a> · <a href="https://learn.chatgpt.com/docs/automations">Automations</a></dd></dl></article>
-      <article class="case-card"><span class="case-number">12</span><h3>커넥터·사설 데이터·플러그인</h3><p class="mini-flow"><b>전용 connector?</b><span>→</span><b>권한 범위</b><span>→</span><b>read/write 구분</b></p><dl><dt>원칙</dt><dd>메일·캘린더·드라이브 등 사설 데이터를 웹으로 대체하지 않음</dd><dt>근거</dt><dd><a href="https://learn.chatgpt.com/docs/plugins">Plugins</a></dd></dl></article>
+
+  <section class="flow-section" id="routing-evidence">
+    <div class="flow-section-heading">
+      <p>07 · EVIDENCE APPENDIX</p>
+      <h2>근거, 공개 경계, 이력</h2>
+      <span>그래프 해석에 필요한 자료만 접힌 부록으로 남긴다.</span>
     </div>
+
+    <details class="flow-appendix">
+      <summary>감사 기준과 공개 경계</summary>
+      <div class="evidence-columns">
+        <div><h3>포함</h3><ul><li>공개 지침·스킬 source와 공식 문서</li><li>Git history와 감사 시점 접근 가능한 작업 요약</li><li>workspace·CLI·connector의 read-only 결과</li><li>tool·skill·추천 plugin inventory</li></ul></div>
+        <div><h3>공개하지 않음</h3><ul><li>비공개 system/developer 원문과 숨은 추론</li><li>credential·cookie·token·session store</li><li>개인 보드·메일·대화 원문과 권한 없는 기록</li><li>출력이 잘리거나 연결되지 않아 확인 못 한 상태</li></ul></div>
+      </div>
+    </details>
+
+    <details class="flow-appendix">
+      <summary>근거 등급과 주요 출처</summary>
+      <div class="evidence-source-flow">
+        <div><b>P1 · 공개 정본</b><a href="https://oojjrs.github.io/codex/common-work-guidelines.md">공통 작업 지침</a><a href="https://oojjrs.github.io/codex/validation-guideline.md">검증 지침</a><a href="https://oojjrs.github.io/codex/skills/">스킬 인덱스</a></div>
+        <div><b>P2 · skill source</b><a href="https://github.com/oojjrs/oojjrs.github.io/tree/master/codex/skills">29개 공개 source</a><a href="https://github.com/oojjrs/oojjrs.github.io/blob/master/codex/skills/install.ps1">설치기</a></div>
+        <div><b>R1 · 실제 probe</b><span>Git 상태 · CLI 존재 · board Nodes=[] · Excel session 0</span></div>
+        <div><b>R2 · inventory</b><span>53 skill · 96 nested tool · 49 recommended plugin</span></div>
+        <div><b>I · 추론</b><span>서로 다른 근거를 연결한 orphan·dormant·repaired 판정</span></div>
+      </div>
+    </details>
+
+    <details class="flow-appendix">
+      <summary>시간축과 불변 근거</summary>
+      <div class="timeline-flow">
+        <a href="https://github.com/oojjrs/oojjrs.github.io/tree/cd7678bff8d0955937bfcacbf19671c10fc6f0cd/codex"><b>cd7678b</b><span>감사 시작 baseline</span></a>
+        <i aria-hidden="true"></i>
+        <a href="https://github.com/oojjrs/oojjrs.github.io/commit/247e660f79d89f538feb4d65232e7e4302242be7"><b>247e660</b><span>권한·board·Visual QA repair</span></a>
+        <i aria-hidden="true"></i>
+        <a href="https://github.com/oojjrs/oojjrs.github.io/commit/527e55f33def7d4c20ed9f273e8d496d5cf90304"><b>527e55f</b><span>공개 skill 25 sync</span></a>
+        <a href="https://github.com/oojjrs/oojjrs.github.io/commit/1df89c0"><b>1df89c0</b><span>반복 작업 skill 4종 추가 → 29</span></a>
+        <a href="https://github.com/oojjrs/oojjrs.github.io/commit/3117bed"><b>3117bed</b><span>project workflow 공개 문서 추가</span></a>
+        <i aria-hidden="true"></i>
+        <a href="https://github.com/oojjrs/oojjrs.github.io/commit/03fe1d1be270a219a754e68debf11ba9a6d63704"><b>03fe1d1</b><span>첫 atlas audit</span></a>
+      </div>
+    </details>
+
+    <p class="routing-snapshot">이 페이지는 실행 환경 전체의 비공개 사본이 아니라 <b>공개 가능하고 직접 검증한 라우팅 스냅샷</b>이다. 현재 source: <a href="https://github.com/oojjrs/oojjrs.github.io/blob/master/codex/skill-routing-diagram.html">master HTML</a> · 공식 참고: <a href="https://learn.chatgpt.com/docs/skills-and-plugins">Skills &amp; Plugins</a> · <a href="https://learn.chatgpt.com/docs/agent-approvals-security">Approvals &amp; security</a> · <a href="https://partner.steamgames.com/doc/home">Steamworks</a></p>
   </section>
-
-  <section class="atlas-section" id="repository-route">
-    <div class="atlas-section-head"><p class="section-index">03 · REPOSITORY LIFECYCLE</p><h2>저장소 수정, 검증, Git 완료는 서로 다른 경로</h2><p>기존 SVG가 직렬로 묶었던 dirty·board·visual QA·Git 완료는 모두 조건부 곁가지다.</p></div>
-    <div class="lifecycle-graph">
-      <div class="lifecycle-main">
-        <div class="flow-node"><strong>로컬 변경 요청</strong><small>요청 범위 확정</small></div><span class="vertical-arrow">↓</span>
-        <div class="flow-node"><strong><a href="https://github.com/oojjrs/oojjrs.github.io/blob/527e55f33def7d4c20ed9f273e8d496d5cf90304/codex/skills/oojjrs-project-start-work/SKILL.md">project-start</a></strong><small>첫 mutation 직전 1회</small></div><span class="vertical-arrow">↓</span>
-        <div class="flow-node"><strong>가장 구체적인 domain</strong><small>0개 또는 1개씩 · 독립 deliverable은 순차 phase</small></div><span class="vertical-arrow">↓</span>
-        <div class="flow-node"><strong>최종 format + scoped diff</strong><small>마지막 편집 뒤 정확한 파일만 1회</small></div><span class="vertical-arrow">↓</span>
-        <div class="flow-node flow-exit"><strong>로컬 결과 완료</strong><small>필요하면 scoped local commit · 외부 publication은 별도 gate</small></div>
-      </div>
-      <aside class="lifecycle-branches" aria-label="조건부 보조 경로">
-        <article><span class="route-badge status-conditional">조건부 helper</span><h3>dirty scope split</h3><p><b>같은 파일·hunk 중첩 또는 staging 분리 모호</b>가 실제 확인될 때만. 단순 dirty는 trigger가 아니다.</p></article>
-        <article><span class="route-badge status-conditional">조건부 helper</span><h3>GitHub Project</h3><p>cheap 1:1 probe로 관련 보드가 확인되거나 보드 자체가 요청 범위인 경우만. 과거 자동 진입 결함과 복구는 <a href="#board-orphan">고아 감사</a>에 분리했다.</p></article>
-        <article><span class="route-badge status-conditional">조건부 helper</span><h3>visual QA</h3><p>렌더 결과가 요청됐거나 layout·responsive 결과를 정적으로 증명할 수 없을 때만 실제 화면을 확인한다.</p></article>
-        <article><span class="route-badge status-conditional">Git completion</span><h3>project-finish</h3><p>실제 stage·commit을 할 때, 또는 명시적으로 허가된 push·deploy·release를 할 때만. 새 content repair 권한은 만들지 않는다.</p></article>
-      </aside>
-    </div>
-    <div class="git-freeze-graph"><h3>Git 완료의 콘텐츠 동결선</h3><div class="freeze-track"><div><strong>요청 콘텐츠 편집</strong><small>허용된 최소 hunk</small></div><span>→</span><div><strong>필수 docs·version sync</strong><small>owning workflow</small></div><span class="freeze-marker">FREEZE</span><div><strong>정확한 staging</strong><small>cached status·diff·check</small></div><span>→</span><div><strong>상태 전환</strong><small>local commit / authorized external</small></div></div></div>
-    <div class="reference-ribbon" aria-label="조건부 공개 참조">
-      <a href="https://oojjrs.github.io/codex/validation-guideline.md"><span>VALIDATION</span>검증·oracle</a><a href="https://oojjrs.github.io/codex/semantic-layer-naming-guideline.md"><span>NAMING</span>의미 계층</a><a href="https://oojjrs.github.io/codex/unity-csharp-coding-convention.md"><span>UNITY C#</span>선언·그룹</a><a href="https://oojjrs.github.io/codex/logging-guideline.md"><span>LOGGING</span>first-party 로그</a><a href="https://oojjrs.github.io/codex/guideline-design-generation.review.md"><span>DESIGN</span>Design.html</a><a href="https://oojjrs.github.io/codex/guideline-readme-generation.review.md"><span>README</span>공개 진입 문서</a>
-    </div>
-  </section>
-  <section class="atlas-section" id="oojjrs-skills" data-filter-group>
-    <div class="atlas-section-head"><p class="section-index">04 · OOJJRS PUBLIC SKILLS</p><h2>공개 스킬 25개: trigger, 배제, 단계 전환</h2><p>모든 카드 이름을 누르면 현재 원격 master <code>527e55f</code> 시점의 실제 <code>SKILL.md</code>를 읽을 수 있다.</p></div>
-
-    <div class="skill-family">
-      <div class="family-head"><span>CORE + LIFECYCLE</span><p>모든 실제 작업의 공통 골격. 읽기 전용과 mutation을 먼저 분리한다.</p></div>
-      <div class="skill-grid skill-grid-three">
-        <article class="skill-card" data-registry-node data-state="verified"><div class="skill-card-top"><span class="route-badge status-verified">항상·표현</span><span class="evidence-badge evidence-skill">P2</span></div><h3><a href="https://github.com/oojjrs/oojjrs.github.io/blob/527e55f33def7d4c20ed9f273e8d496d5cf90304/codex/skills/oojjrs-guidelines/SKILL.md">$oojjrs-guidelines</a></h3><p>호스트가 지정하거나 공통 규칙 자체를 점검할 때. canonical URL을 스레드당 한 번 읽고, 일반 대화에는 답변 표현만 적용한다.</p><small>canonical 접근 실패 시 rule-dependent 작업 중단</small></article>
-        <article class="skill-card" data-registry-node data-state="conditional"><div class="skill-card-top"><span class="route-badge status-conditional">mutation</span><span class="evidence-badge evidence-skill">P2</span></div><h3><a href="https://github.com/oojjrs/oojjrs.github.io/blob/527e55f33def7d4c20ed9f273e8d496d5cf90304/codex/skills/oojjrs-project-start-work/SKILL.md">$oojjrs-project-start-work</a></h3><p>첫 intended local file/index mutation 직전 1회. 보호 변경, 형식, overlap, cheap board probe, code preflight와 가장 구체적인 domain을 결정한다.</p><small>질문·review·diagnosis·planning·board-only·push-only 제외</small></article>
-        <article class="skill-card" data-registry-node data-state="conditional"><div class="skill-card-top"><span class="route-badge status-conditional">Git·publication</span><span class="evidence-badge evidence-skill">P2</span></div><h3><a href="https://github.com/oojjrs/oojjrs.github.io/blob/527e55f33def7d4c20ed9f273e8d496d5cf90304/codex/skills/oojjrs-project-finish-work/SKILL.md">$oojjrs-project-finish-work</a></h3><p>실제 local stage·commit, 또는 명시적으로 허가된 push·deploy·release에서 bytes를 동결하고 정확한 상태 전환을 수행한다.</p><small>read-only·uncommitted ongoing edit·새 unrelated repair 제외</small></article>
-      </div>
-    </div>
-
-    <div class="skill-family">
-      <div class="family-head"><span>CONDITIONAL HELPERS</span><p>직렬 기본 흐름이 아니다. trigger가 실제로 확인된 뒤에만 붙는다.</p></div>
-      <div class="skill-grid skill-grid-three">
-        <article class="skill-card" data-registry-node data-state="conditional"><div class="skill-card-top"><span class="route-badge status-conditional">overlap</span><span class="evidence-badge evidence-skill">P2</span></div><h3><a href="https://github.com/oojjrs/oojjrs.github.io/blob/527e55f33def7d4c20ed9f273e8d496d5cf90304/codex/skills/oojjrs-dirty-worktree-scope-split/SKILL.md">$oojjrs-dirty-worktree-scope-split</a></h3><p>같은 파일·hunk의 보호 변경과 요청 변경이 섞였거나 safe staging이 모호할 때 exact hunk/path를 분리한다.</p><small>단순 dirty·원인 진단 제외</small></article>
-        <article class="skill-card" data-registry-node data-state="conditional"><div class="skill-card-top"><span class="route-badge status-ready">자동 probe 복구</span><span class="evidence-badge evidence-runtime">R1</span></div><h3><a href="https://github.com/oojjrs/oojjrs.github.io/blob/527e55f33def7d4c20ed9f273e8d496d5cf90304/codex/skills/oojjrs-github-project-board/SKILL.md">$oojjrs-github-project-board</a></h3><p>보드 명시 요청 또는 cheap probe로 확인된 관련 1:1 연결에서 card·issue·status를 관리한다. 현재 repo는 linked board 0이다.</p><small><a href="#board-orphan">과거 비동작과 복구 분석</a></small></article>
-        <article class="skill-card" data-registry-node data-state="conditional"><div class="skill-card-top"><span class="route-badge status-conditional">render gate</span><span class="evidence-badge evidence-skill">P2</span></div><h3><a href="https://github.com/oojjrs/oojjrs.github.io/blob/527e55f33def7d4c20ed9f273e8d496d5cf90304/codex/skills/oojjrs-visual-qa/SKILL.md">$oojjrs-visual-qa</a></h3><p>렌더 증거가 요청됐거나 layout·responsive 결과를 정적으로 판정할 수 없을 때 실제 surface를 확인한다.</p><small>static evidence가 충분한 content·asset-only 제외</small></article>
-      </div>
-    </div>
-
-    <div class="skill-family">
-      <div class="family-head"><span>DOCUMENT + MAINTENANCE</span><p>집중 수정 / 대형 재구축 / 공개 가이드 / 스킬 소스에 따라 owner가 달라진다.</p></div>
-      <div class="precedence-strip"><span>focused Design → <b>design-router</b></span><span>large·image-heavy·recovery → <b>design-builder</b></span><span>public guidance → <b>guideline-maint</b></span><span>SKILL·YAML·index·installer → <b>skill-maint</b></span><span>Unity C# ruleset → <b>convention-maint</b></span></div>
-      <div class="skill-grid">
-        <article class="skill-card" data-registry-node data-state="conditional"><div class="skill-card-top"><span class="route-badge status-conditional">focused</span><span class="evidence-badge evidence-skill">P2</span></div><h3><a href="https://github.com/oojjrs/oojjrs.github.io/blob/527e55f33def7d4c20ed9f273e8d496d5cf90304/codex/skills/oojjrs-project-design-document-router/SKILL.md">$oojjrs-project-design-document-router</a></h3><p>집중된 <code>Design.html</code> review·cleanup·update. 큰 생성·복구·이미지 중심 재구축이면 builder가 대체한다.</p></article>
-        <article class="skill-card" data-registry-node data-state="conditional"><div class="skill-card-top"><span class="route-badge status-conditional">large build</span><span class="evidence-badge evidence-skill">P2</span></div><h3><a href="https://github.com/oojjrs/oojjrs.github.io/blob/527e55f33def7d4c20ed9f273e8d496d5cf90304/codex/skills/oojjrs-design-html-builder/SKILL.md">$oojjrs-design-html-builder</a></h3><p>이미지 중심 생성·복구·substantial layout conversion·대규모 <code>Design.html</code> rebuild. Mines 문서 구조도 이 owner가 맡는다.</p></article>
-        <article class="skill-card" data-registry-node data-state="conditional"><div class="skill-card-top"><span class="route-badge status-conditional">README primary</span><span class="evidence-badge evidence-skill">P2</span></div><h3><a href="https://github.com/oojjrs/oojjrs.github.io/blob/527e55f33def7d4c20ed9f273e8d496d5cf90304/codex/skills/oojjrs-readme-doc-generation/SKILL.md">$oojjrs-readme-doc-generation</a></h3><p>GitHub-facing README나 공개 진입 문서가 주 deliverable일 때. migration·release의 incidental README에는 겹치지 않는다.</p></article>
-        <article class="skill-card" data-registry-node data-state="conditional"><div class="skill-card-top"><span class="route-badge status-conditional">public guidance</span><span class="evidence-badge evidence-skill">P2</span></div><h3><a href="https://github.com/oojjrs/oojjrs.github.io/blob/527e55f33def7d4c20ed9f273e8d496d5cf90304/codex/skills/oojjrs-guideline-maintenance/SKILL.md">$oojjrs-guideline-maintenance</a></h3><p>현재 phase가 공개 지침 자체만 바꿀 때. 같은 alignment의 skill artifact 변경은 별도 skill-maint phase로 전환하고, Unity C# convention set은 convention-maint가 소유한다.</p></article>
-        <article class="skill-card" data-registry-node data-state="conditional"><div class="skill-card-top"><span class="route-badge status-conditional">skill artifacts</span><span class="evidence-badge evidence-skill">P2</span></div><h3><a href="https://github.com/oojjrs/oojjrs.github.io/blob/527e55f33def7d4c20ed9f273e8d496d5cf90304/codex/skills/oojjrs-skill-maintenance/SKILL.md">$oojjrs-skill-maintenance</a></h3><p><code>SKILL.md</code>, <code>agents/openai.yaml</code>, routing index, installer가 주 deliverable일 때. 관련 common routing도 소유한다.</p></article>
-        <article class="skill-card" data-registry-node data-state="conditional"><div class="skill-card-top"><span class="route-badge status-conditional">ruleset itself</span><span class="evidence-badge evidence-skill">P2</span></div><h3><a href="https://github.com/oojjrs/oojjrs.github.io/blob/527e55f33def7d4c20ed9f273e8d496d5cf90304/codex/skills/oojjrs-unity-csharp-convention-maintenance/SKILL.md">$oojjrs-unity-csharp-convention-maintenance</a></h3><p>Unity C# convention의 규칙·순서·번역·표현 자체를 동기화한다. 일반 코드 편집에서 규칙을 적용할 때는 쓰지 않는다.</p></article>
-      </div>
-    </div>
-
-    <div class="skill-family">
-      <div class="family-head"><span>STEAM + UNITY</span><p>구조 이관과 release, 일반 asset과 전문 asset, 읽기 전용 GUID 추적을 섞지 않는다.</p></div>
-      <div class="skill-grid">
-        <article class="skill-card" data-registry-node data-state="conditional"><div class="skill-card-top"><span class="route-badge status-conditional">official Valve</span><span class="evidence-badge evidence-skill">P2</span></div><h3><a href="https://github.com/oojjrs/oojjrs.github.io/blob/527e55f33def7d4c20ed9f273e8d496d5cf90304/codex/skills/oojjrs-steamworks/SKILL.md">$oojjrs-steamworks</a></h3><p>SDK, Web API, SteamCMD/SteamPipe, Partner, 출시·스토어 운영을 공식 Valve 문서와 capability 상태로 라우팅한다.</p><small>upload·Set Live·publish·재무는 즉시 앞의 명시 지시 필요</small></article>
-        <article class="skill-card" data-registry-node data-state="conditional"><div class="skill-card-top"><span class="route-badge status-conditional">structural move</span><span class="evidence-badge evidence-skill">P2</span></div><h3><a href="https://github.com/oojjrs/oojjrs.github.io/blob/527e55f33def7d4c20ed9f273e8d496d5cf90304/codex/skills/oojjrs-unity-package-src-migration/SKILL.md">$oojjrs-unity-package-src-migration</a></h3><p><code>Assets</code> package를 <code>Packages/src</code>로 실제 이관할 때 package.json·meta·asmdef·path·version·README를 직접 단독 소유한다.</p><small>release·standalone README·generic asset 동시 사용 금지</small></article>
-        <article class="skill-card" data-registry-node data-state="conditional"><div class="skill-card-top"><span class="route-badge status-conditional">UnityO version</span><span class="evidence-badge evidence-skill">P2</span></div><h3><a href="https://github.com/oojjrs/oojjrs.github.io/blob/527e55f33def7d4c20ed9f273e8d496d5cf90304/codex/skills/oojjrs-unity-package-release/SKILL.md">$oojjrs-unity-package-release</a></h3><p>UnityO package version·release readiness. 명시 version/release 또는 해당 package 변경이 포함된 모든 commit 전에 bump를 판정한다.</p><small>game version·src migration 제외, Git은 finish 소유</small></article>
-        <article class="skill-card" data-registry-node data-state="conditional"><div class="skill-card-top"><span class="route-badge status-conditional">fallback</span><span class="evidence-badge evidence-skill">P2</span></div><h3><a href="https://github.com/oojjrs/oojjrs.github.io/blob/527e55f33def7d4c20ed9f273e8d496d5cf90304/codex/skills/oojjrs-unity-asset-safety/SKILL.md">$oojjrs-unity-asset-safety</a></h3><p>더 구체적인 art·sprite·audio·package·Mines·prefab workflow가 없을 때만 쓰는 일반 Unity asset fallback.</p><small><code>.meta</code> 생성·수정 금지, 누락 시 commit/push 중단</small></article>
-        <article class="skill-card" data-registry-node data-state="conditional"><div class="skill-card-top"><span class="route-badge status-conditional">entity family</span><span class="evidence-badge evidence-skill">P2</span></div><h3><a href="https://github.com/oojjrs/oojjrs.github.io/blob/527e55f33def7d4c20ed9f273e8d496d5cf90304/codex/skills/oojjrs-unity-csharp-entity-workflow/SKILL.md">$oojjrs-unity-csharp-entity-workflow</a></h3><p>Record-only / Data+Record / Data-only 중 하나로 분류해 Data, Record, Manager, Builder, Hub, Stub, persistence를 잇는다.</p><small>Data면 ReferenceIndex·DataBuilder, Record면 Manager pattern 결정</small></article>
-        <article class="skill-card" data-registry-node data-state="conditional"><div class="skill-card-top"><span class="route-badge status-ready">read-only</span><span class="evidence-badge evidence-skill">P2</span></div><h3><a href="https://github.com/oojjrs/oojjrs.github.io/blob/527e55f33def7d4c20ed9f273e8d496d5cf90304/codex/skills/oojjrs-unity-prefab-guid-usage-lookup/SKILL.md">$oojjrs-unity-prefab-guid-usage-lookup</a></h3><p>이름 grep 대신 GUID·fileID·serialized YAML로 prefab/component/script/scene/animation 참조를 추적한다.</p><small>편집 요청 전 project-start·finish 없음</small></article>
-      </div>
-
-      <details class="route-detail"><summary>Steamworks 내부 mini-graph와 현재 구현 상태</summary><div class="detail-body"><p class="mini-flow mini-flow-wrap"><b>AppID·project·engine·OS·결과</b><span>→</span><b>SDK / Web API / SteamCMD·SteamPipe / Partner</b><span>→</span><b>documentation · implementation · local · partner · availability</b><span>→</span><b>ROUTED / SCAFFOLDED / VERIFIED_LOCAL / VERIFIED_PARTNER / EXTERNAL</b></p><p>현재 공개 skill은 문서 라우팅과 SteamCMD 정적 발견만 구현돼 있다. VDF 생성·preview·upload·Set Live·Partner 변경은 입력·권한·인증·구현 여부를 각각 확인하며, 미구현 기능은 <code>implementation_required</code>로 끝난다.</p><p><a href="https://github.com/oojjrs/oojjrs.github.io/blob/527e55f33def7d4c20ed9f273e8d496d5cf90304/codex/skills/oojjrs-steamworks/references/capability-matrix.md">capability matrix</a> · <a href="https://github.com/oojjrs/oojjrs.github.io/blob/527e55f33def7d4c20ed9f273e8d496d5cf90304/codex/skills/oojjrs-steamworks/references/official-documentation-map.md">documentation map</a> · <a href="https://partner.steamgames.com/doc/home">Valve 문서</a></p></div></details>
-    </div>
-
-    <div class="skill-family">
-      <div class="family-head"><span>ART + AUDIO + FORENSICS</span><p>전문 asset workflow가 일반 부모를 대체하고, 유료 생성은 독립된 명시 phase다.</p></div>
-      <div class="precedence-strip"><span>Mines art ┤ generic image·Unity·Design</span><span>2D animation ┤ image-first frame</span><span>game-audio ⇢ paid generation ⇢ audio return</span><span>dirty 원인 조사 ⇄ 실제 isolation</span></div>
-      <div class="skill-grid">
-        <article class="skill-card" data-registry-node data-state="conditional"><div class="skill-card-top"><span class="route-badge status-conditional">2D animation</span><span class="evidence-badge evidence-skill">P2</span></div><h3><a href="https://github.com/oojjrs/oojjrs.github.io/blob/527e55f33def7d4c20ed9f273e8d496d5cf90304/codex/skills/oojjrs-2d-sprite-animation/SKILL.md">$oojjrs-2d-sprite-animation</a></h3><p>2D frame, sprite sheet, pivot, preview GIF, layered parts. 고정 base에서 coherent transform으로 fresh frame을 합성한다.</p></article>
-        <article class="skill-card" data-registry-node data-state="conditional"><div class="skill-card-top"><span class="route-badge status-conditional">imagegen first</span><span class="evidence-badge evidence-skill">P2</span></div><h3><a href="https://github.com/oojjrs/oojjrs.github.io/blob/527e55f33def7d4c20ed9f273e8d496d5cf90304/codex/skills/oojjrs-image-first-art-workflow/SKILL.md">$oojjrs-image-first-art-workflow</a></h3><p>일반 raster·UI art·static sprite·reference의 새 제작·대수정. 첫 미적 pass는 imagegen, deterministic tool은 후처리다.</p><small>2D animation·Mines·pure layout·code-native·기존 SVG 제외</small></article>
-        <article class="skill-card" data-registry-node data-state="conditional"><div class="skill-card-top"><span class="route-badge status-conditional">H:\Mines</span><span class="evidence-badge evidence-skill">P2</span></div><h3><a href="https://github.com/oojjrs/oojjrs.github.io/blob/527e55f33def7d4c20ed9f273e8d496d5cf90304/codex/skills/oojjrs-mines-art-asset-pipeline/SKILL.md">$oojjrs-mines-art-asset-pipeline</a></h3><p>Mines art·UI·theme·effect·treasure·profile·tile·flag·preview·Unity asset와 좁은 기존 Design entry sync의 단일 domain.</p><small>문서 구조는 Design builder, audio는 game-audio, true animation은 sprite 별도 phase</small></article>
-        <article class="skill-card" data-registry-node data-state="conditional"><div class="skill-card-top"><span class="route-badge status-conditional">integrated audio</span><span class="evidence-badge evidence-skill">P2</span></div><h3><a href="https://github.com/oojjrs/oojjrs.github.io/blob/527e55f33def7d4c20ed9f273e8d496d5cf90304/codex/skills/oojjrs-game-audio-asset-workflow/SKILL.md">$oojjrs-game-audio-asset-workflow</a></h3><p>편집·loop·SFX·runtime placement·preview·Design sync·Unity-safe 설치. 유료 생성 단계만 AI music으로 전환한다.</p></article>
-        <article class="skill-card" data-registry-node data-state="conditional"><div class="skill-card-top"><span class="route-badge status-blocked">paid explicit</span><span class="evidence-badge evidence-skill">P2</span></div><h3><a href="https://github.com/oojjrs/oojjrs.github.io/blob/527e55f33def7d4c20ed9f273e8d496d5cf90304/codex/skills/oojjrs-ai-music-generator/SKILL.md">$oojjrs-ai-music-generator</a></h3><p>명시적 instrumental 생성·다운로드 phase만. 로그인·크레딧·중복 POST 방지·첫 결과 즉시 보존을 관리한다.</p><small>larger audio task preload 금지</small></article>
-        <article class="skill-card" data-registry-node data-state="conditional"><div class="skill-card-top"><span class="route-badge status-ready">read-only evidence</span><span class="evidence-badge evidence-skill">P2</span></div><h3><a href="https://github.com/oojjrs/oojjrs.github.io/blob/527e55f33def7d4c20ed9f273e8d496d5cf90304/codex/skills/oojjrs-windows-repo-forensics/SKILL.md">$oojjrs-windows-repo-forensics</a></h3><p>Windows path·folder provenance·OneDrive·VS·TortoiseGit·case·false-dirty를 filesystem→Git→app DB→log/process 순으로 조사한다.</p><small>실제 hunk 분리는 dirty helper 별도 phase</small></article>
-      </div>
-    </div>
-
-    <div class="skill-family">
-      <div class="family-head"><span>CONTROLLED LOCAL EXECUTION</span><p>로컬 UI 자동화라도 금전 상태는 매 거래의 새 확인과 독립 결과를 요구한다.</p></div>
-      <div class="skill-grid skill-grid-three">
-        <article class="skill-card" data-registry-node data-state="conditional"><div class="skill-card-top"><span class="route-badge status-blocked">fresh purchase gate</span><span class="evidence-badge evidence-skill">P2</span></div><h3><a href="https://github.com/oojjrs/oojjrs.github.io/blob/527e55f33def7d4c20ed9f273e8d496d5cf90304/codex/skills/oojjrs-run-dhlottery-buyer/SKILL.md">$oojjrs-run-dhlottery-buyer</a></h3><p><code>H:\연금복권</code>의 준비·dry-run·명시적 실구매·설정 점검·게시·randomized interactive schedule을 라우팅한다.</p><small>ID·password·cookie·credential은 대화나 저장소에서 수집하지 않고, 매 실구매 prompt마다 현재 요약 뒤 정확한 <code>구매</code> 확인을 새로 받는다. 결과가 unknown이면 retry하지 않는다.</small></article>
-      </div>
-    </div>
-
-    <details class="route-detail"><summary>등록 정합성, 게시 전이, legacy alias</summary><div class="detail-body"><p><strong>현재 원격 HEAD <code>527e55f</code>:</strong> tracked skill folder 25 = routing matrix 25 = URL 25 = agents YAML 25 = installer canonical list 25. 저장소와 설치본의 줄바꿈 정규화 후 semantic diff도 0이다.</p><p><strong>상태 전이:</strong> 분석 중 보호된 병렬 초안이던 <code>oojjrs-run-dhlottery-buyer</code> source·index·installer 등록이 <code>527e55f</code>에서 함께 게시됐다. 이 task의 시작 시 available-skills 표에 남은 unprefixed 이름은 세션 시작 snapshot이다.</p><p><strong>legacy alias 9:</strong> <code>github-project-board</code>, <code>project-start-work</code>, <code>project-finish-work</code>, <code>project-design-document-router</code>, <code>unity-package-src-migration</code>, <code>2d-sprite-animation</code>, <code>image-first-art-workflow</code>, <code>unity-prefab-guid-usage-lookup</code>, <code>run-dhlottery-buyer</code>. 실행 노드가 아니라 installer 입력 호환 별칭이다.</p><p><a href="https://oojjrs.github.io/codex/skills/">공개 라우팅 인덱스</a> · <a href="https://github.com/oojjrs/oojjrs.github.io/blob/527e55f33def7d4c20ed9f273e8d496d5cf90304/codex/skills/install.ps1">installer source</a></p></div></details>
-  </section>
-  <section class="atlas-section" id="runtime-skills" data-filter-group>
-    <div class="atlas-section-head"><p class="section-index">05 · SESSION RUNTIME</p><h2>공개 트리 밖에서 추가로 노출된 24개 스킬</h2><p>공개 oojjrs 25개와 다른 런타임 층이다. 이 목록은 세션·설치 상태에 따라 바뀌며 공개 프로젝트 규칙의 권위를 갖지 않는다.</p></div>
-    <div class="runtime-groups">
-      <article class="runtime-group">
-        <div class="runtime-group-head"><span class="route-badge status-ready">platform</span><h3>생성·문서·확장</h3></div>
-        <ul class="runtime-list">
-          <li data-registry-node data-state="verified"><b>imagegen</b><span>새 raster 이미지·기존 이미지 편집</span><a href="https://learn.chatgpt.com/docs/image-generation">문서</a></li>
-          <li data-registry-node data-state="verified"><b>openai-docs</b><span>OpenAI·Codex 현재 공식 문서</span><a href="https://developers.openai.com/">문서</a></li>
-          <li data-registry-node data-state="conditional"><b>plugin-creator</b><span>개인 Codex plugin scaffold·manifest</span><a href="https://learn.chatgpt.com/docs/build-plugins">문서</a></li>
-          <li data-registry-node data-state="conditional"><b>skill-creator</b><span>새 Codex skill 생성·수정</span><a href="https://learn.chatgpt.com/docs/build-skills">문서</a></li>
-          <li data-registry-node data-state="conditional"><b>skill-installer</b><span>curated/GitHub skill 설치</span><a href="https://learn.chatgpt.com/docs/skills-and-plugins">문서</a></li>
-          <li data-registry-node data-state="conditional"><b>plugin-management</b><span>권한·의존성·제거는 사용 가능, 일반 검색·추천 하위 경로만 누락</span><a href="https://learn.chatgpt.com/docs/plugins">문서</a></li>
-          <li data-registry-node data-state="conditional"><b>browser:control-in-app-browser</b><span>Browser의 보이는 상태·클릭·입력·local web test</span><a href="https://learn.chatgpt.com/docs/browser">문서</a></li>
-          <li data-registry-node data-state="conditional"><b>chrome:control-chrome</b><span>사용자 Chrome 로그인·탭·확장 상태 의존</span><a href="https://learn.chatgpt.com/docs/chrome-extension">문서</a></li>
-          <li data-registry-node data-state="conditional"><b>visualize</b><span>대화 안의 interactive graph·simulator·comparison</span><a href="https://learn.chatgpt.com/docs/visualizations">문서</a></li>
-        </ul>
-      </article>
-
-      <article class="runtime-group">
-        <div class="runtime-group-head"><span class="route-badge status-ready">artifacts</span><h3>문서·PDF·시트·사이트</h3></div>
-        <ul class="runtime-list">
-          <li data-registry-node data-state="conditional"><b>documents:documents</b><span><code>.docx</code>·Word와 render-and-verify</span><a href="https://learn.chatgpt.com/docs/artifacts-viewer">파일</a></li>
-          <li data-registry-node data-state="conditional"><b>pdf:pdf</b><span>PDF 읽기·작성·양식·페이지 렌더</span><a href="https://learn.chatgpt.com/docs/artifacts-viewer">파일</a></li>
-          <li data-registry-node data-state="conditional"><b>presentations:Presentations</b><span>PowerPoint·PPTX·Google Slides</span><a href="https://learn.chatgpt.com/docs/artifacts-viewer">파일</a></li>
-          <li data-registry-node data-state="conditional"><b>spreadsheets:Spreadsheets</b><span>독립 <code>.xlsx/.xls/.csv/.tsv</code></span><a href="https://learn.chatgpt.com/docs/artifacts-viewer">파일</a></li>
-          <li data-registry-node data-state="conditional"><b>spreadsheets:excel-live-control</b><span>document-control 경로는 준비, read-only probe에서 연결 Excel session 0</span><a href="https://learn.chatgpt.com/docs/artifacts-viewer">파일</a></li>
-          <li data-registry-node data-state="conditional"><b>template-creator</b><span>일회성이 아닌 재사용 artifact-template skill</span><a href="https://learn.chatgpt.com/docs/build-skills">문서</a></li>
-          <li data-registry-node data-state="conditional"><b>sites:sites-building</b><span><code>.openai/hosting.json</code>이 있는 site 구현</span><a href="https://learn.chatgpt.com/docs/sites">Sites</a></li>
-          <li data-registry-node data-state="conditional"><b>sites:sites-hosting</b><span>Sites save·version·production deploy</span><a href="https://learn.chatgpt.com/docs/sites">Sites</a></li>
-        </ul>
-      </article>
-
-      <article class="runtime-group">
-        <div class="runtime-group-head"><span class="route-badge status-conditional">Higgsfield CLI</span><h3>게임·미디어·제품·웹사이트</h3></div>
-        <ul class="runtime-list">
-          <li data-registry-node data-state="conditional"><b>higgsfield-game-generation</b><span>playable browser game·game asset·publish</span><a href="https://higgsfield.ai/">Higgsfield</a></li>
-          <li data-registry-node data-state="conditional"><b>higgsfield-generate</b><span>이미지·영상·3D·audio 생성</span><a href="https://higgsfield.ai/">Higgsfield</a></li>
-          <li data-registry-node data-state="conditional"><b>higgsfield-marketplace-cards</b><span>marketplace listing·A+ 이미지 세트</span><a href="https://higgsfield.ai/">Higgsfield</a></li>
-          <li data-registry-node data-state="conditional"><b>higgsfield-product-photoshoot</b><span>제품 촬영·광고 creative·virtual try-on</span><a href="https://higgsfield.ai/">Higgsfield</a></li>
-          <li data-registry-node data-state="conditional"><b>higgsfield-soul-id</b><span>사용자 얼굴 기반 Soul Character 학습</span><a href="https://higgsfield.ai/">Higgsfield</a></li>
-          <li data-registry-node data-state="conditional"><b>higgsfield-video-explainer</b><span>10초 block 기반 narrated explainer/story</span><a href="https://higgsfield.ai/">Higgsfield</a></li>
-          <li data-registry-node data-state="conditional"><b>higgsfield-websites</b><span>Higgsfield CLI website/app 생성·배포</span><a href="https://higgsfield.ai/">Higgsfield</a></li>
-        </ul>
-        <p class="runtime-note"><strong>상태:</strong> CLI 1.1.19는 발견됐지만 plugin은 미설치이고 인증·credit은 확인하지 않았다. “조건부 준비”이지 성공 보장이 아니다.</p>
-      </article>
-
-    </div>
-
-    <details class="route-detail" open><summary>세션에서 열거한 96개 nested tool — 이름보다 “무슨 상태를 바꾸는가”로 읽기</summary><div class="detail-body tool-surface-grid">
-      <article><strong>21</strong><h3>Codex Desktop</h3><p>작업 생성·읽기·대기·fork·handoff·pin·archive·automation·UI.</p></article><article><strong>12</strong><h3>Workspace Core</h3><p>shell, patch, plan/goal, MCP resource, local image, install suggestion.</p></article><article><strong>23</strong><h3>Sites</h3><p>site·version·deploy·domain·environment·access·logs·database read.</p></article><article><strong>21</strong><h3>Mail connector</h3><p>search/read와 draft/send/label/archive/delete의 외부 변경 분리.</p></article><article><strong>14</strong><h3>Document·Plugin·Safety</h3><p>document session, plugin permission/removal, safety setting, hotline.</p></article><article><strong>5</strong><h3>Browser·Web·Image</h3><p>browser runtime 3, web 1, image generation 1.</p></article>
-    </div><p class="runtime-note">이 96은 현재 tool inventory로 열거된 nested surface만 센 값이다. 별도 collaboration control과 outer orchestration·mode UI는 포함하지 않아 “플랫폼 전체 도구 수”를 뜻하지 않는다.</p></details>
-
-    <div class="permission-graph"><h3>도구를 찾았다고 실행 권한이 생기는 것은 아니다</h3><p class="mini-flow mini-flow-wrap"><b>읽기</b><span>→</span><b>reversible local write</b><span>→</span><b>workspace 밖·GUI·sandbox escalation</b><span>→</span><b>external·destructive·paid</b></p><p>오른쪽으로 갈수록 더 구체적인 현재 요청과 정확한 target 검증이 필요하다. 삭제·재귀 이동은 절대 경로를 먼저 확인하고 broad root·home·미확정 glob을 파괴 대상으로 쓰지 않는다.</p><p><a href="https://learn.chatgpt.com/docs/agent-approvals-security">Approvals &amp; security</a> · <a href="https://learn.chatgpt.com/docs/permissions">Permissions</a> · <a href="https://learn.chatgpt.com/docs/windows/windows-sandbox">Windows sandbox</a></p></div>
-  </section>
-  <section class="atlas-section" id="plugin-parking" data-filter-group>
-    <div class="atlas-section-head"><p class="section-index">06 · PLUGIN PARKING LOT</p><h2>추천 가능하지만 현재 호출할 수 없는 플러그인 49개</h2><p>“목록에 있음”은 설치·연결·인증·사용 가능을 뜻하지 않는다. 모두 <b>catalog-only</b> 노드다.</p></div>
-    <div class="plugin-install-graph"><div><strong>현재 도구로 해결?</strong><small>가능하면 기존 채널</small></div><span>→</span><div><strong>특정 plugin 명시?</strong><small>없으면 제안 금지</small></div><span>→</span><div><strong>도구 탐색 소진?</strong><small>기존 연결 확인</small></div><span>→</span><div><strong>추천 목록 존재?</strong><small>정확한 ID</small></div><span>→</span><div><strong>설치 제안</strong><small>연결 후 다음 요청</small></div></div>
-    <div class="plugin-cloud" aria-label="미설치 추천 플러그인 목록">
-      <span class="plugin-chip" data-registry-node data-state="catalog">Airtable</span><span class="plugin-chip" data-registry-node data-state="catalog">Alpaca</span><span class="plugin-chip" data-registry-node data-state="catalog">Apollo.io</span><span class="plugin-chip" data-registry-node data-state="catalog">Spotify</span><span class="plugin-chip" data-registry-node data-state="catalog">Apple Music</span><span class="plugin-chip" data-registry-node data-state="catalog">LONA Trading Assistant</span><span class="plugin-chip" data-registry-node data-state="catalog">SciSpace</span>
-      <span class="plugin-chip" data-registry-node data-state="catalog">Tarot</span><span class="plugin-chip" data-registry-node data-state="catalog">Todoist: To Do List &amp; Calendar</span><span class="plugin-chip" data-registry-node data-state="catalog">Consensus</span><span class="plugin-chip" data-registry-node data-state="catalog">Sider Scholar</span><span class="plugin-chip" data-registry-node data-state="catalog">True Sky</span><span class="plugin-chip" data-registry-node data-state="catalog">Bigdata.com</span><span class="plugin-chip" data-registry-node data-state="catalog">Gamma</span>
-      <span class="plugin-chip" data-registry-node data-state="catalog">Tredict</span><span class="plugin-chip" data-registry-node data-state="catalog">Maersk</span><span class="plugin-chip" data-registry-node data-state="catalog">Dropbox</span><span class="plugin-chip" data-registry-node data-state="catalog">Parqet</span><span class="plugin-chip" data-registry-node data-state="catalog">Interactive Brokers (IBKR)</span><span class="plugin-chip" data-registry-node data-state="catalog">Financial Datasets</span><span class="plugin-chip" data-registry-node data-state="catalog">Fathom</span>
-      <span class="plugin-chip" data-registry-node data-state="catalog">vidIQ</span><span class="plugin-chip" data-registry-node data-state="catalog">TickTick:To-Do List &amp; Calendar</span><span class="plugin-chip" data-registry-node data-state="catalog">Plaud</span><span class="plugin-chip" data-registry-node data-state="catalog">Wolfram</span><span class="plugin-chip" data-registry-node data-state="catalog">Runway</span><span class="plugin-chip" data-registry-node data-state="catalog">Caliber</span><span class="plugin-chip" data-registry-node data-state="catalog">COROS</span>
-      <span class="plugin-chip" data-registry-node data-state="catalog">TradingCursor</span><span class="plugin-chip" data-registry-node data-state="catalog">CoinMarketCap</span><span class="plugin-chip" data-registry-node data-state="catalog">Trello</span><span class="plugin-chip" data-registry-node data-state="catalog">Longbridge</span><span class="plugin-chip" data-registry-node data-state="catalog">freddy</span><span class="plugin-chip" data-registry-node data-state="catalog">Higgsfield</span><span class="plugin-chip" data-registry-node data-state="catalog">Stocktwits</span>
-      <span class="plugin-chip" data-registry-node data-state="catalog">CoinGecko</span><span class="plugin-chip" data-registry-node data-state="catalog">Asana</span><span class="plugin-chip" data-registry-node data-state="catalog">Atlassian Rovo</span><span class="plugin-chip" data-registry-node data-state="catalog">Base44</span><span class="plugin-chip" data-registry-node data-state="catalog">Binance</span><span class="plugin-chip" data-registry-node data-state="catalog">Box</span><span class="plugin-chip" data-registry-node data-state="catalog">Canva</span>
-      <span class="plugin-chip" data-registry-node data-state="catalog">ClickUp</span><span class="plugin-chip" data-registry-node data-state="catalog">Cloudflare</span><span class="plugin-chip" data-registry-node data-state="catalog">Codex Security</span><span class="plugin-chip" data-registry-node data-state="catalog">Figma</span><span class="plugin-chip" data-registry-node data-state="catalog">GitHub</span><span class="plugin-chip" data-registry-node data-state="catalog">Google Calendar</span><span class="plugin-chip" data-registry-node data-state="catalog">Google Drive</span>
-    </div>
-    <details class="route-detail" id="plugin-catalog-ids"><summary>49개 정확한 plugin/app ID와 설치 근거</summary><div class="detail-body"><p>현재 prompt가 제공한 추천 catalog의 정확한 식별자다. 개별 public detail URL은 제공되지 않았으므로 가짜 링크를 만들지 않고, 공통 동작은 <a href="https://learn.chatgpt.com/docs/plugins">공식 Plugins 문서</a>와 위 설치 그래프에 연결한다.</p><div class="plugin-id-grid">
-      <span><b>Airtable</b><code>airtable@openai-curated-remote</code></span><span><b>Alpaca</b><code>alpaca@openai-curated-remote</code></span><span><b>Apollo.io</b><code>apollo.io@openai-curated-remote</code></span><span><b>Spotify</b><code>app-68de829bf7648191acd70a907364c67c@openai-curated-remote</code></span><span><b>Apple Music</b><code>app-6938a94a61d881918ef32cb999ff937c@openai-curated-remote</code></span>
-      <span><b>LONA Trading Assistant</b><code>app-694336b0c0948191a4ad234f9942885b@openai-curated-remote</code></span><span><b>SciSpace</b><code>app-69439d715a7c8191aed9e2f6649e105f@openai-curated-remote</code></span><span><b>Tarot</b><code>app-6943a2c078b0819188de39e4fe168d9b@openai-curated-remote</code></span><span><b>Todoist</b><code>app-6943b73823548191a9f9216c6790c453@openai-curated-remote</code></span><span><b>Consensus</b><code>app-6943e6f4a928819195962de16fb9ffe4@openai-curated-remote</code></span>
-      <span><b>Sider Scholar</b><code>app-6948b485f5bc8191adb4df13f369cec7@openai-curated-remote</code></span><span><b>True Sky</b><code>app-69490a4a06148191a0dd78606a3dbf1f@openai-curated-remote</code></span><span><b>Bigdata.com</b><code>app-69491eceef3c8191beb70788b7840429@openai-curated-remote</code></span><span><b>Gamma</b><code>app-698a098735908191989f5788d7ee317e@openai-curated-remote</code></span><span><b>Tredict</b><code>app-69aef5b699a0819184512d57743fc1cd@openai-curated-remote</code></span>
-      <span><b>Maersk</b><code>app-69b2b5a768d4819190d3a86c5f12e6d9@openai-curated-remote</code></span><span><b>Dropbox</b><code>app-69b31dc2110c8191b8b47dc98fe5a052@openai-curated-remote</code></span><span><b>Parqet</b><code>app-69b68652f0308191a27d7c7096cab4f6@openai-curated-remote</code></span><span><b>Interactive Brokers (IBKR)</b><code>app-69bc11db874881918718abaca20b68ce@openai-curated-remote</code></span><span><b>Financial Datasets</b><code>app-69cacd9394a88191ba6564e1bb0430fa@openai-curated-remote</code></span>
-      <span><b>Fathom</b><code>app-69d88b99c5c481918e8da9225737e1e9@openai-curated-remote</code></span><span><b>vidIQ</b><code>app-69dd11f3e50c8191b1ca48d03cf7e2ad@openai-curated-remote</code></span><span><b>TickTick</b><code>app-69ddbaba3fb48191a825f22c21b0599d@openai-curated-remote</code></span><span><b>Plaud</b><code>app-69f3c30d68288191bbd428a394a78407@openai-curated-remote</code></span><span><b>Wolfram</b><code>app-69fe0bf66c8481919c513d799406436e@openai-curated-remote</code></span>
-      <span><b>Runway</b><code>app-6a05e3b201788191be12b590b43e6ce3@openai-curated-remote</code></span><span><b>Caliber</b><code>app-6a05e8f22d408191b13ba3897157f6df@openai-curated-remote</code></span><span><b>COROS</b><code>app-6a0694cbb2608191bbefb74ba810ab68@openai-curated-remote</code></span><span><b>TradingCursor</b><code>app-6a0d835ff1dc8191972eeabd14967446@openai-curated-remote</code></span><span><b>CoinMarketCap</b><code>app-6a172fe86f5481919f73cbc3bc3ad5bb@openai-curated-remote</code></span>
-      <span><b>Trello</b><code>app-6a20b18a639081918c1b438f8381b27e@openai-curated-remote</code></span><span><b>Longbridge</b><code>app-6a2baf2fad748191812393c3e00308ef@openai-curated-remote</code></span><span><b>freddy</b><code>app-6a322b52a82c8191b7fb653f9e9f7891@openai-curated-remote</code></span><span><b>Higgsfield</b><code>app-6a3293e129088191abf0875820e839da@openai-curated-remote</code></span><span><b>Stocktwits</b><code>app-6a427a19b1f481919c5db13838af00c2@openai-curated-remote</code></span>
-      <span><b>CoinGecko</b><code>app-6a4f02d735388191959c8328877e0bbd@openai-curated-remote</code></span><span><b>Asana</b><code>asana@openai-curated-remote</code></span><span><b>Atlassian Rovo</b><code>atlassian-rovo@openai-curated-remote</code></span><span><b>Base44</b><code>base44@openai-curated-remote</code></span><span><b>Binance</b><code>binance@openai-curated-remote</code></span>
-      <span><b>Box</b><code>box@openai-curated-remote</code></span><span><b>Canva</b><code>canva@openai-curated-remote</code></span><span><b>ClickUp</b><code>clickup@openai-curated-remote</code></span><span><b>Cloudflare</b><code>cloudflare@openai-curated-remote</code></span><span><b>Codex Security</b><code>codex-security@openai-curated-remote</code></span>
-      <span><b>Figma</b><code>figma@openai-curated-remote</code></span><span><b>GitHub</b><code>github@openai-curated-remote</code></span><span><b>Google Calendar</b><code>google-calendar@openai-curated-remote</code></span><span><b>Google Drive</b><code>google-drive@openai-curated-remote</code></span>
-    </div></div></details>
-    <p class="plugin-note">예외 채널: GitHub plugin은 미설치지만 GitHub CLI가 있고, Higgsfield plugin은 미설치지만 CLI가 있다. Google Drive·Calendar 같은 사설 데이터는 plugin 연결 전 웹으로 대체할 수 없다. <a href="https://learn.chatgpt.com/docs/plugins">Plugins</a> · <a href="https://learn.chatgpt.com/docs/skills-and-plugins">Skills &amp; Plugins</a></p>
-  </section>
-  <section class="atlas-section atlas-alert-section" id="orphan-audit" data-filter-group>
-    <div class="atlas-section-head"><p class="section-index">07 · ORPHAN &amp; CONFLICT AUDIT</p><h2>있지만 못 쓰는 노드, 한때 무시된 노드, 현재 막힌 노드</h2><p>“고아”를 하나로 뭉개지 않았다. 진입선 누락, 실행 도구 누락, 세션·모드 조건, 다른 규칙에 가려짐, 현재 저장소 상태상 종료, 역사에서 제거됨을 분리한다.</p></div>
-
-    <div class="status-legend" aria-label="노드 상태 범례">
-      <span class="route-badge status-verified">verified · 실제 확인</span><span class="route-badge status-ready">ready · 즉시 가능</span><span class="route-badge status-conditional">conditional · 조건부</span><span class="route-badge status-terminated">state-terminated · 정상 종료</span><span class="route-badge status-dormant">mode-dormant · 모드 휴면</span><span class="route-badge status-catalog">catalog-only · 미설치</span><span class="route-badge status-orphan">runtime-orphan · 실행 경로 없음</span><span class="route-badge status-shadowed">conflict-shadowed · 다른 규칙에 가림</span><span class="route-badge status-retired">retired · 역사 노드</span>
-    </div>
-    <p class="status-axis-note">배지는 세부 상태이고, 상단 필터는 이를 <b>검증됨 / 조건부(휴면·상태 대기·미검증 포함) / 현재 고아 / 미설치 / 과거·폐기</b>의 다섯 감사 bucket으로 묶는다. 과거 고아였던 board는 현재 고아 필터에 포함하지 않는다.</p>
-
-    <article class="board-orphan-feature" id="board-orphan" data-registry-node data-state="retired">
-      <div class="orphan-feature-copy">
-        <p class="orphan-eyebrow">사용자가 지목한 사례 · GitHub Project v2</p>
-        <h3>프로젝트 보드: 자동 경로는 끊겼었고, 2026-08-23 복구됐다</h3>
-        <p>기존 공개 규칙은 board skill에 “cheap probe로 확인되면 진입”이라고 적으면서도 start gate는 “이미 확인된 보드”만 probe하도록 해 최초 확인 주체가 없었다. 도구는 있었지만 자동 진입선이 닫힌 <strong>구조적 고아</strong>였다.</p>
-        <div class="board-state-badges"><span class="route-badge status-retired">과거: automatic route orphan</span><span class="route-badge status-ready">현재: probe 복구</span><span class="route-badge status-terminated">이 저장소: 연결 보드 0</span></div>
-      </div>
-      <div class="before-after-route" aria-label="프로젝트 보드 진입 경로의 이전과 현재 비교">
-        <div class="route-version route-version-broken"><strong>이전 공개본 · cd7678b</strong><p><span>repo 작업</span><i>→</i><span>이미 confirmed?</span><i class="broken-edge">⤫</i><span>cheap probe</span><i>→</i><span>board skill</span></p><small>확인 전에는 probe하지 않으므로 최초 confirmed가 생기지 않음</small></div>
-        <div class="route-version route-version-fixed"><strong>복구본 · 247e660</strong><p><span>repo 작업</span><i>→</i><span>cheap 1:1 probe</span><i>→</i><span>관련 board?</span><i>→</i><span>board skill</span></p><small>현재 repo probe 결과: 연결 Project 없음 → helper를 로드하지 않고 정상 종료</small></div>
-      </div>
-      <div class="evidence-strip"><span class="evidence-badge evidence-observed">R1</span><p><strong>실제 probe:</strong> GitHub CLI 인증·project scope는 정상이고, <code>projectsV2.Nodes.length = 0</code>으로 <code>oojjrs/oojjrs.github.io</code>의 repository-linked Project v2는 없었다. 계정에 별도 private board가 존재하지만 이름·내용·URL은 공개하지 않는다.</p></div>
-      <p class="source-row"><a href="https://github.com/oojjrs/oojjrs.github.io/blob/cd7678bff8d0955937bfcacbf19671c10fc6f0cd/codex/skills/oojjrs-project-start-work/SKILL.md#L18">끊긴 start gate</a><a href="https://github.com/oojjrs/oojjrs.github.io/blob/cd7678bff8d0955937bfcacbf19671c10fc6f0cd/codex/skills/oojjrs-github-project-board/SKILL.md">동시점 board skill</a><a href="https://github.com/oojjrs/oojjrs.github.io/commit/247e660f79d89f538feb4d65232e7e4302242be7">복구 커밋</a></p>
-    </article>
-
-    <div class="orphan-grid">
-      <article class="orphan-card orphan-active" data-registry-node data-state="orphan"><span class="route-badge status-orphan">runtime-orphan</span><h3>Plugin 일반 검색·추천</h3><p><code>plugin-management</code> 스킬은 검색·추천을 말하지만 현재 호출 표면에는 권한 검사·연결·제거만 있고 일반 탐색 도구가 없다.</p><small>우회: 사용자가 특정 미설치 plugin을 명시한 경우에만 추천 목록과 install suggestion gate 사용.</small></article>
-      <article class="orphan-card orphan-fixed" data-registry-node data-state="verified"><span class="route-badge status-ready">draft → published</span><h3>oojjrs lottery 공개 skill</h3><p>분석 도중 source·index·installer의 보호된 병렬 초안으로 나타났고, <code>527e55f</code>에서 25번째 공개 skill로 함께 게시·설치됐다.</p><small>이 task의 시작 시 runtime alias snapshot에서 현재 prefixed public node로 상태가 전환된 사례.</small></article>
-      <article class="orphan-card" data-registry-node data-state="conditional"><span class="route-badge status-dormant">session-gated</span><h3>Excel live control</h3><p>document-control의 session list·schema·execute 도구는 존재하지만 read-only probe에서 연결된 Excel session은 0개였다.</p><small>독립 파일은 standalone spreadsheet 경로로 처리 가능; 열린 Excel 조작은 session 연결 전 불가.</small></article>
-      <article class="orphan-card" data-registry-node data-state="conditional"><span class="route-badge status-dormant">mode-dormant</span><h3>구조화 사용자 입력 UI</h3><p><code>request_user_input</code>은 Plan mode 전용이고 현재 Default mode에서는 호출할 수 없다.</p><small>필수 질문은 일반 대화로 할 수 있으므로 작업 전체가 막히는 고아는 아니다.</small></article>
-      <article class="orphan-card" data-registry-node data-state="conditional"><span class="route-badge status-terminated">state-inactive</span><h3>Sites build·hosting</h3><p>23개 Sites 도구와 2개 스킬은 준비됐지만 이 저장소에 <code>.openai/hosting.json</code>이 없어 강제 진입 조건이 성립하지 않는다.</p><small>GitHub Pages 저장소이므로 현재 페이지는 기존 Jekyll publication 경로를 사용.</small></article>
-      <article class="orphan-card orphan-active" data-registry-node data-state="orphan"><span class="route-badge status-orphan">tool-gated</span><h3>SteamCMD 실행</h3><p>Steamworks 지침과 Valve 문서는 도달 가능하지만 현재 PATH에서 SteamCMD 실행 파일은 발견되지 않았다.</p><small>진단·코드·문서 작업은 가능; 실제 SteamPipe 명령은 설치·경로·partner 권한이 있어야 함.</small></article>
-      <article class="orphan-card" data-registry-node data-state="conditional"><span class="route-badge status-dormant">unverified</span><h3>Unity Editor 실행</h3><p>Unity 관련 스킬은 모두 읽을 수 있지만 현재 세션에서 Editor executable·project version·license를 확인하지 않았다.</p><small>정적 YAML·C#·asset 검사와 실제 Editor 검증을 같은 증거로 취급하지 않음.</small></article>
-      <article class="orphan-card orphan-fixed" data-registry-node data-state="verified"><span class="route-badge status-ready">repaired here</span><h3>기존 SVG의 링크 없는 22개 노드</h3><p>노드에 클릭 가능한 지침 링크가 없고 당시 24개 중 2개가 빠져 직접 확인 경로가 구조적으로 끊겼다.</p><small>이번 HTML registry는 현재 25개 모두 immutable source 링크와 역할 요약을 제공.</small></article>
-      <article class="orphan-card orphan-fixed" data-registry-node data-state="verified"><span class="route-badge status-ready">repaired here</span><h3>Steamworks·C# convention 누락</h3><p>각각 2026-08-02, 2026-08-08 추가됐지만 2026-07-03 도식의 skill 집합은 갱신되지 않았다.</p><small>이번 아틀라스와 요약 SVG 양쪽에 추가.</small></article>
-      <article class="orphan-card" data-registry-node data-state="retired"><span class="route-badge status-retired">retired</span><h3>Suno music</h3><p>2026-08-16 추가·보강된 뒤 2026-08-20 롤백으로 제거됐다. 현재 25개 skill 집합에는 없다.</p><small>실행 노드로 되살리지 않고 역사 노드로만 보존.</small></article>
-    </div>
-
-    <details class="route-detail tension-detail" open><summary>현재도 판단이 필요한 경계 4개</summary><div class="detail-body tension-grid">
-      <article><span class="route-badge status-ready">resolved</span><h3>Mines / Design / audio</h3><p><code>247e660</code>에서 Mines는 에셋과 좁은 Design entry sync만 소유하고, 구조 변경은 Design builder, audio는 game-audio가 맡도록 분리됐다.</p></article>
-      <article><span class="route-badge status-shadowed">ownership gap</span><h3>Prefab lookup 뒤 수정</h3><p>GUID lookup은 읽기 전용으로 명확하지만 문제가 확인된 뒤 실제 prefab mutation을 누가 소유하는지는 generic Unity asset fallback과 요청 재분류 사이에 명시적 handoff 노드가 없다.</p></article>
-      <article><span class="route-badge status-ready">resolved</span><h3>Browser opt-in / Visual QA</h3><p><code>247e660</code>에서 rendered layout 변경은 그 자체로 rendered surface를 대상으로 하므로 독립 oracle이 있을 때 browser Visual QA가 가능하다고 정리됐다.</p></article>
-      <article><span class="route-badge status-shadowed">sequential only</span><h3>Steamworks 교차 도메인</h3><p>Steam partner graphics·Unity integration은 Steamworks와 art/Unity 지침을 동시에 preload하지 않고, 목적이 바뀌는 단계마다 primary domain을 순차 교체해야 한다.</p></article>
-    </div></details>
-  </section>
-
-  <section class="atlas-section" id="history-and-sources">
-    <div class="atlas-section-head"><p class="section-index">08 · HISTORY &amp; EVIDENCE</p><h2>왜 이 지도가 필요해졌는지 추적 가능한 이력</h2><p>현재 설명은 한 문서의 주장만 복사한 것이 아니라 공개 Git 이력, 설치본, 세션 inventory, 실제 read-only probe, 접근 가능한 작업 요약을 서로 대조한 결과다.</p></div>
-
-    <ol class="atlas-timeline">
-      <li><time>2026-07-02</time><div><strong>Project board 지침 정리</strong><p>board helper가 공개 skill tree에 들어왔지만 자동 진입 책임은 이후 규칙 사이에서 어긋났다.</p><a href="https://github.com/oojjrs/oojjrs.github.io/commit/1621af5">1621af5</a></div></li>
-      <li><time>2026-07-03</time><div><strong>첫 routing SVG</strong><p>22개 노드를 한 화면에 그렸으나 모든 helper를 직렬 필수처럼 보이게 했고 source link가 없었다.</p><a href="https://github.com/oojjrs/oojjrs.github.io/commit/2f99350">2f99350</a> <a href="https://github.com/oojjrs/oojjrs.github.io/commit/0a91162">0a91162</a></div></li>
-      <li><time>2026-08-02</time><div><strong>Steamworks 추가</strong><p>공개 skill 집합은 23개가 됐지만 기존 도식은 22개에 머물렀다.</p><a href="https://github.com/oojjrs/oojjrs.github.io/commit/d83a06b">d83a06b</a></div></li>
-      <li><time>2026-08-08</time><div><strong>C# convention maintenance 추가</strong><p>24번째 skill이 추가됐고 board trigger가 좁아졌지만 SVG에는 반영되지 않았다.</p><a href="https://github.com/oojjrs/oojjrs.github.io/commit/5f93ef9">5f93ef9</a></div></li>
-      <li><time>2026-08-11</time><div><strong>검증 흐름 전면 개편</strong><p>SVG의 검증 문구는 바뀌었지만 요청 유형·조건부 helper·누락 skill 구조는 그대로였다.</p><a href="https://github.com/oojjrs/oojjrs.github.io/commit/b08c46c">b08c46c</a></div></li>
-      <li><time>2026-08-16 → 20</time><div><strong>Suno 생성과 제거</strong><p>추가·보강·롤백된 skill을 현재 노드로 가장하지 않고 retired 이력으로 남겼다.</p><a href="https://github.com/oojjrs/oojjrs.github.io/commit/f88c191">추가</a> <a href="https://github.com/oojjrs/oojjrs.github.io/commit/72e16d7">제거</a></div></li>
-      <li><time>2026-08-23</time><div><strong>권한·route 정리와 전체 skill 동기화</strong><p><code>247e660</code>에서 board cheap probe·local commit·rendered Visual QA·Mines 경계를 정리했고, <code>527e55f</code>에서 lottery를 포함한 25개 source·index·installer·설치본을 동기화했다.</p><a href="https://github.com/oojjrs/oojjrs.github.io/commit/247e660f79d89f538feb4d65232e7e4302242be7">routing repair</a> <a href="https://github.com/oojjrs/oojjrs.github.io/commit/527e55f33def7d4c20ed9f273e8d496d5cf90304">skill sync</a></div></li>
-    </ol>
-
-    <div class="evidence-model">
-      <article><span class="evidence-badge evidence-public">P1</span><h3>공개 권위</h3><p>canonical 공통 규칙과 공식 OpenAI·Valve 문서. “무엇을 따라야 하는가”의 근거.</p></article>
-      <article><span class="evidence-badge evidence-skill">P2</span><h3>공개 skill source</h3><p>immutable GitHub blob·commit. 각 노드의 trigger·exclusion·handoff 근거.</p></article>
-      <article><span class="evidence-badge evidence-observed">R1</span><h3>실제 probe</h3><p>Git 상태, CLI 존재, repository-linked board 결과처럼 이 환경에서 직접 확인한 사실.</p></article>
-      <article><span class="evidence-badge evidence-inventory">R2</span><h3>세션 inventory</h3><p>현재 노출된 49개 skill, 96개 callable/deferred tool, 49개 추천 plugin.</p></article>
-      <article><span class="evidence-badge evidence-context">C</span><h3>접근 가능한 작업 요약</h3><p>감사 시점에 보인 58개 중 현재 task를 제외한 57개의 제목·요약과 관련 작업 결과를 익명화해 반복 실패를 확인.</p></article>
-      <article><span class="evidence-badge evidence-inference">I</span><h3>추론</h3><p>서로 다른 근거를 연결해 고아·충돌을 판정한 경우. 사실과 분리해 명시한다.</p></article>
-    </div>
-
-    <div class="record-boundary">
-      <article><h3>분석에 포함한 기록</h3><ul><li>현재 작업의 완료된 대화 맥락과 terminal output</li><li>감사 시점 Codex 앱에서 보인 58개 중 현재 task를 제외한 57개 요약과 관련 작업 turn</li><li>workspace·Git history·설치된 skill tree·허용된 CLI/connector의 read-only 결과</li><li>공개 canonical·official documentation·immutable commit</li></ul></article>
-      <article><h3>접근·공개하지 않은 기록</h3><ul><li>비공개 system/developer 원문과 숨은 reasoning</li><li>삭제됐거나 권한 없는 작업, 보이지 않는 조직 전체 audit</li><li>cookie·password·token·session store와 개인 board·mail 원문</li><li>출력이 잘렸거나 설치·연결되지 않아 확인할 수 없는 외부 상태</li></ul></article>
-    </div>
-
-    <details class="route-detail" open><summary>핵심 공개 출처와 공식 문서</summary><div class="detail-body source-directory">
-      <div><h3>oojjrs 정본</h3><p><a href="https://oojjrs.github.io/codex/common-work-guidelines.md">공통 작업 지침</a><a href="https://oojjrs.github.io/codex/skills/">스킬 라우팅 인덱스</a><a href="https://oojjrs.github.io/codex/validation-guideline.md">검증 지침</a><a href="https://oojjrs.github.io/codex/guideline-design-generation.review.md">Design 지침</a><a href="https://oojjrs.github.io/codex/guideline-readme-generation.review.md">README 지침</a></p></div>
-      <div><h3>Codex 공식</h3><p><a href="https://learn.chatgpt.com/docs/skills-and-plugins">Skills &amp; Plugins</a><a href="https://learn.chatgpt.com/docs/agent-configuration/agents-md">AGENTS.md</a><a href="https://learn.chatgpt.com/docs/agent-configuration/subagents">Subagents</a><a href="https://learn.chatgpt.com/docs/agent-approvals-security">Approvals</a><a href="https://learn.chatgpt.com/docs/windows/windows-sandbox">Windows sandbox</a></p></div>
-      <div><h3>실행 표면</h3><p><a href="https://learn.chatgpt.com/docs/browser">Browser</a><a href="https://learn.chatgpt.com/docs/web-search">Web search</a><a href="https://learn.chatgpt.com/docs/automations">Automations</a><a href="https://learn.chatgpt.com/docs/sites">Sites</a><a href="https://learn.chatgpt.com/docs/visualizations">Visualizations</a><a href="https://partner.steamgames.com/doc/home">Steamworks</a></p></div>
-    </div></details>
-
-    <figure class="atlas-summary-figure"><a href="{{ '/codex/skill-routing-diagram.svg' | relative_url }}"><img src="{{ '/codex/skill-routing-diagram.svg' | relative_url }}" alt="Codex 작업 지침 라우팅 아틀라스 요약 SVG"></a><figcaption>전체 세부 내용은 이 HTML이 정본이다. SVG는 회의·README·직접 링크용 한 장 요약이며 클릭하면 원본으로 열린다.</figcaption></figure>
-
-    <p class="atlas-snapshot"><strong>스냅샷:</strong> 2026-08-23 KST · 감사 시작점 <a href="https://github.com/oojjrs/oojjrs.github.io/tree/cd7678bff8d0955937bfcacbf19671c10fc6f0cd/codex">cd7678b</a> · routing repair <a href="https://github.com/oojjrs/oojjrs.github.io/commit/247e660f79d89f538feb4d65232e7e4302242be7">247e660</a> · 현재 공개 skill sync <a href="https://github.com/oojjrs/oojjrs.github.io/commit/527e55f33def7d4c20ed9f273e8d496d5cf90304">527e55f</a> · atlas source는 <a href="https://github.com/oojjrs/oojjrs.github.io/blob/master/codex/skill-routing-diagram.html">master HTML</a></p>
-  </section>
-</div>
-
-<script>
-(function () {
-  var atlas = document.querySelector('[data-routing-atlas]');
-  if (!atlas) return;
-  var input = atlas.querySelector('[data-route-search]');
-  var buttons = Array.prototype.slice.call(atlas.querySelectorAll('[data-route-filter]'));
-  var nodes = Array.prototype.slice.call(atlas.querySelectorAll('[data-registry-node]'));
-  var groups = Array.prototype.slice.call(atlas.querySelectorAll('[data-filter-group]'));
-  var subgroups = Array.prototype.slice.call(atlas.querySelectorAll('.skill-family, .runtime-group'));
-  var output = atlas.querySelector('[data-route-count]');
-  var activeState = 'all';
-
-  function normalize(value) {
-    return (value || '').toLocaleLowerCase('ko-KR').replace(/\s+/g, ' ').trim();
-  }
-
-  function matchesState(node) {
-    if (activeState === 'all') return true;
-    var state = node.getAttribute('data-state') || '';
-    if (activeState === 'orphan') return state === 'orphan';
-    return state === activeState;
-  }
-
-  function refresh() {
-    var query = normalize(input ? input.value : '');
-    var visible = 0;
-    nodes.forEach(function (node) {
-      var show = matchesState(node) && (!query || normalize(node.textContent).indexOf(query) !== -1);
-      node.hidden = !show;
-      if (show) visible += 1;
-    });
-    groups.forEach(function (group) {
-      var groupNodes = nodes.filter(function (node) { return group.contains(node); });
-      group.hidden = groupNodes.length > 0 && groupNodes.every(function (node) { return node.hidden; });
-    });
-    subgroups.forEach(function (group) {
-      var groupNodes = nodes.filter(function (node) { return group.contains(node); });
-      group.hidden = groupNodes.length > 0 && groupNodes.every(function (node) { return node.hidden; });
-    });
-    if (output) output.textContent = visible + ' / ' + nodes.length + ' 노드 표시';
-  }
-
-  if (input) input.addEventListener('input', refresh);
-  buttons.forEach(function (button) {
-    button.addEventListener('click', function () {
-      activeState = button.getAttribute('data-route-filter') || 'all';
-      buttons.forEach(function (candidate) {
-        candidate.setAttribute('aria-pressed', candidate === button ? 'true' : 'false');
-        candidate.classList.toggle('is-active', candidate === button);
-      });
-      refresh();
-    });
-  });
-  refresh();
-}());
-</script>
+</main>
