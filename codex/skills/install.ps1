@@ -70,13 +70,24 @@ function Get-FileGitBlobSha1 {
 function Invoke-GitHubJson {
     param([string]$Uri)
 
-    $webClient = New-Object System.Net.WebClient
-    try {
-        $webClient.Headers["User-Agent"] = "oojjrs-skill-installer"
-        $webClient.Headers["Accept"] = "application/vnd.github+json"
-        return ($webClient.DownloadString($Uri) | ConvertFrom-Json)
-    } finally {
-        $webClient.Dispose()
+    for ($attempt = 1; $attempt -le 3; $attempt++) {
+        $webClient = New-Object System.Net.WebClient
+        try {
+            $webClient.Headers["User-Agent"] = "oojjrs-skill-installer"
+            $webClient.Headers["Accept"] = "application/vnd.github+json"
+            return ($webClient.DownloadString($Uri) | ConvertFrom-Json)
+        } catch {
+            $statusCode = 0
+            if ($_.Exception -is [System.Net.WebException] -and $_.Exception.Response) {
+                $statusCode = [int]$_.Exception.Response.StatusCode
+            }
+            if ($attempt -ge 3 -or $statusCode -notin @(429, 500, 502, 503, 504)) {
+                throw
+            }
+            Start-Sleep -Seconds $attempt
+        } finally {
+            $webClient.Dispose()
+        }
     }
 }
 
@@ -93,9 +104,27 @@ function Get-RemoteSkillManifest {
     }
 
     $commitSha = $commitSha.ToLowerInvariant()
-    $tree = Invoke-GitHubJson -Uri "https://api.github.com/repos/$RemoteRepository/git/trees/$commitSha`?recursive=1"
+    $rootTree = Invoke-GitHubJson -Uri "https://api.github.com/repos/$RemoteRepository/git/trees/$commitSha"
+    if ($rootTree.truncated) {
+        throw "The GitHub root tree response was truncated; no skill files were changed."
+    }
+    $codexEntry = @($rootTree.tree | Where-Object { $_.type -eq "tree" -and $_.path -ceq "codex" })
+    if ($codexEntry.Count -ne 1 -or ([string]$codexEntry[0].sha) -notmatch "^[0-9a-fA-F]{40}$") {
+        throw "Could not resolve the codex tree at commit '$commitSha'."
+    }
+
+    $codexTree = Invoke-GitHubJson -Uri "https://api.github.com/repos/$RemoteRepository/git/trees/$($codexEntry[0].sha)"
+    if ($codexTree.truncated) {
+        throw "The GitHub codex tree response was truncated; no skill files were changed."
+    }
+    $skillsEntry = @($codexTree.tree | Where-Object { $_.type -eq "tree" -and $_.path -ceq "skills" })
+    if ($skillsEntry.Count -ne 1 -or ([string]$skillsEntry[0].sha) -notmatch "^[0-9a-fA-F]{40}$") {
+        throw "Could not resolve the codex/skills tree at commit '$commitSha'."
+    }
+
+    $tree = Invoke-GitHubJson -Uri "https://api.github.com/repos/$RemoteRepository/git/trees/$($skillsEntry[0].sha)`?recursive=1"
     if ($tree.truncated) {
-        throw "The GitHub tree response was truncated; no skill files were changed."
+        throw "The GitHub codex/skills tree response was truncated; no skill files were changed."
     }
 
     $skillNames = @()
@@ -104,7 +133,7 @@ function Get-RemoteSkillManifest {
             continue
         }
 
-        $match = [System.Text.RegularExpressions.Regex]::Match([string]$entry.path, "^codex/skills/([^/]+)$")
+        $match = [System.Text.RegularExpressions.Regex]::Match([string]$entry.path, "^([^/]+)$")
         if (-not $match.Success) {
             continue
         }
@@ -129,7 +158,7 @@ function Get-RemoteSkillManifest {
             continue
         }
 
-        $match = [System.Text.RegularExpressions.Regex]::Match([string]$entry.path, "^codex/skills/(oojjrs-[a-z0-9-]+)/(.+)$")
+        $match = [System.Text.RegularExpressions.Regex]::Match([string]$entry.path, "^(oojjrs-[a-z0-9-]+)/(.+)$")
         if (-not $match.Success) {
             continue
         }
@@ -137,7 +166,7 @@ function Get-RemoteSkillManifest {
         $skillName = $match.Groups[1].Value
         $relativePath = $match.Groups[2].Value
         if ($skillNames -notcontains $skillName) {
-            throw "Managed file '$($entry.path)' has no matching skill directory."
+            throw "Managed file 'codex/skills/$($entry.path)' has no matching skill directory."
         }
 
         foreach ($segment in $relativePath.Split('/')) {
@@ -145,7 +174,7 @@ function Get-RemoteSkillManifest {
                 $segment.EndsWith(".") -or $segment.EndsWith(" ") -or
                 $segment.IndexOfAny([System.IO.Path]::GetInvalidFileNameChars()) -ge 0 -or
                 $segment -match "^(con|prn|aux|nul|com[1-9]|lpt[1-9])($|\.)") {
-                throw "Managed file path '$($entry.path)' is not safe on Windows."
+                throw "Managed file path 'codex/skills/$($entry.path)' is not safe on Windows."
             }
         }
 
@@ -157,13 +186,13 @@ function Get-RemoteSkillManifest {
 
         $blobSha = ([string]$entry.sha).ToLowerInvariant()
         if ($blobSha -notmatch "^[0-9a-f]{40}$") {
-            throw "Invalid Git blob hash for '$($entry.path)'."
+            throw "Invalid Git blob hash for 'codex/skills/$($entry.path)'."
         }
 
         $files += [pscustomobject]@{
             SkillName = $skillName
             RelativePath = $relativePath
-            RemotePath = [string]$entry.path
+            RemotePath = "codex/skills/$($entry.path)"
             Sha = $blobSha
             Size = [long]$entry.size
         }
