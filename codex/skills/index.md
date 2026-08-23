@@ -82,7 +82,7 @@ Invoke-WebRequest -UseBasicParsing -Uri $url -OutFile $path
 powershell -ExecutionPolicy Bypass -File $path -SourceCommit $commit
 ```
 
-Every install or refresh synchronizes the complete canonical `oojjrs-*` skill set; selective or changed-only updates are not supported. The bootstrap pins one GitHub commit for both the installer and all managed files, verifies installed SHA-256 values, and removes managed stale files and retired `oojjrs-*` skill directories. Default destination is `$CODEX_HOME/skills`, or `~/.codex/skills` when `$CODEX_HOME` is unset.
+Every install or refresh checks the complete official `oojjrs-*` skill set discovered from one pinned GitHub commit. It downloads and writes only missing or changed files, leaves matching files untouched, verifies Git blob hashes, and removes managed stale files and retired `oojjrs-*` skill directories. New or removed skills are discovered automatically rather than maintained in a fixed installer list. Default destination is `$CODEX_HOME/skills`, or `~/.codex/skills` when `$CODEX_HOME` is unset.
 
 `oojjrs-guidelines` installs both scripts:
 

@@ -7,35 +7,6 @@ $ErrorActionPreference = "Stop"
 
 $RemoteRepository = "oojjrs/oojjrs.github.io"
 $RemoteBranch = "master"
-$ResolvedRemoteBaseUrl = $null
-$ResolvedRemoteCommit = $null
-$CanonicalSkills = @(
-    "oojjrs-guidelines",
-    "oojjrs-github-project-board",
-    "oojjrs-project-start-work",
-    "oojjrs-project-finish-work",
-    "oojjrs-project-design-document-router",
-    "oojjrs-design-html-builder",
-    "oojjrs-guideline-maintenance",
-    "oojjrs-unity-csharp-convention-maintenance",
-    "oojjrs-skill-maintenance",
-    "oojjrs-run-dhlottery-buyer",
-    "oojjrs-steamworks",
-    "oojjrs-readme-doc-generation",
-    "oojjrs-unity-package-src-migration",
-    "oojjrs-unity-package-release",
-    "oojjrs-unity-asset-safety",
-    "oojjrs-unity-csharp-entity-workflow",
-    "oojjrs-unity-prefab-guid-usage-lookup",
-    "oojjrs-2d-sprite-animation",
-    "oojjrs-image-first-art-workflow",
-    "oojjrs-mines-art-asset-pipeline",
-    "oojjrs-game-audio-asset-workflow",
-    "oojjrs-ai-music-generator",
-    "oojjrs-visual-qa",
-    "oojjrs-dirty-worktree-scope-split",
-    "oojjrs-windows-repo-forensics"
-)
 $LegacyAliases = @{
     "github-project-board" = "oojjrs-github-project-board"
     "project-start-work" = "oojjrs-project-start-work"
@@ -46,34 +17,6 @@ $LegacyAliases = @{
     "image-first-art-workflow" = "oojjrs-image-first-art-workflow"
     "unity-prefab-guid-usage-lookup" = "oojjrs-unity-prefab-guid-usage-lookup"
     "run-dhlottery-buyer" = "oojjrs-run-dhlottery-buyer"
-}
-$DefaultFiles = @(
-    "SKILL.md",
-    "agents/openai.yaml"
-)
-$SkillFiles = @{
-    "oojjrs-guidelines" = @(
-        "SKILL.md",
-        "agents/openai.yaml",
-        "scripts/Read-OojjrsGuidelines.ps1",
-        "scripts/Test-OojjrsTextFormat.ps1"
-    )
-    "oojjrs-steamworks" = @(
-        "SKILL.md",
-        "agents/openai.yaml",
-        "references/official-documentation-map.md",
-        "references/capability-matrix.md",
-        "references/steamworks-sdk.md",
-        "references/web-api.md",
-        "references/steamcmd-steampipe.md",
-        "references/partner-site.md",
-        "scripts/Test-SteamworksEnvironment.ps1"
-    )
-    "oojjrs-ai-music-generator" = @(
-        "SKILL.md",
-        "agents/openai.yaml",
-        "scripts/Generate-AiMusic-Chrome.ps1"
-    )
 }
 $ToolDependencies = @{
     "oojjrs-image-first-art-workflow" = @(
@@ -96,58 +39,202 @@ function Test-CommandAvailable {
     return $null -ne (Get-Command $Command -ErrorAction SilentlyContinue)
 }
 
-function Get-BytesSha256 {
-    param([byte[]]$Bytes)
+function Get-BytesGitBlobSha1 {
+    param(
+        [Parameter(Mandatory = $true)]
+        [AllowEmptyCollection()]
+        [byte[]]$Bytes
+    )
 
-    $sha = [System.Security.Cryptography.SHA256]::Create()
+    $header = [System.Text.Encoding]::ASCII.GetBytes("blob $($Bytes.LongLength)" + [char]0)
+    $payload = New-Object byte[] ($header.Length + $Bytes.Length)
+    [System.Buffer]::BlockCopy($header, 0, $payload, 0, $header.Length)
+    [System.Buffer]::BlockCopy($Bytes, 0, $payload, $header.Length, $Bytes.Length)
+
+    $sha = [System.Security.Cryptography.SHA1]::Create()
     try {
-        $hash = $sha.ComputeHash($Bytes)
+        $hash = $sha.ComputeHash($payload)
         return (($hash | ForEach-Object { $_.ToString("x2") }) -join "")
     } finally {
         $sha.Dispose()
     }
 }
 
-function Get-FileSha256 {
+function Get-FileGitBlobSha1 {
     param([string]$Path)
 
-    return ((Get-FileHash -LiteralPath $Path -Algorithm SHA256).Hash.ToLowerInvariant())
+    $bytes = [System.IO.File]::ReadAllBytes($Path)
+    return Get-BytesGitBlobSha1 -Bytes $bytes
 }
 
-function Get-PinnedRemoteBaseUrl {
-    if ($script:ResolvedRemoteBaseUrl) {
-        return $script:ResolvedRemoteBaseUrl
-    }
+function Invoke-GitHubJson {
+    param([string]$Uri)
 
+    $webClient = New-Object System.Net.WebClient
+    try {
+        $webClient.Headers["User-Agent"] = "oojjrs-skill-installer"
+        $webClient.Headers["Accept"] = "application/vnd.github+json"
+        return ($webClient.DownloadString($Uri) | ConvertFrom-Json)
+    } finally {
+        $webClient.Dispose()
+    }
+}
+
+function Get-RemoteSkillManifest {
     if ($SourceCommit) {
         $commitSha = $SourceCommit
     } else {
-        $webClient = New-Object System.Net.WebClient
-        try {
-            $webClient.Headers["User-Agent"] = "oojjrs-skill-installer"
-            $refJson = $webClient.DownloadString("https://api.github.com/repos/$RemoteRepository/git/ref/heads/$RemoteBranch")
-            $ref = $refJson | ConvertFrom-Json
-            $commitSha = [string]$ref.object.sha
-        } finally {
-            $webClient.Dispose()
-        }
+        $ref = Invoke-GitHubJson -Uri "https://api.github.com/repos/$RemoteRepository/git/ref/heads/$RemoteBranch"
+        $commitSha = [string]$ref.object.sha
     }
 
     if ($commitSha -notmatch "^[0-9a-fA-F]{40}$") {
         throw "Could not resolve an immutable Git commit for '$RemoteRepository/$RemoteBranch'."
     }
 
-    $script:ResolvedRemoteCommit = $commitSha.ToLowerInvariant()
-    $script:ResolvedRemoteBaseUrl = "https://raw.githubusercontent.com/$RemoteRepository/$($script:ResolvedRemoteCommit)/codex/skills"
-    Write-Host "Pinned remote skill source: $($script:ResolvedRemoteCommit)"
-    return $script:ResolvedRemoteBaseUrl
+    $commitSha = $commitSha.ToLowerInvariant()
+    $tree = Invoke-GitHubJson -Uri "https://api.github.com/repos/$RemoteRepository/git/trees/$commitSha`?recursive=1"
+    if ($tree.truncated) {
+        throw "The GitHub tree response was truncated; no skill files were changed."
+    }
+
+    $skillNames = @()
+    foreach ($entry in @($tree.tree)) {
+        if ($entry.type -ne "tree") {
+            continue
+        }
+
+        $match = [System.Text.RegularExpressions.Regex]::Match([string]$entry.path, "^codex/skills/([^/]+)$")
+        if (-not $match.Success) {
+            continue
+        }
+
+        $name = $match.Groups[1].Value
+        if ($name.StartsWith("oojjrs-", [System.StringComparison]::OrdinalIgnoreCase)) {
+            if (-not [System.Text.RegularExpressions.Regex]::IsMatch($name, "^oojjrs-[a-z0-9-]+$")) {
+                throw "Invalid managed skill directory name '$name'."
+            }
+            $skillNames += $name
+        }
+    }
+    $skillNames = @($skillNames | Sort-Object -Unique)
+    if ($skillNames.Count -eq 0) {
+        throw "No managed oojjrs-* skills were found at commit '$commitSha'."
+    }
+
+    $files = @()
+    $seenPaths = @{}
+    foreach ($entry in @($tree.tree)) {
+        if ($entry.type -ne "blob") {
+            continue
+        }
+
+        $match = [System.Text.RegularExpressions.Regex]::Match([string]$entry.path, "^codex/skills/(oojjrs-[a-z0-9-]+)/(.+)$")
+        if (-not $match.Success) {
+            continue
+        }
+
+        $skillName = $match.Groups[1].Value
+        $relativePath = $match.Groups[2].Value
+        if ($skillNames -notcontains $skillName) {
+            throw "Managed file '$($entry.path)' has no matching skill directory."
+        }
+
+        foreach ($segment in $relativePath.Split('/')) {
+            if (-not $segment -or $segment -eq "." -or $segment -eq ".." -or
+                $segment.EndsWith(".") -or $segment.EndsWith(" ") -or
+                $segment.IndexOfAny([System.IO.Path]::GetInvalidFileNameChars()) -ge 0 -or
+                $segment -match "^(con|prn|aux|nul|com[1-9]|lpt[1-9])($|\.)") {
+                throw "Managed file path '$($entry.path)' is not safe on Windows."
+            }
+        }
+
+        $pathKey = "$skillName/$relativePath"
+        if ($seenPaths.ContainsKey($pathKey)) {
+            throw "Case-insensitive managed path collision at '$pathKey'."
+        }
+        $seenPaths[$pathKey] = $true
+
+        $blobSha = ([string]$entry.sha).ToLowerInvariant()
+        if ($blobSha -notmatch "^[0-9a-f]{40}$") {
+            throw "Invalid Git blob hash for '$($entry.path)'."
+        }
+
+        $files += [pscustomobject]@{
+            SkillName = $skillName
+            RelativePath = $relativePath
+            RemotePath = [string]$entry.path
+            Sha = $blobSha
+            Size = [long]$entry.size
+        }
+    }
+    $files = @($files | Sort-Object RemotePath)
+
+    foreach ($skillName in $skillNames) {
+        if (-not ($files | Where-Object { $_.SkillName -eq $skillName -and $_.RelativePath -eq "SKILL.md" })) {
+            throw "Managed skill '$skillName' has no SKILL.md at commit '$commitSha'."
+        }
+    }
+
+    return [pscustomobject]@{
+        Commit = $commitSha
+        Skills = $skillNames
+        Files = $files
+        RawBaseUrl = "https://raw.githubusercontent.com/$RemoteRepository/$commitSha/codex/skills"
+    }
+}
+
+function Get-ContainedPath {
+    param(
+        [string]$RootPrefix,
+        [string]$Candidate,
+        [string]$Operation
+    )
+
+    $fullPath = [System.IO.Path]::GetFullPath($Candidate)
+    if (-not $fullPath.StartsWith($RootPrefix, [System.StringComparison]::OrdinalIgnoreCase)) {
+        throw "Refusing to $Operation outside the skill destination: '$fullPath'."
+    }
+    return $fullPath
+}
+
+function Assert-NoReparsePointInPath {
+    param([string]$Path)
+
+    $fullPath = [System.IO.Path]::GetFullPath($Path)
+    $currentPath = [System.IO.Path]::GetPathRoot($fullPath)
+    $relativePath = $fullPath.Substring($currentPath.Length)
+    foreach ($segment in @($relativePath -split "[\\/]" | Where-Object { $_ })) {
+        $currentPath = Join-Path $currentPath $segment
+        $item = Get-Item -LiteralPath $currentPath -Force -ErrorAction SilentlyContinue
+        if ($item -and ($item.Attributes -band [System.IO.FileAttributes]::ReparsePoint)) {
+            throw "The skill destination cannot pass through a symbolic link or junction: '$currentPath'."
+        }
+    }
+}
+
+function Assert-NoReparsePointsInTree {
+    param([string]$Directory)
+
+    $pendingDirectories = New-Object "System.Collections.Generic.Stack[string]"
+    $pendingDirectories.Push($Directory)
+    while ($pendingDirectories.Count -gt 0) {
+        $currentDirectory = $pendingDirectories.Pop()
+        foreach ($item in @(Get-ChildItem -LiteralPath $currentDirectory -Force)) {
+            if ($item.Attributes -band [System.IO.FileAttributes]::ReparsePoint) {
+                throw "The skill destination contains a symbolic link or junction: '$($item.FullName)'."
+            }
+            if ($item.PSIsContainer) {
+                $pendingDirectories.Push($item.FullName)
+            }
+        }
+    }
 }
 
 function Install-ToolDependency {
     param([hashtable]$Tool)
 
     if (Test-CommandAvailable $Tool.Command) {
-        Write-Host "$($Tool.Name) already available ($($Tool.Command))"
         return
     }
 
@@ -163,9 +250,7 @@ function Install-ToolDependency {
         return
     }
 
-    if (Test-CommandAvailable $Tool.Command) {
-        Write-Host "Installed $($Tool.Name) ($($Tool.Command))"
-    } else {
+    if (-not (Test-CommandAvailable $Tool.Command)) {
         Write-Warning "$($Tool.Name) installed, but $($Tool.Command) is not available on PATH yet. Restart the terminal or refresh PATH."
     }
 }
@@ -174,106 +259,133 @@ if (-not $Destination) {
     if ($env:CODEX_HOME) {
         $Destination = Join-Path $env:CODEX_HOME "skills"
     } else {
-        $Destination = Join-Path (Join-Path $HOME ".codex") "skills"
+        $userProfile = [System.Environment]::GetFolderPath([System.Environment+SpecialFolder]::UserProfile)
+        $Destination = Join-Path (Join-Path $userProfile ".codex") "skills"
     }
 }
 
+$separators = [char[]]@([System.IO.Path]::DirectorySeparatorChar, [System.IO.Path]::AltDirectorySeparatorChar)
+$Destination = [System.IO.Path]::GetFullPath($Destination).TrimEnd($separators)
+$destinationDriveRoot = [System.IO.Path]::GetPathRoot($Destination).TrimEnd($separators)
+if (-not $Destination -or $Destination -eq $destinationDriveRoot) {
+    throw "The skill destination cannot be a drive root."
+}
+
+Assert-NoReparsePointInPath -Path $Destination
 New-Item -ItemType Directory -Force -Path $Destination | Out-Null
-$remoteBaseUrl = Get-PinnedRemoteBaseUrl
+Assert-NoReparsePointsInTree -Directory $Destination
+$destinationRoot = $Destination + [System.IO.Path]::DirectorySeparatorChar
+$manifest = Get-RemoteSkillManifest
+$managedSkills = @{}
+$filesBySkill = @{}
+foreach ($skillName in $manifest.Skills) {
+    $managedSkills[$skillName] = $true
+    $filesBySkill[$skillName] = @()
+}
+foreach ($remoteFile in $manifest.Files) {
+    $filesBySkill[$remoteFile.SkillName] += $remoteFile
+}
 
-foreach ($canonicalName in $CanonicalSkills) {
-    $skillDir = Join-Path $Destination $canonicalName
-    New-Item -ItemType Directory -Force -Path $skillDir | Out-Null
+$unchangedCount = 0
+$pendingUpdates = @()
+$downloadClient = New-Object System.Net.WebClient
+try {
+    $downloadClient.Headers["User-Agent"] = "oojjrs-skill-installer"
+    foreach ($remoteFile in $manifest.Files) {
+        $skillDir = Get-ContainedPath -RootPrefix $destinationRoot -Candidate (Join-Path $Destination $remoteFile.SkillName) -Operation "manage a skill"
+        $relativeLocalPath = $remoteFile.RelativePath -replace "/", [System.IO.Path]::DirectorySeparatorChar
+        $localPath = Get-ContainedPath -RootPrefix $destinationRoot -Candidate (Join-Path $skillDir $relativeLocalPath) -Operation "manage a skill file"
+        $localItem = Get-Item -LiteralPath $localPath -Force -ErrorAction SilentlyContinue
 
-    if ($SkillFiles.ContainsKey($canonicalName)) {
-        $files = $SkillFiles[$canonicalName]
-    } else {
-        $files = $DefaultFiles
-    }
-
-    foreach ($relativePath in $files) {
-        $webPath = $relativePath -replace "\\", "/"
-        $localPath = Join-Path $skillDir ($relativePath -replace "/", [System.IO.Path]::DirectorySeparatorChar)
-        $localDir = Split-Path -Parent $localPath
-        if ($localDir) {
-            New-Item -ItemType Directory -Force -Path $localDir | Out-Null
-        }
-
-        # Preserve GitHub source bytes exactly. Do not normalize encoding or line endings during install.
-        $webClient = New-Object System.Net.WebClient
-        try {
-            $bytes = $webClient.DownloadData("$remoteBaseUrl/$canonicalName/$webPath")
-            $expectedSha256 = Get-BytesSha256 -Bytes $bytes
-            [System.IO.File]::WriteAllBytes($localPath, $bytes)
-        } finally {
-            $webClient.Dispose()
-        }
-
-        $actualSha256 = Get-FileSha256 -Path $localPath
-        if ($actualSha256 -ne $expectedSha256) {
-            throw "SHA-256 mismatch after installing '$canonicalName/$relativePath'."
-        }
-    }
-
-    $skillRoot = [System.IO.Path]::GetFullPath($skillDir).TrimEnd([System.IO.Path]::DirectorySeparatorChar) + [System.IO.Path]::DirectorySeparatorChar
-    $expectedRelativePaths = @($files | ForEach-Object { $_ -replace "/", [System.IO.Path]::DirectorySeparatorChar })
-    $unexpectedFiles = @(
-        Get-ChildItem -LiteralPath $skillDir -File -Recurse | ForEach-Object {
-            $relativeInstalledPath = $_.FullName.Substring($skillRoot.Length)
-            if ($expectedRelativePaths -notcontains $relativeInstalledPath) {
-                $relativeInstalledPath
-            }
-        }
-    )
-    foreach ($unexpectedFile in $unexpectedFiles) {
-        $unexpectedPath = [System.IO.Path]::GetFullPath((Join-Path $skillDir $unexpectedFile))
-        if (-not $unexpectedPath.StartsWith($skillRoot, [System.StringComparison]::OrdinalIgnoreCase)) {
-            throw "Refusing to remove stale file outside '$skillDir': '$unexpectedPath'."
-        }
-        Remove-Item -LiteralPath $unexpectedPath -Force
-    }
-    $installedDirectories = @(
-        Get-ChildItem -LiteralPath $skillDir -Directory -Recurse |
-            Sort-Object FullName -Descending
-    )
-    foreach ($installedDirectory in $installedDirectories) {
-        if (-not (Get-ChildItem -LiteralPath $installedDirectory.FullName -Force)) {
-            Remove-Item -LiteralPath $installedDirectory.FullName -Force
-        }
-    }
-
-    foreach ($legacyName in $LegacyAliases.Keys) {
-        if ($LegacyAliases[$legacyName] -ne $canonicalName) {
+        if ($localItem -and -not $localItem.PSIsContainer -and
+            $localItem.Length -eq $remoteFile.Size -and
+            (Get-FileGitBlobSha1 -Path $localPath) -eq $remoteFile.Sha) {
+            $unchangedCount++
             continue
         }
 
-        $legacyDir = Join-Path $Destination $legacyName
-        if (Test-Path -LiteralPath $legacyDir) {
-            Remove-Item -LiteralPath $legacyDir -Recurse -Force
+        $encodedPath = (($remoteFile.RelativePath.Split('/') | ForEach-Object { [System.Uri]::EscapeDataString($_) }) -join "/")
+        $bytes = $downloadClient.DownloadData("$($manifest.RawBaseUrl)/$($remoteFile.SkillName)/$encodedPath")
+        if ($bytes.LongLength -ne $remoteFile.Size -or (Get-BytesGitBlobSha1 -Bytes $bytes) -ne $remoteFile.Sha) {
+            throw "Git blob verification failed for '$($remoteFile.RemotePath)'; no skill files were changed."
+        }
+
+        $pendingUpdates += [pscustomobject]@{
+            LocalPath = $localPath
+            Bytes = $bytes
+            Sha = $remoteFile.Sha
         }
     }
+} finally {
+    $downloadClient.Dispose()
+}
 
-    Write-Host "Synchronized $canonicalName -> $skillDir ($($files.Count) files SHA-256 verified; $($unexpectedFiles.Count) stale files removed)"
+foreach ($update in $pendingUpdates) {
+    $existingItem = Get-Item -LiteralPath $update.LocalPath -Force -ErrorAction SilentlyContinue
+    if ($existingItem -and $existingItem.PSIsContainer) {
+        Remove-Item -LiteralPath $update.LocalPath -Recurse -Force
+    }
 
-    if ($ToolDependencies.ContainsKey($canonicalName)) {
-        foreach ($tool in $ToolDependencies[$canonicalName]) {
-            Install-ToolDependency $tool
+    $localDir = Split-Path -Parent $update.LocalPath
+    New-Item -ItemType Directory -Force -Path $localDir | Out-Null
+    [System.IO.File]::WriteAllBytes($update.LocalPath, $update.Bytes)
+    if ((Get-FileGitBlobSha1 -Path $update.LocalPath) -ne $update.Sha) {
+        throw "Git blob verification failed after writing '$($update.LocalPath)'."
+    }
+}
+
+$staleFileCount = 0
+foreach ($skillName in $manifest.Skills) {
+    $skillDir = Get-ContainedPath -RootPrefix $destinationRoot -Candidate (Join-Path $Destination $skillName) -Operation "clean a skill"
+    $skillRoot = $skillDir.TrimEnd($separators) + [System.IO.Path]::DirectorySeparatorChar
+    $expectedPaths = @{}
+    foreach ($remoteFile in $filesBySkill[$skillName]) {
+        $expectedPaths[$remoteFile.RelativePath -replace "/", [System.IO.Path]::DirectorySeparatorChar] = $true
+    }
+
+    foreach ($installedFile in @(Get-ChildItem -LiteralPath $skillDir -File -Recurse -Force)) {
+        $relativeInstalledPath = $installedFile.FullName.Substring($skillRoot.Length)
+        if ($expectedPaths.ContainsKey($relativeInstalledPath)) {
+            continue
+        }
+
+        $unexpectedPath = Get-ContainedPath -RootPrefix $skillRoot -Candidate $installedFile.FullName -Operation "remove a stale skill file"
+        Remove-Item -LiteralPath $unexpectedPath -Force
+        $staleFileCount++
+    }
+
+    foreach ($installedDirectory in @(Get-ChildItem -LiteralPath $skillDir -Directory -Recurse -Force | Sort-Object FullName -Descending)) {
+        if (@(Get-ChildItem -LiteralPath $installedDirectory.FullName -Force).Count -eq 0) {
+            Remove-Item -LiteralPath $installedDirectory.FullName -Force
         }
     }
 }
 
-$destinationRoot = [System.IO.Path]::GetFullPath($Destination).TrimEnd([System.IO.Path]::DirectorySeparatorChar) + [System.IO.Path]::DirectorySeparatorChar
-$staleSkillDirectories = @(
-    Get-ChildItem -LiteralPath $Destination -Directory |
-        Where-Object { $_.Name -like "oojjrs-*" -and $CanonicalSkills -notcontains $_.Name }
-)
-foreach ($staleSkillDirectory in $staleSkillDirectories) {
-    $stalePath = [System.IO.Path]::GetFullPath($staleSkillDirectory.FullName)
-    if (-not $stalePath.StartsWith($destinationRoot, [System.StringComparison]::OrdinalIgnoreCase)) {
-        throw "Refusing to remove stale skill outside '$Destination': '$stalePath'."
+$staleSkillCount = 0
+foreach ($legacyName in $LegacyAliases.Keys) {
+    $legacyDir = Get-ContainedPath -RootPrefix $destinationRoot -Candidate (Join-Path $Destination $legacyName) -Operation "remove a retired skill alias"
+    if (Test-Path -LiteralPath $legacyDir) {
+        Remove-Item -LiteralPath $legacyDir -Recurse -Force
+        $staleSkillCount++
     }
+}
+
+foreach ($staleSkillDirectory in @(
+    Get-ChildItem -LiteralPath $Destination -Directory -Force |
+        Where-Object { $_.Name -like "oojjrs-*" -and -not $managedSkills.ContainsKey($_.Name) }
+)) {
+    $stalePath = Get-ContainedPath -RootPrefix $destinationRoot -Candidate $staleSkillDirectory.FullName -Operation "remove a retired skill"
     Remove-Item -LiteralPath $stalePath -Recurse -Force
-    Write-Host "Removed stale managed skill -> $stalePath"
+    $staleSkillCount++
 }
 
-Write-Host "Synchronized $($CanonicalSkills.Count) canonical oojjrs skills from GitHub commit $ResolvedRemoteCommit"
+foreach ($skillName in $ToolDependencies.Keys) {
+    if (-not $managedSkills.ContainsKey($skillName)) {
+        continue
+    }
+    foreach ($tool in $ToolDependencies[$skillName]) {
+        Install-ToolDependency $tool
+    }
+}
+
+Write-Host "Skill sync at $($manifest.Commit): $($manifest.Skills.Count) skills and $($manifest.Files.Count) files checked; $($pendingUpdates.Count) downloaded, $unchangedCount unchanged; $staleFileCount stale files and $staleSkillCount stale skill folders removed."
