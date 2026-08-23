@@ -1,0 +1,4 @@
+interface:
+  display_name: "oojjrs Multi-Repo Integration Workflow"
+  short_description: "Coordinate dependent work across repositories"
+  default_prompt: "Use $oojjrs-multi-repo-integration-workflow to coordinate this integration across repositories in dependency order."
