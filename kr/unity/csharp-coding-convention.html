@@ -754,7 +754,7 @@ public sealed class IngameMenuPage : Page
         <div class="rule-index">09</div>
         <div class="rule-body">
           <h3>static 필드만 직접 선언한 타입에 따라 접두사를 정한다</h3>
-          <p>판정 순서는 (1) 필드 선언 자체에 <code>static</code>이 있는지, (2) 그 필드를 직접 선언한 타입이 static인지다. 필드 선언에 <code>static</code>이 없으면 9번을 적용하지 않는다. <code>const</code>와 <code>readonly</code>는 10번을 따른다. 이 관문을 통과한 나머지 static 필드는 비정적 타입에 직접 선언되면 public <code>__PascalCase</code>/private <code>__camelCase</code>, <code>static class</code>에 직접 선언되면 public <code>_PascalCase</code>/private <code>_camelCase</code>를 쓴다. 중첩 타입에서는 바깥 타입을 보지 않는다.</p>
+          <p>판정 순서는 (1) 필드 선언 자체에 <code>static</code>이 있는지, (2) 그 필드를 직접 선언한 타입이 static인지다. 필드 선언에 <code>static</code>이 없으면 9번을 적용하지 않고, <code>const</code>는 10번을 따른다. 이 관문을 통과한 static 필드는 비정적 타입에 직접 선언되면 public <code>__PascalCase</code>/private <code>__camelCase</code>, <code>static class</code>에 직접 선언되면 public <code>_PascalCase</code>/private <code>_camelCase</code>를 쓴다. 중첩 타입에서는 바깥 타입을 보지 않는다.</p>
           <div class="example-pair">
             <div class="example good">
               <div class="example-label">이름 규칙상 올바른 사용</div>
@@ -789,27 +789,33 @@ public static class CacheRegistry
 }</code></pre>
             </div>
           </div>
+          <p>10번에 따라 <code>const</code>와 상수 역할의 <code>static readonly</code>는 이 접두사를 쓰지 않는다. 그 밖의 <code>static readonly</code>는 모두 이 접두사를 따른다.</p>
         </div>
       </article>
       <article class="rule-card">
         <div class="rule-index">10</div>
         <div class="rule-body">
-          <h3>const와 readonly는 PascalCase를 쓴다</h3>
+          <h3>const와 상수 역할의 static readonly만 PascalCase를 쓴다</h3>
           <div class="example-pair">
             <div class="example good">
               <div class="example-label">올바른 사용</div>
               <pre><code>private const int MaxCount = 10;
-private static readonly int InitialCapacity = 16;
-private readonly int StartIndex;</code></pre>
+private static readonly TimeSpan RetryDelay = TimeSpan.FromSeconds(3);
+private static readonly Guid ProtocolId = new("b70f0f2a-9a5d-4f97-8631-b1eb495a01d3");
+private static readonly Guid __sessionId = Guid.NewGuid();
+private static readonly List&lt;Item&gt; __items = new();
+private readonly int _startIndex;</code></pre>
             </div>
             <div class="example bad">
               <div class="example-label">잘못된 사용</div>
-              <pre><code>private const int max_count = 10;
-private readonly int start_index;
-private static readonly int __initialCapacity = 16;
-private static readonly int _initialCapacity = 16;</code></pre>
+              <pre><code>private static readonly TimeSpan __retryDelay = TimeSpan.FromSeconds(3);
+private static readonly Guid SessionId = Guid.NewGuid();
+private static readonly List&lt;Item&gt; Items = new();
+private readonly int StartIndex;</code></pre>
             </div>
           </div>
+          <p><code>static readonly</code>는 실행 상태의 스냅샷이나 소유 객체가 아니라 프로그램 또는 API의 정의값을 나타낼 때만 상수 역할로 본다. 초기화 뒤 의미값과 그 의미에 참여하는 도달 가능한 관찰 상태가 바뀔 수 없어야 하며, 참조 동일성, 수명, 동기화, 지연 생성, 서비스 또는 캐시 상태가 의미에 관여해서는 안 된다.</p>
+          <p>시간, 난수, 환경, 설정, I/O, Unity 오브젝트에서 얻은 실행값과 현재 코드가 우연히 변경하지 않을 뿐인 가변 객체는 상수 역할이 아니다. 인스턴스 <code>readonly</code>와 그 밖의 <code>readonly</code>는 일반 필드 명명을 따른다. private 인스턴스는 <code>_camelCase</code>, static은 9번 접두사를 쓰며, 애매하면 일반 필드명으로 분류한다. 이 구분은 이름에만 적용하고 배치 순서는 34번을 따른다. 변경 가능한 static 상태에는 31번도 적용한다.</p>
         </div>
       </article>
       <article class="rule-card">
@@ -1508,13 +1514,13 @@ private void ApplyReward()
 {
     private const int MaxCount = 10;
 
-    private readonly int StartIndex;
+    private readonly int _startIndex;
 
     private static int __cacheCount;
     private static int __index;
 
-    private int count;
-    private int index;
+    private int _count;
+    private int _index;
 }</code></pre>
             </div>
             <div class="example bad">
@@ -1522,10 +1528,10 @@ private void ApplyReward()
               <pre><code>public sealed class Cache
 {
     private const int MaxCount = 10;
-    private int index;
-    private readonly int StartIndex;
+    private int _index;
+    private readonly int _startIndex;
     private static int __cacheCount;
-    private int count;
+    private int _count;
 }</code></pre>
             </div>
           </div>

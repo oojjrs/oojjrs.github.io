@@ -381,7 +381,7 @@ public sealed class IngameMenuPage : Page
 
 ### 09. Only static fields use prefixes based on their immediate declaring type
 
-The decision order is (1) whether the field declaration itself contains `static`, then (2) whether the type that immediately declares the field is static. If the declaration does not contain `static`, rule 09 does not apply. `const` and `readonly` are governed by rule 10. For every other static field, one declared in a non-static type uses public `__PascalCase`/private `__camelCase`; one declared in a `static class` uses public `_PascalCase`/private `_camelCase`. For nested types, ignore enclosing types.
+The decision order is (1) whether the field declaration itself contains `static`, then (2) whether the type that immediately declares the field is static. If the declaration does not contain `static`, rule 09 does not apply; `const` is governed by rule 10. After this gate, a static field declared in a non-static type uses public `__PascalCase`/private `__camelCase`; one declared in a `static class` uses public `_PascalCase`/private `_camelCase`. For nested types, ignore enclosing types.
 
 Correct naming:
 
@@ -419,25 +419,34 @@ public static class CacheRegistry
 }
 ```
 
+Under rule 10, `const` fields and constant-like `static readonly` fields do not use these prefixes. Every other `static readonly` field does.
 
-### 10. `const` and `readonly` use PascalCase
+
+### 10. Only `const` and constant-like `static readonly` use PascalCase
 
 Correct:
 
 ```csharp
 private const int MaxCount = 10;
-private static readonly int InitialCapacity = 16;
-private readonly int StartIndex;
+private static readonly TimeSpan RetryDelay = TimeSpan.FromSeconds(3);
+private static readonly Guid ProtocolId = new("b70f0f2a-9a5d-4f97-8631-b1eb495a01d3");
+private static readonly Guid __sessionId = Guid.NewGuid();
+private static readonly List<Item> __items = new();
+private readonly int _startIndex;
 ```
 
 Incorrect:
 
 ```csharp
-private const int max_count = 10;
-private readonly int start_index;
-private static readonly int __initialCapacity = 16;
-private static readonly int _initialCapacity = 16;
+private static readonly TimeSpan __retryDelay = TimeSpan.FromSeconds(3);
+private static readonly Guid SessionId = Guid.NewGuid();
+private static readonly List<Item> Items = new();
+private readonly int StartIndex;
 ```
+
+A `static readonly` field is constant-like only when it denotes a program or API definition rather than captured or owned runtime state. After initialization, neither its semantic value nor any reachable observable state contributing to that value can change, and reference identity, lifetime, synchronization, lazy creation, or service/cache state must be irrelevant.
+
+Values obtained from time, randomness, environment, configuration, I/O, or Unity objects, and mutable objects that current code merely happens not to modify, are not constant-like. Instance `readonly` fields and every other `readonly` field use normal field naming. A private instance field uses `_camelCase`, and a static field uses the rule 9 prefix. When uncertain, use field naming. This distinction affects naming only; declaration ordering follows rule 34. Mutable static state also follows rule 31.
 
 
 ### 11. Properties are nouns or adjectives
@@ -1097,13 +1106,13 @@ public sealed class Cache
 {
     private const int MaxCount = 10;
 
-    private readonly int StartIndex;
+    private readonly int _startIndex;
 
     private static int __cacheCount;
     private static int __index;
 
-    private int count;
-    private int index;
+    private int _count;
+    private int _index;
 }
 ```
 
@@ -1113,10 +1122,10 @@ Incorrect:
 public sealed class Cache
 {
     private const int MaxCount = 10;
-    private int index;
-    private readonly int StartIndex;
+    private int _index;
+    private readonly int _startIndex;
     private static int __cacheCount;
-    private int count;
+    private int _count;
 }
 ```
 
