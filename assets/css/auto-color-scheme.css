@@ -63,6 +63,70 @@
   .standalone-page section.category { background: rgba(255, 255, 255, .86); }
   .standalone-page code,
   .standalone-page pre { background: #eef0ec; color: #252923; }
+
+  .site-page .routing-atlas {
+    --atlas-bg: #f4f7f8;
+    --atlas-panel: #ffffff;
+    --atlas-panel-strong: #edf2f4;
+    --atlas-line: #bdcbd3;
+    --atlas-line-soft: rgba(74, 99, 115, .18);
+    --atlas-text: #17242d;
+    --atlas-muted: #586b78;
+    --atlas-cyan: #08728b;
+    --atlas-blue: #315f9b;
+    --atlas-green: #21734a;
+    --atlas-lime: #5d7600;
+    --atlas-amber: #985a00;
+    --atlas-red: #a43e3e;
+    --atlas-purple: #6e4ba3;
+  }
+
+  .site-page .routing-atlas .atlas-hero {
+    border-color: #a9bdc8;
+    background:
+      radial-gradient(circle at 82% 13%, rgba(8, 114, 139, .12), transparent 28%),
+      radial-gradient(circle at 14% 108%, rgba(110, 75, 163, .1), transparent 34%),
+      linear-gradient(145deg, #ffffff 0%, #edf3f5 54%, #f7f9fa 100%);
+    box-shadow: 0 18px 50px rgba(40, 57, 67, .12);
+  }
+
+  .site-page .routing-atlas .atlas-hero-copy > p:last-child,
+  .site-page .routing-atlas .atlas-security-note,
+  .site-page .routing-atlas .atlas-jump-nav a { color: var(--atlas-muted); }
+
+  .site-page .routing-atlas .atlas-stats { border-color: var(--atlas-line); background: var(--atlas-line); }
+  .site-page .routing-atlas .atlas-stats > div,
+  .site-page .routing-atlas .provenance-item,
+  .site-page .routing-atlas .authority-graph article,
+  .site-page .routing-atlas .lifecycle-graph,
+  .site-page .routing-atlas .lifecycle-branches article,
+  .site-page .routing-atlas .permission-graph,
+  .site-page .routing-atlas .routing-toolbar,
+  .site-page .routing-atlas .routing-toolbar input,
+  .site-page .routing-atlas .route-detail,
+  .site-page .routing-atlas .plugin-install-graph > div,
+  .site-page .routing-atlas .route-version { background: rgba(255, 255, 255, .92); }
+
+  .site-page .routing-atlas .atlas-jump-nav {
+    background: rgba(255, 255, 255, .92);
+    box-shadow: 0 10px 28px rgba(40, 57, 67, .1);
+  }
+
+  .site-page .routing-atlas .atlas-section {
+    background: linear-gradient(180deg, rgba(255, 255, 255, .98), rgba(244, 247, 248, .98));
+    box-shadow: 0 16px 38px rgba(40, 57, 67, .1);
+  }
+
+  .site-page .routing-atlas .atlas-alert-section {
+    border-color: rgba(164, 62, 62, .38);
+    background: linear-gradient(180deg, rgba(253, 240, 240, .98), rgba(247, 249, 250, .98) 28%);
+  }
+
+  .site-page .routing-atlas .route-spine > .flow-node:not(:last-child)::after,
+  .site-page .routing-atlas .routing-toolbar input { background-color: #ffffff; }
+  .site-page .routing-atlas .routing-toolbar label small { color: var(--atlas-muted); }
+  .site-page .routing-atlas .atlas-timeline li > div::before { border-color: #f4f7f8; }
+  .site-page .routing-atlas .atlas-summary-figure figcaption { background: #edf2f4; }
 }
 
 @media (prefers-color-scheme: dark) {
