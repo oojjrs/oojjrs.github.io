@@ -6,6 +6,7 @@ param(
     [string] $Style = '',
     [string] $Username = 'oojjrs',
     [string] $OutputDirectory = '',
+    [string] $DownloadOnlySongIds = '',
     [ValidateRange(1, 120)]
     [int] $TimeoutMinutes = 30,
     [ValidateRange(5, 300)]
@@ -311,7 +312,23 @@ function Save-SongAudio {
 if ([string]::IsNullOrWhiteSpace($OutputDirectory)) {
     $OutputDirectory = Get-DefaultOutputDirectory
 }
-if ([string]::IsNullOrWhiteSpace($Prompt)) {
+$downloadOnlyIds = @()
+if (-not [string]::IsNullOrWhiteSpace($DownloadOnlySongIds)) {
+    foreach ($candidate in $DownloadOnlySongIds.Split(',')) {
+        $id = $candidate.Trim()
+        if (
+            $id -notmatch
+            '^[0-9a-fA-F]{8}(?:-[0-9a-fA-F]{4}){3}-[0-9a-fA-F]{12}$'
+        ) {
+            throw "다운로드 전용 노래 ID가 UUID 형식이 아닙니다: $id"
+        }
+        if ($downloadOnlyIds -notcontains $id) {
+            $downloadOnlyIds += $id
+        }
+    }
+}
+$downloadOnlyMode = $downloadOnlyIds.Count -gt 0
+if (-not $downloadOnlyMode -and [string]::IsNullOrWhiteSpace($Prompt)) {
     throw '노래 설명(-Prompt)을 입력하세요.'
 }
 if ($Prompt.Length -gt 199) {
@@ -325,6 +342,9 @@ if ($Style.Length -gt 120) {
 }
 if (-not [string]::IsNullOrWhiteSpace($Style) -and [string]::IsNullOrWhiteSpace($Title)) {
     throw '사용자 정의 모드(-Style 사용)에서는 -Title도 필요합니다.'
+}
+if ($downloadOnlyMode -and $PreflightOnly) {
+    throw '-DownloadOnlySongIds와 -PreflightOnly는 함께 사용할 수 없습니다.'
 }
 
 [IO.Directory]::CreateDirectory($ChromeProfile) | Out-Null
@@ -472,7 +492,7 @@ try {
   const audioUrl = player
     ?.getAttribute('data-song-play-audio-url-value') || '';
   const bodyText = documentCopy.body?.innerText || '';
-  const failed = /생성 실패|Internal Error/i.test(bodyText);
+  const failed = /\uC0DD\uC131 \uC2E4\uD328|Internal Error/i.test(bodyText);
   const downloadPath = download
     ?.getAttribute('data-download-song-url-value') || '';
 
@@ -491,26 +511,34 @@ try {
 })()
 '@
 
-    $baselineIds = @(Get-ProfileSongIds)
+    $baselineIds = @()
     $baselineLookup = @{}
-    foreach ($id in $baselineIds) {
-        $baselineLookup[[string] $id] = $true
-    }
-
     $script:AttemptId = [guid]::NewGuid().ToString()
-    $customMode = -not [string]::IsNullOrWhiteSpace($Style)
-    $submitConfigData = @{
-        attemptId                    = $script:AttemptId
-        acknowledgeUnresolved       = [bool] $AcknowledgeUnresolvedGeneration
-        baselineIds                 = $baselineIds
-        customMode                  = $customMode
-        prompt                     = $Prompt
-        style                      = $Style
-        title                      = $Title
+    $expectedCount = if ($downloadOnlyMode) {
+        $downloadOnlyIds.Count
+    } else {
+        2
     }
-    $submitConfig = ConvertTo-JavaScriptValue -Value $submitConfigData
 
-    $preflightScript = @'
+    if (-not $downloadOnlyMode) {
+        $baselineIds = @(Get-ProfileSongIds)
+        foreach ($id in $baselineIds) {
+            $baselineLookup[[string] $id] = $true
+        }
+
+        $customMode = -not [string]::IsNullOrWhiteSpace($Style)
+        $submitConfigData = @{
+            attemptId                    = $script:AttemptId
+            acknowledgeUnresolved       = [bool] $AcknowledgeUnresolvedGeneration
+            baselineIds                 = $baselineIds
+            customMode                  = $customMode
+            prompt                     = $Prompt
+            style                      = $Style
+            title                      = $Title
+        }
+        $submitConfig = ConvertTo-JavaScriptValue -Value $submitConfigData
+
+        $preflightScript = @'
 (() => {
   const config = __CONFIG__;
   const key = 'aiMusicAutomationSubmitState';
@@ -577,21 +605,21 @@ try {
 })()
 '@.Replace('__CONFIG__', $submitConfig)
 
-    $preflight = (Invoke-JavaScript -Expression $preflightScript) | ConvertFrom-Json
-    if (-not [bool] $preflight.ready) {
-        throw '생성 폼 사전 검증에 실패했습니다.'
-    }
-    if ($PreflightOnly) {
-        [pscustomobject] @{
-            Ready         = $true
-            Mode          = [string] $preflight.mode
-            BaselineCount = [int] $preflight.baselineCount
-            PostSent      = $false
-        } | ConvertTo-Json
-        return
-    }
+        $preflight = (Invoke-JavaScript -Expression $preflightScript) | ConvertFrom-Json
+        if (-not [bool] $preflight.ready) {
+            throw '생성 폼 사전 검증에 실패했습니다.'
+        }
+        if ($PreflightOnly) {
+            [pscustomobject] @{
+                Ready         = $true
+                Mode          = [string] $preflight.mode
+                BaselineCount = [int] $preflight.baselineCount
+                PostSent      = $false
+            } | ConvertTo-Json
+            return
+        }
 
-    $submitScript = @'
+        $submitScript = @'
 (() => {
   const config = __CONFIG__;
   const key = 'aiMusicAutomationSubmitState';
@@ -671,23 +699,35 @@ try {
 })()
 '@.Replace('__CONFIG__', $submitConfig)
 
-    Write-Host 'AI Music Generator 생성 요청을 한 번만 제출합니다.'
-    $postAttempted = $true
-    try {
-        $submitResult = (Invoke-JavaScript -Expression $submitScript) | ConvertFrom-Json
-        if (-not [bool] $submitResult.submitted) {
-            Write-Warning '제출 결과를 확인하지 못했습니다. 중복 방지를 위해 재제출하지 않습니다.'
+        Write-Host 'AI Music Generator 생성 요청을 한 번만 제출합니다.'
+        $postAttempted = $true
+        try {
+            $submitResult = (Invoke-JavaScript -Expression $submitScript) | ConvertFrom-Json
+            if (-not [bool] $submitResult.submitted) {
+                Write-Warning '제출 결과를 확인하지 못했습니다. 중복 방지를 위해 재제출하지 않습니다.'
+            }
+        }
+        catch {
+            Write-Warning (
+                '제출 응답이 불명확합니다. 중복 과금을 막기 위해 재제출하지 않고 ' +
+                "프로필만 조회합니다: $($_.Exception.Message)"
+            )
         }
     }
-    catch {
-        Write-Warning (
-            '제출 응답이 불명확합니다. 중복 과금을 막기 위해 재제출하지 않고 ' +
-            "프로필만 조회합니다: $($_.Exception.Message)"
+    else {
+        Write-Host (
+            (
+                '기존 AI Music Generator 결과 {0}개만 조회하고 다운로드합니다. ' +
+                '새 생성 요청은 보내지 않습니다.'
+            ) -f $expectedCount
         )
     }
 
     $deadline = [DateTimeOffset]::Now.AddMinutes($TimeoutMinutes)
     $newIds = New-Object Collections.ArrayList
+    foreach ($id in $downloadOnlyIds) {
+        $null = $newIds.Add($id)
+    }
     $readySongs = @{}
     $downloaded = @{}
     $generationFailed = @{}
@@ -695,22 +735,24 @@ try {
 
     while ([DateTimeOffset]::Now -lt $deadline) {
         Start-Sleep -Seconds $PollSeconds
-        $currentIds = @()
-        try {
-            $currentIds = @(Get-ProfileSongIds)
-        }
-        catch {
-            Write-Warning "프로필 조회 재시도 예정: $($_.Exception.Message)"
-            continue
-        }
+        if (-not $downloadOnlyMode) {
+            $currentIds = @()
+            try {
+                $currentIds = @(Get-ProfileSongIds)
+            }
+            catch {
+                Write-Warning "프로필 조회 재시도 예정: $($_.Exception.Message)"
+                continue
+            }
 
-        foreach ($idValue in $currentIds) {
-            $id = [string] $idValue
-            if (
-                -not $baselineLookup.ContainsKey($id) -and
-                -not $newIds.Contains($id)
-            ) {
-                $null = $newIds.Add($id)
+            foreach ($idValue in $currentIds) {
+                $id = [string] $idValue
+                if (
+                    -not $baselineLookup.ContainsKey($id) -and
+                    -not $newIds.Contains($id)
+                ) {
+                    $null = $newIds.Add($id)
+                }
             }
         }
 
@@ -760,20 +802,21 @@ try {
 
         $generationTerminalCount = $readySongs.Count + $generationFailed.Count
         Write-Host (
-            '생성 결과: {0}/2, 다운로드: {1}/2' -f
+            '생성 결과: {0}/{2}, 다운로드: {1}/{2}' -f
             $generationTerminalCount,
-            $downloaded.Count
+            $downloaded.Count,
+            $expectedCount
         )
         if (
-            $generationTerminalCount -ge 2 -and
-            ($downloaded.Count + $generationFailed.Count) -ge 2
+            $generationTerminalCount -ge $expectedCount -and
+            ($downloaded.Count + $generationFailed.Count) -ge $expectedCount
         ) {
             break
         }
     }
 
     $generationTerminalCount = $readySongs.Count + $generationFailed.Count
-    $unresolvedCount = [Math]::Max(0, 2 - $generationTerminalCount)
+    $unresolvedCount = [Math]::Max(0, $expectedCount - $generationTerminalCount)
     $statePhase = if ($unresolvedCount -gt 0) {
         'unresolved'
     } else {
@@ -829,7 +872,7 @@ try {
     [pscustomobject] @{
         AttemptId      = $script:AttemptId
         PostSent       = $postAttempted
-        ExpectedCount  = 2
+        ExpectedCount  = $expectedCount
         DiscoveredCount = $newIds.Count
         DownloadedCount = $downloaded.Count
         FailedCount    = $generationFailed.Count
@@ -837,12 +880,13 @@ try {
         Results         = $results
     } | ConvertTo-Json -Depth 6
 
-    if ($downloaded.Count -ne 2) {
+    if ($downloaded.Count -ne $expectedCount) {
         throw (
-            '일부 생성 또는 다운로드 실패: 다운로드 {0}/2, 생성 실패 {1}, 미확정 {2}' -f
+            '일부 생성 또는 다운로드 실패: 다운로드 {0}/{3}, 생성 실패 {1}, 미확정 {2}' -f
             $downloaded.Count,
             $generationFailed.Count,
-            $unresolvedCount
+            $unresolvedCount,
+            $expectedCount
         )
     }
 }
