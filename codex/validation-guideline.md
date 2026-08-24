@@ -39,7 +39,7 @@ Redirect controllable temporary output into a literal `$Trash` directory. Output
 
 ## Git Completion
 
-Load the Git completion workflow when staging or committing scoped work, or for an explicitly requested push, deploy, release, publication, or completion of an existing diff. Use initial status only to isolate prior work. For a commit, stage exact paths and review final staged name/status, diff, and whitespace once; this replaces the ordinary diff. Re-review only changed staged content and apply version policy only to governed units in scope.
+Load the Git completion workflow when staging or committing scoped work, or for an explicitly requested push, deploy, release, publication, or completion of an existing diff. Use initial status only to isolate prior work. When Git completion follows review of an uncommitted result, the finish workflow's single fresh pre-stage reconciliation snapshot is scope-selection evidence rather than a repeated validation pass. After reconciliation, stage exact paths and review final staged name/status, diff, and whitespace once; this replaces the ordinary diff. Re-review only changed staged content and apply version policy only to governed units in scope.
 
 ## Reporting
 

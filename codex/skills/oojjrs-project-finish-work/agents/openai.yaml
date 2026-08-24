@@ -1,4 +1,4 @@
 interface:
   display_name: "oojjrs Project Finish Work"
   short_description: "Complete requested Git or publication actions"
-  default_prompt: "Use $oojjrs-project-finish-work only for local staging, commit, push, deploy, release, publication, or destructive Git actions explicitly authorized by the current request; finish requested content work before freezing the scoped bytes, preserve unrelated work, and perform each triggered check once."
+  default_prompt: "Use $oojjrs-project-finish-work only for Git or publication actions explicitly authorized by the current request; carry the most recently reviewed uncommitted scope forward, reconcile current changes by semantic task role before freezing, stage eligible existing bytes unchanged, preserve unrelated work, and perform each triggered check once."

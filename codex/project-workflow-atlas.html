@@ -1216,7 +1216,7 @@ html&gt;body{padding:0}&lt;/style&gt;
               { label: &#x27;없음&#x27;, text: &#x27;정적 검사·형식·최종 diff로 검증&#x27; }
             ] },
             { kind: &#x27;decision&#x27;, text: &#x27;현재 요청이 stage·commit 또는 원격 게시까지 명시했는가?&#x27;, branches: [
-              { label: &#x27;명시됨&#x27;, text: &#x27;완성된 범위만 정확히 스테이징하고 staged diff 검토 후 로컬 커밋&#x27; },
+              { label: &#x27;명시됨&#x27;, text: &#x27;직전 검토 범위와 현재 변경을 의미 기준으로 재분류한 뒤, 같은 작업 바이트만 그대로 스테이징하고 staged diff 검토 후 로컬 커밋&#x27; },
               { label: &#x27;명시 안 됨&#x27;, text: &#x27;미커밋 diff를 보고하고 사용자 검토 대기&#x27;, terminal: true }
             ] },
             { kind: &#x27;decision&#x27;, text: &#x27;Push·배포·릴리스·영구 삭제가 필요한가?&#x27;, branches: [
@@ -1509,7 +1509,8 @@ html&gt;body{padding:0}&lt;/style&gt;
           scope: &#x27;콘텐츠 수정 권한을 새로 추론하지 않고, 이미 확정된 범위를 안전하게 커밋하거나 명시된 원격 작업까지 끝냅니다.&#x27;,
           steps: [
             { kind: &#x27;start&#x27;, text: &#x27;요청이 로컬 커밋·버전·Push·릴리스 중 어디까지인지 확정&#x27; },
-            { kind: &#x27;node&#x27;, text: &#x27;현재 diff·staged diff·대상 저장소·브랜치 확인&#x27; },
+            { kind: &#x27;gate&#x27;, text: &#x27;직전 미커밋 검토 범위를 이어받아 현재 diff·staged diff·새 경로를 같은 작업·관련 지원·무관·불명으로 재분류&#x27; },
+            { kind: &#x27;node&#x27;, text: &#x27;확정된 범위·대상 저장소·브랜치 확인&#x27; },
             { kind: &#x27;decision&#x27;, text: &#x27;UnityO 패키지 변경인가?&#x27;, branches: [
               { label: &#x27;예&#x27;, text: &#x27;공개 API·동작 변화로 버전 bump 여부 판정&#x27; },
               { label: &#x27;아니오&#x27;, text: &#x27;해당 프로젝트 버전 정책만 적용&#x27; }
@@ -1524,7 +1525,7 @@ html&gt;body{padding:0}&lt;/style&gt;
             { kind: &#x27;finish&#x27;, text: &#x27;커밋·버전·원격 결과와 남은 외부 설정 보고&#x27; }
           ],
           guards: [
-            &#x27;커밋 요청을 앞선 콘텐츠 요구를 무시하는 신호로 해석하지 않는다.&#x27;,
+            &#x27;커밋 요청은 직전 검토 범위를 이어받되, 사용자 수정이라는 이유만으로 같은 작업 바이트를 제외하지 않는다.&#x27;,
             &#x27;로컬 커밋 허용을 Push·배포 허용으로 확대하지 않는다.&#x27;,
             &#x27;finish 단계가 범위 밖 파일 수정 권한을 새로 만들지 않는다.&#x27;
           ]
