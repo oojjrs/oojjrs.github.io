@@ -364,8 +364,68 @@
     }
   </style>
   <link rel="stylesheet" href="../../assets/css/auto-color-scheme.css">
+  <style>
+    @media (prefers-color-scheme: light) {
+      body.csharp-convention-page {
+        background:
+          radial-gradient(circle at 22% 0%, rgba(23, 108, 89, 0.1), transparent 30rem),
+          linear-gradient(180deg, #fbfaf7 0%, var(--bg) 42rem);
+      }
+
+      .csharp-convention-page main > header,
+      .csharp-convention-page .reference-strip,
+      .csharp-convention-page section {
+        background: rgba(255, 255, 255, 0.9);
+      }
+
+      .csharp-convention-page .scope-rule {
+        border-color: rgba(154, 63, 50, 0.28);
+        background: var(--danger-soft);
+        color: var(--danger);
+      }
+
+      .csharp-convention-page .purpose-summary,
+      .csharp-convention-page .method-summary {
+        border-color: rgba(23, 108, 89, 0.24);
+        background: rgba(255, 255, 255, 0.84);
+      }
+
+      .csharp-convention-page .section-heading,
+      .csharp-convention-page .document-layout .toc {
+        background: rgba(240, 238, 232, 0.96);
+      }
+
+      .csharp-convention-page .home-link,
+      .csharp-convention-page .language-select {
+        border-color: var(--line);
+        background: rgba(255, 255, 255, 0.72);
+        color: var(--text);
+      }
+
+      .csharp-convention-page .home-link:hover,
+      .csharp-convention-page .language-select:hover,
+      .csharp-convention-page .language-select:focus-visible {
+        border-color: var(--accent-strong);
+        background: var(--accent-soft);
+      }
+
+      .csharp-convention-page .language-select {
+        color-scheme: light;
+      }
+
+      .csharp-convention-page .toc a:hover,
+      .csharp-convention-page .priority-list span,
+      .csharp-convention-page .priority-list a:hover {
+        color: var(--accent-strong);
+      }
+
+      .csharp-convention-page .example-label {
+        border-bottom-color: var(--line);
+      }
+    }
+  </style>
 </head>
-<body class="standalone-page">
+<body class="standalone-page csharp-convention-page">
   <main>
     <header>
       <div class="header-copy">
