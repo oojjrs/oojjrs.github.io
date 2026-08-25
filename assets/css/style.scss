@@ -432,6 +432,8 @@ pre {
   border-left: 4px solid var(--accent);
   color: var(--text);
   font-size: 18px;
+  font-style: normal;
+  letter-spacing: normal;
 }
 .article-body blockquote p { color: var(--text); }
 .article-body .article-principle {
@@ -499,7 +501,7 @@ pre {
 .technical-body h2 { counter-increment: technical-section; margin: 3.8em 0 1em; padding-top: 1em; border-top: 1px solid var(--line); color: var(--text); font-size: 27px; line-height: 1.28; scroll-margin-top: 100px; }
 .technical-body h2::before { display: block; margin-bottom: 9px; color: var(--blue); content: "0" counter(technical-section); font: 850 11px/1.2 Consolas, monospace; }
 .technical-body h3 { margin-top: 2.4em; color: var(--text); letter-spacing: 0; }
-.technical-body blockquote { margin: 2em 0; padding: 3px 0 3px 20px; border-left: 4px solid var(--blue); color: var(--text); }
+.technical-body blockquote { margin: 2em 0; padding: 3px 0 3px 20px; border-left: 4px solid var(--blue); color: var(--text); font-style: normal; letter-spacing: normal; }
 .technical-body blockquote p { color: var(--text); }
 .technical-body .technical-principle { margin: 2.2em 0 2.8em; padding: 20px 22px; border: 1px solid rgba(141, 184, 255, .32); border-left: 5px solid var(--blue); border-radius: 5px; background: rgba(141, 184, 255, .08); color: var(--text); font-size: 18px; font-weight: 720; line-height: 1.58; }
 .technical-body .technical-principle p,
