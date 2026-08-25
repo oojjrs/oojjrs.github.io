@@ -41,7 +41,6 @@ Short-lived code can be written quickly. But writing quickly does not mean mixin
 Long-lived code, on the other hand, requires more cost up front. You need to verify the assumptions behind the requirements more persistently, make responsibility boundaries clear, and build a structure that later code can safely depend on. Avoiding that cost may look fast now, but every future change becomes more expensive.
 
 > Good code is not always code that is written with maximum precision. Good code is code that pays the right cost for its expected lifetime.
-{: .article-principle }
 
 ## The remaining life of an existing design {#existing-design}
 
@@ -62,7 +61,6 @@ The original intent may have been good. The developer may have imagined an exten
 What matters is the implementation rate. You need to know whether 80 percent of the required design was implemented, or whether only 20 percent was implemented while merely making the feature work. If you expand code that only implemented 20 percent of the design as if it were an 80 percent design, that code will collapse quickly.
 
 > Technical debt is not the problem by itself. The problem is treating debt as an asset without recording it as debt.
-{: .article-note }
 
 ## Depreciation {#depreciation}
 

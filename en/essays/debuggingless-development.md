@@ -39,7 +39,6 @@ The problem is that debugging can easily push people toward removing only the vi
 This can make the immediate bug disappear. But it does not explain why the overall logic should behave that way. In the end, this leads to inductive maintenance: observe possible cases one by one, collect them, test them, and respond with more conditions.
 
 > Removing the value currently in front of you is not the same as fixing the logical structure that made that value possible.
-{: .article-principle }
 
 ## Reactive debugging {#reactive-debugging}
 
@@ -78,7 +77,6 @@ The point is not to divide code into more pieces for its own sake. When each lay
 What matters is not the number of layers. What matters is whether the direction of responsibility and dependency stays logical. What a layer cannot know should remain hidden from that layer. What a layer must not decide should not be decidable there.
 
 > In an ideal layered structure, leaf-level business logic contains very little conditional judgment. Not only checks such as `if`, but the branching logic itself is handled by higher layers, while leaf components simply execute behavior that has already been selected. When branching conditions are gathered in higher layers, verified decisions can be reused by many leaf-level routines, avoiding repeated condition checks and raising the stability of the system as a whole.
-{: .article-note }
 
 When layers collapse, developers tend to solve problems by directly referencing deeper objects to get the value they need, or by letting low-level code know high-level policy. As these shortcuts accumulate, the system becomes increasingly dependent on inductive condition handling.
 
@@ -99,7 +97,6 @@ The purpose of logs here is not to collect as many values as possible. What you 
 Structural logging is therefore less a replacement for debugging and more a way to confirm that the designed logical flow is still preserved during execution. Good logs are not useful only when fixing a bug. They show that the system continues to move along the intended paths.
 
 > When structural logs become complete enough, you can extract logs before and after a risky change and compare the execution flow. If the log order changes, an intermediate call disappears, or an unexpected path appears, you can check whether the current call state and conditions are still the same as before. It is similar to comparing call stacks in a memory viewer: by comparing log flows, you can distinguish normal calls from abnormal ones.
-{: .article-note }
 
 ## Where observation gets harder {#observation-limits}
 

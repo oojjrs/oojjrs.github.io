@@ -49,7 +49,6 @@ A time-lapse that compresses months of work into minutes, a highlight reel where
 In that moment, the viewer consumes the result while also imagining the time behind it. They did not live through that time themselves, but they feel that the time existed. The completed scene then appears not as a simple achievement, but as the trace of a compressed life.
 
 > What humans revere is not the surface of the result, but the time folded inside that surface.
-{: .article-principle }
 
 ## Digested time {#digested-time}
 

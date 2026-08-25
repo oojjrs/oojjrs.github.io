@@ -38,7 +38,6 @@ Gridworld is not a game about playing inside a world. It is a system for creatin
 The player is not someone who merely finishes one session. The player is a creator, observer, intervener, and record keeper who accumulates conditions across many worlds.
 
 > A world is born, lives, collides, disappears, and continues again.
-{: .article-principle }
 
 ## Project Definition {#identity}
 
@@ -136,7 +135,6 @@ The important fun comes from the moment something I created appears again, the m
 The MVP goal can be summarized in one sentence.
 
 > A living being I created survives even without my intervention.
-{: .article-principle }
 
 The minimum implementation scope is a single species, reproduction and death, environmental influence, and a simple intervention system. At this stage, the important thing is not the amount of content, but verifying the feeling that the world changes even without the player.
 
