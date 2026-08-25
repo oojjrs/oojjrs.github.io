@@ -57,7 +57,7 @@
   .site-page .reference-body thead,
   .site-page .article-body thead th { background: #e9eee9; color: var(--text); }
   .site-page .article-body .article-principle {
-    background: linear-gradient(90deg, rgba(23, 108, 89, .13), rgba(255, 255, 255, .88));
+    background: rgba(23, 108, 89, .08);
   }
   .site-page .technical-body .technical-principle { background: rgba(40, 104, 167, .08); }
   .site-page .highlight,
