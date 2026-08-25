@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: technical
 title: "신규 Unity 프로젝트 초기 설정"
 lang: ko-KR
 category: "GAME DEVELOPMENT"

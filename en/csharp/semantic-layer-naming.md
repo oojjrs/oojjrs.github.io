@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: technical
 title: "Semantic Layer Naming"
 lang: en
 alternate_url: /kr/csharp/semantic-layer-naming/
@@ -25,11 +25,11 @@ toc_items:
     label: Scope and history
 ---
 
-<p class="article-backlink"><a href="{{ "/en/" | relative_url }}">← Document index</a></p>
+<p class="technical-backlink"><a href="{{ "/en/" | relative_url }}">← Document index</a></p>
 
-<p class="article-lead">A boundary inside an identifier is not a visual spelling break. In game-project and server-application business logic, each boundary declares that the structure represented by the name has gained another layer. The surface syntax may vary by language and platform, but this decision remains the same.</p>
+<p class="technical-lead">A boundary inside an identifier is not a visual spelling break. In game-project and server-application business logic, each boundary declares that the structure represented by the name has gained another layer. The surface syntax may vary by language and platform, but this decision remains the same.</p>
 
-<div class="article-principle">
+<div class="technical-principle">
   <p>Each semantic token in a name represents one real semantic layer. Write one layer as one token. Let ownership, structure, relations, and responsibilities in the code—not the dictionary or surface casing—decide the boundary.</p>
 </div>
 
@@ -169,7 +169,7 @@ Exclude generated code, vendor code, external samples, dependency caches, and fr
 
 When inferring the established convention, treat recent first-party code as stronger evidence than old code. Legacy can reveal debt, but it does not automatically become precedent for new names.
 
-<div class="article-note">
+<div class="technical-note">
   <p>Even when the naming principle is clear, a broad rename that affects serialization, resources, public APIs, or an external contract is a separate migration task. Do not perform it as style cleanup without reference tracing and a migration plan.</p>
 </div>
 

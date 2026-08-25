@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: technical
 title: "Network Object State Synchronization"
 lang: en
 category: "GAME DEVELOPMENT"
@@ -26,13 +26,13 @@ toc_items:
 ---
 
 [← Unity]({{ "/en/unity/" | relative_url }})
-{: .article-backlink }
+{: .technical-backlink }
 
 In a networked game, it is usually more stable to share the meaning and order of object state changes, then let each client rebuild local presentation from that state, than to keep replicating the final visible result.
-{: .article-lead }
+{: .technical-lead }
 
 > The network aligns the meaning and order of object state. Local code plays or discards presentation based on that state.
-{: .article-principle }
+{: .technical-principle }
 
 ## One-Page Summary {#diagram}
 
@@ -119,10 +119,10 @@ In a networked game, it is usually more stable to share the meaning and order of
 </div>
 
 In the diagram, the main path is command / intent generation -> state change request -> decision owner -> shared object state -> presentation adapter -> output. State rule definitions and presentation definitions do not replace the main path; they are static definitions consulted by the decision owner and presentation adapter.
-{: .article-note }
+{: .technical-note }
 
 Start, stop, replace, create, and destroy intents can all appear at the same command generation stage. A state change request can come from a client, server, AI, or local system. A stop or replacement can also be decided by the decision owner after it evaluates priority, hit, death, or other state rules. Either way, the final decision that changes object state is made by the decision owner, recorded in shared object state, and synchronized. The presentation adapter is not called directly by the decision owner; it observes shared object state changes and updates animation, effects, and sound.
-{: .article-note }
+{: .technical-note }
 
 ## Design Context {#problem}
 

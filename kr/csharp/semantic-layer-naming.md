@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: technical
 title: "의미 계층 기반 네이밍"
 lang: ko-KR
 alternate_url: /en/csharp/semantic-layer-naming/
@@ -25,11 +25,11 @@ toc_items:
     label: 적용 범위와 이력
 ---
 
-<p class="article-backlink"><a href="{{ "/kr/" | relative_url }}">← 문서 목록</a></p>
+<p class="technical-backlink"><a href="{{ "/kr/" | relative_url }}">← 문서 목록</a></p>
 
-<p class="article-lead">식별자 안의 경계는 보기 좋게 철자를 끊는 표시가 아니다. 게임 프로젝트와 서버 애플리케이션의 비즈니스 로직에서는 각 경계를 이름이 나타내는 구조가 한 계층 확장된다는 선언으로 읽는다. 표현 문법은 언어와 플랫폼에 따라 달라도 이 판정은 같다.</p>
+<p class="technical-lead">식별자 안의 경계는 보기 좋게 철자를 끊는 표시가 아니다. 게임 프로젝트와 서버 애플리케이션의 비즈니스 로직에서는 각 경계를 이름이 나타내는 구조가 한 계층 확장된다는 선언으로 읽는다. 표현 문법은 언어와 플랫폼에 따라 달라도 이 판정은 같다.</p>
 
-<div class="article-principle">
+<div class="technical-principle">
   <p>이름의 각 의미 토큰은 실제 의미 계층 하나를 나타낸다. 한 계층은 한 토큰으로 쓴다. 경계는 사전이나 표면 casing이 아니라 코드의 소유·구조·관계·책임으로 판정한다.</p>
 </div>
 
@@ -169,7 +169,7 @@ Prefab만 인스턴스화하는 타입을 `AssetLoader`라고 부르거나, obst
 
 기존 관례를 추론할 때는 오래된 코드보다 최신 first-party 코드를 더 강한 증거로 본다. 레거시는 현재 규칙의 반례가 될 수는 있어도 새 코드의 선례로 자동 승격되지 않는다.
 
-<div class="article-note">
+<div class="technical-note">
   <p>명명 원리가 맞더라도 직렬화, resource, public API 또는 외부 계약을 깨는 일괄 rename은 별도 migration 작업이다. 안전한 참조 추적과 이전 계획 없이 스타일 정리만으로 실행하지 않는다.</p>
 </div>
 

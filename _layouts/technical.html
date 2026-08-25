@@ -1,0 +1,43 @@
+---
+layout: default
+---
+<article class="site-shell technical-document" id="top">
+  <header class="technical-header">
+    <p class="technical-eyebrow">{{ page.category | default: "TECHNICAL DOCUMENT" }}</p>
+    <h1>{{ page.title }}</h1>
+    {% if page.description %}
+      <p class="technical-description">{{ page.description }}</p>
+    {% endif %}
+  </header>
+  {% if page.toc_items %}
+    <nav class="technical-toc" aria-label="문서 목차">
+      <p class="technical-toc-label">CONTENTS</p>
+      <ol>
+        {% for item in page.toc_items %}
+          <li><a href="#{{ item.id }}">{{ item.label }}</a></li>
+        {% endfor %}
+      </ol>
+    </nav>
+  {% endif %}
+  <div class="technical-body">
+    {{ content }}
+  </div>
+  {% assign current_lang = page.lang | default: site.lang | default: 'ko-KR' %}
+  {% assign is_english = false %}
+  {% if current_lang contains 'en' %}
+    {% assign is_english = true %}
+  {% endif %}
+  {% if is_english %}
+    {% assign document_home_url = '/en/' %}
+    {% assign document_home_label = 'Home' %}
+    {% assign document_top_label = 'Top' %}
+  {% else %}
+    {% assign document_home_url = '/kr/' %}
+    {% assign document_home_label = '홈으로' %}
+    {% assign document_top_label = '맨 위로' %}
+  {% endif %}
+  <nav class="technical-footer-nav" aria-label="{% if is_english %}Document navigation{% else %}문서 이동{% endif %}">
+    <a href="{{ document_home_url | relative_url }}">{{ document_home_label }}</a>
+    <a href="#top">{{ document_top_label }}</a>
+  </nav>
+</article>

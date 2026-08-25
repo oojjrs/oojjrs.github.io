@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: technical
 title: "네이밍 전수조사"
 lang: ko-KR
 category: "C# NAMING DATA"
@@ -22,15 +22,15 @@ toc_items:
     label: 해석 메모
 ---
 
-<p class="article-backlink"><a href="{{ "/kr/" | relative_url }}">← 문서 목록</a></p>
+<p class="technical-backlink"><a href="{{ "/kr/" | relative_url }}">← 문서 목록</a></p>
 
-<p class="article-lead">이 문서는 명명 규칙을 새로 선언하지 않는다. 실제 Unity·ASP.NET C# 코드에서 관찰된 이름을 <a href="{{ "/kr/csharp/semantic-layer-naming/" | relative_url }}">의미 계층</a> 단위로 모아, 지금 살아 있는 이름 축과 과거에만 남은 이름 축을 비교하기 위한 직접 출처 식별자 제거 조사 데이터다.</p>
+<p class="technical-lead">이 문서는 명명 규칙을 새로 선언하지 않는다. 실제 Unity·ASP.NET C# 코드에서 관찰된 이름을 <a href="{{ "/kr/csharp/semantic-layer-naming/" | relative_url }}">의미 계층</a> 단위로 모아, 지금 살아 있는 이름 축과 과거에만 남은 이름 축을 비교하기 위한 직접 출처 식별자 제거 조사 데이터다.</p>
 
-<div class="article-principle">
+<div class="technical-principle">
   <p><code>EntityRecord</code> 같은 자리표시자는 이 표의 키가 아니다. 첫 열에는 <code>Archive</code>, <code>Quest</code>, <code>User</code>처럼 코드에서 실제로 관찰된 의미 축만 놓고, 둘째 열에 그 축에서 발견된 정확한 선언 이름을 모두 보존한다.</p>
 </div>
 
-<div class="article-note naming-census-privacy">
+<div class="technical-note naming-census-privacy">
   <p><strong>공개 범위.</strong> 조사 결과의 이름과 날짜만 합쳐 싣는다. 프로젝트명, 저장소명, 파일 경로, 커밋 식별자, 프로젝트별 통계처럼 출처를 역추적할 수 있는 직접 식별 정보는 의도적으로 공개하지 않는다. 다만 정확한 선언 이름의 집합 자체가 코드베이스의 특성을 드러낼 수 있으므로 익명화 자료라고 간주하지 않는다.</p>
 </div>
 
