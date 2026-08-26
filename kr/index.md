@@ -45,6 +45,14 @@ alternate_url: /en/
         <p>정상 동작 바깥의 처리</p>
         <span class="card-link">읽기 <span aria-hidden="true">→</span></span>
       </a>
+
+      <a class="collection-card collection-card-essay" href="{{ "/kr/essays/unfamiliar-mirror/" | relative_url }}">
+        <span class="card-index">05</span>
+        <span class="card-label">AI ESSAY</span>
+        <h3>낯선 거울</h3>
+        <p>AI가 비추는 나의 언어</p>
+        <span class="card-link">읽기 <span aria-hidden="true">→</span></span>
+      </a>
     </div>
   </section>
 
@@ -56,7 +64,7 @@ alternate_url: /en/
 
     <div class="collection-grid">
       <a class="collection-card collection-card-codex" href="{{ "/codex/skill-routing-diagram/" | relative_url }}">
-        <span class="card-index">05</span>
+        <span class="card-index">06</span>
         <span class="card-label">AI WORKFLOW</span>
         <h3>스킬 라우팅</h3>
         <p>작업 흐름에서 필요한 Codex 스킬을 고르는 기준</p>
@@ -64,7 +72,7 @@ alternate_url: /en/
       </a>
 
       <a class="collection-card collection-card-network" href="{{ "/kr/unity/network-action-presentation-sync/" | relative_url }}">
-        <span class="card-index">06</span>
+        <span class="card-index">07</span>
         <span class="card-label">NETWORK ARCHITECTURE</span>
         <h3>객체 상태 동기화</h3>
         <p>공유 객체 상태를 기준으로 로컬 표현을 재구성하는 구조</p>
