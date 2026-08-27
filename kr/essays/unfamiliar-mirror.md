@@ -4,6 +4,7 @@ title: "낯선 거울"
 lang: ko-KR
 description: "AI와 대화하며 드러나는 언어와 의도, 소통의 불완전성"
 permalink: /kr/essays/unfamiliar-mirror/
+alternate_url: /en/essays/unfamiliar-mirror/
 toc_items:
   - id: jelly-tower
     label: "젤리로 쌓은 탑"

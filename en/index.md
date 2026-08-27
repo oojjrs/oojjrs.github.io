@@ -45,6 +45,14 @@ alternate_url: /kr/
         <p>Handling what lies beyond normal operation</p>
         <span class="card-link">Read <span aria-hidden="true">→</span></span>
       </a>
+
+      <a class="collection-card collection-card-essay" href="{{ "/en/essays/unfamiliar-mirror/" | relative_url }}">
+        <span class="card-index">05</span>
+        <span class="card-label">AI ESSAY</span>
+        <h3>An Unfamiliar Mirror</h3>
+        <p>How AI reflects the language we use</p>
+        <span class="card-link">Read <span aria-hidden="true">→</span></span>
+      </a>
     </div>
   </section>
 
@@ -56,7 +64,7 @@ alternate_url: /kr/
 
     <div class="collection-grid">
       <a class="collection-card collection-card-codex" href="{{ "/codex/skill-routing-diagram/" | relative_url }}">
-        <span class="card-index">05</span>
+        <span class="card-index">06</span>
         <span class="card-label">AI WORKFLOW</span>
         <h3>Skill Routing</h3>
         <p>When each Codex skill should join the work process</p>
@@ -64,7 +72,7 @@ alternate_url: /kr/
       </a>
 
       <a class="collection-card collection-card-network" href="{{ "/en/unity/network-action-presentation-sync/" | relative_url }}">
-        <span class="card-index">06</span>
+        <span class="card-index">07</span>
         <span class="card-label">NETWORK ARCHITECTURE</span>
         <h3>Object State Sync</h3>
         <p>Share compact object state and rebuild presentation locally</p>
