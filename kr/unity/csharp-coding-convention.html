@@ -1771,6 +1771,43 @@ private void ApplyAndLog()
           </div>
         </div>
       </article>
+      <article class="rule-card">
+        <div class="rule-index">42</div>
+        <div class="rule-body">
+          <h3>속성은 가능한 한 식 본문(<code>=&gt;</code>)을 쓰고 함수 선언은 쓰지 않는다</h3>
+          <p>하나의 식으로 표현할 수 있는 속성은 가능한 한 <code>=&gt;</code> 식 본문으로 쓴다. 메서드·생성자·소멸자·연산자·지역 함수 선언에는 식 본문을 쓰지 않고 중괄호 블록 본문을 쓴다. 2번의 중괄호 생략은 제어문 등의 문장 본문에만 적용한다. 람다 식의 <code>=&gt;</code>는 함수 선언이 아니므로 이 규칙의 대상이 아니다.</p>
+          <div class="example-pair">
+            <div class="example good">
+              <div class="example-label">올바른 사용</div>
+              <pre><code>public int RewardCount =&gt; rewardCount;
+
+private int GetRewardCount()
+{
+    return rewardCount;
+}
+
+private void RefreshReward()
+{
+    ApplyReward();
+}</code></pre>
+            </div>
+            <div class="example bad">
+              <div class="example-label">잘못된 사용</div>
+              <pre><code>public int RewardCount
+{
+    get
+    {
+        return rewardCount;
+    }
+}
+
+private int GetRewardCount() =&gt; rewardCount;
+
+private void RefreshReward() =&gt; ApplyReward();</code></pre>
+            </div>
+          </div>
+        </div>
+      </article>
     </section>
     </div>
     </div>

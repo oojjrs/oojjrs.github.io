@@ -1293,4 +1293,40 @@ sealed class RewardCatalog
 }
 ```
 
+### 42. Prefer expression bodies for properties, but never use them for function declarations
+
+When a property can be expressed as one expression, use an expression body (`=>`) whenever possible. Methods, constructors, finalizers, operators, and local functions use brace-delimited block bodies and never expression bodies. Rule 02's brace omission applies only to statement bodies. Lambda syntax is outside this rule.
+
+Correct:
+
+```csharp
+public int RewardCount => rewardCount;
+
+private int GetRewardCount()
+{
+    return rewardCount;
+}
+
+private void RefreshReward()
+{
+    ApplyReward();
+}
+```
+
+Incorrect:
+
+```csharp
+public int RewardCount
+{
+    get
+    {
+        return rewardCount;
+    }
+}
+
+private int GetRewardCount() => rewardCount;
+
+private void RefreshReward() => ApplyReward();
+```
+
 </div>

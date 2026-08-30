@@ -57,3 +57,4 @@ First-party only. Priority: local > here > Unity > VS/Microsoft. Exclude generat
 39. Valid/normal/primary branch first.
 40. Inline single-use value; local requires 2+ uses or syntax/execution semantics.
 41. Do not use `internal` unless the user explicitly designates that specific declaration or scope as internal. This includes explicit `internal`, compound access containing it such as `protected internal`, and omitted access on top-level types (implicit internal). Never infer it from assembly/package/test boundaries or nearby code; otherwise state the intended non-internal access explicitly.
+42. A property that can be represented by one expression uses an expression body (`=>`) whenever possible. Function declarations never use expression bodies: methods, constructors, finalizers, operators, and local functions use brace-delimited block bodies. Rule 2's brace omission applies only to statement bodies; lambda syntax is unaffected.
