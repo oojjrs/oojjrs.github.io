@@ -21,6 +21,12 @@ permalink: /kr/unity/
     <p>필수 시스템 로그, 경고, 디버깅 로그, UX LOG의 목적과 형식, 선택 기준을 정리합니다.</p>
     <span class="card-link">문서 열기 <span aria-hidden="true">→</span></span>
   </a>
+  <a class="document-card" href="{{ "/kr/unity/framework/" | relative_url }}">
+    <span class="document-kind">ARCHITECTURE</span>
+    <h2>프레임워크</h2>
+    <p>비즈니스 로직의 반복되는 실행 흐름과 설계 판단을 규격화하는 방법을 설명합니다.</p>
+    <span class="card-link">문서 열기 <span aria-hidden="true">→</span></span>
+  </a>
   <a class="document-card" href="{{ "/kr/unity/network-action-presentation-sync/" | relative_url }}">
     <span class="document-kind">ARCHITECTURE</span>
     <h2>네트워크 객체 상태 동기화 구조</h2>
