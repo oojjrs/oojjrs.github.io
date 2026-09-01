@@ -11,6 +11,8 @@
     --panel-strong: #f0eee8;
     --paper: #f6f5f1;
     --text: #20231f;
+    --body-text: #3f443e;
+    --soft-text: #596158;
     --ink: #20231f;
     --muted: #666c64;
     --line: #d6d8d1;
@@ -133,6 +135,12 @@
 
   .site-page .routing-atlas .route-spine > .flow-node:not(:last-child)::after,
   .site-page .routing-atlas .routing-toolbar input { background-color: #ffffff; }
+  .site-page .routing-atlas .runtime-list li,
+  .site-page .routing-atlas .plugin-id-grid > span { background: #ffffff; }
+  .site-page .routing-atlas .precedence-strip,
+  .site-page .routing-atlas .orphan-feature-copy > p:not(.orphan-eyebrow),
+  .site-page .routing-atlas .evidence-strip p { color: var(--atlas-muted) !important; }
+  .site-page .routing-atlas .plugin-chip { color: var(--atlas-blue); }
   .site-page .routing-atlas .routing-toolbar label small { color: var(--atlas-muted); }
   .site-page .routing-atlas .atlas-timeline li > div::before { border-color: #f4f7f8; }
   .site-page .routing-atlas .atlas-summary-figure figcaption { background: #edf2f4; }
