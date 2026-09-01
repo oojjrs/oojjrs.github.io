@@ -78,6 +78,14 @@ alternate_url: /kr/
         <p>Share compact object state and rebuild presentation locally</p>
         <span class="card-link">Read <span aria-hidden="true">→</span></span>
       </a>
+
+      <a class="collection-card collection-card-network" href="{{ "/en/unity/framework/" | relative_url }}">
+        <span class="card-index">08</span>
+        <span class="card-label">SOFTWARE ARCHITECTURE</span>
+        <h3>Framework</h3>
+        <p>Turn recurring execution flow and design decisions into shared structure</p>
+        <span class="card-link">Read <span aria-hidden="true">→</span></span>
+      </a>
     </div>
   </section>
 

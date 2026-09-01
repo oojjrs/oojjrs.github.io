@@ -78,6 +78,14 @@ alternate_url: /en/
         <p>공유 객체 상태를 기준으로 로컬 표현을 재구성하는 구조</p>
         <span class="card-link">읽기 <span aria-hidden="true">→</span></span>
       </a>
+
+      <a class="collection-card collection-card-network" href="{{ "/kr/unity/framework/" | relative_url }}">
+        <span class="card-index">08</span>
+        <span class="card-label">SOFTWARE ARCHITECTURE</span>
+        <h3>프레임워크</h3>
+        <p>반복되는 실행 흐름과 설계 판단을 공통 구조로 만드는 방법</p>
+        <span class="card-link">읽기 <span aria-hidden="true">→</span></span>
+      </a>
     </div>
   </section>
 
