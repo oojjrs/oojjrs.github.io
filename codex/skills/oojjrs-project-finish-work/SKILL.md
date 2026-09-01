@@ -19,6 +19,18 @@ After scope reconciliation, an explicit staging or commit instruction never auth
 
 An explicitly requested merge, rebase, cherry-pick, or revert may make its normal worktree and index changes and the minimum conflict resolution needed to complete that operation. Re-review the resulting scoped bytes before commit; do not add unrelated repairs.
 
+## Remote Synchronization
+
+For every requested branch push or branch-backed publication, record the initiating checkout, its local target branch, and that branch's tip before creating or using an isolated or detached worktree. Immediately before the push sequence, fetch the exact target remote and branch and compare the local and fetched tips.
+
+1. If the tips are equal or only the local side has commits, leave the local branch unchanged.
+2. If only the fetched target has commits, recoverably preserve the checkout whose branch will move, including its index, unstaged changes, and untracked paths; fast-forward the local target branch; then restore that state.
+3. If both sides have commits, preserve the same state, rebase the local commits onto the fetched target unless the user explicitly chose a merge, and restore that state before staging, committing, or pushing.
+
+Keep every preservation reference until restoration is verified. Resolve a rebase or restore conflict only within the frozen task scope; otherwise stop and report it. Dirty state is not a reason to publish from a stale alternate base.
+
+After pushing, read back the exact remote target and verify that it contains the pushed commit. Before reporting completion, reconcile the initiating checkout's local target branch to the verified remote tip and restore its preserved index, unstaged changes, and untracked paths. Fast-forward when the initiating tip is an ancestor. When an isolated-worktree rebase rewrote the recorded initiating tip, keep a recoverable backup of that tip and move the initiating branch only after verifying that it has not advanced independently and that every old local commit is represented in the pushed history. If the initiating branch contains independent commits or restoration conflicts, retain the preservation and report the exact blocker; do not claim completion while that checkout remains behind.
+
 ## One-Pass Completion
 
 1. Reuse a post-last-edit text-format or ordinary-diff result only while both its source bytes and accounted path set remain known unchanged. The final staged review replaces a second ordinary-diff review; it never replaces Scope Reconciliation after a path or byte change. For non-commit completion, reuse or run the ordinary scoped diff once.
@@ -27,7 +39,7 @@ An explicitly requested merge, rebase, cherry-pick, or revert may make its norma
 4. If committing, inspect the exact intended paths for governed versioned units. Read and apply only policies that govern units present in that scope; do not report that unrelated or absent units do not exist.
 5. Stage the exact reconciled, staging-eligible existing bytes without modifying their contents. Review `git diff --cached --name-status`, the staged diff, and `git diff --cached --check` once after staging is final.
 6. If staged content changes, re-review only the final staged content and any policy directly affected by that change.
-7. Commit locally only as part of the explicitly authorized Git or publication outcome. Push, deploy, release, publish, or perform destructive Git operations only to the explicitly authorized target. For an external result, read back the resulting state once.
+7. Commit locally only as part of the explicitly authorized Git or publication outcome. Push, deploy, release, publish, or perform destructive Git operations only to the explicitly authorized target. For a branch push or branch-backed publication, follow **Remote Synchronization**; for another external result, read back the resulting state once.
 
 ## Text Format
 
