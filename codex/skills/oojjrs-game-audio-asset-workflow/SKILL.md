@@ -1,11 +1,11 @@
 ---
 name: oojjrs-game-audio-asset-workflow
-description: Use as the primary domain for game audio tasks that include sourcing or auditioning licensable SFX, editing, looping, SFX creation or preparation, runtime placement, previews, Design.html synchronization, or Unity-safe installation. Generation/download-only instrumental music requests use $oojjrs-ai-music-generator. A larger integrated task switches to that generator only during its explicit generation phase, never as a preload.
+description: Use as the primary domain for game audio tasks that include sourcing or auditioning licensable SFX, editing, looping, SFX creation or preparation, runtime placement, previews, Design.html synchronization, or Unity-safe installation. ElevenLabs prompt preparation and generation use $oojjrs-elevenlabs-sound-effects; generation/download-only instrumental music uses $oojjrs-ai-music-generator. A larger integrated task switches to the matching generator only during its explicit phase, never as a preload.
 ---
 
 # oojjrs Game Audio Asset Workflow
 
-Use this as the primary domain for project-integrated game audio work. When a new paid track is explicitly required, close the current phase, route the generation phase to `$oojjrs-ai-music-generator`, then return with its downloaded results; do not preload both skills.
+Use this as the primary domain for project-integrated game audio work. When paid ElevenLabs SFX or a paid music track is explicitly required, close the current phase, route prompt preparation and generation to `$oojjrs-elevenlabs-sound-effects` or `$oojjrs-ai-music-generator`, then return with the approved result; do not preload a generator.
 
 ## Workflow
 
@@ -29,7 +29,7 @@ Use this as the primary domain for project-integrated game audio work. When a ne
 
 After the source or style is selected, prefer the minimum processing that retains the chosen character. Use `ffmpeg` for deterministic trimming, fades, resampling, EQ, pitch or time changes, layering, loudness work, and reviewable variants.
 
-Use synthesis or generation when the user explicitly requests original construction, a targeted search finds no suitable licensable source, or the effect genuinely needs a novel or internally consistent layered design. A request to `make` or `create` an SFX does not by itself require from-scratch synthesis. Ground synthesized work in auditioned references when available; unattended work is not by itself a reason to skip sourcing.
+Use synthesis or generation when the user explicitly requests original construction, a targeted search finds no suitable licensable source, or the effect genuinely needs a novel or internally consistent layered design. A request to `make` or `create` an SFX does not by itself authorize paid generation or require from-scratch synthesis. When the user explicitly chooses paid ElevenLabs generation, finish this phase and route English prompt preparation plus official-skill generation to `$oojjrs-elevenlabs-sound-effects`, then return here for editing, provenance, final selection, promotion, and project installation. Ground synthesized work in auditioned references when available; unattended work is not by itself a reason to skip sourcing.
 
 ## Loop and SFX Checks
 
