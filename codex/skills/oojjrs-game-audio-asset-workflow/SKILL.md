@@ -35,6 +35,8 @@ Use synthesis or generation when the user explicitly requests original construct
 
 When a loop seam changed, check it by listening when possible or by inspecting the edited waveform and fade structure when playback is unavailable.
 
+For input-coupled UI SFX, treat response timing as part of UX: remove baked leading silence, place the first intentional audible onset at sample zero, and put the primary feedback transient within the first few milliseconds rather than after anticipation or mechanism pre-motion. Measure the decoded PCM onset after every trim, tempo change, resample, or format conversion; even a sub-10 ms baked delay is not a substitute for sample-zero alignment.
+
 For SFX, choose duration, envelope, tail, loudness, and texture from the immediate gameplay or UI context; do not assume all UI feedback must be short or tail-less. Technical waveform and loudness checks support delivery but never replace listening or user selection for an aesthetic decision. For repeated impacts from one object or mechanism, prefer one source with subtle variations unless deliberate contrast is requested.
 
 ## Reporting
