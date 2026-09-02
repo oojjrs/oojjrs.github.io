@@ -1,4 +1,4 @@
 interface:
   display_name: "oojjrs ElevenLabs Sound Effects"
   short_description: "Polish English SFX prompts for ElevenLabs"
-  default_prompt: "Use $oojjrs-elevenlabs-sound-effects to turn my rough sound idea into a precise English prompt, prefer native PCM for lossless game SFX, and delegate any explicitly requested generation to the official $sound-effects skill without altering its output."
+  default_prompt: "Use $oojjrs-elevenlabs-sound-effects to turn my rough sound idea into a precise English prompt, route SFX creation and iteration to the official $sound-effects skill, prefer native PCM for lossless game SFX, and preserve its output unchanged."

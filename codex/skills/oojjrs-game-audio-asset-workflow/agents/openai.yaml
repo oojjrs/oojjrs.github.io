@@ -1,4 +1,4 @@
 interface:
   display_name: "oojjrs Game Audio Asset Workflow"
-  short_description: "Source or explicitly process game audio"
-  default_prompt: "Use $oojjrs-game-audio-asset-workflow to find an untouched licensed SFX or route an explicitly requested generation, and never process audio unless I explicitly request the edit."
+  short_description: "Route SFX creation, sourcing, and project audio"
+  default_prompt: "Use $oojjrs-game-audio-asset-workflow to route SFX creation directly to ElevenLabs, source existing audio only when I explicitly ask, and never process audio unless I explicitly request the edit."

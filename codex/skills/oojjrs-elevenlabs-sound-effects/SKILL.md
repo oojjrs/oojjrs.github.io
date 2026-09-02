@@ -1,6 +1,6 @@
 ---
 name: oojjrs-elevenlabs-sound-effects
-description: Map Korean, rough, or project-specific SFX intent to the closest concrete sound source or physical event, explain that choice to the user in Korean, write the provider prompt in English, and delegate explicitly requested generation to the official $sound-effects skill. Do not use for broader sourcing, post-processing, runtime installation, or documentation; SFX processing always requires a separate explicit user request under $oojjrs-game-audio-asset-workflow.
+description: Use when the user asks to make, create, generate, regenerate, redesign, retry, or iterate on an SFX. Map Korean, rough, or project-specific intent to the closest concrete sound source or physical event, explain that choice in Korean, write the provider prompt in English, and delegate generation to the official $sound-effects skill. Do not use for existing-audio sourcing, post-processing, runtime installation, or documentation.
 ---
 
 # oojjrs ElevenLabs Sound Effects
@@ -20,12 +20,12 @@ Act as a thin prompt-and-routing adapter for the official ElevenLabs `$sound-eff
    - Keep directions about duration, looping, prompt influence, and output format in their official parameters instead of bloating the prompt.
    - Submit an English prompt. Do not put Korean in it unless the user explicitly wants Korean speech as audible content.
    - Use English only for the provider-facing prompt. Explain the prompt's meaning, intended sound, and parameter choices to the user in Korean unless the user explicitly requests another explanation language.
-3. Present the final English provider prompt, resolved parameters, and a concise Korean explanation that identifies the chosen concrete source analogy and why it matches the user's intent. Never use the English prompt itself as the user-facing explanation. When the user asks only for prompt help, stop there without consuming usage. A current explicit request to generate authorizes its stated number of calls; do not add a duplicate confirmation gate.
+3. Present the final English provider prompt, resolved parameters, and a concise Korean explanation that identifies the chosen concrete source analogy and why it matches the user's intent. Never use the English prompt itself as the user-facing explanation. When the user asks only for prompt help, stop there without consuming usage. A current explicit request to make, create, generate, regenerate, redesign, retry, or continue an established SFX-generation iteration authorizes one call when no count is stated, or the stated number of calls; do not add a duplicate confirmation gate.
 4. Delegate exactly the authorized number of generation calls to `$sound-effects`.
    - The API returns one result per call. Never infer four calls from the website's four-preview behavior.
    - Save the untouched API response under `$Trash` in the active workspace. Receiving and saving that response is part of the generation call, not a separate browser download.
    - Link each preview by absolute path and wait for approval before copying it into a final or project directory.
-   - Another variant is another usage-consuming call unless its count was already authorized. Never retry an ambiguous or failed submission automatically.
+   - Another variant is another usage-consuming call unless its count was already authorized. A user-requested retry is a newly authorized call; never retry an ambiguous or failed submission automatically.
 5. Treat generation authorization as permission only for the provider call and saving or presenting its untouched result. It never authorizes local waveform construction or post-processing.
 6. Return approved previews to `$oojjrs-game-audio-asset-workflow` for listening support, provenance, final naming, and project installation. Editing or conversion remains blocked unless the user separately and explicitly requests that processing.
 
