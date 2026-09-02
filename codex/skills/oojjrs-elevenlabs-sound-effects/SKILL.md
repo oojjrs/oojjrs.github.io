@@ -26,8 +26,8 @@ Act as a thin prompt-and-routing adapter for the official ElevenLabs `$sound-eff
    - Save the untouched API response under `$Trash` in the active workspace. Receiving and saving that response is part of the generation call, not a separate browser download.
    - Link each preview by absolute path and wait for approval before copying it into a final or project directory.
    - Another variant is another usage-consuming call unless its count was already authorized. A user-requested retry is a newly authorized call; never retry an ambiguous or failed submission automatically.
-5. Treat generation authorization as permission only for the provider call and saving or presenting its untouched result. It never authorizes local waveform construction or post-processing.
-6. Return approved previews to `$oojjrs-game-audio-asset-workflow` for listening support, provenance, final naming, and project installation. Editing or conversion remains blocked unless the user separately and explicitly requests that processing.
+5. Treat generation authorization as permission only for the provider call and saving or presenting its untouched result. It also includes the header-only, sample-bit-identical PCM-to-WAV packaging required by **Output Fidelity**; treat that as result delivery rather than waveform construction or post-processing. It authorizes no other conversion or audio edit.
+6. Return approved previews to `$oojjrs-game-audio-asset-workflow` for listening support, provenance, final naming, and project installation. Editing or transcoding remains blocked unless the user separately and explicitly requests that processing; header-only WAV packaging under **Output Fidelity** is the sole exception.
 
 ## Iterative Feedback
 
@@ -40,8 +40,9 @@ Act as a thin prompt-and-routing adapter for the official ElevenLabs `$sound-eff
 ## Output Fidelity
 
 - Honor an explicitly requested format and never silently replace WAV or PCM with MP3. If the format is unavailable for the current account, report the entitlement boundary and let the user choose.
-- For a lossless game-SFX result when no format was specified, prefer the highest native PCM format allowed by the current account. Preserve the raw PCM response as the generation master.
-- When a playable WAV is needed from raw PCM, add only the correct WAV container header, preserve the sample payload bit-for-bit, and verify that identity. Label the WAV as a container copy, not a separately generated file.
+- When no format was specified, prefer the highest-quality native WAV supported by the active ElevenLabs endpoint and account. For non-looping sound effects, prefer native 48 kHz WAV when it is available, and preserve the returned WAV bytes unchanged as the generation master.
+- If native WAV is unavailable, including for an endpoint or mode that exposes only raw lossless audio, prefer the highest native PCM format allowed by the current account and preserve that raw PCM response as the generation master. Do not silently fall back to MP3 while a lossless PCM option is available.
+- For a raw-PCM fallback, also create and present a playable WAV container copy by default: add only the correct WAV header, preserve the sample payload bit-for-bit, and verify that identity. Derive sample rate, channels, bit depth, and byte order only from the official API contract or authoritative response metadata; never guess missing values. If those values cannot be established, keep the raw PCM master and report why a valid WAV copy could not be made. Label a completed WAV as a container copy, not a separately generated file or an aesthetically processed result.
 - Do not amplify, normalize, trim, resample, denoise, EQ, or otherwise process a generated candidate unless the user's current request explicitly asks for that exact operation. This remains true after review: rejection, aesthetic feedback, or authorization for another generation is not processing permission. Technical measurements may diagnose a bad result but must not be used to pass a processed repair off as generation quality.
 
 ## Authentication And Safety
