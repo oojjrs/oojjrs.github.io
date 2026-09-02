@@ -58,8 +58,8 @@ $oojjrs-guidelines
 | Domain | `$oojjrs-2d-sprite-animation` | 2D animation frames, sheets, pivots, or preview GIFs | Supersedes image-first art for animation frames |
 | Domain | `$oojjrs-image-first-art-workflow` | General new or revised raster art and visual assets | Not for 2D animation or a more-specific Mines pipeline |
 | Domain | `$oojjrs-mines-art-asset-pipeline` | `H:\Mines` art, UI asset, effect, theme, inventory, or Unity asset work | Supersedes generic image and Unity asset domains; only narrow existing Design asset-entry sync, not document structure or audio |
-| Domain | `$oojjrs-game-audio-asset-workflow` | Licensed SFX sourcing and audition, audio editing, looping, project installation, previews, or Design synchronization | Select SFX sources before editing; switch to the matching SFX or music generator only for its sequential provider phase |
-| Domain | `$oojjrs-elevenlabs-sound-effects` | English SFX prompt preparation and delegation to ElevenLabs' official `$sound-effects` skill | Prefer native PCM and preserve generated output untouched until approved; do not preload for broader game-audio work |
+| Domain | `$oojjrs-game-audio-asset-workflow` | Licensed SFX sourcing and audition, explicitly requested audio processing, project installation, previews, or Design synchronization | Use an untouched free/licensable original or an explicitly requested generation; never process SFX without a current explicit edit request |
+| Domain | `$oojjrs-elevenlabs-sound-effects` | Concrete-source mapping, Korean user explanation, English provider prompting, and delegation to ElevenLabs' official `$sound-effects` skill | Map intent to a recognizable source before prompting; preserve generated output untouched and do not preload for broader game-audio work |
 | Domain | `$oojjrs-ai-music-generator` | Explicit paid AI instrumental generation/download phase | Do not preload for a larger integrated game-audio task |
 | Domain | `$oojjrs-windows-repo-forensics` | Windows path, folder provenance, OneDrive, case, or false-dirty diagnosis | Read-only by default; actual mixed-hunk isolation uses dirty helper |
 

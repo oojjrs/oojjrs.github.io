@@ -1,4 +1,4 @@
 interface:
   display_name: "oojjrs Game Audio Asset Workflow"
-  short_description: "Source, audition, edit, and install game audio"
-  default_prompt: "Use $oojjrs-game-audio-asset-workflow to compare licensed SFX sources before editing the selected original into project-ready game audio."
+  short_description: "Source or explicitly process game audio"
+  default_prompt: "Use $oojjrs-game-audio-asset-workflow to find an untouched licensed SFX or route an explicitly requested generation, and never process audio unless I explicitly request the edit."
