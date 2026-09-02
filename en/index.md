@@ -63,16 +63,8 @@ alternate_url: /kr/
     </div>
 
     <div class="collection-grid">
-      <a class="collection-card collection-card-codex" href="{{ "/codex/skill-routing-diagram/" | relative_url }}">
-        <span class="card-index">06</span>
-        <span class="card-label">AI WORKFLOW</span>
-        <h3>Skill Routing</h3>
-        <p>When each Codex skill should join the work process</p>
-        <span class="card-link">Open <span aria-hidden="true">→</span></span>
-      </a>
-
       <a class="collection-card collection-card-network" href="{{ "/en/unity/network-action-presentation-sync/" | relative_url }}">
-        <span class="card-index">07</span>
+        <span class="card-index">06</span>
         <span class="card-label">NETWORK ARCHITECTURE</span>
         <h3>Object State Sync</h3>
         <p>Share compact object state and rebuild presentation locally</p>
@@ -80,7 +72,7 @@ alternate_url: /kr/
       </a>
 
       <a class="collection-card collection-card-network" href="{{ "/en/unity/framework/" | relative_url }}">
-        <span class="card-index">08</span>
+        <span class="card-index">07</span>
         <span class="card-label">SOFTWARE ARCHITECTURE</span>
         <h3>Framework</h3>
         <p>Turn recurring execution flow and design decisions into shared structure</p>
