@@ -62,6 +62,16 @@
   .site-page .highlight,
   .site-page .highlighter-rouge .highlight,
   .site-page pre { background: #f0f1ed; color: #242823; }
+  .site-page .article-body .framework-example { background: rgba(255, 255, 255, .88); }
+  .site-page .article-body .framework-example .highlight,
+  .site-page .article-body .framework-example > div > pre {
+    border-color: rgba(40, 104, 167, .24);
+    background: #f0f1ed;
+    background-color: #f0f1ed;
+    box-shadow: inset 3px 0 0 rgba(40, 104, 167, .42);
+  }
+  .site-page .article-body .framework-example pre { color: #242823; }
+  .site-page .article-body .framework-example :is(.highlight, pre code) :is(.c, .c1, .cm, .cs, .hljs-comment) { color: #667069; }
 
   .standalone-page body,
   body.standalone-page { background-color: var(--bg); color: var(--text); }
