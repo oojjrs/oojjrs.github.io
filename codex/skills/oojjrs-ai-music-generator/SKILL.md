@@ -5,7 +5,7 @@ description: Generate and download instrumental music from ai-music-generator.ai
 
 # oojjrs AI Music Generator
 
-Use the bundled `scripts/Generate-AiMusic-Chrome.ps1`. The current site uses Rails/Hotwire: submit its signed-in `/ko/generation_tasks` form through the dedicated Chrome tab. Do not call the removed `/api/generate` flow or reconstruct callback IDs.
+Use the bundled `scripts/Generate-AiMusic-Chrome.ps1` with PowerShell 7 (`pwsh`). The current workspace at `/ko` uses a Rails/Hotwire `/ko/generation_tasks` form. Submit that signed-in form through the dedicated Chrome tab; do not call the removed `/api/generate` flow or reconstruct callback IDs.
 
 ## Prompt Design and Duration Experiments
 
@@ -35,16 +35,17 @@ An audio or melody extension can succeed because of the supplied seed even when 
 ## Workflow
 
 1. Resolve inputs.
-   - Require a music description of 1-199 characters.
+   - Require a music description of 1-3000 characters.
    - Accept an optional title of up to 80 characters.
-   - Accept an optional style of up to 120 characters; when style is present, require a title.
+   - Accept an optional style of up to 1000 characters.
    - Keep instrumental mode enabled. Do not add lyrics or expose an option to disable instrumental mode.
+   - Use the Description tab. Turning on Instrumental reveals Style and Title while `custom_mode` remains false; Custom Lyrics is a different mode. Only the enabled description textarea may supply the prompt.
    - Use the requested output directory. Otherwise use `$Trash` in the active workspace.
 
 2. Run one script invocation at a time from PowerShell.
 
 ```powershell
-powershell.exe -NoProfile -ExecutionPolicy Bypass -File "<skill-dir>\scripts\Generate-AiMusic-Chrome.ps1" `
+pwsh -NoProfile -ExecutionPolicy Bypass -File "<skill-dir>\scripts\Generate-AiMusic-Chrome.ps1" `
   -Prompt "<description>" `
   -Title "<title>" `
   -OutputDirectory "<absolute-output-directory>"
@@ -52,27 +53,28 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File "<skill-dir>\scripts\Gen
 
    - One form POST produces two song versions. "Two results" never means two concurrent generation requests.
    - The script holds a named process lock and calls `requestSubmit()` exactly once outside every polling loop.
-   - Use `-PreflightOnly` to validate the signed-in form and selectors without sending a POST or consuming credit.
+   - Use `-PreflightOnly` to fill and validate the signed-in form without sending a POST or consuming credit. It checks the actual submitted Prompt, Style, Title, and instrumental values, and preserves the model selected by the site.
 
 3. Handle the dedicated Chrome profile.
-   - The script launches Chrome with a persistent profile under `%LOCALAPPDATA%\AiMusicAutomation\ChromeProfile` and local debugging port `9222`.
-   - On the first machine/session, if generation is unauthorized, ask the user to sign in to `https://ai-music-generator.ai/ko/@oojjrs` in normal Chrome, copy the `@oojjrs` Network request as cURL, and tell Codex when it is copied.
+   - The script uses a persistent profile under `%LOCALAPPDATA%\AiMusicAutomation\ChromeProfile` and local debugging port `9222`. Reuse a running dedicated browser; launch it hidden by default. Pass `-ShowChrome` only when the user asks for a visible browser, such as for signing in.
+   - Confirm the signed-in workspace account, not merely a username displayed on a public profile. If sign-in is needed, let the user sign in directly in the dedicated profile and then recheck it.
+   - If the user instead signs in through normal Chrome, they can copy the signed-in site's Network request as cURL and tell Codex when it is copied. Use the clipboard import only for that explicit handoff.
    - Never ask the user to paste a Cookie into chat or save it to a repository file.
    - Rerun once with `-ImportCookiesFromClipboard`; omit the switch after the dedicated Chrome profile retains the session. If that import fails before submission, the existing dedicated profile may still already be authenticated.
-   - Keep the visible dedicated Chrome window open while generation is running.
+   - Keep the dedicated Chrome process running until both results are resolved.
 
 4. Wait for both results.
-   - The profile groups both versions into one table row. The representative version has the play/download attributes; the other may appear only as `/ko/songs/<UUID>/edit?field=title`.
-   - Discover both version IDs from the grouped row, then GET `/ko/song/<UUID>` for each version's audio URL.
+   - The workspace lists each version separately and exposes song IDs even while queued. Capture a baseline before submitting; identify new owned songs whose exact prompt and supplied title match this request, then freeze the two result IDs. Stop on an ambiguous set instead of mixing in other songs.
+   - Read `/ko/song/<UUID>` for each fixed result's audio URL. A duration displayed while arranging does not mean the downloadable file is ready.
    - Poll with sequential GET requests only. Never put `requestSubmit()` or another generation POST in the polling loop.
    - Download each ready MP3 immediately. Do not wait to preserve the first version until the second finishes.
    - Use the default 30-minute timeout unless the user requests another value.
    - Preserve either successful MP3 if the other result ultimately fails, and report each result separately.
-   - If the submission response is lost or a result stays unresolved, do not submit again. Inspect the profile first. Use `-AcknowledgeUnresolvedGeneration` only after that read-only verification and an explicit decision to start a new paid generation.
+   - If the submission response is lost or a result stays unresolved, do not submit again. Inspect the workspace and existing request state first. Use `-AcknowledgeUnresolvedGeneration` only after that read-only verification and an explicit decision to start a new paid generation.
    - If the two existing version IDs are known and only polling or download failed, recover them without a POST:
 
      ```powershell
-     powershell.exe -NoProfile -ExecutionPolicy Bypass -File "<skill-dir>\scripts\Generate-AiMusic-Chrome.ps1" `
+     pwsh -NoProfile -ExecutionPolicy Bypass -File "<skill-dir>\scripts\Generate-AiMusic-Chrome.ps1" `
        -DownloadOnlySongIds "<uuid-1>,<uuid-2>" `
        -OutputDirectory "<absolute-output-directory>"
      ```
@@ -88,5 +90,5 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File "<skill-dir>\scripts\Gen
 
 - A successful generation POST consumes real account credit. Execute it only when the user explicitly asks to generate music.
 - The site does not reliably handle concurrent generation requests. Never start another invocation while one is generating or unresolved.
-- Do not automatically repeat a generation POST after a timeout, lost response, authorization ambiguity, or Cloudflare challenge; verify the grouped version IDs and profile first to avoid duplicate charges.
+- Do not automatically repeat a generation POST after a timeout, lost response, authorization ambiguity, or Cloudflare challenge; verify the fixed result IDs and workspace first to avoid duplicate charges.
 - Do not commit MP3 results, Chrome profiles, cookies, job files, or authentication logs unless the user explicitly requests those artifacts.

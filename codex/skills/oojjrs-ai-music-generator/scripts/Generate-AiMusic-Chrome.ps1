@@ -14,6 +14,7 @@ param(
     [ValidateRange(1024, 65535)]
     [int] $DebugPort = 9222,
     [string] $ChromeProfile = (Join-Path $env:LOCALAPPDATA 'AiMusicAutomation\ChromeProfile'),
+    [switch] $ShowChrome,
     [switch] $ImportCookiesFromClipboard,
     [switch] $PreflightOnly,
     [switch] $AcknowledgeUnresolvedGeneration
@@ -24,7 +25,7 @@ $ErrorActionPreference = 'Stop'
 $ProgressPreference = 'SilentlyContinue'
 
 $baseUrl = 'https://ai-music-generator.ai'
-$profileUrl = "$baseUrl/ko/@$Username"
+$workspaceUrl = "$baseUrl/ko"
 $debugUrl = "http://127.0.0.1:$DebugPort"
 $script:Socket = $null
 $script:CommandId = 0
@@ -195,13 +196,13 @@ function ConvertTo-JavaScriptValue {
     return ($Value | ConvertTo-Json -Depth 20 -Compress)
 }
 
-function Get-ProfileSongIds {
-    $snapshotText = Invoke-JavaScript -Expression $script:ProfileSnapshotScript
+function Get-WorkspaceSongs {
+    $snapshotText = Invoke-JavaScript -Expression $script:WorkspaceSnapshotScript
     $snapshot = $snapshotText | ConvertFrom-Json
-    if ($snapshot.httpStatus -ne 200) {
-        throw "프로필 조회 실패(HTTP $($snapshot.httpStatus))."
+    if ($snapshot.httpStatus -ne 200 -or -not $snapshot.authenticated) {
+        throw "AI MUSIC> 작업 공간 로그인 조회 실패 : $($snapshot.httpStatus)"
     }
-    return @($snapshot.ids)
+    return @($snapshot.songs)
 }
 
 function Get-SongDetail {
@@ -239,6 +240,7 @@ function Set-SubmitState {
   try {
     previous = JSON.parse(sessionStorage.getItem(key) || '{}');
   } catch {}
+  if (previous.attemptId !== next.attemptId) return false;
   sessionStorage.setItem(key, JSON.stringify({ ...previous, ...next }));
   return true;
 })()
@@ -331,17 +333,14 @@ $downloadOnlyMode = $downloadOnlyIds.Count -gt 0
 if (-not $downloadOnlyMode -and [string]::IsNullOrWhiteSpace($Prompt)) {
     throw '노래 설명(-Prompt)을 입력하세요.'
 }
-if ($Prompt.Length -gt 199) {
-    throw "노래 설명은 최대 199자입니다. 현재 $($Prompt.Length)자입니다."
+if ($Prompt.Length -gt 3000) {
+    throw "AI MUSIC> 노래 설명은 최대 3000자입니다 : $($Prompt.Length)"
 }
 if ($Title.Length -gt 80) {
     throw "제목은 최대 80자입니다. 현재 $($Title.Length)자입니다."
 }
-if ($Style.Length -gt 120) {
-    throw "음악 스타일은 최대 120자입니다. 현재 $($Style.Length)자입니다."
-}
-if (-not [string]::IsNullOrWhiteSpace($Style) -and [string]::IsNullOrWhiteSpace($Title)) {
-    throw '사용자 정의 모드(-Style 사용)에서는 -Title도 필요합니다.'
+if ($Style.Length -gt 1000) {
+    throw "AI MUSIC> 음악 스타일은 최대 1000자입니다 : $($Style.Length)"
 }
 if ($downloadOnlyMode -and $PreflightOnly) {
     throw '-DownloadOnlySongIds와 -PreflightOnly는 함께 사용할 수 없습니다.'
@@ -374,11 +373,12 @@ try {
         $chrome = Get-ChromePath
         Start-Process `
             -FilePath $chrome `
+            -WindowStyle $(if ($ShowChrome) { 'Normal' } else { 'Hidden' }) `
             -ArgumentList @(
                 "--remote-debugging-port=$DebugPort",
                 "--user-data-dir=$ChromeProfile",
                 '--no-first-run',
-                $profileUrl
+                $workspaceUrl
             )
         $null = Wait-DebugEndpoint
     }
@@ -390,7 +390,7 @@ try {
     if ($null -eq $target) {
         $newTarget = Invoke-RestMethod `
             -Method Put `
-            -Uri "$debugUrl/json/new?$([Uri]::EscapeDataString($profileUrl))"
+            -Uri "$debugUrl/json/new?$([Uri]::EscapeDataString($workspaceUrl))"
         $target = $newTarget
     }
 
@@ -407,68 +407,64 @@ try {
         $cookies = Get-CookiesFromClipboard
         $null = Invoke-Cdp -Method 'Network.setCookies' -Params @{ cookies = $cookies }
     }
-    $null = Invoke-Cdp -Method 'Page.navigate' -Params @{ url = $profileUrl }
+    $null = Invoke-Cdp -Method 'Page.navigate' -Params @{ url = $workspaceUrl }
     Start-Sleep -Seconds 4
 
-    $profileText = Invoke-JavaScript -Expression 'document.body.innerText'
-    if ($profileText -notmatch [regex]::Escape($Username)) {
-        throw "전용 Chrome 창에서 $profileUrl 에 로그인한 뒤 다시 실행하세요."
+    $authenticated = Invoke-JavaScript -Expression @'
+Boolean(document.querySelector('form[action="/ko/users/sign_out"]'))
+'@
+    if (-not $authenticated) {
+        throw "AI MUSIC> 전용 Chrome에서 로그인한 뒤 다시 실행하세요 : $workspaceUrl"
     }
 
     $usernameJs = ConvertTo-JavaScriptValue -Value $Username
-    $script:ProfileSnapshotScript = @'
+    $script:WorkspaceSnapshotScript = @'
 (async () => {
   const username = __USERNAME__;
   const response = await fetch(
-    '/ko/@' + encodeURIComponent(username) + '?tab=songs&_=' + Date.now(),
+    '/ko?_=' + Date.now(),
     { cache: 'no-store', credentials: 'same-origin' }
   );
   const html = await response.text();
   const documentCopy = new DOMParser().parseFromString(html, 'text/html');
-  const ids = [];
-  const uuid = '[0-9a-fA-F]{8}(?:-[0-9a-fA-F]{4}){3}-[0-9a-fA-F]{12}';
-
-  for (const row of documentCopy.querySelectorAll('tr')) {
-    const rowIds = new Set();
-    for (const link of row.querySelectorAll('a[href]')) {
-      const url = new URL(link.getAttribute('href'), location.origin);
-      const match = url.pathname.match(
-        new RegExp('^/ko/songs/(' + uuid + ')/edit$')
-      );
-      if (
-        match &&
-        url.searchParams.get('field') === 'title' &&
-        !url.searchParams.has('apply_to_pair')
-      ) {
-        rowIds.add(match[1]);
-      }
+  const authenticated = Boolean(documentCopy.querySelector(
+    'form[action="/ko/users/sign_out"]'
+  ));
+  if (!authenticated || !documentCopy.querySelector(
+    'form[action="/ko/generation_tasks"]'
+  )) {
+    throw new Error('AI MUSIC> AUTHENTICATED WORKSPACE NOT FOUND.');
+  }
+  const songs = new Map();
+  const uuid = /^[0-9a-f]{8}(?:-[0-9a-f]{4}){3}-[0-9a-f]{12}$/i;
+  for (const row of documentCopy.querySelectorAll('[data-song-id][data-song-prompt]')) {
+    const data = row.dataset;
+    if (data.songOwner !== 'true') continue;
+    if (data.songAuthor !== username) {
+      throw new Error('AI MUSIC> SIGNED-IN SONG OWNER DOES NOT MATCH USERNAME.');
     }
-
-    const download = row.querySelector(
-      '[data-download-song-url-value^="/ko/song/"]' +
-      '[data-download-song-url-value$="/download"]'
-    );
-    const downloadMatch = download
-      ?.getAttribute('data-download-song-url-value')
-      ?.match(new RegExp('/ko/song/(' + uuid + ')/download$'));
-    if (downloadMatch) {
-      rowIds.add(downloadMatch[1]);
+    if (!uuid.test(data.songId) || data.songTitle === undefined) {
+      throw new Error('AI MUSIC> WORKSPACE SONG METADATA IS INVALID.');
     }
-
-    const fallback = row.querySelector('[id^="song-actions-"][id$="-trigger"]');
-    const fallbackMatch = fallback
-      ?.id
-      ?.match(new RegExp('^song-actions-(' + uuid + ')-trigger$'));
-    if (fallbackMatch) {
-      rowIds.add(fallbackMatch[1]);
+    const song = {
+      id: data.songId,
+      title: data.songTitle,
+      prompt: data.songPrompt,
+      owner: data.songOwner,
+      author: data.songAuthor,
+      status: data.songStatus || ''
+    };
+    if (songs.has(song.id) && JSON.stringify(songs.get(song.id)) !== JSON.stringify(song)) {
+      throw new Error('AI MUSIC> CONFLICTING WORKSPACE SONG METADATA.');
     }
-    ids.push(...rowIds);
+    songs.set(song.id, song);
   }
 
   return JSON.stringify({
     httpStatus: response.status,
     path: new URL(response.url).pathname,
-    ids: [...new Set(ids)]
+    authenticated,
+    songs: [...songs.values()]
   });
 })()
 '@.Replace('__USERNAME__', $usernameJs)
@@ -521,161 +517,143 @@ try {
     }
 
     if (-not $downloadOnlyMode) {
-        $baselineIds = @(Get-ProfileSongIds)
+        $baselineSongs = @(Get-WorkspaceSongs)
+        $baselineIds = @($baselineSongs | ForEach-Object { [string] $_.id })
         foreach ($id in $baselineIds) {
             $baselineLookup[[string] $id] = $true
         }
 
-        $customMode = -not [string]::IsNullOrWhiteSpace($Style)
         $submitConfigData = @{
-            attemptId                    = $script:AttemptId
-            acknowledgeUnresolved       = [bool] $AcknowledgeUnresolvedGeneration
-            baselineIds                 = $baselineIds
-            customMode                  = $customMode
-            prompt                     = $Prompt
-            style                      = $Style
-            title                      = $Title
+            attemptId              = $script:AttemptId
+            acknowledgeUnresolved  = [bool] $AcknowledgeUnresolvedGeneration
+            baselineIds            = $baselineIds
+            preflightOnly          = $true
+            username               = $Username
+            prompt                 = $Prompt
+            style                  = $Style
+            title                  = $Title
         }
         $submitConfig = ConvertTo-JavaScriptValue -Value $submitConfigData
 
-        $preflightScript = @'
+        $submissionTemplate = @'
 (() => {
   const config = __CONFIG__;
   const key = 'aiMusicAutomationSubmitState';
   let previous = null;
   try {
     previous = JSON.parse(sessionStorage.getItem(key) || 'null');
-  } catch {}
+  } catch {
+    throw new Error('AI MUSIC> SUBMISSION STATE IS UNREADABLE; INSPECT BEFORE RETRYING.');
+  }
   const blockingPhases = new Set([
     'armed',
     'sent',
     'started',
     'generation-active',
-    'unresolved'
+    'unresolved',
+    'ended'
   ]);
   if (
     previous &&
-    blockingPhases.has(previous.phase) &&
+    (blockingPhases.has(previous.phase) || !['complete', 'completed'].includes(previous.phase)) &&
     !config.acknowledgeUnresolved
   ) {
     throw new Error(
-      'a previous generation is active or unresolved; inspect it before retrying'
+      'AI MUSIC> PREVIOUS GENERATION IS ACTIVE OR UNRESOLVED; INSPECT BEFORE RETRYING.'
     );
   }
-
-  const prefix = config.customMode ? 'custom' : 'auto';
-  const form = document.querySelector(
-    '#music-generate-modal form' +
-    '[data-music-generate-modal-target="' + prefix + 'Form"]' +
-    '[action$="/generation_tasks"]'
-  );
-  if (!form) {
-    throw new Error('generation form not found');
+  if (!document.querySelector('form[action="/ko/users/sign_out"]')) {
+    throw new Error('AI MUSIC> SIGN-IN REQUIRED.');
   }
-
-  const requiredNames = [
-    'generation_task[custom_mode]',
-    'generation_task[ai_model_name]',
-    'generation_task[instrumental]',
-    'generation_task[prompt]'
-  ];
-  if (config.customMode) {
-    requiredNames.push('generation_task[style]', 'generation_task[title]');
+  const forms = document.querySelectorAll('form[action="/ko/generation_tasks"]');
+  if (forms.length !== 1) {
+    throw new Error('AI MUSIC> EXPECTED ONE WORKSPACE GENERATION FORM.');
   }
-  for (const name of requiredNames) {
-    if (!form.querySelector('[name="' + CSS.escape(name) + '"]')) {
-      throw new Error('missing field: ' + name);
+  const form = forms[0];
+  const singleValue = (data, name) => {
+    const values = data.getAll('generation_task[' + name + ']');
+    if (values.length !== 1 || typeof values[0] !== 'string') {
+      throw new Error(`AI MUSIC> EXPECTED ONE SUBMITTED FIELD : ${name}`);
     }
-  }
-  if (!form.querySelector(
-    '[data-music-generate-modal-target="' + prefix + 'Instrumental"]'
-  )) {
-    throw new Error('instrumental checkbox not found');
-  }
-  if (!form.querySelector(
-    '[data-music-generate-modal-target="' + prefix + 'Submit"]'
-  )) {
-    throw new Error('submit button not found');
-  }
-  return JSON.stringify({
-    ready: true,
-    mode: prefix,
-    baselineCount: config.baselineIds.length
-  });
-})()
-'@.Replace('__CONFIG__', $submitConfig)
-
-        $preflight = (Invoke-JavaScript -Expression $preflightScript) | ConvertFrom-Json
-        if (-not [bool] $preflight.ready) {
-            throw '생성 폼 사전 검증에 실패했습니다.'
-        }
-        if ($PreflightOnly) {
-            [pscustomobject] @{
-                Ready         = $true
-                Mode          = [string] $preflight.mode
-                BaselineCount = [int] $preflight.baselineCount
-                PostSent      = $false
-            } | ConvertTo-Json
-            return
-        }
-
-        $submitScript = @'
-(() => {
-  const config = __CONFIG__;
-  const key = 'aiMusicAutomationSubmitState';
-  const prefix = config.customMode ? 'custom' : 'auto';
-  const form = document.querySelector(
-    '#music-generate-modal form' +
-    '[data-music-generate-modal-target="' + prefix + 'Form"]' +
-    '[action$="/generation_tasks"]'
-  );
-  const nodes = name => [
-    ...form.querySelectorAll('[name="' + CSS.escape(name) + '"]')
-  ];
-  const setField = (name, value) => {
-    const candidates = nodes(name);
-    if (!candidates.length) {
-      throw new Error('missing field: ' + name);
-    }
-    const element = candidates.find(item => (
-      item.type !== 'checkbox' && item.type !== 'radio'
-    )) || candidates[0];
-    element.value = value;
-    element.dispatchEvent(new Event('input', { bubbles: true }));
-    element.dispatchEvent(new Event('change', { bubbles: true }));
+    return values[0];
   };
-  const setState = state => sessionStorage.setItem(
-    key,
-    JSON.stringify({
+  const model = singleValue(new FormData(form), 'ai_model_name');
+  if (!model) throw new Error('AI MUSIC> CURRENT MODEL IS MISSING.');
+  const descriptionTab = document.getElementById('generation-description-tab');
+  if (!descriptionTab) throw new Error('AI MUSIC> DESCRIPTION TAB IS MISSING.');
+  descriptionTab.click();
+  const instrumental = form.querySelector(
+    'input[type="checkbox"][name="generation_task[instrumental]"]' +
+    '[data-workspace-form-target="instrumental"]'
+  );
+  if (!instrumental || instrumental.disabled) {
+    throw new Error('AI MUSIC> INSTRUMENTAL CHECKBOX IS UNAVAILABLE.');
+  }
+  if (!instrumental.checked) instrumental.click();
+
+  // Use the UI first: changing mode or instrumental can clear the description.
+  for (const name of ['prompt', 'style', 'title']) {
+    const fields = [...form.querySelectorAll(
+      '[name="generation_task[' + name + ']"]'
+    )].filter(field => !field.disabled && !field.closest('[hidden]'));
+    if (fields.length !== 1 || (name === 'prompt' && fields[0].id !== 'generation-task-description')) {
+      throw new Error(`AI MUSIC> EXPECTED ONE ACTIVE DESCRIPTION FIELD : ${name}`);
+    }
+    const field = fields[0];
+    if (field.maxLength >= 0 && config[name].length > field.maxLength) {
+      throw new Error(`AI MUSIC> FIELD EXCEEDS CURRENT LIMIT : ${name}`);
+    }
+    field.value = config[name];
+    field.dispatchEvent(new Event('input', { bubbles: true }));
+    field.dispatchEvent(new Event('change', { bubbles: true }));
+  }
+  const data = new FormData(form);
+  for (const name of ['prompt', 'style', 'title']) {
+    if (singleValue(data, name) !== config[name]) {
+      throw new Error(`AI MUSIC> SUBMISSION FIELD MISMATCH : ${name}`);
+    }
+  }
+  const instrumentalValues = data.getAll('generation_task[instrumental]');
+  if (
+    !instrumental.checked ||
+    !['true', '1'].includes(instrumental.value) ||
+    ![1, 2].includes(instrumentalValues.length) ||
+    instrumentalValues.at(-1) !== instrumental.value ||
+    (instrumentalValues.length === 2 && !['false', '0'].includes(instrumentalValues[0])) ||
+    singleValue(data, 'custom_mode') !== 'false' ||
+    singleValue(data, 'ai_model_name') !== model ||
+    !form.checkValidity()
+  ) {
+    throw new Error('AI MUSIC> INSTRUMENTAL DESCRIPTION FORM VALIDATION FAILED.');
+  }
+  const submits = form.querySelectorAll('button[type="submit"]');
+  if (submits.length !== 1 || submits[0].disabled) {
+    throw new Error('AI MUSIC> GENERATION SUBMIT BUTTON IS UNAVAILABLE.');
+  }
+  if (config.preflightOnly) {
+    return JSON.stringify({
+      ready: true,
+      mode: 'description',
+      instrumental: true,
+      model,
+      baselineCount: config.baselineIds.length,
+      postSent: false
+    });
+  }
+  const setState = state => {
+    const current = JSON.parse(sessionStorage.getItem(key) || 'null');
+    if (current && current.attemptId !== config.attemptId && state.phase !== 'armed') return;
+    sessionStorage.setItem(key, JSON.stringify({
+      ...(current?.attemptId === config.attemptId ? current : {}),
       attemptId: config.attemptId,
       baselineIds: config.baselineIds,
+      prompt: config.prompt,
+      title: config.title,
+      username: config.username,
       at: Date.now(),
       ...state
-    })
-  );
-
-  setField('generation_task[custom_mode]', String(config.customMode));
-  setField('generation_task[ai_model_name]', 'V5_5');
-  const instrumental = form.querySelector(
-    '[data-music-generate-modal-target="' + prefix + 'Instrumental"]'
-  );
-  instrumental.checked = true;
-  instrumental.dispatchEvent(new Event('change', { bubbles: true }));
-  setField('generation_task[instrumental]', 'true');
-
-  // The instrumental change handler can clear the prompt.
-  setField('generation_task[prompt]', config.prompt);
-  if (config.customMode) {
-    setField('generation_task[style]', config.style);
-    setField('generation_task[title]', config.title);
-  }
-  if (!form.checkValidity()) {
-    throw new Error('generation form validation failed');
-  }
-
-  const submit = form.querySelector(
-    '[data-music-generate-modal-target="' + prefix + 'Submit"]'
-  );
+    }));
+  };
   setState({ phase: 'armed' });
   form.addEventListener('turbo:submit-start', () => {
     setState({ phase: 'started' });
@@ -683,21 +661,41 @@ try {
   form.addEventListener('turbo:submit-end', event => {
     const success = Boolean(event.detail?.success);
     setState({
-      phase: success ? 'generation-active' : 'ended',
+      phase: success ? 'generation-active' : 'unresolved',
       success,
       status: event.detail?.fetchResponse?.statusCode || null
     });
   }, { once: true });
 
   setState({ phase: 'sent' });
-  form.requestSubmit(submit);
+  form.requestSubmit(submits[0]);
   return JSON.stringify({
     submitted: true,
     attemptId: config.attemptId,
-    mode: prefix
+    mode: 'description'
   });
 })()
-'@.Replace('__CONFIG__', $submitConfig)
+'@
+
+        $preflightScript = $submissionTemplate.Replace('__CONFIG__', $submitConfig)
+        $preflight = (Invoke-JavaScript -Expression $preflightScript) | ConvertFrom-Json
+        if (-not [bool] $preflight.ready) {
+            throw 'AI MUSIC> 생성 폼 사전 검증에 실패했습니다.'
+        }
+        if ($PreflightOnly) {
+            [pscustomobject] @{
+                Ready         = $true
+                Mode          = [string] $preflight.mode
+                Instrumental  = [bool] $preflight.instrumental
+                Model         = [string] $preflight.model
+                BaselineCount = [int] $preflight.baselineCount
+                PostSent      = $false
+            } | ConvertTo-Json
+            return
+        }
+        $submitConfigData.preflightOnly = $false
+        $submitConfig = ConvertTo-JavaScriptValue -Value $submitConfigData
+        $submitScript = $submissionTemplate.Replace('__CONFIG__', $submitConfig)
 
         Write-Host 'AI Music Generator 생성 요청을 한 번만 제출합니다.'
         $postAttempted = $true
@@ -725,6 +723,7 @@ try {
 
     $deadline = [DateTimeOffset]::Now.AddMinutes($TimeoutMinutes)
     $newIds = New-Object Collections.ArrayList
+    $candidateIds = New-Object Collections.ArrayList
     foreach ($id in $downloadOnlyIds) {
         $null = $newIds.Add($id)
     }
@@ -735,23 +734,41 @@ try {
 
     while ([DateTimeOffset]::Now -lt $deadline) {
         Start-Sleep -Seconds $PollSeconds
-        if (-not $downloadOnlyMode) {
-            $currentIds = @()
+        if (-not $downloadOnlyMode -and $newIds.Count -eq 0) {
+            $currentSongs = @()
             try {
-                $currentIds = @(Get-ProfileSongIds)
+                $currentSongs = @(Get-WorkspaceSongs)
             }
             catch {
-                Write-Warning "프로필 조회 재시도 예정: $($_.Exception.Message)"
+                Write-Warning "AI MUSIC> 작업 공간 조회 재시도 예정 : $($_.Exception.Message)"
                 continue
             }
 
-            foreach ($idValue in $currentIds) {
-                $id = [string] $idValue
+            foreach ($song in $currentSongs) {
+                $id = [string] $song.id
                 if (
                     -not $baselineLookup.ContainsKey($id) -and
-                    -not $newIds.Contains($id)
+                    [string] $song.prompt -ceq $Prompt -and
+                    ([string]::IsNullOrWhiteSpace($Title) -or [string] $song.title -ceq $Title) -and
+                    [string] $song.owner -ceq 'true' -and
+                    [string] $song.author -ceq $Username -and
+                    -not $candidateIds.Contains($id)
                 ) {
+                    $null = $candidateIds.Add($id)
+                }
+            }
+            Set-SubmitState -Phase 'generation-active' -Extra @{
+                candidateIds = @($candidateIds.ToArray())
+            }
+            if ($candidateIds.Count -gt $expectedCount) {
+                throw "AI MUSIC> 동일 입력의 신규 결과가 두 개를 초과하여 혼입을 막기 위해 중단합니다 : $($candidateIds.Count)"
+            }
+            if ($candidateIds.Count -eq $expectedCount) {
+                foreach ($id in $candidateIds) {
                     $null = $newIds.Add($id)
+                }
+                Set-SubmitState -Phase 'generation-active' -Extra @{
+                    resultIds = @($newIds.ToArray())
                 }
             }
         }
@@ -822,11 +839,13 @@ try {
     } else {
         'complete'
     }
-    Set-SubmitState -Phase $statePhase -Extra @{
-        discoveredCount = $newIds.Count
-        downloadedCount = $downloaded.Count
-        failedCount     = $generationFailed.Count
-        unresolvedCount = $unresolvedCount
+    if (-not $downloadOnlyMode) {
+        Set-SubmitState -Phase $statePhase -Extra @{
+            discoveredCount = $newIds.Count
+            downloadedCount = $downloaded.Count
+            failedCount     = $generationFailed.Count
+            unresolvedCount = $unresolvedCount
+        }
     }
     $stateFinalized = $true
 
