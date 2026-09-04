@@ -1,0 +1,4 @@
+interface:
+  display_name: "oojjrs Crude Doodle Meme"
+  short_description: "Deadpan mouthless gag doodles with expressive eyeballs"
+  default_prompt: "Use $oojjrs-crude-doodle-meme to create a crude, deadpan reaction meme for this situation."
