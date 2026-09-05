@@ -1,4 +1,4 @@
 interface:
   display_name: "oojjrs Guidelines"
   short_description: "Load canonical shared rules once per task thread"
-  default_prompt: "Use $oojjrs-guidelines to read the canonical shared rules once, apply their final-answer presentation requirements, and route only the workflow skills this task needs."
+  default_prompt: "Use $oojjrs-guidelines to read the canonical shared rules once, load the references required by the task, and route only the workflow skills it needs."

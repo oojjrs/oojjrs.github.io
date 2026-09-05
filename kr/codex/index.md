@@ -56,4 +56,10 @@ permalink: /kr/codex/
     <p>Minimal raw rules for short library-facing README.md files.</p>
     <span class="card-link">문서 열기 <span aria-hidden="true">→</span></span>
   </a>
+  <a class="document-card" href="../../codex/unity-work-guidelines.md">
+    <span class="document-kind">GUIDELINE</span>
+    <h2>Unity Work Rules</h2>
+    <p>Unity 환경의 작업 규칙과 프리팹 보호 기준입니다. C# 코드 규칙은 별도 컨벤션 문서를 따릅니다.</p>
+    <span class="card-link">문서 열기 <span aria-hidden="true">→</span></span>
+  </a>
 </div>

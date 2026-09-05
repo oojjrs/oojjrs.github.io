@@ -18,7 +18,7 @@ $oojjrs-guidelines
 + [$oojjrs-project-finish-work: authorized local stage/commit or external completion]
 ```
 
-- Ordinary conversation, factual Q&A, translation, and rewriting: when host instructions name guidelines, apply only their final-answer presentation requirements; use no lifecycle or domain skill.
+- Ordinary conversation, factual Q&A, translation, and rewriting: use no operational workflow unless reviewing the rules themselves.
 - Read-only review or diagnosis: guidelines only when shared work rules matter, then the smallest non-overlapping read-only domains sequentially; no start or finish.
 - Local repository edits: guidelines once, start immediately before the first mutation, protect pre-existing or concurrent work outside the current task, use one primary domain at a time when needed, then one check-only exact-file format pass and one scoped diff review. Leave finished changes unstaged and uncommitted for user review unless the current request explicitly authorizes Git completion.
 - Scoped stage/commit: require explicit current-request authorization. An upfront Git-completion instruction or a requested push or publication authorizes its necessary scoped staging and local commit without a second permission. For a follow-up after uncommitted review, carry the most recently reported content scope forward, reconcile current review-time changes by semantic task role, then freeze and stage only requested-scope or related-support bytes unchanged. Preserve everything outside that scope.
@@ -31,7 +31,7 @@ $oojjrs-guidelines
 
 | Role | Skill | Load when | Exclusions and precedence |
 |---|---|---|---|
-| Core | `$oojjrs-guidelines` | Whenever host instructions name it, or when actual work needs the shared rules | Apply answer presentation to every final answer and operational workflow only to actual work; fetch the canonical URL once |
+| Core | `$oojjrs-guidelines` | Whenever host instructions name it, or when actual work needs the shared rules | Apply the operational workflow only to actual work; fetch the canonical URL once |
 | Lifecycle | `$oojjrs-project-start-work` | Once before the first intended local file or Git-index mutation | Routine status at most once; history only when evidence requires it; not for review, diagnosis, planning, board-only, or push-only tasks |
 | Lifecycle | `$oojjrs-project-finish-work` | Explicitly authorized local stage/commit, push, deploy, release, publication, or destructive Git completion | Do not load for ordinary edits left uncommitted for user review; run only triggered checks once and omit inactive gates |
 | Helper | `$oojjrs-dirty-worktree-scope-split` | Target changes overlap existing hunks or safe stage/commit isolation is ambiguous | Mere dirty status is insufficient; dirty provenance diagnosis uses Windows forensics |
@@ -66,7 +66,10 @@ $oojjrs-guidelines
 
 ## Conditional Public References
 
-These are documents, not additional primary skills. Load only when the edit matches:
+These are documents, not additional primary skills. Load only when the task matches:
+
+- before Unity work and Unity workflow selection: `https://oojjrs.github.io/codex/unity-work-guidelines.md`
+- before creating or editing documents: `https://oojjrs.github.io/codex/document-writing-guideline.md`
 
 - validation scope, build/test authority, or success-oracle decisions: `https://oojjrs.github.io/codex/validation-guideline.md`
 - application/business-layer first-party naming: `https://oojjrs.github.io/codex/semantic-layer-naming-guideline.md`

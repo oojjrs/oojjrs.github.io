@@ -49,4 +49,10 @@ permalink: /en/codex/
     <p>Minimal raw rules for short library-facing README.md files.</p>
     <span class="card-link">Open note <span aria-hidden="true">→</span></span>
   </a>
+  <a class="document-card" href="../../codex/unity-work-guidelines.md">
+    <span class="document-kind">GUIDELINE</span>
+    <h2>Unity Work Rules</h2>
+    <p>Unity work rules and prefab protection. C# code follows the separate coding convention.</p>
+    <span class="card-link">Open note <span aria-hidden="true">→</span></span>
+  </a>
 </div>

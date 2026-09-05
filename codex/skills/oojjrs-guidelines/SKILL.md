@@ -1,6 +1,6 @@
 ---
 name: oojjrs-guidelines
-description: Load the user's canonical shared Codex rules once per task thread whenever host instructions name $oojjrs-guidelines, including ordinary conversation and factual Q&A. Apply its answer-presentation requirements to every final answer, but apply its operational workflow only to repository, code, document, asset, Git, validation, maintenance, or deployment work. Also use when inspecting or refreshing the rules. The canonical URL is the sole authority.
+description: Load the user's canonical shared Codex rules once per task thread whenever host instructions name $oojjrs-guidelines, including ordinary conversation and factual Q&A. Apply its operational workflow only to repository, code, document, asset, Git, validation, maintenance, or deployment work. Also use when inspecting or refreshing the rules. The canonical URL is the sole authority.
 ---
 
 # oojjrs Guidelines
@@ -15,7 +15,7 @@ description: Load the user's canonical shared Codex rules once per task thread w
 
 ## Routing
 
-- Apply the canonical final-answer presentation requirements to every answer. Apply the remaining operational workflow only to actual repository, code, document, asset, Git, validation, maintenance, or deployment work.
+- Apply the canonical workflow only to repository, code, document, asset, Git, validation, maintenance, or deployment work. Load its task-specific references at their stated entry points.
 - Read-only review or diagnosis: use no lifecycle skill. If the scope genuinely spans domains, inspect the smallest non-overlapping set sequentially rather than preloading them.
 - Local file, index, or commit mutation: use `$oojjrs-project-start-work` immediately before the first mutation, then one most-specific primary domain at a time.
 - Conditional helpers: load board, dirty-worktree, or visual-QA helpers only after their exact trigger is confirmed.
