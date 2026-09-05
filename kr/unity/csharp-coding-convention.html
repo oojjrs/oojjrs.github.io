@@ -1808,6 +1808,32 @@ private void RefreshReward() =&gt; ApplyReward();</code></pre>
           </div>
         </div>
       </article>
+      <article class="rule-card">
+        <div class="rule-index">43</div>
+        <div class="rule-body">
+          <h3>동등·비동등 비교는 <code>==</code>·<code>!=</code>를 기본으로 쓴다</h3>
+          <p>참조 비교를 포함한 동등·비동등 비교에는 <code>==</code>·<code>!=</code>를 기본으로 쓴다. <code>ReferenceEquals</code>는 CLR 참조 동일성이 필요하고 직접적인 연산자 비교로 그 의미를 얻을 수 없는 경우에만 쓴다. 오버로드된 동등 비교를 우회해야 하거나 동등 연산자 구현에서 재귀 호출을 피해야 하는 경우가 이에 해당한다. 예외를 적용하기 전에 피연산자의 정적 타입과 해당 식에 적용되는 연산자를 확인한다. 참조 비교 의도의 강조나 미래의 오버로드 가능성은 예외 사유가 아니다. 비교 의미와 7번의 Unity 객체 유효성 검사 규칙을 유지한다.</p>
+          <p>다음 예시의 <code>item</code>과 <code>selected</code>는 동등 연산자를 오버로드하지 않은 같은 일반 참조 타입이다.</p>
+          <div class="example-pair">
+            <div class="example good">
+              <div class="example-label">올바른 사용</div>
+              <pre><code>if (item == selected)
+    Use(item);
+
+if (item != selected)
+    Select(item);</code></pre>
+            </div>
+            <div class="example bad">
+              <div class="example-label">잘못된 사용</div>
+              <pre><code>if (ReferenceEquals(item, selected))
+    Use(item);
+
+if (ReferenceEquals(item, selected) == false)
+    Select(item);</code></pre>
+            </div>
+          </div>
+        </div>
+      </article>
     </section>
     </div>
     </div>

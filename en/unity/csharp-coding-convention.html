@@ -1329,4 +1329,30 @@ private int GetRewardCount() => rewardCount;
 private void RefreshReward() => ApplyReward();
 ```
 
+### 43. Use `==` and `!=` by default for equality and inequality
+
+Use `==` and `!=` by default, including reference comparisons. Use `ReferenceEquals` only when CLR reference identity is required and direct operator comparison cannot provide it, such as when overloaded equality must be bypassed or an equality operator would call itself recursively. Confirm the operand static types and the operators selected for the expression before applying an exception. Explicit reference intent or hypothetical future overloads are not exceptions. Preserve comparison semantics and rule 07's Unity validity checks.
+
+In these examples, `item` and `selected` have the same ordinary reference type with no overloaded equality operators.
+
+Correct:
+
+```csharp
+if (item == selected)
+    Use(item);
+
+if (item != selected)
+    Select(item);
+```
+
+Incorrect:
+
+```csharp
+if (ReferenceEquals(item, selected))
+    Use(item);
+
+if (ReferenceEquals(item, selected) == false)
+    Select(item);
+```
+
 </div>
