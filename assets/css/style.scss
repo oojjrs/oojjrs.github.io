@@ -1235,10 +1235,10 @@ pre {
 @media (max-width: 600px) {
   body { font-size: 16px; }
   .site-shell { width: min(100% - 28px, 1120px); }
-  .header-inner { min-height: 74px; flex-wrap: wrap; justify-content: center; gap: 6px 12px; padding: 8px 0; }
-  .site-brand { flex: 1 0 100%; justify-content: center; }
-  .site-nav-group { flex-wrap: wrap; justify-content: center; gap: 8px; }
-  .site-nav { gap: 0; }
+  .header-inner { display: grid; min-height: 74px; grid-template-columns: 1fr; justify-items: center; gap: 6px; padding: 8px 0; }
+  .site-brand { width: max-content; justify-content: center; }
+  .site-nav-group { width: max-content; flex-wrap: wrap; justify-content: center; gap: 8px; }
+  .site-nav { position: static; gap: 0; }
   .site-nav a { min-height: 30px; padding: 0 6px; font-size: 12px; }
   .language-select { min-height: 30px; max-width: 92px; }
   .section { padding-top: 0; }
@@ -1303,8 +1303,8 @@ pre {
     --skill-routing-diagram-width: calc(100vw - 28px);
   }
   .state-sync-diagram {
-    --state-sync-page-width: calc(100vw - 28px);
-    --state-sync-diagram-width: calc(100vw - 28px);
+    --state-sync-page-width: 100%;
+    --state-sync-diagram-width: 100%;
     padding: 18px;
   }
   .state-sync-diagram-head { display: block; }

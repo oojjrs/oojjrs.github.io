@@ -10,7 +10,7 @@ layout: default
     {% endif %}
   </header>
   {% if page.toc_items %}
-    <nav class="article-toc" aria-label="문서 목차">
+    <nav class="article-toc" aria-label="{% if page.lang contains 'en' %}Table of contents{% else %}문서 목차{% endif %}">
       <p class="article-toc-label">CONTENTS</p>
       <ol>
         {% for item in page.toc_items %}

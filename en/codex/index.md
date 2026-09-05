@@ -23,6 +23,13 @@ permalink: /en/codex/
     <span class="card-link">Open note <span aria-hidden="true">→</span></span>
   </a>
 
+  <a class="document-card" href="../../codex/document-writing-guideline.md">
+    <span class="document-kind">GUIDELINE</span>
+    <h2>Document Writing Rules</h2>
+    <p>Shared rules for technical documents, planning documents, README files, and all other documentation.</p>
+    <span class="card-link">Open note <span aria-hidden="true">→</span></span>
+  </a>
+
   <a class="document-card" href="../../codex/validation-guideline.md">
     <span class="document-kind">GUIDELINE</span>
     <h2>Codex Validation Rules</h2>

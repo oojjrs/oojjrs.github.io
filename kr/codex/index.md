@@ -23,6 +23,13 @@ permalink: /kr/codex/
     <span class="card-link">문서 열기 <span aria-hidden="true">→</span></span>
   </a>
 
+  <a class="document-card" href="../../codex/document-writing-guideline.md">
+    <span class="document-kind">GUIDELINE</span>
+    <h2>문서 작성 지침</h2>
+    <p>기술 문서, 기획서, README를 포함한 모든 문서 작성의 공통 규칙입니다.</p>
+    <span class="card-link">문서 열기 <span aria-hidden="true">→</span></span>
+  </a>
+
   <a class="document-card" href="../../codex/validation-guideline.md">
     <span class="document-kind">GUIDELINE</span>
     <h2>Codex 검증 원칙</h2>
