@@ -33,13 +33,6 @@ Do not derive both behavior and expected output from the same assumption; a self
 - Skills/structured files: fast schema or parser checks on changed artifacts.
 - External/high-risk changes: exact target before mutation and one resulting-state readback.
 
-## Task-Owned Outputs
-
-Redirect controllable temporary output into a literal `$Trash` directory. Output known to have been absent before the current task and created solely by its validation command is task-owned and may be deleted after use even when the tool writes it elsewhere. Never remove a pre-existing or provenance-uncertain path.
-
-## Git Completion
-
-Load the Git completion workflow when staging or committing scoped work, or for an explicitly requested push, deploy, release, publication, or completion of an existing diff. Use initial status only to isolate prior work. When Git completion follows review of an uncommitted result, the finish workflow's single fresh pre-stage reconciliation snapshot is scope-selection evidence rather than a repeated validation pass. After reconciliation, stage exact paths and review final staged name/status, diff, and whitespace once; this replaces the ordinary diff. Re-review only changed staged content and apply version policy only to governed units in scope.
 
 ## Reporting
 
