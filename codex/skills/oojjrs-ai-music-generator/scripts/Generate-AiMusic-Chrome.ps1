@@ -2,6 +2,8 @@
 param(
     [Parameter(Position = 0)]
     [string] $Prompt,
+    [ValidateSet('Description', 'InstrumentalSections')]
+    [string] $InputMode = 'Description',
     [string] $Title = '',
     [string] $Style = '',
     [string] $Username = 'oojjrs',
@@ -330,17 +332,38 @@ if (-not [string]::IsNullOrWhiteSpace($DownloadOnlySongIds)) {
     }
 }
 $downloadOnlyMode = $downloadOnlyIds.Count -gt 0
+if (-not $downloadOnlyMode) {
+    $Prompt = $Prompt.Replace("`r`n", "`n").Replace("`r", "`n")
+}
 if (-not $downloadOnlyMode -and [string]::IsNullOrWhiteSpace($Prompt)) {
     throw '노래 설명(-Prompt)을 입력하세요.'
 }
-if ($Prompt.Length -gt 3000) {
-    throw "AI MUSIC> 노래 설명은 최대 3000자입니다 : $($Prompt.Length)"
+$promptLimit = if ($InputMode -eq 'InstrumentalSections') { 5000 } else { 3000 }
+if ($Prompt.Length -gt $promptLimit) {
+    throw "AI MUSIC> $InputMode 입력은 최대 $promptLimit`자입니다 : $($Prompt.Length)"
 }
 if ($Title.Length -gt 80) {
     throw "제목은 최대 80자입니다. 현재 $($Title.Length)자입니다."
 }
 if ($Style.Length -gt 1000) {
     throw "AI MUSIC> 음악 스타일은 최대 1000자입니다 : $($Style.Length)"
+}
+if (
+    -not $downloadOnlyMode -and
+    $InputMode -eq 'InstrumentalSections' -and
+    [string]::IsNullOrWhiteSpace($Style)
+) {
+    throw 'AI MUSIC> InstrumentalSections 모드에서는 음악 스타일(-Style)이 필요합니다.'
+}
+if (-not $downloadOnlyMode -and $InputMode -eq 'InstrumentalSections') {
+    foreach ($line in $Prompt.Split("`n")) {
+        if (
+            -not [string]::IsNullOrWhiteSpace($line) -and
+            $line -notmatch '^\[[^\[\]\r\n]+\]$'
+        ) {
+            throw "AI MUSIC> InstrumentalSections의 비어 있지 않은 각 줄은 [ ... ] 형식이어야 합니다 : $line"
+        }
+    }
 }
 if ($downloadOnlyMode -and $PreflightOnly) {
     throw '-DownloadOnlySongIds와 -PreflightOnly는 함께 사용할 수 없습니다.'
@@ -527,6 +550,7 @@ Boolean(document.querySelector('form[action="/ko/users/sign_out"]'))
             attemptId              = $script:AttemptId
             acknowledgeUnresolved  = [bool] $AcknowledgeUnresolvedGeneration
             baselineIds            = $baselineIds
+            inputMode              = $InputMode
             preflightOnly          = $true
             username               = $Username
             prompt                 = $Prompt
@@ -579,9 +603,24 @@ Boolean(document.querySelector('form[action="/ko/users/sign_out"]'))
   };
   const model = singleValue(new FormData(form), 'ai_model_name');
   if (!model) throw new Error('AI MUSIC> CURRENT MODEL IS MISSING.');
-  const descriptionTab = document.getElementById('generation-description-tab');
-  if (!descriptionTab) throw new Error('AI MUSIC> DESCRIPTION TAB IS MISSING.');
-  descriptionTab.click();
+  const mode = {
+    Description: {
+      tabId: 'generation-description-tab',
+      promptId: 'generation-task-description',
+      customMode: 'false',
+      instrumental: true
+    },
+    InstrumentalSections: {
+      tabId: 'generation-custom-lyrics-tab',
+      promptId: 'generation-task-lyrics',
+      customMode: 'true',
+      instrumental: false
+    }
+  }[config.inputMode];
+  if (!mode) throw new Error('AI MUSIC> INPUT MODE IS INVALID.');
+  const modeTab = document.getElementById(mode.tabId);
+  if (!modeTab) throw new Error('AI MUSIC> INPUT MODE TAB IS MISSING.');
+  modeTab.click();
   const instrumental = form.querySelector(
     'input[type="checkbox"][name="generation_task[instrumental]"]' +
     '[data-workspace-form-target="instrumental"]'
@@ -589,15 +628,15 @@ Boolean(document.querySelector('form[action="/ko/users/sign_out"]'))
   if (!instrumental || instrumental.disabled) {
     throw new Error('AI MUSIC> INSTRUMENTAL CHECKBOX IS UNAVAILABLE.');
   }
-  if (!instrumental.checked) instrumental.click();
+  if (instrumental.checked !== mode.instrumental) instrumental.click();
 
-  // Use the UI first: changing mode or instrumental can clear the description.
+  // Use the UI first: changing mode or instrumental can clear the active prompt.
   for (const name of ['prompt', 'style', 'title']) {
     const fields = [...form.querySelectorAll(
       '[name="generation_task[' + name + ']"]'
     )].filter(field => !field.disabled && !field.closest('[hidden]'));
-    if (fields.length !== 1 || (name === 'prompt' && fields[0].id !== 'generation-task-description')) {
-      throw new Error(`AI MUSIC> EXPECTED ONE ACTIVE DESCRIPTION FIELD : ${name}`);
+    if (fields.length !== 1 || (name === 'prompt' && fields[0].id !== mode.promptId)) {
+      throw new Error(`AI MUSIC> EXPECTED ONE ACTIVE INPUT FIELD : ${name}`);
     }
     const field = fields[0];
     if (field.maxLength >= 0 && config[name].length > field.maxLength) {
@@ -614,17 +653,26 @@ Boolean(document.querySelector('form[action="/ko/users/sign_out"]'))
     }
   }
   const instrumentalValues = data.getAll('generation_task[instrumental]');
+  const instrumentalIsValid = mode.instrumental
+    ? (
+      instrumental.checked &&
+      ['true', '1'].includes(instrumental.value) &&
+      instrumentalValues.length === 2 &&
+      ['false', '0'].includes(instrumentalValues[0]) &&
+      instrumentalValues[1] === instrumental.value
+    )
+    : (
+      !instrumental.checked &&
+      instrumentalValues.length === 1 &&
+      ['false', '0'].includes(instrumentalValues[0])
+    );
   if (
-    !instrumental.checked ||
-    !['true', '1'].includes(instrumental.value) ||
-    ![1, 2].includes(instrumentalValues.length) ||
-    instrumentalValues.at(-1) !== instrumental.value ||
-    (instrumentalValues.length === 2 && !['false', '0'].includes(instrumentalValues[0])) ||
-    singleValue(data, 'custom_mode') !== 'false' ||
+    !instrumentalIsValid ||
+    singleValue(data, 'custom_mode') !== mode.customMode ||
     singleValue(data, 'ai_model_name') !== model ||
     !form.checkValidity()
   ) {
-    throw new Error('AI MUSIC> INSTRUMENTAL DESCRIPTION FORM VALIDATION FAILED.');
+    throw new Error('AI MUSIC> INPUT MODE FORM VALIDATION FAILED.');
   }
   const submits = form.querySelectorAll('button[type="submit"]');
   if (submits.length !== 1 || submits[0].disabled) {
@@ -633,8 +681,9 @@ Boolean(document.querySelector('form[action="/ko/users/sign_out"]'))
   if (config.preflightOnly) {
     return JSON.stringify({
       ready: true,
-      mode: 'description',
-      instrumental: true,
+      mode: config.inputMode,
+      inputMode: config.inputMode,
+      instrumental: mode.instrumental,
       model,
       baselineCount: config.baselineIds.length,
       postSent: false
@@ -647,6 +696,8 @@ Boolean(document.querySelector('form[action="/ko/users/sign_out"]'))
       ...(current?.attemptId === config.attemptId ? current : {}),
       attemptId: config.attemptId,
       baselineIds: config.baselineIds,
+      inputMode: config.inputMode,
+      instrumental: mode.instrumental,
       prompt: config.prompt,
       title: config.title,
       username: config.username,
@@ -672,7 +723,9 @@ Boolean(document.querySelector('form[action="/ko/users/sign_out"]'))
   return JSON.stringify({
     submitted: true,
     attemptId: config.attemptId,
-    mode: 'description'
+    mode: config.inputMode,
+    inputMode: config.inputMode,
+    instrumental: mode.instrumental
   });
 })()
 '@
@@ -686,6 +739,7 @@ Boolean(document.querySelector('form[action="/ko/users/sign_out"]'))
             [pscustomobject] @{
                 Ready         = $true
                 Mode          = [string] $preflight.mode
+                InputMode     = [string] $preflight.inputMode
                 Instrumental  = [bool] $preflight.instrumental
                 Model         = [string] $preflight.model
                 BaselineCount = [int] $preflight.baselineCount
@@ -890,6 +944,8 @@ Boolean(document.querySelector('form[action="/ko/users/sign_out"]'))
 
     [pscustomobject] @{
         AttemptId      = $script:AttemptId
+        InputMode      = $(if ($downloadOnlyMode) { $null } else { $InputMode })
+        Instrumental   = $(if ($downloadOnlyMode) { $null } else { $InputMode -eq 'Description' })
         PostSent       = $postAttempted
         ExpectedCount  = $expectedCount
         DiscoveredCount = $newIds.Count

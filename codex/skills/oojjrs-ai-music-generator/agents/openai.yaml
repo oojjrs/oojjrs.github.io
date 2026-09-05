@@ -1,4 +1,4 @@
 interface:
   display_name: "oojjrs AI Music Generator"
-  short_description: "Generate paired instrumental versions via Chrome"
+  short_description: "Generate instrumental music and test longer arrangements"
   default_prompt: "Use $oojjrs-ai-music-generator to submit one instrumental generation request at a time through the signed-in workspace and download both song versions."

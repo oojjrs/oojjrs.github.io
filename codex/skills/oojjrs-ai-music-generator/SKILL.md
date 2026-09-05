@@ -1,6 +1,6 @@
 ---
 name: oojjrs-ai-music-generator
-description: Generate and download instrumental music from ai-music-generator.ai through the dedicated Chrome profile and bundled PowerShell automation. Use when generation/download is the current explicit phase. Do not preload it for a larger game-audio editing, looping, installation, or documentation task; that task uses $oojjrs-game-audio-asset-workflow and routes here only when its paid generation phase begins.
+description: Generate and download instrumental music from ai-music-generator.ai, including length experiments with description prompts or instrumental section tags in Custom Lyrics, through the dedicated Chrome profile and bundled PowerShell automation. Use when generation/download is the current explicit phase. Do not preload it for a larger game-audio editing, looping, installation, or documentation task; that task uses $oojjrs-game-audio-asset-workflow and routes here only when its paid generation phase begins.
 ---
 
 # oojjrs AI Music Generator
@@ -19,7 +19,7 @@ One POST produces two sibling versions of one condition.
 
 - For four diverse candidates, normally use two intentionally different conditions and one sequential POST for each.
 - For a four-song duration test, normally use one exact-input baseline pair and one minimally edited structural-variant pair. If the purpose is to measure generator randomness, repeat the exact baseline instead.
-- Record the exact title, prompt, style, condition, and downloaded duration for every pair.
+- Record the exact title, prompt, style, input mode, Instrumental flag, condition, and downloaded duration for every pair.
 
 Treat duration as probabilistic:
 
@@ -30,16 +30,18 @@ Treat duration as probabilistic:
 - Direct minute counts, `long`, bar or cycle counts, and short-cue terms may be tested, but do not maintain a universal blacklist. Preserve required identity words in the baseline and test removal or replacement one variable at a time.
 - Generate in English unless the user requests otherwise, measure the downloaded files, and report actual durations. Never attribute an effect to one keyword when several prompt dimensions changed together.
 
+For a requested Custom Lyrics experiment, put arrangement directions in square brackets, for example `[Instrumental]`, `[Verse 1: instrumental brass melody over driving drums]`, `[Chorus: instrumental return of the main theme]`, and `[Bridge: extended instrumental development]`. Each nonempty line must be one bracketed direction. Preserve the liked instrument palette and use successive sections to develop and reprise the material. Tags are model hints, not a duration guarantee; do not infer that a long file is vocal-free or musically faithful from metadata alone. Compare actual outputs before recording a technique as successful. For the reusable form and observed limits, read [references/instrumental-sections.md](references/instrumental-sections.md).
+
 An audio or melody extension can succeed because of the supplied seed even when the text prompt is mediocre. Evaluate seed-based extension quality separately from fresh text-to-music prompt quality.
 
 ## Workflow
 
 1. Resolve inputs.
-   - Require a music description of 1-3000 characters.
+   - Use `-InputMode Description` by default with a music description of 1-3000 characters. Use `-InputMode InstrumentalSections` for a requested Custom Lyrics arrangement experiment, with 1-5000 characters of bracketed section and performance directions.
    - Accept an optional title of up to 80 characters.
    - Accept an optional style of up to 1000 characters.
-   - Keep instrumental mode enabled. Do not add lyrics or expose an option to disable instrumental mode.
-   - Use the Description tab. Turning on Instrumental reveals Style and Title while `custom_mode` remains false; Custom Lyrics is a different mode. Only the enabled description textarea may supply the prompt.
+   - In Description mode, keep the Instrumental checkbox enabled. InstrumentalSections intentionally turns it off because this site hides and disables the lyrics field while Instrumental is enabled. The intended output remains instrumental: require a nonempty Style and bracket-only directions, with no sung lyric lines. Explain the mode change and assess unwanted vocals separately from duration.
+   - Description uses `custom_mode=false` and the enabled description textarea. InstrumentalSections uses the Custom Lyrics tab, `custom_mode=true`, and the enabled lyrics textarea. Validate the actual submitted mode, Instrumental flag, and single prompt field; never force a disabled field into the form.
    - Use the requested output directory. Otherwise use `$Trash` in the active workspace.
 
 2. Run one script invocation at a time from PowerShell.
@@ -53,7 +55,7 @@ pwsh -NoProfile -ExecutionPolicy Bypass -File "<skill-dir>\scripts\Generate-AiMu
 
    - One form POST produces two song versions. "Two results" never means two concurrent generation requests.
    - The script holds a named process lock and calls `requestSubmit()` exactly once outside every polling loop.
-   - Use `-PreflightOnly` to fill and validate the signed-in form without sending a POST or consuming credit. It checks the actual submitted Prompt, Style, Title, and instrumental values, and preserves the model selected by the site.
+   - Use `-PreflightOnly` to fill and validate the signed-in form without sending a POST or consuming credit. It reports the input mode and Instrumental flag, checks the actual submitted Prompt, Style, and Title, and preserves the model selected by the site.
 
 3. Handle the dedicated Chrome profile.
    - The script uses a persistent profile under `%LOCALAPPDATA%\AiMusicAutomation\ChromeProfile` and local debugging port `9222`. Reuse a running dedicated browser; launch it hidden by default. Pass `-ShowChrome` only when the user asks for a visible browser, such as for signing in.
