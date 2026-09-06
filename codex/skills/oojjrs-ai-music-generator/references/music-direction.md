@@ -37,7 +37,7 @@ These reference roles are preference evidence. File metadata measures duration a
 1. Select one liked palette or exact original Style as the common baseline. Preserve its main instrumentation and identity anchors across conditions.
 2. Write a short description of the intended emotional journey. Change the sequence, recurrence, phrase length or instrumental roles rather than merely renaming Verse and Chorus tags.
 3. Keep a fixed source/no-source choice, model label and exposed settings when comparing narratives. Record any deliberate difference instead of claiming complete parameter equality between services.
-4. Avoid an obligatory quiet breakdown in every template. Contrast can come from phrase length, density, call and response, or supporting roles while the pulse continues.
+4. Choose contrast deliberately. A quiet middle followed by a strong return is a liked option; other pieces can contrast phrase length, density, call and response, or instrumental roles without a quiet break.
 5. Do not demand the same motif and same arrangement in every section so strongly that all development is discouraged. Keep recognizable material while specifying a meaningful change.
 6. Judge the opening, identity, development, payoff and ending separately. A coherent two-minute piece can satisfy the brief; a long output with weak development cannot satisfy it merely by being long.
 
@@ -59,6 +59,25 @@ Keep the selected Style and palette, then adapt this instrumental arrangement ex
 [Verse 2: repeat the main melody with fresh countermelodies and accompaniment; leave space for the lead]
 [Final Chorus: present the complete hook with the richest supporting arrangement and a confident sense of arrival]
 [Outro: let the recognizable main melody reach a satisfying, decisive resolution]
+[End]
+```
+
+## Mid-Piece Respite and Strong Return
+
+After an energetic main section, a calm middle can create breathing room before a decisive return. This is another liked narrative choice, distinct from beginning with a sparse hook; choose either or combine them when it serves the piece. Reduce the active parts and intensity during the respite, and let the rhythm relax as the arrangement needs. Keep the mood warm or expectant and retain a familiar melodic fragment or lead color to connect the sections.
+
+Make the return restore the recognizable main melody with full accompaniment and renewed energy. Let richer decorations strengthen the familiar theme's arrival. Adapt this example to the chosen Style and palette; it is an arrangement hypothesis rather than a required structure or guaranteed result:
+
+```text
+[Instrumental]
+[Intro: establish a clear, memorable main theme and a confident rhythmic identity]
+[Verse 1: develop the energetic main theme through complete phrases with supporting answers]
+[Chorus: present the complete hook with a full, spirited arrangement]
+[Instrumental Interlude: keep the main section moving with fresh decorations around the familiar melody]
+[Bridge: gently strip back the arrangement into a calm respite; let a recognizable theme fragment breathe with soft accompaniment]
+[Build: use a clear pickup from the familiar motif to create anticipation for the return]
+[Final Chorus: return decisively with the complete main melody, powerful full accompaniment and richer supporting figures]
+[Outro: let the final thematic statement reach a satisfying, confident resolution]
 [End]
 ```
 
