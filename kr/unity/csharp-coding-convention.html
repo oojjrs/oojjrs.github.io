@@ -482,6 +482,7 @@
         <div class="rule-index">01</div>
         <div class="rule-body">
           <h3>세미콜론 문장과 함수 선언·호출을 임의로 줄바꿈하지 않는다</h3>
+          <p><code>switch</code> 식은 한 줄 배치 규칙의 예외다. <code>return</code> 문, 변수 초기화, 호출 인수 안에서도 여는 중괄호와 닫는 중괄호는 각각 별도 줄에 두고, 각 arm은 한 줄에 쓴다. <code>switch</code> 식 전체를 한 줄로 압축하지 않는다.</p>
           <div class="example-pair">
             <div class="example good">
               <div class="example-label">올바른 사용</div>
@@ -523,6 +524,21 @@ private void GrantReward()
         item, rewardCount, rewardType,
         isBonus, onComplete);
 }</code></pre>
+            </div>
+          </div>
+          <div class="example-pair">
+            <div class="example good">
+              <div class="example-label">올바른 사용</div>
+              <pre><code>return colorIndex switch
+{
+    0 =&gt; Color.blue,
+    1 =&gt; Color.red,
+    _ =&gt; Color.white,
+};</code></pre>
+            </div>
+            <div class="example bad">
+              <div class="example-label">잘못된 사용</div>
+              <pre><code>return colorIndex switch { 0 =&gt; Color.blue, 1 =&gt; Color.red, _ =&gt; Color.white, };</code></pre>
             </div>
           </div>
         </div>

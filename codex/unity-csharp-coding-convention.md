@@ -4,7 +4,7 @@ First-party only. Priority: local > here > Unity > VS/Microsoft. Exclude generat
 
 ## Core
 
-1. New/edited statements through `;`, declaration headers including parameters/`where`, and call arguments stay on one physical line regardless of length. Preserve user wraps unless asked.
+1. New/edited statements through `;`, declaration headers including parameters/`where`, and call arguments stay on one physical line regardless of length. Exception: a `switch` expression is multiline even in a `return`, variable initializer, or call argument: put opening and closing braces on separate lines, keep each arm on one line, and never collapse the whole expression onto one line. Preserve user wraps unless asked.
 2. One-line simple-statement body: no braces. When the body is another control statement, brace the outer statement except `else if`; nested `using` follows 27. One braced `if` branch: brace all.
 3. One attribute per line directly above its declaration.
 4. One empty line at required boundaries and after `using`; never consecutive, whitespace-only, or directly inside braces.

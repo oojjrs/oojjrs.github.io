@@ -53,6 +53,8 @@ Conventions not mentioned here follow Unity standards and Visual Studio Code Sty
 
 ### 01. Do not wrap semicolon-terminated statements, function declarations, or calls
 
+A `switch` expression is an exception to the one-line layout rule. Even in a `return`, variable initializer, or call argument, put the opening and closing braces on separate lines and keep each arm on one line. Never collapse the whole `switch` expression onto one line.
+
 Correct:
 
 ```csharp
@@ -96,6 +98,24 @@ private void GrantReward()
         item, rewardCount, rewardType,
         isBonus, onComplete);
 }
+```
+
+
+Correct:
+
+```csharp
+return colorIndex switch
+{
+    0 => Color.blue,
+    1 => Color.red,
+    _ => Color.white,
+};
+```
+
+Incorrect:
+
+```csharp
+return colorIndex switch { 0 => Color.blue, 1 => Color.red, _ => Color.white, };
 ```
 
 
