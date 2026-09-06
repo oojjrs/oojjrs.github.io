@@ -9,6 +9,8 @@ Use the bundled `scripts/Generate-AiMusic-Chrome.ps1` with PowerShell 7 (`pwsh`)
 
 ## Prompt Design and Duration Experiments
 
+Before developing or revising music prompts for oojjrs, read [music-direction.md](references/music-direction.md) for the reusable musical brief, reference provenance, and narrative experiments. Preserve an explicitly requested exact input instead of silently applying a different preference preset. This reference guides both AMG and Suno; provider operations remain in their own skills.
+
 Classify the request before changing the prompt:
 
 - **Candidate diversity:** preserve every explicit or already-liked identity anchor, then vary only the dimensions the user wants explored. Conditions may differ in structure, mood, energy curve, harmony, arrangement, or palette, but do not replace a liked style or indispensable instrument set without authorization.

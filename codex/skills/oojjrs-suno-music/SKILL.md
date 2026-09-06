@@ -12,6 +12,7 @@ Operate Suno through the user's signed-in browser session with `mcp__cua_repl.js
 1. Use `mcp__cua_repl.js` for browser actions. On its first call or after a reset, make exactly one initialization call allowed by the tool instructions, then follow the API documentation returned by that call.
 2. Read [browser-session.md](references/browser-session.md) before selecting or recovering a Suno tab.
 3. Read only the references required for the requested phase:
+   - Develop music prompts, narrative variants, or vocal/instrument exclusions for oojjrs: [shared music direction](../oojjrs-ai-music-generator/references/music-direction.md). Preserve an explicitly requested exact input; distinguish intelligible lyrics from wordless choir textures.
    - Configure or generate a song or sound: [create-options.md](references/create-options.md)
    - Use Audio, Voice, recording, upload, or Inspo: [source-inputs.md](references/source-inputs.md)
    - Inspect, play, compare, download, remix, edit, publish, share, or organize results: [results-and-library.md](references/results-and-library.md)
