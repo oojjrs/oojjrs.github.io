@@ -4,7 +4,8 @@ Use this shared brief when preparing music for oojjrs through AI Music Generator
 
 ## Musical Direction
 
-- Aim for a striking opening, a memorable main theme, purposeful development and a satisfying ending. Evaluate the complete musical journey, not just duration or a strong introduction.
+- Prioritize an easy-to-grasp, memorable main melody and rewarding repetition, with purposeful development and a satisfying ending. Keep the main melody clearly audible as supporting parts become richer; melodic simplicity can still sound mature and substantial.
+- A striking opening can use only a few parts. A sparse statement of the hook followed by a sudden full-ensemble entrance is a strongly liked option, alongside other narrative shapes.
 - Favor forceful optimism, mature adventure, soaring aspiration, or energetic action and battle music. Treat these as distinct directions; a single track need not contain every category.
 - Keep positive music confident and substantial. Avoid depressive or mournful framing and childish novelty. Do not equate optimism with an obligatory major key, maximum tempo, loudness, or cute instrumentation.
 - Avoid a foreground guitar lead and piercing, whining guitar tone. A restrained guitar part blended into the accompaniment can be acceptable; do not translate this into an unconditional ban on every guitar.
@@ -40,6 +41,27 @@ These reference roles are preference evidence. File metadata measures duration a
 5. Do not demand the same motif and same arrangement in every section so strongly that all development is discouraged. Keep recognizable material while specifying a meaningful change.
 6. Judge the opening, identity, development, payoff and ending separately. A coherent two-minute piece can satisfy the brief; a long output with weak development cannot satisfy it merely by being long.
 
+## Sparse Hook and Full Ensemble Entrance
+
+Use this option across chosen styles when the intended payoff is the arrival of the full arrangement around an already familiar melody. Select a coherent instrument palette first. Begin with a small subset, then make a decisive increase in active parts; increasing loudness alone does not create the intended entrance. Carry the opening melody and recognizable lead tone through that transition so the arrival develops the same piece.
+
+Repeat the complete hook enough for recognition. Put much of the subsequent variation into countermelodies, answering phrases, rhythmic accents, fills and accompaniment while keeping the main line easy to follow. New decorations should support its phrasing and leave space around it. This preference does not require identical bars throughout, a fixed note count, a fixed intro duration, or the same structure for every track.
+
+Keep the selected Style and palette, then adapt this instrumental arrangement example. It is a prompt hypothesis, not a guarantee of a catchy melody, exact section timing, or faithful execution:
+
+```text
+[Instrumental]
+[Intro: introduce a clear, memorable main melody with a small subset of the chosen instruments]
+[Verse 1: repeat the complete melody with its recognizable lead tone and only light supporting figures]
+[Pre-Chorus: create anticipation around the familiar melody while holding back the full accompaniment]
+[Chorus: make a sudden, powerful full-ensemble entrance around the same complete main melody, keeping its lead clearly recognizable]
+[Instrumental Interlude: keep the familiar melodic thread moving while adding answering phrases and rhythmic decorations around it]
+[Verse 2: repeat the main melody with fresh countermelodies and accompaniment; leave space for the lead]
+[Final Chorus: present the complete hook with the richest supporting arrangement and a confident sense of arrival]
+[Outro: let the recognizable main melody reach a satisfying, decisive resolution]
+[End]
+```
+
 ## Moonlit Ruins Baseline
 
 The Mines planning record for `Treasure PvP Moonlit Ruins` contains this original Prompt:
@@ -63,7 +85,7 @@ For the narrative conditions below, keep the original Style fixed and use this c
 [Palette: mystical wordless choir pads blended into the background, nimble percussion, elegant and spirited ruins adventure; no intelligible lyrics]
 ```
 
-This is a prepared adaptation of the source Prompt, not a recovered original Lyrics input. The following bodies are untested arrangement hypotheses. They are not instructions to recreate the reference recording's exact melody or to run every condition automatically.
+This is a prepared adaptation of the source Prompt, not a recovered original Lyrics input. The following bodies are arrangement hypotheses rather than validated recipes. They are not instructions to recreate the reference recording's exact melody or to run every condition automatically.
 
 ### A. Continuous Ascent
 
@@ -121,4 +143,4 @@ These vary the narrative shape: continuous growth, A-B-A-C-A recurrence, short e
 - The 2026-09 service comparisons produced usable outputs from both providers, with a subjective preference for AMG overall. A small set does not establish a universal capability ranking or prove hidden prompt rewriting.
 - Report the exact input, title, mode, source, model, exposed settings, actual result IDs and each duration. Keep subjective acceptance separate from technical readiness.
 - Use the provider's one-submission state tracking. Select the next condition within the currently authorized generation scope, and repeat a promising condition before treating it as reliable know-how.
-- Keep generated files under the project's literal `$Trash`. Playback links are an acceptable delivery option; do not consume Suno download allowances merely to make the two providers' delivery formats look identical.
+- Keep generated files under the project's literal `$Trash`. Prefer embedded audio players for listening; use local files with the app's supported Markdown audio embed or a provider's supported native preview. Usable playback links remain a fallback. Do not download remote media solely to work around display restrictions or consume Suno download allowances merely to make the two providers' delivery formats look identical.
