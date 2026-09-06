@@ -17,7 +17,7 @@ description: Load the user's canonical shared Codex rules once per task thread w
 
 - Apply the canonical workflow only to repository, code, document, asset, Git, validation, maintenance, or deployment work. Load its task-specific references at their stated entry points.
 - Read-only review or diagnosis: use no lifecycle skill. If the scope genuinely spans domains, inspect the smallest non-overlapping set sequentially rather than preloading them.
-- Local file, index, or commit mutation: use `$oojjrs-project-start-work` immediately before the first mutation, then one most-specific primary domain at a time.
+- For local changes, apply the common scope and preservation rules, then use the most-specific domain workflow when needed.
 - Conditional helpers: load board, dirty-worktree, or visual-QA helpers only after their exact trigger is confirmed.
 - After ordinary edits: apply the canonical one-pass text-format and scoped-diff finish, then leave the task's changes unstaged and uncommitted for user review. Do not load `$oojjrs-project-finish-work` merely because a local commit would be safe.
 - For local staging or commit, push, deploy, release, publication, destructive Git completion, or another external state transition: use `$oojjrs-project-finish-work` only when the current request explicitly authorizes the Git or external outcome. A requested push or publication authorizes its necessary scoped staging and local commit.

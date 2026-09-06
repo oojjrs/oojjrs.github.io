@@ -12,17 +12,16 @@ $oojjrs-guidelines
 
 ```text
 $oojjrs-guidelines
-+ [$oojjrs-project-start-work: local file or Git-state mutation]
 + [primary domain: zero or one most-specific match]
 + [helper: only after its condition is confirmed]
 + [$oojjrs-project-finish-work: authorized local stage/commit or external completion]
 ```
 
 - Ordinary conversation, factual Q&A, translation, and rewriting: use no operational workflow unless reviewing the rules themselves.
-- Read-only review or diagnosis: guidelines only when shared work rules matter, then the smallest non-overlapping read-only domains sequentially; no start or finish.
-- Local repository edits: guidelines once, start immediately before the first mutation, protect pre-existing or concurrent work outside the current task, use one primary domain at a time when needed, then one check-only exact-file format pass and one scoped diff review. Leave finished changes unstaged and uncommitted for user review unless the current request explicitly authorizes Git completion.
+- Read-only review or diagnosis: guidelines only when shared work rules matter, then the smallest non-overlapping read-only domains sequentially; no completion workflow.
+- Local repository edits: guidelines once, protect pre-existing or concurrent work outside the current task, use one primary domain at a time when needed, then one check-only exact-file format pass and one scoped diff review. Leave finished changes unstaged and uncommitted for user review unless the current request explicitly authorizes Git completion.
 - Scoped stage/commit: require explicit current-request authorization. An upfront Git-completion instruction or a requested push or publication authorizes its necessary scoped staging and local commit without a second permission. For a follow-up after uncommitted review, carry the most recently reported content scope forward, reconcile current review-time changes by semantic task role, then freeze and stage only requested-scope or related-support bytes unchanged. Preserve everything outside that scope.
-- Push/deploy of an already reviewed commit: guidelines once and finish authorization gate; start is unnecessary when local state will not change first.
+- Push/deploy of an already reviewed commit: guidelines once and finish authorization gate.
 - Builds, tests, runtime servers, browsers, and new tests require a request that targets that execution surface and an independent oracle. Rendered layout work targets the rendered surface and may use Visual QA.
 - A more-specific domain owns its subordinate safety, docs, and validation rules. Do not load generic parents alongside it.
 - Split genuinely independent deliverables into sequential phases instead of preloading several primary domains.
@@ -32,7 +31,6 @@ $oojjrs-guidelines
 | Role | Skill | Load when | Exclusions and precedence |
 |---|---|---|---|
 | Core | `$oojjrs-guidelines` | Whenever host instructions name it, or when actual work needs the shared rules | Apply the operational workflow only to actual work; fetch the canonical URL once |
-| Lifecycle | `$oojjrs-project-start-work` | Once before the first intended local file or Git-index mutation | Routine status at most once; history only when evidence requires it; not for review, diagnosis, planning, board-only, or push-only tasks |
 | Lifecycle | `$oojjrs-project-finish-work` | Explicitly authorized local stage/commit, push, deploy, release, publication, or destructive Git completion | Do not load for ordinary edits left uncommitted for user review; run only triggered checks once and omit inactive gates |
 | Helper | `$oojjrs-dirty-worktree-scope-split` | Target changes overlap existing hunks or safe stage/commit isolation is ambiguous | Mere dirty status is insufficient; dirty provenance diagnosis uses Windows forensics |
 | Helper | `$oojjrs-github-project-board` | User requests board work, or a cheap probe confirms a relevant 1:1 board this task must update | Do not load for every repo; load once, not again at finish |
@@ -54,7 +52,7 @@ $oojjrs-guidelines
 | Domain | `$oojjrs-unity-asset-safety` | General Unity asset mutation with no more-specific workflow | Fallback only; do not stack with package, Mines, art, sprite, audio, or prefab domains |
 | Domain | `$oojjrs-unity-localization-string-table-workflow` | Adding, renaming, migrating, or auditing Unity Localization string-table keys and locale entries | Owns StringTable integrity and its Unity asset safety; not for ordinary translation, UI layout, or unrelated assets |
 | Domain | `$oojjrs-unity-csharp-entity-workflow` | Unity Entity/Data/Record/Manager additions and integrations | Classify Record-only, Data-and-Record, or Data-only first; ask about ReferenceIndex whenever Data is requested |
-| Domain | `$oojjrs-unity-prefab-guid-usage-lookup` | Read-only Unity serialized reference/GUID tracing | No start/finish until the request changes to an edit |
+| Domain | `$oojjrs-unity-prefab-guid-usage-lookup` | Read-only Unity serialized reference/GUID tracing | No completion workflow for read-only lookup |
 | Domain | `$oojjrs-2d-sprite-animation` | 2D animation frames, sheets, pivots, or preview GIFs | Supersedes image-first art for animation frames |
 | Domain | `$oojjrs-image-first-art-workflow` | General new or revised raster art and visual assets | Not for 2D animation or a more-specific Mines pipeline |
 | Domain | `$oojjrs-crude-doodle-meme` | User asks to create a 짤, reaction image, or crude gag doodle in the user's established style | Owns the meme's visual and comedy language; use image-first art as its generation helper |
@@ -105,7 +103,6 @@ The repository file `codex/common-work-guidelines.md` is the publication source.
 ## Skill URLs
 
 - `oojjrs-guidelines`: [웹 보기](https://oojjrs.github.io/codex/skills/oojjrs-guidelines/SKILL/) · [원문](https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/oojjrs-guidelines/SKILL.md)
-- `oojjrs-project-start-work`: [웹 보기](https://oojjrs.github.io/codex/skills/oojjrs-project-start-work/SKILL/) · [원문](https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/oojjrs-project-start-work/SKILL.md)
 - `oojjrs-project-finish-work`: [웹 보기](https://oojjrs.github.io/codex/skills/oojjrs-project-finish-work/SKILL/) · [원문](https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/oojjrs-project-finish-work/SKILL.md)
 - `oojjrs-dirty-worktree-scope-split`: [웹 보기](https://oojjrs.github.io/codex/skills/oojjrs-dirty-worktree-scope-split/SKILL/) · [원문](https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/oojjrs-dirty-worktree-scope-split/SKILL.md)
 - `oojjrs-github-project-board`: [웹 보기](https://oojjrs.github.io/codex/skills/oojjrs-github-project-board/SKILL/) · [원문](https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/oojjrs-github-project-board/SKILL.md)

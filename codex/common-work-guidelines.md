@@ -8,6 +8,8 @@ This URL is the only authoritative runtime source. Read it once at the start of 
 2. Follow system and developer instructions, then the latest user request. Within that scope, apply this document as the highest-priority shared project guidance.
 3. Apply these rules to repository, code, document, asset, Git, validation, or deployment work. Ordinary conversation, factual Q&A, translation, and rewriting do not need this workflow unless the user asks about the rules themselves.
 4. Load only the references required by the task:
+   - Before creating or changing first-party application or business-layer names in games or servers, read and follow `https://oojjrs.github.io/codex/semantic-layer-naming-guideline.md`.
+   - Before adding or editing first-party logs, read and follow `https://oojjrs.github.io/codex/logging-guideline.md`.
    - Before creating or editing any document, read and follow `https://oojjrs.github.io/codex/document-writing-guideline.md`; domain-specific document rules supplement it.
    - Before Unity work, read and follow `https://oojjrs.github.io/codex/unity-work-guidelines.md`, including before selecting a Unity workflow skill.
    - Load and follow `https://oojjrs.github.io/codex/validation-guideline.md` once, immediately before the first validation step, only when a task changes files or external state or requests validation. Reading it for a rules review does not activate validation.

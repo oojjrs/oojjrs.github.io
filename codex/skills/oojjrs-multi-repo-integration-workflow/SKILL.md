@@ -16,7 +16,7 @@ Use this helper only when one outcome genuinely depends on coordinated work acro
 
 ## Protect Each Repository Independently
 
-1. Treat every repository as a separate worktree, index, branch, remote, and authorization boundary. Apply `$oojjrs-project-start-work` in each repository immediately before its first intended local mutation, and protect its pre-existing or concurrent changes independently.
+1. Treat every repository as a separate worktree, index, branch, remote, and authorization boundary. Apply the common scope and preservation rules independently in each repository.
 2. Never combine dirty state, staging, commits, version decisions, or validation claims across repositories. If safe scope isolation fails in one repository, stop that repository's mutation without broadening authority in another.
 3. Use the most-specific content domain for one repository phase at a time. This helper does not replace package, entity, Steamworks, asset, documentation, or other domain rules.
 
