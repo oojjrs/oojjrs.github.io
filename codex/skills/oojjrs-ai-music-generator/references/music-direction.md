@@ -4,8 +4,8 @@ Use this shared brief when preparing music for oojjrs through AI Music Generator
 
 ## Musical Direction
 
-- Prioritize an easy-to-grasp, memorable main melody and rewarding repetition, with purposeful development and a satisfying ending. Keep the main melody clearly audible as supporting parts become richer; melodic simplicity can still sound mature and substantial.
-- A striking opening can use only a few parts. A sparse statement of the hook followed by a sudden full-ensemble entrance is a strongly liked option, alongside other narrative shapes.
+- Prioritize an opening that immediately makes the user want to keep listening, an easy-to-grasp main melody and rewarding repetition, with purposeful development and a satisfying ending. Keep the main melody clearly audible as supporting parts become richer; melodic simplicity can still sound mature and substantial.
+- A striking opening can use only a few parts. Its first musical idea must already be engaging; a later full-ensemble entrance develops that appeal. This sparse opening is one strongly liked option among several narrative shapes.
 - Favor forceful optimism, mature adventure, soaring aspiration, or energetic action and battle music. Treat these as distinct directions; a single track need not contain every category.
 - Keep positive music confident and substantial. Avoid depressive or mournful framing and childish novelty. Do not equate optimism with an obligatory major key, maximum tempo, loudness, or cute instrumentation.
 - Avoid a foreground guitar lead and piercing, whining guitar tone. A restrained guitar part blended into the accompaniment can be acceptable; do not translate this into an unconditional ban on every guitar.
@@ -15,12 +15,14 @@ Use this shared brief when preparing music for oojjrs through AI Music Generator
 
 ## Reference Anchors
 
-The two strongest local reference outcomes are:
+The two strongest complete-track references have both compelling openings and satisfying development:
 
 | Recording | Role | Provenance limit |
 | --- | --- | --- |
 | `SeasideSandcastleBgm-1.mp3` | Complete composition and narrative reference; measured 187.760 seconds | The accepted recording came from extending a liked opening in Suno. Embedded section/instrument tags are partial provenance, not a recovered complete generation request. |
 | `Treasure PvP Moonlit Ruins-1-dc6b4f9f.mp3` | Complete composition and narrative reference; measured 152.959979 seconds | An exceptional individual output. Its prompt does not establish a repeatable success rate or reveal its exact model settings. |
+
+For opening appeal, `Treasure PvP Golden Chest-1-b7b99fb4.mp3` and `Treasure PvP Golden Chest-2-8dee41cf.mp3` are comparable to, and may exceed, those two complete-track references; their weakness is insufficient subsequent development. `Treasure PvP Dawn Trail-1-c1709763.mp3`, `Treasure PvP Dawn Trail-2-acfb5b36.mp3` and `Treasure PvP Jungle Relic-1-32224002.mp3` also have strongly liked openings, rated below the Golden pair, followed by insufficient development.
 
 The original `PVP 보물찾기 BGM 후보` set is also a source of liked openings. Many candidates end before developing those ideas sufficiently. Preserve their individual musical identity when exploring longer or different narratives.
 
@@ -39,7 +41,7 @@ These reference roles are preference evidence. File metadata measures duration a
 3. Keep a fixed source/no-source choice, model label and exposed settings when comparing narratives. Record any deliberate difference instead of claiming complete parameter equality between services.
 4. Choose contrast deliberately. A quiet middle followed by a strong return is a liked option; other pieces can contrast phrase length, density, call and response, or instrumental roles without a quiet break.
 5. Do not demand the same motif and same arrangement in every section so strongly that all development is discouraged. Keep recognizable material while specifying a meaningful change.
-6. Judge the opening, identity, development, payoff and ending separately. A coherent two-minute piece can satisfy the brief; a long output with weak development cannot satisfy it merely by being long.
+6. Evaluate opening appeal first, then identity, development, payoff and ending. Later quality or repeated exposure does not rescue an opening the user does not want to continue hearing. A coherent two-minute piece can satisfy the brief; a long output with weak development cannot satisfy it merely by being long.
 
 ## Sparse Hook and Full Ensemble Entrance
 
@@ -157,9 +159,10 @@ These vary the narrative shape: continuous growth, A-B-A-C-A recurrence, short e
 
 ## Experimental Evidence and Delivery
 
+- Generate complete compositions even when an experiment focuses on openings. Retain development of the opening material, thematic returns and a satisfying ending while varying the opening instructions. A promising opening should already belong to a usable full track, without depending on a later extension to complete it.
 - Evaluate seed-based extension separately from fresh text generation. One excellent Seaside extension does not make arbitrary continuation reliable; one excellent Moonlit result does not validate all settings or every tag in its prompt.
 - Structure tags are probabilistic directions. Compare the bodies as whole narrative conditions first. Isolate a single cue in a later test if the purpose becomes explaining why a condition worked.
 - The 2026-09 service comparisons produced usable outputs from both providers, with a subjective preference for AMG overall. A small set does not establish a universal capability ranking or prove hidden prompt rewriting.
 - Report the exact input, title, mode, source, model, exposed settings, actual result IDs and each duration. Keep subjective acceptance separate from technical readiness.
 - Use the provider's one-submission state tracking. Select the next condition within the currently authorized generation scope, and repeat a promising condition before treating it as reliable know-how.
-- Keep generated files under the project's literal `$Trash`. Prefer embedded audio players for listening; use local files with the app's supported Markdown audio embed or a provider's supported native preview. Usable playback links remain a fallback. Do not download remote media solely to work around display restrictions or consume Suno download allowances merely to make the two providers' delivery formats look identical.
+- Keep generated files under the project's literal `$Trash`. Present the complete generated tracks in embedded audio players, including during opening experiments; make excerpt previews only when requested. Use local files with the app's supported Markdown audio embed or a provider's supported native preview. Usable playback links remain a fallback. Do not download remote media solely to work around display restrictions or consume Suno download allowances merely to make the two providers' delivery formats look identical.
