@@ -20,7 +20,7 @@ First-party only. Priority: local > here > Unity > VS/Microsoft. Exclude generat
 11. Property: noun/adjective; Boolean question `Is`/`Has`, not action.
 12. `CanX`: ability to act; `Xable`: attribute.
 13. Property type postfix only when search improves (`String`, `Sprite`, `Prefab`, `Effect`, `Tooltip`).
-14. Function: verb/verb phrase.
+14. Function: verb/verb phrase. Also allow conventional result-oriented names: `To...` produces a converted representation; `With...` returns a copy with the specified value applied without modifying the original. Examples: `ToHsv()`, `WithAlpha(alpha)`. Do not rename these solely because the prefix is a preposition; do not use `With...` for in-place mutation.
 15. Enum: type suffix `Enum`; variable no repeated suffix.
 16. `IEnumerator` function: suffix `Coroutine`.
 
@@ -34,7 +34,7 @@ First-party only. Priority: local > here > Unity > VS/Microsoft. Exclude generat
 
 ## Words
 
-22. Business logic: one semantic layer per PascalCase token; split only for ownership/structure/relation/role. Exclude engine/library/low-level; see `semantic-layer-naming-guideline.md`.
+22. Business logic: one semantic layer per PascalCase token; split only for ownership/structure/relation/role. Exclude engine/library/low-level; see `semantic-layer-naming-guideline.md`. Independently of semantic-layer scope, treat each acronym as one word in all first-party identifiers: PascalCase `Html`/`Rgb`/`Rgba`/`Hsv`/`Ui`/`Id`, never `HTML`/`RGB`/`RGBA`/`HSV`/`UI`/`ID`; camelCase starts with `html`/`rgb`/`ui`/`id` and uses `Html`/`Rgb`/`Ui`/`Id` for later words. No two-letter exception. Preserve fixed external API names and required override/interface member names.
 23. Avoid keyword-substring names when search must distinguish them.
 24. Groups: plural `-s`/`-es`; avoid type-noise `List`/`Array`/`Bucket`.
 

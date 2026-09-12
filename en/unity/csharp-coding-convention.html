@@ -525,6 +525,8 @@ public string Description { get; }
 
 ### 14. Functions use verbs or verb phrases
 
+Conventional result-oriented names are also allowed. `To...` produces a converted representation; `With...` returns a copy with the specified value applied without modifying the original. Examples: `ToHsv()` and `WithAlpha(alpha)`. Do not rename these solely because the prefix is a preposition, and do not use `With...` for in-place mutation.
+
 Correct:
 
 ```csharp
@@ -733,6 +735,10 @@ Class: BagPanel
 ## Words {#words}
 
 ### 22. PascalCase boundaries represent semantic layers
+
+Independently of the semantic-layer rule's scope, treat each acronym as one word in all first-party identifiers. In PascalCase, use `Html`, `Rgb`, `Rgba`, `Hsv`, `Ui`, and `Id`, not `HTML`, `RGB`, `RGBA`, `HSV`, `UI`, or `ID`. Two-letter acronyms have no exception. In camelCase, use lowercase for the first word (`html`, `rgb`, `ui`, `id`) and title case for later acronyms (`Html`, `Rgb`, `Ui`, `Id`).
+
+Correct: `ToHtmlStringRgb`, `ToHsv`, `UiPanel`, `userId`. Incorrect: `ToHTMLStringRGB`, `ToHSV`, `UIPanel`, `userID`. Preserve fixed external API names and member names required by overrides or interface implementations.
 
 Correct:
 

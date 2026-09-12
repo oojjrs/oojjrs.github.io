@@ -956,6 +956,7 @@ public string Description { get; }</code></pre>
         <div class="rule-index">14</div>
         <div class="rule-body">
           <h3>함수는 동사 또는 동사구로 쓴다</h3>
+          <p>결과를 나타내는 관용적 이름도 허용한다. <code>To...</code>는 다른 표현으로 변환한 결과를 내놓고, <code>With...</code>는 원본을 수정하지 않고 지정 값을 반영한 복사본을 반환한다. <code>ToHsv()</code>, <code>WithAlpha(alpha)</code>가 해당한다. 접두사가 전치사라는 이유만으로 이름을 바꾸지 않으며, 원본을 직접 수정하는 함수에는 <code>With...</code>를 쓰지 않는다.</p>
           <div class="example-pair">
             <div class="example good">
               <div class="example-label">올바른 사용</div>
@@ -1183,6 +1184,8 @@ Class: BagPanel</code></pre>
         <div class="rule-index">22</div>
         <div class="rule-body">
           <h3>PascalCase 경계는 의미 계층을 나타낸다</h3>
+          <p>의미 계층 규칙의 적용 범위와 별개로, 모든 직접 작성한 식별자에서 약어는 하나의 단어로 취급한다. PascalCase에서는 <code>Html</code>, <code>Rgb</code>, <code>Rgba</code>, <code>Hsv</code>, <code>Ui</code>, <code>Id</code>로 쓰고, <code>HTML</code>, <code>RGB</code>, <code>RGBA</code>, <code>HSV</code>, <code>UI</code>, <code>ID</code>처럼 전부 대문자로 쓰지 않는다. 두 글자 약어도 예외가 아니다. camelCase의 첫 단어는 <code>html</code>, <code>rgb</code>, <code>ui</code>, <code>id</code>처럼 소문자로 쓰고, 뒤에 오는 약어는 <code>Html</code>, <code>Rgb</code>, <code>Ui</code>, <code>Id</code>로 쓴다.</p>
+          <p>올바른 예: <code>ToHtmlStringRgb</code>, <code>ToHsv</code>, <code>UiPanel</code>, <code>userId</code>. 잘못된 예: <code>ToHTMLStringRGB</code>, <code>ToHSV</code>, <code>UIPanel</code>, <code>userID</code>. 외부 API의 고정된 이름과 재정의·인터페이스 구현에 필요한 멤버 이름은 유지한다.</p>
           <div class="example-pair">
             <div class="example good">
               <div class="example-label">올바른 사용</div>
