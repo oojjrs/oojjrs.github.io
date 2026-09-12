@@ -17,14 +17,14 @@ output은 공식 문서상 삭제 가능한 디렉터리이므로 정적 검사�
 ## 단계별 지원
 
 1. 정적 경로·레이아웃 검사: scripts/Test-SteamworksEnvironment.ps1로 구현됨
-2. app build·depot VDF 생성: implementation_required
-3. Preview 빌드 실행과 manifest 검사: implementation_required
-4. 실제 chunk 업로드와 BuildID 확인: implementation_required
+2. app build·depot VDF 생성: scripts/Publish-SteamPipeBuild.ps1로 구현됨
+3. Preview 빌드 실행과 manifest 검사: scripts/Publish-SteamPipeBuild.ps1로 구현됨
+4. 실제 chunk 업로드와 BuildID 확인: scripts/Publish-SteamPipeBuild.ps1로 구현됨
 5. beta branch 또는 default branch Set Live: Partner 브라우저와 권한 필요
 
 Preview 구성과 실제 업로드 구성은 별도 실행 단계로 취급한다. Preview 성공을 실제 업로드 성공으로 간주하지 말고, Preview 결과와 output 로그를 검증한 뒤 업로드 동작을 다시 명시적으로 확정한다.
 
-실행 스크립트가 없는 단계를 요청받으면 공식 절차를 확인하고 필요한 입력까지 정리한 뒤 구현 필요를 알린다. 즉석 명령으로 조용히 우회하지 않는다.
+배포 스크립트는 AppID, DepotID, ContentRoot, SteamCmdPath, BuildOutput, SteamUser를 명시적으로 받고 프로젝트 파일에 복제하지 않는다. Preview 성공 뒤 실제 Upload를 별도 호출하며, beta SetLive는 `-SetLive -Branch <name>`을 모두 전달한 경우에만 포함한다. default branch SetLive는 항상 Partner에서 수동으로 수행한다.
 
 ## 안전 규칙
 
@@ -43,3 +43,9 @@ Preview 구성과 실제 업로드 구성은 별도 실행 단계로 취급한�
     powershell.exe -NoProfile -ExecutionPolicy Bypass -File "<skill-dir>\scripts\Test-SteamworksEnvironment.ps1" -Path "<steamcmd-or-contentbuilder-path>"
 
 결과의 Safety 항목은 실행·네트워크·쓰기·비밀정보 접근이 없었는지 보여 준다. OperationalReadiness가 Unverified인 것은 정상이며, 이 검사만으로 로그인·권한·업로드 가능성을 주장하지 않는다.
+
+## Preview와 업로드 사용
+
+    powershell.exe -NoProfile -ExecutionPolicy Bypass -File "<skill-dir>\scripts\Publish-SteamPipeBuild.ps1" -AppId <appid> -DepotId <depotid> -ContentRoot "<content>" -SteamCmdPath "<steamcmd.exe>" -BuildOutput "<output>" -SteamUser "<builder>" -Mode Preview -Branch "<beta>" -RequiredFiles @("<exe>")
+
+Preview가 검증된 뒤 같은 입력으로 `-Mode Upload`를 별도 실행한다. 실제 업로드만 하고 브랜치를 바꾸지 않으려면 `-SetLive`를 생략한다. 비밀번호와 Steam Guard 코드는 인자로 전달하지 않는다.

@@ -27,9 +27,9 @@ availability는 동시에 존재하는 차단 조건을 모두 기록할 수 있
 |---|---|---|---|---|---|---|---|
 | docs.routing | 공식 웹 문서 | documented | unverified_current | implemented | verified | unverified | available |
 | tooling.steamcmd.static-discovery | PowerShell | documented | unverified_current | implemented | verified | unverified | input_required |
-| steampipe.build-files | PowerShell·VDF | documented | unverified_current | not_implemented | unverified | unverified | implementation_required + input_required |
-| steampipe.preview | SteamCMD | documented | unverified_current | not_implemented | unverified | unverified | implementation_required + input_required + permission_required |
-| steampipe.upload | SteamCMD | documented | unverified_current | not_implemented | unverified | unverified | implementation_required + input_required + permission_required |
+| steampipe.build-files | PowerShell·VDF | documented | unverified_current | implemented | verified | unverified | input_required |
+| steampipe.preview | SteamCMD | documented | unverified_current | implemented | verified | unverified | input_required + permission_required |
+| steampipe.upload | SteamCMD | documented | unverified_current | implemented | verified | unverified | input_required + permission_required |
 | steampipe.branch.set-live | Partner 브라우저 | documented | unverified_current | project_specific | unverified | unverified | input_required + permission_required |
 | sdk.client-feature | SDK·프로젝트 코드 | documented | unverified_current | project_specific | unverified | unverified | input_required |
 | sdk.game-server | SDK·서버 코드 | documented | unverified_current | project_specific | unverified | unverified | input_required |
