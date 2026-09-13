@@ -53,8 +53,8 @@ permalink: /kr/codex/
 
   <a class="document-card" href="../../codex/guideline-design-generation.review.md">
     <span class="document-kind">REVIEW</span>
-    <h2>Design.html Planning Rules</h2>
-    <p>Minimal raw rules for creating and maintaining Design.html.</p>
+    <h2>Design.html 기획서 작성 지침</h2>
+    <p>Mines·Overlord 형태의 페이지 탐색, 화면·규칙 구성, 미디어와 기획 상태 관리 기준입니다.</p>
     <span class="card-link">문서 열기 <span aria-hidden="true">→</span></span>
   </a>
   <a class="document-card" href="../../codex/guideline-readme-generation.review.md">

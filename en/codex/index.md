@@ -47,7 +47,7 @@ permalink: /en/codex/
   <a class="document-card" href="../../codex/guideline-design-generation.review.md">
     <span class="document-kind">REVIEW</span>
     <h2>Design.html Planning Rules</h2>
-    <p>Minimal raw rules for creating and maintaining Design.html.</p>
+    <p>Page navigation, planning structure, media, and implementation status based on Mines and Overlord.</p>
     <span class="card-link">Open note <span aria-hidden="true">→</span></span>
   </a>
   <a class="document-card" href="../../codex/guideline-readme-generation.review.md">

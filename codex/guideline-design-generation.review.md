@@ -1,24 +1,88 @@
-# Design.html Rules
+# Design.html 기획서 작성 지침
 
-Read this only for `Design.html` creation, review, cleanup, or update. Keep it compact.
+정본 URL: `https://oojjrs.github.io/codex/guideline-design-generation.review.md`
 
-1. Layout is not optional. When creating a brand-new `Design.html`, use a compact, navigable structure suited to the current project; for existing document updates, do not rebuild the layout unless the user explicitly asks.
-2. When starting from a provided template, preserve its layout system: dark header, fixed side nav, nav groups, paired `section-group` blocks, `section-group-body`, child `<details id="...">`, `summary`, `.details-body`, image filename tags, responsive rules, synchronized navigation, and image lightbox behavior.
-3. Do not invent a different layout, landing page, hero, card system, color theme, navigation model, freeform Markdown-like page, or section organization. When a template applies, remove template-specific content and assets, but keep the template structure unless the user explicitly orders a structural deviation.
-4. `Design.html` is product/game planning, not chat history or a work board: keep final decisions, current implementation state, and unresolved items only.
-5. Do not put workflow, queue, validation, git, approval, commit rules, shared guideline links, or other work-operation text in `Design.html`.
-6. Read the live `Design.html` first; current code/assets beat stale planning text.
-7. If code and planning disagree, reconcile the document to current implementation and user intent.
-8. Remove stale comparisons, discarded candidates, and intermediate draft descriptions once a later/final direction exists.
-9. Keep prose short. Prefer screens, assets, tables, diagrams, audio/video, previews, flows, and state charts.
-10. Use text only for gaps the media cannot explain; do not paste long user explanations verbatim.
-11. Link images to their source files so clicks open the original size.
-12. Put temporary files in `$Trash`; final document assets must use live project asset paths or `DesignAssets/...`, never ad-hoc `tmp` folders.
-13. Keep only assets referenced by the current document in final document-asset folders.
-14. Explain important project terms with short `?` tooltips. Ask before inventing terms, meanings, or rationale.
-15. Arrange sections according to the overall planning structure. Generated `<details>` sections are closed by default: write `<details>`, not `<details open>`.
-16. Use `open` only when the user explicitly asks or for at most one tiny top overview/current section; asset, content, backlog, risk, future, and repeated sections must stay closed.
-17. Put unwritten candidates and future ideas near the end in one collapsed group.
-18. Keep category criteria next to the relevant data, image, table, sound, or section; do not create a separate meta-rule section.
-19. Do not start the body with document signals, authoring rules, or category summaries; start with real product/game content.
-20. Validate only changed document behavior against independent evidence: parse the changed HTML structure, resolve changed links, anchors, local asset references, and image click-throughs, and compare changed tooltips or `details open` state with the requested design. Use browser checks only when the user requests them or when layout or responsive behavior changed; then inspect only the affected desktop and mobile surfaces.
+`Design.html`의 생성, 개편, 복구, 검토, 내용 갱신에 적용한다. [공통 문서 작성 지침](https://oojjrs.github.io/codex/document-writing-guideline.md)을 함께 따른다. 기준 형태는 Mines와 Overlord의 현행 `Design.html`처럼 **작은 상단 헤더 + 왼쪽 목차 + 선택한 항목의 본문 페이지**다. 기획서는 실제 화면과 규칙, 사용할 자산, 남은 기획 결정을 찾아보고 비교할 수 있어야 한다.
+
+## 1. 참고 문서와 작업 범위
+
+- 사용자가 참고 프로젝트를 지정하면 그 프로젝트의 현재 `Design.html`을 직접 읽는다. Mines와 Overlord가 로컬에 있다면 각각 `H:\Mines\Design.html`, `H:\Overlord\Design.html`에서 확인한다. 경로가 다르면 실제 위치를 찾고, 접근하지 못한 문서를 확인했다고 쓰지 않는다.
+- 참고 문서에서는 탐색 구조, 정보 배치, 미디어 표시와 조작을 가져온다. 프로젝트 고유의 목차·세계관·색상·수치·자산·구현 상태를 다른 프로젝트에 복사하지 않는다. 참고 문서에 남아 있는 작성자 설명이나 오래된 정보도 규범으로 승격하지 않는다.
+- 새 문서와 전면 개편은 아래 페이지 전환 구조를 기본으로 한다. 사용자가 별도 템플릿이나 구조를 지정하면 이를 따른다. 기존 문서의 일부 내용만 갱신할 때는 전체 레이아웃을 재작성하지 않는다.
+- 이전 템플릿의 `section-group`, `section-group-body`, 중첩된 `<details>` 구조를 필수 형식으로 강제하지 않는다. 명시적으로 해당 템플릿 보존을 요청한 작업에만 그 구조를 유지한다.
+- 기획서 수정은 게임 코드나 자산의 수정 권한을 의미하지 않는다. 참조를 고치기 위해 원본 자산을 임의로 이동·삭제·재생성하지 않는다.
+
+## 2. 문서에 담는 정보
+
+- 현재 채택한 기획, 확인된 구현 상태, 검토에 필요한 후보와 미정 사항을 담는다. 대화 기록, 작업 일지, 지시 전달문, 검증 보고서, 작업 보드로 사용하지 않는다.
+- 사용자가 설명하거나 교정한 문장은 작성 판단에 사용하고 문서에 옮기지 않는다. 그 설명으로 확정된 제품 규칙만 독자가 이해할 형태로 쓴다.
+- 첫 페이지는 실제 게임의 정체성·핵심 플레이 또는 대표 화면으로 시작한다. 작성 기준, 문서 읽는 법, 상태 범례, 파일 목록으로 시작하지 않는다.
+- 작업 순서, 생성 대기열, 승인·커밋·배포 절차, 지침 링크, 검사 로그, 작업자용 메모는 본문에 넣지 않는다. 제품의 전투 단계나 화면 전환 순서는 기획 내용으로 설명한다.
+- 먼저 현재 문서를 읽고, 변경 항목에 관련된 코드·화면·자산으로 현재 사실을 확인한다. 파일이 있다는 사실만으로 기능이 동작한다고 단정하지 않는다.
+- 현재 구현과 목표 기획은 구분한다. 미구현이라는 이유로 채택된 미래 기획을 삭제하거나, 목표 이미지가 있다는 이유로 구현 완료로 바꾸지 않는다. 충돌은 해당 항목에서 현재 동작과 목표 동작을 짧게 나눠 설명한다.
+- 기획 확정, 시안, 애셋 완료, 런타임 미연결, 부분 구현, 적용 완료 등을 실제 증거에 맞게 표시한다. 상위 항목이 일부만 구현됐으면 전체 완료 배지를 붙이지 않는다. 목차와 본문의 동일 항목 상태를 함께 맞춘다.
+- 확정되지 않은 수치·의미·이유를 사실처럼 채우지 않는다. 결정이 필요하면 미정으로 남기고, 제안이 필요한 작업에서는 제안임을 밝힌다. 확인된 중요한 프로젝트 용어는 해당 위치의 짧은 설명이나 `?` 툴팁으로 풀어 쓴다.
+
+## 3. 화면 골격과 읽는 폭
+
+- 상단에는 작은 프로젝트 아이콘과 `프로젝트명 기획서` 제목을 둔다. 사용할 실제 아이콘이 없으면 제목만 둔다. 큰 히어로, 홍보 문구, 소개용 배너가 본문 공간을 차지하지 않게 한다.
+- 데스크톱에서는 상단 헤더 아래에 왼쪽 목차와 오른쪽 본문을 배치한다. 목차와 본문은 각자 세로로 스크롤되어 긴 본문에서도 목차를 계속 사용할 수 있어야 한다.
+- 배경·헤더·목차·본문·표와 이미지 영역의 층위를 구분하는 어두운 문서 표면을 기본으로 한다. 문서 테마와 게임 아트의 색상을 혼동하지 않는다. 기존 프로젝트의 가독성 있는 색상 체계는 유지한다.
+- 목차 폭은 항목 이름과 짧은 상태 배지가 읽히는 정도로 제한한다. 본문은 남는 공간을 사용하되 설명과 작은 표를 화면 끝까지 무조건 늘리지 않는다. 대표 화면이나 큰 비교 도판은 내용에 맞게 더 넓게 배치한다.
+- 작은 카드는 동일한 성격의 항목을 비교할 때 사용한다. 모든 문장과 소제목을 각각 카드로 둘러싸거나, 큰 빈 공간과 장식 때문에 정보 밀도를 낮추지 않는다.
+- 좁은 화면에서는 목차를 상단의 줄바꿈 가능한 탐색 영역 등으로 전환하고 본문은 한 열로 읽게 한다. 고정 너비·높이 때문에 내용이 잘리거나 목차가 본문을 가리지 않아야 한다. 긴 표의 가로 스크롤은 표 영역 안으로 제한한다.
+- 특정 프로젝트의 픽셀 값, CSS 보정의 누적, 사용하지 않는 스타일과 스크립트를 통째로 복사하지 않는다. 실제 필요한 구조와 동작만 옮긴다.
+
+## 4. 목차와 페이지 전환
+
+- 목차의 최상위 항목 하나는 본문 페이지 하나에 대응한다. 한 번에 선택한 페이지만 표시하고, 선택 항목은 색·표식과 `aria-current` 등으로 식별한다.
+- 기본 구조는 `nav.side-nav` 안의 링크, `main` 안의 `article.page`, 페이지의 `h2`와 `.page-body`다. `href="#항목-id"`, `data-page-link`, `id`, `data-page`를 대응시키거나 기존의 동등한 구조를 유지한다. 동일 문서 안에서 서로 다른 전환 방식을 섞지 않는다.
+- 첫 진입은 유효한 URL 해시의 페이지를 표시하고, 해시가 없거나 잘못됐으면 기본 페이지를 표시한다. 목차 클릭, 본문의 다른 페이지 링크, 직접 해시 진입과 해시 변경이 같은 전환 로직을 사용해야 한다.
+- 페이지 안의 소제목으로 연결할 때는 먼저 소속 페이지를 표시한다. 대상이 접힌 영역 안에 있으면 필요한 상위 접힘을 열고 해당 위치로 이동한다. 숨겨진 요소에 브라우저 기본 앵커 이동만 맡기지 않는다.
+- 다른 페이지로 이동할 때 본문 시작 위치를 일관되게 처리한다. 항목 추가·이동·삭제 시 목차, 실제 페이지 순서, 링크와 기본 선택을 함께 맞춘다. 기존에 쓰는 앵커는 가능하면 보존한다.
+- 목차는 화면, 플레이 모드, 규칙, 콘텐츠, UI·사운드 등 프로젝트의 기획 단위로 구성한다. Mines의 메뉴나 Overlord의 항목 수를 다른 게임에 강제하지 않는다. 작업 날짜나 파일 형식만으로 기획 구조를 나누지 않는다.
+- 탭 역할의 페이지 전환과 긴 목록을 줄이는 접힘을 구분한다. 최상위 페이지 전체를 `<details>`에 넣어 다시 열게 하지 않는다.
+
+## 5. 페이지 안의 정보 구성
+
+- 페이지 제목과 필요한 상태를 먼저 보여 주고, 대표 화면·도식·짧은 핵심 규칙을 배치한다. 다음에는 세부 규칙이나 비교표, 관련 자산, 해당 주제의 미정 사항을 읽는 순서로 둔다. 모든 페이지에 빈 형식 항목을 만들 필요는 없다.
+- 화면 기획은 실제 화면 또는 목표 시안을 중심으로 구성한다. 주요 요소의 위치·역할, 입력과 피드백, 화면 진입·이탈, 빈 상태·잠금·실패 등 필요한 상태 차이를 보충한다. 시안과 실제 실행 화면은 캡션에서 구분한다.
+- 규칙 기획은 적용 대상, 조건, 동작, 결과와 예외를 짧은 표나 흐름으로 표현한다. 수치가 필요한 경우 단위·범위·초기화 조건을 함께 적되 미정 값을 지어내지 않는다.
+- UI 자산은 실제 쓰임새와 상태별 비교가 보이게 배치한다. 기본·선택·비활성, 해금·미해금처럼 구별해야 할 상태를 같은 기준 크기에서 비교한다.
+- 표는 병렬 정보를 비교할 때 사용한다. 설명 길이에 맞춰 열 폭을 배분하고 긴 파일명·음원 컨트롤 때문에 나머지 열이 눌리지 않게 한다. 긴 산문을 한 셀에 몰아넣지 않는다.
+- 분류 기준과 범례는 해당 표·이미지·음원 목록 가까이에 둔다. 별도의 문서 운영 규칙 페이지로 분리하지 않는다.
+- 같은 기획은 한 곳에서 관리하고 관련 페이지에서 연결한다. 전체 자산 목록은 실제로 찾아볼 필요가 있을 때만 두며, 모든 페이지의 설명과 상태를 다시 복제하지 않는다.
+
+## 6. 이미지와 자산 식별
+
+- 긴 설명보다 실제 화면, 자산 미리보기, 도식, 상태 비교를 우선한다. 이미지만 나열하지 말고 이름·용도·상태를 이해하는 데 필요한 짧은 캡션을 붙인다.
+- 문서용 미리보기와 비교 도판은 해당 실제 자산, 채택 이미지, 생성 후보, 스크린샷 또는 렌더 결과를 사용한다. 기존 자산을 보여 주기 위한 용도로 이미지 생성기를 호출하지 않는다. 새로운 아트 제작이 요청된 경우에는 별도 아트 작업으로 다룬다.
+- 이미지는 비율을 보존하고 전체 모양을 확인할 수 있게 표시한다. 작은 아이콘·투명 자산은 윤곽이 보이는 배경과 비교 가능한 크기를 사용한다. 화면 시안은 UI를 판독할 크기를 확보한다.
+- 자산 식별이 필요한 미리보기 바로 아래에 확장자를 포함한 실제 파일명을 표시한다. 제목·용도와 파일명을 구별하고, 같은 이름을 여러 번 붙이지 않는다. 파일명 복사 기능을 제공한다면 클릭과 키보드 모두 사용할 수 있게 한다.
+- 긴 디렉터리 경로, 절대 로컬 경로, 바이트 수, 해시, 생성·검사 메타데이터를 기본 본문에 노출하지 않는다. 실제 참조 경로는 `src`·`href`에 두고, 명시적으로 필요한 기술 표에만 경로를 표시한다.
+- 미리보기는 해당 원본 파일로 연결한다. 문서 안에서는 라이트박스로 확대하고 원본 열기, 닫기 버튼, Escape 닫기를 제공한다. 라이트박스를 사용할 수 없어도 원본 링크는 동작해야 한다. 일반 링크의 새 탭 열기 조작을 막지 않는다.
+- 원본 확대는 이미지 비율을 유지하고 화면 안에서 확인할 수 있어야 한다. 클릭한 이미지와 다른 변형·오래된 후보를 열지 않는다. 장식용 헤더 아이콘에 자산 목록용 파일명 태그를 자동 삽입하지 않는다.
+- 실제 프로젝트 자산은 현재 경로를 직접 참조하고, 문서 전용 확정 이미지와 미디어는 `DesignAssets/...`에 둔다. 기존의 유효한 참조는 보존하고, 규칙을 맞추려고 원본을 일괄 이동하지 않는다. 새 참조에 절대 드라이브 경로나 `$Trash` 등 임시 경로를 넣지 않는다.
+- 새 문서 자산 폴더에 사용하지 않는 중간 결과를 쌓지 않는다. 오래된 후보는 문서 노출에서 정리하되, 기존 원본 파일의 삭제는 별도의 범위와 권한을 따른다.
+
+## 7. 음원·영상·애니메이션
+
+- 음원은 문서에서 직접 재생할 수 있는 컨트롤과 이름, 사용 장면, 채택 상태를 함께 표시한다. 자동 재생하지 않고 긴 목록은 `preload="none"` 등으로 불필요한 선로딩을 줄인다.
+- BGM과 효과음, 확정본과 후보를 구분한다. 루프 여부·길이·채널 등은 사용 판단에 필요한 경우에만 확인된 값을 적는다. 생성 작업의 진행 기록과 프롬프트 전문을 기본 설명으로 붙이지 않는다.
+- 영상·애니메이션은 동작을 확인할 수 있는 실제 미리보기를 제공한다. 정지 이미지를 재생 가능한 결과처럼 표시하지 않는다. 사용 위치와 반복·상태 전환 등 필요한 차이만 짧게 설명한다.
+- 목록 개수를 표시하면 실제 항목 수와 맞춘다. 확정 파일로 교체할 때는 미리보기, 원본 링크, 파일명과 상태를 함께 갱신한다.
+
+## 8. 접힘과 미정 사항
+
+- 선택한 페이지의 핵심 내용은 처음부터 보인다. `<details>`는 긴 자산·음원 목록, 보조 규칙, 추가 후보처럼 본문 읽기를 방해할 수 있는 보조 내용에 사용한다.
+- 새로 만드는 보조 접힘은 기본으로 닫는다. 사용자가 요청하거나 목적상 꼭 필요한 짧은 요약을 제외하고 `open`을 붙이지 않는다. 접힘 제목에는 내용을 식별할 이름과 필요한 상태·개수를 표시한다.
+- 특정 주제의 미정 사항은 그 페이지 뒤쪽에서 접어 둔다. 여러 주제에 걸친 미래 아이디어는 목차 끝의 미정 페이지로 모을 수 있다. 이미 페이지 전환으로 분리한 짧은 미정 표를 형식 때문에 다시 접지 않는다.
+- 검토 중인 후보는 채택안과 혼동되지 않게 남긴다. 결정이 끝난 비교·폐기안·중간 설명은 현행 본문에서 걷어낸다. 사용자가 보존을 요청한 기록은 그 목적에 맞게 따로 유지한다.
+
+## 9. 갱신과 확인
+
+- 내용 갱신은 해당 페이지와 연결된 목차·상태·자산 참조까지 반영한다. 기존 CSS나 페이지 전환을 내용 수정에 끼워 넣어 전면 교체하지 않는다.
+- 구조를 개편할 때는 기존 기획 항목과 자산이 새 구조의 어디로 옮겨졌는지 대조하여 누락을 막는다. 오래된 텍스트를 정리한다는 이유로 여전히 유효한 채택 규칙을 삭제하지 않는다.
+- 변경한 HTML 구조, ID 중복, 목차·본문 앵커, 로컬 미디어와 원본 링크, 파일명, 상태와 개수를 실제 파일 및 기획 근거와 대조한다. 문서를 수정한 것만으로 게임 구현을 검증했다고 보고하지 않는다.
+- 레이아웃·반응형·탐색·라이트박스 동작이 바뀌거나 사용자가 렌더 확인을 요청하면 영향받은 데스크톱·좁은 화면을 직접 확인한다. 잘림·표 가로 넘침, 페이지 선택과 해시 진입, 원본 확대와 닫기, 해당 미디어 재생 등 바뀐 동작을 확인한다. 내용만 바꿨다면 변경 참조와 의미 확인으로 범위를 제한한다.
+- 작성·검사·게시 절차와 검사 결과는 작업 보고에 남긴다. 게임 기획서 본문에는 넣지 않는다. 공통 검증·Git 완료 절차는 해당 지침을 따르고 여기서 중복 정의하지 않는다.
