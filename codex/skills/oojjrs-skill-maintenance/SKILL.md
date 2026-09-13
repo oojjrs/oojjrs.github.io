@@ -7,6 +7,8 @@ description: Maintain and synchronize every user-authored oojjrs-* Codex skill t
 
 Maintain the GitHub repository's `codex/skills` tree as the source of truth for the user's shared Codex skills.
 
+For authorized commits and publication, use `$oojjrs-project-finish-work`, including its pre-commit check against the canonical commit-message rule. Skill maintenance does not define a separate message language or template.
+
 ## Requirements
 
 1. Prefix every user-authored skill with `oojjrs-` so its ownership is clear from the name.

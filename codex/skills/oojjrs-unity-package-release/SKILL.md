@@ -30,4 +30,4 @@ Verify only affected release surfaces: the package root and `package.json`, vers
 
 Run builds or tests only when the user explicitly requests them. A test may support a release claim only when its expected result comes from an independent user requirement, authoritative contract, previously confirmed behavior, or reproducible bug with a known correct outcome; do not derive both implementation and expectation from the same guess.
 
-Review-only requests stay read-only. Staging, commit, and push remain finish-work decisions.
+Review-only requests stay read-only. Staging, commit, and push remain `$oojjrs-project-finish-work` decisions, including its pre-commit check against the canonical commit-message rule; a package version does not require an English or Conventional Commits title.

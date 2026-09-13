@@ -51,6 +51,10 @@ powershell -ExecutionPolicy Bypass -File <oojjrs-guidelines-skill-dir>\scripts\T
 
 Never use `-Fix` outside the current task's content scope. Correct an in-scope mismatch before freezing the final bytes; otherwise leave it untouched and report it. The checker's `-Fix` path verifies its write, so do not add an unconditional second run.
 
+## Commit Message
+
+Before every commit, apply the commit-message rule in the canonical common guidelines loaded through `$oojjrs-guidelines`. If it has not been loaded in this task, load it before proceeding. Draft the subject and any body in the required Korean style, then check them against the final staged changes before invoking Git. English wording in this skill, recent agent commits, or Git defaults does not override that rule. Keep the message policy in the canonical guidelines rather than inventing a separate template here.
+
 ## Commit Boundary
 
 Do not stage files merely to prepare a report. Do not use broad staging when exact paths can express the requested scope. The required pre-stage reconciliation is not an unchanged repeat. After it is stable, the final staged review is evidence, not repair authority; do not repeat unchanged working-tree status, history, or diffs around it.

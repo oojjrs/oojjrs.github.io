@@ -13,6 +13,10 @@ description: Load the user's canonical shared Codex rules once per task thread w
 4. Reload only in a new thread or subagent, after context restoration, or when the user asks to recheck the rules.
 5. If the canonical URL cannot be reached, stop rule-dependent work and report the access failure.
 
+## Apply Loaded Rules
+
+Reading the canonical body is a prerequisite, not completion: apply its commit-message and task-title rules at the corresponding action. Before any commit, route through `$oojjrs-project-finish-work` and check the proposed message against the loaded canonical rule. A domain skill, English instructions, or recent agent-written history does not replace the user's message style.
+
 ## Routing
 
 - Apply the canonical workflow only to repository, code, document, asset, Git, validation, maintenance, or deployment work. Load its task-specific references at their stated entry points.
