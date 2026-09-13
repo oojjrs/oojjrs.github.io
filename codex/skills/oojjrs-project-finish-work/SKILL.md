@@ -13,6 +13,12 @@ When Git completion follows review of an uncommitted result in the same Codex ta
 
 All non-task-owned existing bytes remain protected from Codex content edits. Requested-scope and related-support bytes are eligible to be staged unchanged when the current Git instruction covers that outcome; unrelated and unknown bytes are not. If ownership overlaps, hunks are interleaved, or classification remains uncertain, load `$oojjrs-dirty-worktree-scope-split`. Freeze the final scope only after this reconciliation.
 
+## Project Card Reconciliation
+
+For every commit request, apply the canonical repository-linked board rule even when earlier work omitted it. Reuse the task's resolved board; otherwise check the resolved repository remote now. When a relevant board exists, use `$oojjrs-github-project-board` and reconcile matching cards with the actual commit scope before staging. Read completion criteria when needed; do not infer completion from a filename or commit message.
+
+After the commit succeeds, finish the board helper's **Commit And Publication Handoff** before reporting completion. Routine card updates are included in the Git-completion request unless the user opts out; they do not require a separate permission question. A local commit does not authorize a push or release.
+
 ## Content Freeze
 
 After scope reconciliation, an explicit staging or commit instruction never authorizes content edits. When the task also includes content work, complete every requested content action and required documentation or governed version synchronization first, then freeze the reconciled scope immediately before staging. Leave protected work outside that scope untouched.
@@ -40,6 +46,8 @@ After pushing, read back the exact remote target and verify that it contains the
 5. Stage the exact reconciled, staging-eligible existing bytes without modifying their contents. Review `git diff --cached --name-status`, the staged diff, and `git diff --cached --check` once after staging is final.
 6. If staged content changes, re-review only the final staged content and any policy directly affected by that change.
 7. Commit locally only as part of the explicitly authorized Git or publication outcome. Push, deploy, release, publish, or perform destructive Git operations only to the explicitly authorized target. For a branch push or branch-backed publication, follow **Remote Synchronization**; for another external result, read back the resulting state once.
+
+8. Reconcile project card status and work records with the verified result through **Project Card Reconciliation**. Report any failed board update as unfinished work even when Git succeeded.
 
 ## Text Format
 

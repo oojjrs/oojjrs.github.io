@@ -103,6 +103,14 @@ Outcome:
 "@
 ```
 
+## Commit And Publication Handoff
+
+1. Match the reconciled Git scope to existing task cards, checking issue scope and completion criteria when titles are insufficient. Reuse or create cards through the workflow above; preserve unrelated cards. Update the issue body when the delivered scope, task summary, completion criteria, or stable references have changed; keep ongoing work history in comments. Status, comments, necessary body updates, draft conversion, and assignment are all part of routine card management and do not need separate user requests.
+2. After a successful commit, append a concise issue comment with the commit SHA, implemented result, actual validation, and remaining work. Convert a draft to an assigned issue before recording this work.
+3. Set the board's actual Status option from the verified outcome: completed criteria move to Done/completed; partial implementation remains In Progress; required user review moves to the board's review state. If an unmet push, deployment, release, or validation requirement is part of the card, wait for that result before marking it complete. Do not mark an entire umbrella card complete for one finished subtask.
+4. For a requested push or publication, add the verified remote or deployment result and finalize status after that operation. If the status already matches, retain it and record only the new material result.
+5. Read back the affected card status and new issue comment once. Report missing fields, access failures, or unsuccessful writes as remaining board work, separately from successful Git operations. Do not silently stop at the commit or claim full completion after a failed card update.
+
 ## Finish Checklist
 
 - Repo-linked project checked.
