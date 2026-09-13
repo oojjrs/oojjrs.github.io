@@ -28,6 +28,8 @@ Steamworks 문서 전체를 외워서 재현하지 말고, 사용자의 요청�
 8. 결과를 로그, API 응답, Partner 페이지 상태, Steam 클라이언트 설치·실행 결과 중 적합한 증거로 검증한다.
 9. 지원 수준과 남은 구현 공백을 보고한다.
 
+Steam 공지사항·패치 노트 작성, 번역, 수정·게시 단계는 `$oojjrs-steam-announcements`를 우선 사용한다. 빌드 배포와 공지가 함께 요청되면 배포 단계를 마친 뒤 공지 스킬로 전환한다. 공지 스킬이 이전 본문 확인, 고정 문구와 전체 지원 언어, 유저 관점의 변경 선별을 소유한다.
+
 ## 참조 선택
 
 - SDK 통합, 업적, 통계, Cloud, Input, 네트워킹, Workshop, 서버 기능에는 [Steamworks SDK](references/steamworks-sdk.md)를 읽는다.

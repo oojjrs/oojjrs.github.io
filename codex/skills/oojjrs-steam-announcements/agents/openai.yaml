@@ -1,0 +1,6 @@
+interface:
+  display_name: "oojjrs Steam 공지 작성"
+  short_description: "이전 공지의 고정 안내와 지원 언어를 유지하는 Steam 공지 작성"
+  default_prompt: "Use $oojjrs-steam-announcements to prepare this Steam announcement from verified player-visible changes, reuse the previous announcement's localized fixed text, complete every supported language, and publish when authorized."
+policy:
+  allow_implicit_invocation: true
