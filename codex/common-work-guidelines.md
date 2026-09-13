@@ -20,3 +20,4 @@ This URL is the only authoritative runtime source. Read it once at the start of 
 9. Load only the smallest non-overlapping set of applicable workflows. Follow their documented triggers and precedence, and let the most-specific domain own subordinate rules.
 10. Do not add repository instruction files beyond a pointer to `$oojjrs-guidelines` unless the user explicitly requests an exception.
 11. Write Git commit subjects and bodies in Korean unless the user explicitly requests another language. Keep code identifiers, paths, and conventional commit prefixes in their original form when needed.
+12. Write Codex task (thread) titles in Korean when creating, automatically naming, or renaming a task, unless the user explicitly requests another language. Keep code identifiers, paths, and proper names in their original form when needed.
