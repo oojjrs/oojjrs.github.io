@@ -1,6 +1,6 @@
 ---
 name: oojjrs-image-first-art-workflow
-description: Enforce imagegen-first creation or revision of general raster art, UI art, static sprites, icon-like assets, references, and art-direction visuals. Do not use for 2D sprite animation, H:\Mines work covered by $oojjrs-mines-art-asset-pipeline, pure HTML/CSS layout, code-native controls, or an existing SVG/vector system. Preview-only imagegen calls are forbidden; deterministic tools are second-pass only.
+description: Enforce imagegen-first creation or revision of general raster art, UI art, static sprites, icon-like assets, references, and art-direction visuals. Do not use for 2D sprite animation, work covered by a more-specific project art pipeline, pure HTML/CSS layout, code-native controls, or an existing SVG/vector system. Preview-only imagegen calls are forbidden; deterministic tools are second-pass only.
 ---
 
 # oojjrs Image-First Art Workflow
@@ -42,7 +42,7 @@ When writing literal `$Trash` paths in PowerShell, quote them, for example `'.\$
 
 ## Unity Metadata
 
-When creating or exporting Unity assets, do not create or modify Unity `.meta` files. Preserve or move an existing companion with its asset, include a user- or Unity-generated in-scope companion even when Git reports it as new or untracked, and stop before commit or push if an expected companion is absent.
+For Unity installation, keep candidate generation outside the project until the asset is accepted, then use `$unity-cli` for the project import and every importer or serialized setting. Never hand-edit Unity YAML or `.meta` text. Let Unity generate or update `.meta` through its importer, and include the resulting in-scope metadata with the asset. Use `$sprite-editor` for sprite mode, slicing, pivots, borders, or internal IDs and `$manage-sprite-atlas` for atlas membership and atlas output settings.
 
 ## Required Sequence
 
@@ -57,8 +57,10 @@ When creating or exporting Unity assets, do not create or modify Unity `.meta` f
 
 UI work still follows the image-first rule when visual art is involved. Exact dimensions, nine-slice borders, state slices, or engine import requirements do not justify starting with System.Drawing or another code drawing tool.
 
+- Before choosing UI image dimensions, read the planning document for the current FHD, QHD, or 4K reference resolution. If it does not declare one, use FHD (1920x1080) as the default design baseline. When the target is Unity, also read the actual Canvas and `Canvas Scaler` through `$unity-cli` when available and report any mismatch.
 - For UI buttons, panels, icons, item art, profile frames, badges, splash screens, backgrounds, empty states, and decorative art, establish the visual style with imagegen first.
 - Convert the accepted imagegen output into UI-ready assets afterward with second-pass tools: slicing, padding, size normalization, states, masks, nine-slice guides, or theme variants.
+- When installing a generated raster in Unity, default non-sheet images to `SpriteImportMode.Single`. Use `Multiple` only for actual sheets. For SpriteAtlas members, default source and atlas output compression to uncompressed with Crunch disabled unless an existing preset, platform rule, or explicit request requires otherwise; verify the saved importer and atlas values through Unity.
 - Do not create crude placeholder art with System.Drawing just because the target is UI.
 - Pure layout, typography, code-native controls, and existing SVG/icon-system extensions may be built directly in code only when they are not being used as visual art generation.
 

@@ -13,8 +13,8 @@ Use this as the primary domain for project-integrated game audio work. Treat a r
 2. When the user explicitly requests existing-audio sourcing, complete the source-selection pass below before project installation or planning-document promotion. A missing approved source or unresolved style does not activate sourcing by itself. Do not edit or synthesize audio during selection.
 3. Put candidate downloads, extracted packs, previews, and intermediate audio under `$Trash`.
 4. For an externally sourced selection, preserve the official original download and a provenance record with the creator, title or asset ID, landing and download URLs, exact license and license URL, retrieval date, original filename, and original-versus-preview status. For an explicitly requested synthesized or recorded original, record its origin and every input-source license. Only when the user explicitly authorizes a specific processing operation, apply it to a copy.
-5. Promote only selected final files into project asset folders.
-6. Do not create or modify Unity `.meta` files. Preserve or move an existing companion, include a user- or Unity-generated in-scope companion even when untracked, and stop before commit or push when an expected companion is absent.
+5. Promote only selected final files into project asset folders. For Unity projects, perform the project import, move, rename, deletion, and importer configuration through `$unity-cli`; use the official `$optimize-audio` skill when audio importer settings are in scope.
+6. Never hand-edit Unity YAML or `.meta` text. Let the CLI-driven Editor generate or update metadata, preserve existing GUIDs through Unity asset APIs, include every Unity-generated in-scope companion, and stop if the official import/save path is unavailable or an expected companion remains absent.
 7. Update `Design.html` sound/BGM/effect sections only when the asset inventory or review state actually changes.
 
 ## Explicit Existing-SFX Source Selection

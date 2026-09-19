@@ -1,0 +1,4 @@
+interface:
+  display_name: "Unity Prefab Editing"
+  short_description: "Edit approved Unity prefabs through the official CLI"
+  default_prompt: "Use $oojjrs-unity-prefab-edit-workflow to propose and perform an approved prefab change through the official Unity CLI."

@@ -37,7 +37,7 @@ Before editing an observable API, behavior, dependency, lifetime, failure, or th
 2. Preserve existing consumers when that is compatible with the request and local policy. Do not add speculative adapters, overloads, abstractions, or compatibility shims without an evidenced consumer or contract need.
 3. Keep initialization, disposal, event subscription, cancellation, exception, and thread-affinity behavior consistent across every touched producer and consumer. A locally compiling signature change is incomplete when one of those contracts no longer holds.
 4. Do not directly edit generated or vendored code. Follow its source or generator path when established; otherwise stop and identify the missing authoritative path.
-5. Preserve an existing script `.meta` file and GUID when moving or renaming code. When a new script is added in a tree that tracks companion metadata, create its `.meta` from the nearest established script pattern with a fresh unique 32-hex GUID, verify that GUID does not already occur in the repository, and keep the pair in the same scope. Follow an evidenced package policy that intentionally omits script metadata; do not leave the ownership of a required companion file unresolved.
+5. Edit ordinary C# source with the repository's text workflow, but perform Unity-side script import, move, and rename operations through `$unity-cli`. Never fabricate or hand-edit a script `.meta`; let the CLI-driven Editor generate new metadata and use Unity asset APIs to preserve an existing GUID during moves or renames. Follow an evidenced package policy that intentionally omits script metadata, and include every Unity-generated in-scope companion with its script.
 
 ## Synchronize Directly Affected Surfaces
 

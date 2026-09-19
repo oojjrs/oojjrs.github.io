@@ -1,0 +1,4 @@
+interface:
+  display_name: "Unity Animation Assets"
+  short_description: "Edit Unity animation assets through the official CLI"
+  default_prompt: "Use $oojjrs-unity-animation-asset-workflow to edit Unity animation clips and controllers through the official Unity CLI."

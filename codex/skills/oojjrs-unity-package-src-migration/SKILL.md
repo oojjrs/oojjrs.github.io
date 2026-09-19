@@ -1,6 +1,6 @@
 ---
 name: oojjrs-unity-package-src-migration
-description: Assets 아래 Unity 패키지를 Packages/src 루트로 실제 구조 이관할 때만 사용한다. 이관에 필요한 package.json, .meta, asmdef, 경로, 버전, README 수정을 이 스킬이 직접 수행한다. 이관 단계에서는 release, README 전용, 일반 asset 스킬을 추가로 로드하지 않으며, Git 완료는 project finish가 소유한다.
+description: Assets 아래 Unity 패키지를 Packages/src 루트로 실제 구조 이관할 때만 사용한다. 이관에 필요한 package.json, asmdef, 경로, 버전, README 수정과 공식 Unity CLI 기반 에셋 이동·메타데이터 생성을 수행한다. 이관 단계에서는 release, README 전용, 일반 asset 스킬을 추가로 로드하지 않으며, Git 완료는 project finish가 소유한다.
 ---
 
 # oojjrs Unity Package Src Migration
@@ -11,9 +11,11 @@ README 수정은 허용된다. 이관에 필요한 README 동기화는 이 스�
 
 For existing text files, preserve the current encoding and line endings exactly; do not normalize to CRLF unless the file already used CRLF or the user explicitly asks.
 
-## Unity Meta Files
+## Official Unity Asset Path
 
-Codex must not create or modify Unity `.meta` files when making assets, folders, samples, package structure, or documentation. Preserve or move existing in-scope `.meta` files with their corresponding assets. When staging or committing a migrated asset is explicitly authorized, include a user- or Unity-generated in-scope `.meta` file in the same authorized scope even when Git reports it as new or untracked; exclude only unrelated out-of-scope `.meta` files. If an expected corresponding `.meta` file is absent, stop before commit or push and let the user or Unity generate it.
+Use `$unity-cli` for every imported asset or folder creation, move, rename, deletion, import, and save involved in the migration. Pass `--caller plugin --skill oojjrs-unity-package-src-migration` on `unity command` calls. Ordinary C#, JSON, and Markdown contents remain text edits, but their installation or movement inside the Unity asset/package tree must be applied and imported through the CLI-driven Editor.
+
+Never hand-create, hand-edit, copy-pattern, or fabricate Unity `.meta` text or GUIDs. Use Unity asset APIs for moves so existing GUIDs remain stable, and let Unity generate metadata for newly imported assets and folders. Include every Unity-generated in-scope `.meta` with its asset. If the compatible CLI cannot perform the migration or an expected companion remains absent after import/save, stop instead of falling back to filesystem-only asset moves or raw metadata editing.
 
 이 스킬은 Unity 패키지가 `Assets` 아래에 들어 있어 실제 패키지 루트를 `Packages/src`로 정리하는 절차를 다룬다. 이 사용자의 로컬 개발 규칙에서는 `com.oojjrs.*` 같은 패키지명 폴더 대신 `src`를 패키지 루트 폴더명으로 사용한다.
 
@@ -23,7 +25,7 @@ Unity 패키지 관례상 패키지 루트 아래에 `package.json`이 있고, �
 
 - Windows 기반 명령을 사용한다.
 - 이동 전에 현재 구조, 참조 지점, 패키지 포함 대상과 제외 대상을 읽고 판단한다.
-- 코드와 `.meta`는 항상 함께 이동해서 Unity GUID를 유지한다.
+- 코드와 에셋은 Unity asset API로 이동해 기존 `.meta`와 GUID를 유지한다.
 - 패키지 루트는 `Packages/src` 자체이고, `package.json`은 `Packages/src/package.json`에 둔다.
 - 공유 코드와 공유 에셋은 `Packages/src/Runtime` 아래에 둔다.
 - 문서 폴더는 `Packages/src/Documentation~`를 만든다. `~`로 끝나는 폴더에는 Unity가 `.meta`를 만들지 않는 것이 정상이다.
@@ -37,11 +39,11 @@ Unity 패키지 관례상 패키지 루트 아래에 `package.json`이 있고, �
 ## 포함 대상 판단
 
 - 패키지 사용자에게 필요한 공유 스크립트, asmdef, 프리팹, UI 에셋, 머티리얼, 텍스처 등은 `Runtime` 아래에 포함한다.
-- 에디터 전용 코드는 `Editor` 폴더와 `.meta`를 함께 패키지 루트 아래 적절한 위치로 이동한다.
+- 에디터 전용 코드는 Unity asset API로 패키지 루트 아래 적절한 `Editor` 폴더로 이동한다.
 - 테스트용 또는 개발 확인용 로컬 샌드박스, 임시 실험 에셋, 데모가 아닌 개인 검증용 에셋은 패키지에 포함하지 않는다.
 - 샘플로 배포할 가치가 있는 예제 에셋은 공유 폴더에 두지 말고, 사용자가 원할 때만 `Samples~`로 분리한다.
 - 이동 중 `Scenes`, `Tests`, `Test`, `Demo`, `Sample`, `Sandbox`, `Temp`, `Experimental` 같은 이름의 폴더는 그 파일의 의도를 반드시 확인한다.
-- 제외하기로 판단한 에셋은 원래 `Assets` 위치에 남기거나 되돌리고, 해당 `.meta`도 함께 유지한다.
+- 제외하기로 판단한 에셋은 원래 `Assets` 위치에 남기거나 Unity asset API로 되돌려 기존 GUID를 유지한다.
 
 ## 기본 절차
 
@@ -57,7 +59,7 @@ Unity 패키지 관례상 패키지 루트 아래에 `package.json`이 있고, �
 3. 패키지 포함/제외 대상을 결정한다.
 - 공유에 필요한 스크립트와 에셋만 패키지 이동 대상으로 둔다.
 - 테스트용, 개발 전용, 임시 에셋은 패키지 이동 대상에서 제외한다.
-- 제외 대상이 이미 패키지 안으로 이동됐다면 `.meta`와 함께 원래 `Assets` 쪽으로 되돌린다.
+- 제외 대상이 이미 패키지 안으로 이동됐다면 Unity asset API로 원래 `Assets` 쪽으로 되돌린다.
 
 4. 새 패키지 루트를 준비한다.
 - `Packages/src`가 없으면 만든다.
@@ -65,14 +67,14 @@ Unity 패키지 관례상 패키지 루트 아래에 `package.json`이 있고, �
 - 패키지 루트는 `Packages/src` 자체로 두고, 패키지명 폴더를 추가로 만들지 않는다.
 
 5. 패키지 메타를 이동한다.
-- `Assets/package.json`과 `Assets/package.json.meta`를 `Packages/src`로 이동한다.
+- `Assets/package.json`을 공식 Unity CLI의 Editor-side asset operation으로 `Packages/src`에 이동하고 기존 GUID가 유지됐는지 확인한다.
 - `package.json`에 `repository.url`이 있다면 `?path=/Packages/src` 기준으로 맞춘다.
 - 패키지 루트·기능 파일의 이동은 마이너 버전을 올린다.
 
 6. 소스, asmdef, 에셋을 이동한다.
-- 포함 대상으로 결정한 공유 스크립트와 관련 `.meta`를 `Packages/src/Runtime` 아래로 이동한다.
-- `Assets`의 asmdef와 관련 `.meta`는 해당 코드가 놓인 위치에 맞춰 함께 이동한다.
-- `Assets/Editor`와 `Assets/Editor.meta`는 패키지에 포함되어야 할 때만 `Packages/src/Editor`와 `Packages/src/Editor.meta`로 이동한다.
+- 포함 대상으로 결정한 공유 스크립트와 에셋을 Unity asset API로 `Packages/src/Runtime` 아래로 이동한다.
+- `Assets`의 asmdef는 해당 코드가 놓인 위치에 맞춰 Unity asset API로 이동한다.
+- `Assets/Editor`는 패키지에 포함되어야 할 때만 Unity asset API로 `Packages/src/Editor`에 이동한다.
 - 테스트용 파일과 개발 전용 에셋은 `Packages/src/Runtime` 아래로 섞지 않는다.
 - 이동 후 패키지 안에 제외 대상이 남아 있지 않은지 다시 확인한다.
 
@@ -99,7 +101,7 @@ Unity 패키지 관례상 패키지 루트 아래에 `package.json`이 있고, �
 
 - `Packages/src`가 실제 패키지 루트인지
 - `Packages/src/Runtime`과 `Packages/src/Documentation~`가 있는지
-- `package.json`, `.meta`, asmdef, `Editor` 폴더가 의도한 구조로 이동됐는지
+- `package.json`, Unity-generated `.meta`, asmdef, `Editor` 폴더가 의도한 구조로 이동됐는지
 - 테스트용, 개발 전용, 샘플이 공유 패키지에 섞이지 않았는지
 - 제외 대상이 `Assets` 쪽에 `.meta`와 함께 남아 있는지
 - 버전이 의도대로 올라갔는지

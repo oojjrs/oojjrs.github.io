@@ -51,7 +51,7 @@ Do not turn API documentation into an inventory of private implementation detail
 2. Inventory the current public package surface and material behavioral contracts. Trace every changed factual claim to live code, metadata, a sample, a test with independent contract value, or official upstream documentation.
 3. Choose a coherent navigation and document split that fits the package rather than forcing every package into identical filenames beyond the four documentation roles above.
 4. Create or revise only the documentation required for the requested scope, including directly stale navigation or entry points. Do not change implementation, package structure, metadata, versions, or changelogs to make a document claim true; report those mismatches for a separately authorized phase.
-5. Preserve existing documentation `.meta` files. Do not fabricate or hand-edit `.meta` files for Markdown; `Documentation~` intentionally does not require them. If repository policy requires a new package-root Markdown `.meta`, leave Unity generation as an explicit pre-publication requirement.
+5. Preserve existing documentation `.meta` files. Do not fabricate or hand-edit `.meta` files for Markdown; `Documentation~` intentionally does not require them. If repository policy requires metadata for new package-root Markdown, use `$unity-cli` to import/save it and let Unity generate the companion before publication.
 6. Remove stale duplication only within the requested documentation scope. Preserve useful historical or migration material unless the user requested its reorganization and its new home is clear.
 
 ## Verification

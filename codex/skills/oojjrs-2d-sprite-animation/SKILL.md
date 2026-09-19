@@ -12,7 +12,7 @@ Use a layered-parts workflow. Do not start by slicing, warping, or spline-bendin
 1. Inspect the source sprite and target runtime format first.
    - Identify which pixels must stay fixed, which parts move, and which parts occlude others.
    - Preserve the existing runtime contract: frame size, sheet layout, Unity meta/import settings, animation clip references, and document previews.
-   - Do not create or modify Unity `.meta` files. Preserve or move an existing companion with its asset, include a user- or Unity-generated in-scope companion even when untracked, and stop before commit or push if an expected companion is absent.
+   - Never hand-edit Unity YAML or `.meta` text. Preserve the runtime contract through the official Unity CLI and let Unity generate or update metadata through its importer.
 
 2. Prefer true source layers.
    - Use PSD-derived layers or separate PNG parts when available.
@@ -41,6 +41,15 @@ Use a layered-parts workflow. Do not start by slicing, warping, or spline-bendin
    - Build previews only from the actual animation frames or generated sprite sheet. Do not call imagegen to create, refresh, or beautify a preview-only GIF, sequence, contact sheet, or mockup.
    - Keep generated frame count, columns, duration, and pivot behavior consistent with nearby project assets.
 
+## Unity Installation
+
+1. Keep frame construction and sheet packing outside the Unity project until the accepted output is ready to install.
+2. Use `$unity-cli` for import, save, reimport, and every Unity-side serialized or importer change. Pass `--caller plugin --skill oojjrs-2d-sprite-animation` on `unity command` calls.
+3. Use `$sprite-editor` for sprite rectangles, names, pivots, borders, slicing, and internal IDs. Set an actual sheet to `SpriteImportMode.Multiple`; set a non-sheet sprite to `Single`.
+4. When the asset belongs to a SpriteAtlas, use `$manage-sprite-atlas` to inspect and set both source and atlas output settings. Default generated atlas sprites to uncompressed with Crunch disabled unless an existing preset, platform rule, or explicit request requires another setting.
+5. Let Unity create or update `.meta` files. Include the Unity-generated in-scope companion, and treat unexpected GUID churn on an existing asset as a failure.
+6. Route `.anim`, AnimatorController, override-controller, curve, state, transition, or binding work to `$oojjrs-unity-animation-asset-workflow` as a separate phase. Do not hand-author those YAML files.
+
 ## Validation
 
 Before calling the animation done:
@@ -49,7 +58,7 @@ Before calling the animation done:
 - When fixed layers exist, check that their sample pixels are identical across frames.
 - Check the changed dimensions, frame count, and transparent background against the target runtime format.
 - Check for clipping, seams, ghosting, dark fringes, broken occlusion, and palette artifacts.
-- For Unity assets, verify existing `.meta` GUIDs, sprite rects/internal IDs, and animation clip references; include user- or Unity-generated in-scope companions and do not commit or push an asset whose expected companion is absent.
+- For Unity assets, read back the importer mode, compression, sprite rects/internal IDs, atlas settings, generated `.meta` GUID, and animation references through Unity; do not commit or push while an expected companion is absent.
 
 ## Quality Rules
 

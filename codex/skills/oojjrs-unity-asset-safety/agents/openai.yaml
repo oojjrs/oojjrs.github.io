@@ -1,4 +1,4 @@
 interface:
   display_name: "oojjrs Unity Asset Safety"
-  short_description: "Protect Unity assets and metadata"
-  default_prompt: "Use $oojjrs-unity-asset-safety to change Unity assets without creating or modifying .meta files; before creating Unity UI assets or recommending sizes, verify the project's Canvas size and Canvas Scaler reference resolution and base dimensions on those project-specific values; include user- or Unity-generated in-scope .meta files with their assets even when Git reports them as new or untracked, and exclude only unrelated .meta files."
+  short_description: "Change Unity assets through the official CLI"
+  default_prompt: "Use $oojjrs-unity-asset-safety to change Unity assets only through the official Unity CLI, let Unity generate metadata, apply the planning document's UI resolution or FHD default, and verify sprite and atlas importer settings by readback."
