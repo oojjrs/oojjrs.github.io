@@ -1,0 +1,4 @@
+interface:
+  display_name: "oojjrs Unity Input Actions"
+  short_description: "Edit Unity Input Actions through the official CLI"
+  default_prompt: "Use $oojjrs-unity-input-actions-workflow to change a Unity InputActionAsset through the official Unity CLI, regenerate its wrapper through Unity, preserve existing IDs, and verify the resulting bindings and compile state."

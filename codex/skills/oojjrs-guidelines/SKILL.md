@@ -1,9 +1,13 @@
 ---
 name: oojjrs-guidelines
-description: Load the user's canonical shared Codex rules once per task thread whenever host instructions name $oojjrs-guidelines, including ordinary conversation and factual Q&A. Apply its operational workflow only to repository, code, document, asset, Git, validation, maintenance, or deployment work. Also use when inspecting or refreshing the rules. The canonical URL is the sole authority.
+description: Write Codex task titles in Korean unless the user requests another language, and correct an earlier automatic title at the first opportunity. Load the user's canonical shared Codex rules once per task thread whenever host instructions name $oojjrs-guidelines, including ordinary conversation and factual Q&A. Apply the operational workflow only to repository, code, document, asset, Git, validation, maintenance, or deployment work. Also use when inspecting or refreshing the rules. The canonical URL is the sole authority.
 ---
 
 # oojjrs Guidelines
+
+## Immediate Task Title Rule
+
+Write Codex task titles in Korean unless the user explicitly requests another language. Preserve code identifiers, paths, and proper names as needed. Apply this rule as soon as the skill is selected, without waiting for the canonical body to load; if an automatic non-Korean title was already assigned, rename it at the first available opportunity.
 
 ## Canonical Load
 
