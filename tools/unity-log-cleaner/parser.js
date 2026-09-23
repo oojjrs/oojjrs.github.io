@@ -87,7 +87,23 @@
     }).join("\n");
   }
 
-  const api = { cleanLog: cleanLog, toText: toText };
+  function extractEnvironment(value) {
+    const text = String(value || "");
+    const fields = [];
+    const unity = text.match(/\bVersion is '([^'\s]+)/i) || text.match(/^Initialize engine version:\s*([^\s]+)/im);
+    const os = text.match(/^OS:\s*'([^']+)'/im) || text.match(/^OS:\s*([^\r\n]+)/im);
+    const architecture = text.match(/^Process architecture:\s*([^\r\n]+)/im) || text.match(/^System\s+architecture:\s*([^\r\n]+)/im);
+    const memory = text.match(/\bPhysical Memory:\s*(\d+\s*MB)\b/i);
+    const build = text.match(/\bBuild Type '([^']+)'/i);
+    if (unity) fields.push({ label: "Unity", value: unity[1].trim() });
+    if (os) fields.push({ label: "OS", value: os[1].replace(/\s+/g, " ").trim() });
+    if (architecture) fields.push({ label: "아키텍처", value: architecture[1].trim() });
+    if (memory) fields.push({ label: "메모리", value: memory[1].replace(/\s+/g, " ").trim() });
+    if (build) fields.push({ label: "빌드", value: build[1].trim() });
+    return fields;
+  }
+
+  const api = { cleanLog: cleanLog, toText: toText, extractEnvironment: extractEnvironment };
   if (typeof module !== "undefined" && module.exports) module.exports = api;
   if (root) root.UnityLogParser = api;
 })(typeof window !== "undefined" ? window : null);

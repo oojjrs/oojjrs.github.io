@@ -7,20 +7,12 @@ alternate_url: /en/
 ---
 
 <section class="section document-entry-section" id="notes">
-  <section class="home-document-group" aria-labelledby="tools-heading">
+  <section class="home-document-group home-tool-group" aria-labelledby="tools-heading">
     <div class="home-section-heading">
       <p>TOOLS</p>
       <h2 id="tools-heading">도구</h2>
     </div>
-    <div class="collection-grid">
-      <a class="collection-card collection-card-unity" href="{{ "/tools/unity-log-cleaner/" | relative_url }}">
-        <span class="card-index">01</span>
-        <span class="card-label">WEB TOOL</span>
-        <h3>Unity Log 정제기</h3>
-        <p>원본 로그와 정제 결과를 나란히 보기</p>
-        <span class="card-link">열기 <span aria-hidden="true">→</span></span>
-      </a>
-    </div>
+    <a class="home-tool-link" href="{{ "/tools/unity-log-cleaner/" | relative_url }}" target="_blank" rel="noopener noreferrer">Unity Log 정제기 <span aria-hidden="true">↗</span></a>
   </section>
 
   <section class="home-document-group" aria-labelledby="essay-heading">

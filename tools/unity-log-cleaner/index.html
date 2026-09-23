@@ -6,14 +6,18 @@
   <meta name="description" content="Unity 로그에서 콜스택을 걷어내고 필요한 메시지만 남기는 도구">
   <meta name="theme-color" content="#273746">
   <title>Unity Log 정제기 · OOJJRS</title>
-  <link rel="stylesheet" href="./style.css?v=2">
+  <link rel="stylesheet" href="./style.css?v=3">
 </head>
 <body>
   <header class="toolbar">
-    <a class="brand" href="/kr/">Unity Log 정제기</a>
+    <div class="toolbar-identity">
+      <a class="home-link" href="/kr/">홈</a>
+      <a class="tool-link" href="/tools/unity-log-cleaner/" target="_blank" rel="noopener noreferrer" aria-current="page">Unity Log 정제기</a>
+    </div>
     <div class="toolbar-controls">
       <button id="open-button" type="button">파일 열기</button>
       <input id="file-input" class="visually-hidden" type="file" accept=".log,.txt,text/plain" multiple>
+      <button id="clear-button" type="button" title="원본과 결과 지우기">Clear</button>
       <select id="mode-input" aria-label="정제 범위" title="정제 범위">
         <option value="focus">핵심만</option>
         <option value="problems">문제만</option>
@@ -21,7 +25,8 @@
       </select>
       <input id="include-input" type="search" aria-label="포함할 단어" title="쉼표로 여러 단어 구분" placeholder="포함 단어">
       <input id="exclude-input" type="search" aria-label="제외할 단어" title="쉼표로 여러 단어 구분" placeholder="제외 단어">
-      <label class="group-control"><input id="group-input" type="checkbox" checked> 중복 묶기</label>
+      <label class="group-control"><input id="wrap-input" type="checkbox" checked> Word Wrap</label>
+      <label class="group-control"><input id="group-input" type="checkbox"> 중복 묶기</label>
       <span class="toolbar-divider" aria-hidden="true"></span>
       <button id="copy-button" type="button" disabled>복사</button>
       <button id="download-button" type="button" disabled>TXT 저장</button>
@@ -34,11 +39,12 @@
     </section>
     <section class="editor-pane" aria-labelledby="output-title">
       <div class="pane-bar"><strong id="output-title">정제 결과</strong><span id="output-meta"></span></div>
+      <div id="environment" class="environment" hidden></div>
       <textarea id="output-input" spellcheck="false" aria-label="정제 결과" readonly></textarea>
     </section>
   </main>
   <div id="status" class="visually-hidden" role="status" aria-live="polite"></div>
-  <script src="./parser.js"></script>
-  <script src="./app.js?v=2"></script>
+  <script src="./parser.js?v=3"></script>
+  <script src="./app.js?v=3"></script>
 </body>
 </html>

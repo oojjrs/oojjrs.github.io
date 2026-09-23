@@ -3,19 +3,42 @@
 
   const fileInput = document.getElementById("file-input");
   const openButton = document.getElementById("open-button");
+  const clearButton = document.getElementById("clear-button");
   const dropZone = document.getElementById("drop-zone");
   const sourceInput = document.getElementById("source-input");
   const outputInput = document.getElementById("output-input");
   const sourceMeta = document.getElementById("source-meta");
   const outputMeta = document.getElementById("output-meta");
   const status = document.getElementById("status");
+  const environment = document.getElementById("environment");
   const modeInput = document.getElementById("mode-input");
   const includeInput = document.getElementById("include-input");
   const excludeInput = document.getElementById("exclude-input");
+  const wrapInput = document.getElementById("wrap-input");
   const groupInput = document.getElementById("group-input");
   const copyButton = document.getElementById("copy-button");
   const downloadButton = document.getElementById("download-button");
   let timer;
+
+  function renderEnvironment(value) {
+    const fields = window.UnityLogParser.extractEnvironment(value);
+    environment.replaceChildren();
+    fields.forEach(function (field) {
+      const item = document.createElement("span");
+      const label = document.createElement("strong");
+      label.textContent = field.label;
+      item.append(label, document.createTextNode(field.value));
+      environment.append(item);
+    });
+    environment.hidden = fields.length === 0;
+  }
+
+  function applyWrap() {
+    [sourceInput, outputInput].forEach(function (editor) {
+      editor.wrap = wrapInput.checked ? "soft" : "off";
+      editor.classList.toggle("no-wrap", !wrapInput.checked);
+    });
+  }
 
   function run() {
     const value = sourceInput.value;
@@ -23,6 +46,8 @@
       sourceMeta.textContent = "";
       outputMeta.textContent = "";
       outputInput.value = "";
+      environment.replaceChildren();
+      environment.hidden = true;
       copyButton.disabled = true;
       downloadButton.disabled = true;
       status.textContent = "";
@@ -35,6 +60,7 @@
       group: groupInput.checked
     });
     outputInput.value = window.UnityLogParser.toText(result.rows);
+    renderEnvironment(value);
     sourceMeta.textContent = result.totalLines.toLocaleString() + "줄";
     outputMeta.textContent = result.rows.length.toLocaleString() + "건";
     copyButton.disabled = result.rows.length === 0;
@@ -63,8 +89,16 @@
   }
 
   openButton.addEventListener("click", function () { fileInput.click(); });
+  clearButton.addEventListener("click", function () {
+    clearTimeout(timer);
+    fileInput.value = "";
+    sourceInput.value = "";
+    run();
+    sourceInput.focus();
+  });
   fileInput.addEventListener("change", function () { loadFiles(fileInput.files); });
   sourceInput.addEventListener("input", scheduleRun);
+  wrapInput.addEventListener("change", applyWrap);
   [modeInput, includeInput, excludeInput, groupInput].forEach(function (input) { input.addEventListener("input", scheduleRun); });
   ["dragenter", "dragover"].forEach(function (eventName) {
     dropZone.addEventListener(eventName, function (event) { event.preventDefault(); dropZone.classList.add("dragging"); });
@@ -90,4 +124,5 @@
     link.click();
     setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
   });
+  applyWrap();
 })();

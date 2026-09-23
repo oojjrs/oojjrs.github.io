@@ -39,21 +39,22 @@
   <body class="site-page">
     <header class="site-header">
       <div class="site-shell header-inner">
-        <a class="site-brand" href="{{ home_url | relative_url }}" aria-label="{{ brand_label }}">
-          <span class="brand-name">{{ brand_name }}</span>
-        </a>
+        <div class="site-brand-group">
+          <a class="site-brand" href="{{ home_url | relative_url }}" aria-label="{{ brand_label }}">
+            <span class="brand-name">{{ brand_name }}</span>
+          </a>
+          <a class="site-tool-launch" href="{{ "/tools/unity-log-cleaner/" | relative_url }}" target="_blank" rel="noopener noreferrer">{% if is_english %}Unity Log Cleaner{% else %}Unity Log 정제기{% endif %}</a>
+        </div>
         <div class="site-nav-group">
           <nav class="site-nav" aria-label="{% if is_english %}Site menu{% else %}사이트 메뉴{% endif %}">
             {% if is_english %}
               <a href="{{ "/en/#essay-heading" | relative_url }}">Essays</a>
               <a href="{{ "/en/#technical-heading" | relative_url }}">Technical</a>
               <a href="{{ "/en/design-archive/gridworld/" | relative_url }}">Design</a>
-              <a href="{{ "/tools/unity-log-cleaner/" | relative_url }}">Log Tool</a>
             {% else %}
               <a href="{{ "/kr/#essay-heading" | relative_url }}">에세이</a>
               <a href="{{ "/kr/#technical-heading" | relative_url }}">기술 문서</a>
               <a href="{{ "/kr/design-archive/gridworld/" | relative_url }}">기획서</a>
-              <a href="{{ "/tools/unity-log-cleaner/" | relative_url }}">로그 정제기</a>
             {% endif %}
           </nav>
           {% if page.alternate_url %}

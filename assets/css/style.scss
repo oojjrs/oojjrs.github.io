@@ -107,6 +107,9 @@ pre {
 }
 .header-inner { display: flex; min-height: 76px; align-items: center; justify-content: space-between; gap: 28px; }
 .site-brand { display: inline-flex; align-items: center; gap: 12px; font-weight: 750; letter-spacing: 0; }
+.site-brand-group { display: inline-flex; align-items: center; gap: 12px; white-space: nowrap; }
+.site-tool-launch { color: var(--blue); font-size: 11px; font-weight: 800; }
+.site-tool-launch:hover, .site-tool-launch:focus-visible { color: var(--accent); text-decoration: underline; }
 .site-nav-group { display: flex; align-items: center; gap: 18px; }
 .site-nav { display: flex; align-items: center; gap: 4px; }
 .site-nav a {
@@ -148,6 +151,9 @@ pre {
 .section-heading h2 { margin: 0; font-size: clamp(34px, 5vw, 54px); letter-spacing: 0; }
 .section-heading > p { max-width: 340px; margin: 0 0 7px; color: var(--accent); text-align: right; font-weight: 900; }
 .home-document-group { display: grid; gap: 14px; }
+.home-tool-group { gap: 2px; }
+.home-tool-link { width: max-content; color: var(--blue); font-size: 11px; font-weight: 800; line-height: 1.2; }
+.home-tool-link:hover, .home-tool-link:focus-visible { color: var(--accent); text-decoration: underline; }
 .home-section-heading {
   display: flex;
   align-items: center;
