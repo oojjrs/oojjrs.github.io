@@ -7,6 +7,22 @@ alternate_url: /en/
 ---
 
 <section class="section document-entry-section" id="notes">
+  <section class="home-document-group" aria-labelledby="tools-heading">
+    <div class="home-section-heading">
+      <p>TOOLS</p>
+      <h2 id="tools-heading">도구</h2>
+    </div>
+    <div class="collection-grid">
+      <a class="collection-card collection-card-unity" href="{{ "/tools/unity-log-cleaner/" | relative_url }}">
+        <span class="card-index">01</span>
+        <span class="card-label">WEB TOOL</span>
+        <h3>Unity Log 정제기</h3>
+        <p>원본 로그와 정제 결과를 나란히 보기</p>
+        <span class="card-link">열기 <span aria-hidden="true">→</span></span>
+      </a>
+    </div>
+  </section>
+
   <section class="home-document-group" aria-labelledby="essay-heading">
     <div class="home-section-heading">
       <p>ESSAYS</p>
@@ -82,11 +98,6 @@ alternate_url: /en/
   </section>
 
   <nav class="utility-link-row" aria-label="관리용 문서">
-    <a class="utility-link utility-link-unity" href="{{ "/tools/unity-log-cleaner/" | relative_url }}">
-      <span>WEB TOOL</span>
-      <strong>Unity Log 정제기</strong>
-    </a>
-
     <a class="utility-link utility-link-codex" href="{{ "/codex/common-work-guidelines.md" | relative_url }}">
       <span>CODEX</span>
       <strong>공통 작업 지침</strong>

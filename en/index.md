@@ -7,6 +7,22 @@ alternate_url: /kr/
 ---
 
 <section class="section document-entry-section" id="notes">
+  <section class="home-document-group" aria-labelledby="tools-heading">
+    <div class="home-section-heading">
+      <p>TOOLS</p>
+      <h2 id="tools-heading">Tools</h2>
+    </div>
+    <div class="collection-grid">
+      <a class="collection-card collection-card-unity" href="{{ "/tools/unity-log-cleaner/" | relative_url }}">
+        <span class="card-index">01</span>
+        <span class="card-label">WEB TOOL</span>
+        <h3>Unity Log Cleaner</h3>
+        <p>View source and cleaned logs side by side</p>
+        <span class="card-link">Open <span aria-hidden="true">→</span></span>
+      </a>
+    </div>
+  </section>
+
   <section class="home-document-group" aria-labelledby="essay-heading">
     <div class="home-section-heading">
       <p>ESSAYS</p>
@@ -82,11 +98,6 @@ alternate_url: /kr/
   </section>
 
   <nav class="utility-link-row" aria-label="Private reference documents">
-    <a class="utility-link utility-link-unity" href="{{ "/tools/unity-log-cleaner/" | relative_url }}">
-      <span>WEB TOOL</span>
-      <strong>Unity Log Cleaner</strong>
-    </a>
-
     <a class="utility-link utility-link-codex" href="{{ "/codex/common-work-guidelines.md" | relative_url }}">
       <span>CODEX</span>
       <strong>Common Work Guidelines</strong>
