@@ -31,15 +31,19 @@ button, input, select, textarea { font: inherit; }
 .group-control input { margin: 0; accent-color: #a8edce; }
 .toolbar-divider { width: 1px; height: 22px; margin: 0 3px; background: var(--chrome-edge); }
 .editors { display: grid; flex: 1; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 12px; min-height: 0; padding: 12px; }
+.result-column { display: flex; flex-direction: column; min-width: 0; min-height: 0; gap: 12px; }
+.result-column > .editor-pane { flex: 1; }
 .editor-pane { display: flex; flex-direction: column; min-width: 0; min-height: 0; overflow: hidden; border: 1px solid #305d5b; background: var(--paper); box-shadow: 0 4px 15px #2c665947; }
+.environment-panel { flex: none; min-width: 0; max-height: 45%; overflow: auto; border: 1px solid #305d5b; background: #f3faf8; box-shadow: 0 4px 15px #2c665947; }
+.environment-panel[hidden] { display: none; }
 .editor-pane.dragging { outline: 3px dashed #e7ffb7; outline-offset: -7px; }
 .pane-bar { display: flex; flex: none; justify-content: space-between; align-items: center; gap: 10px; height: 29px; padding: 0 11px; background: var(--chrome); color: #e8f0f2; font-size: 12px; }
 .pane-bar strong { font-weight: 750; }
 .pane-bar span { overflow: hidden; color: var(--muted); font-size: 11px; text-overflow: ellipsis; white-space: nowrap; }
-.environment { display: flex; flex: none; flex-wrap: wrap; align-items: center; gap: 4px 12px; padding: 6px 11px; border-bottom: 1px solid #cfdbd9; background: #edf6f3; color: #2d4745; font-size: 11px; line-height: 1.35; }
-.environment[hidden] { display: none; }
-.environment span { display: inline-flex; gap: 4px; }
-.environment strong { color: #52716d; font-weight: 800; }
+.environment-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 190px), 1fr)); gap: 0; margin: 0; padding: 5px 10px 9px; color: #2d4745; }
+.environment-grid > div { min-width: 0; padding: 7px 9px; border-bottom: 1px solid #d8e7e3; }
+.environment-grid dt { color: #52716d; font-size: 11px; font-weight: 800; }
+.environment-grid dd { margin: 3px 0 0; font-size: 12px; line-height: 1.45; overflow-wrap: anywhere; }
 .editor-pane textarea { display: block; flex: 1; width: 100%; min-height: 0; padding: 14px 17px; resize: none; border: 0; border-radius: 0; outline: none; background: var(--paper); color: var(--ink); font: 13px/1.55 Consolas, "Courier New", "Malgun Gothic", monospace; tab-size: 2; white-space: pre-wrap; overflow-wrap: anywhere; }
 .editor-pane textarea.no-wrap { white-space: pre; overflow-wrap: normal; }
 .editor-pane textarea::placeholder { color: #91a2a9; }
@@ -48,4 +52,5 @@ button, input, select, textarea { font: inherit; }
 @media (max-width: 720px) {
   .toolbar { gap: 16px; }
   .editors { grid-template-columns: 1fr; grid-template-rows: minmax(210px, 1fr) minmax(210px, 1fr); gap: 8px; padding: 8px; }
+  .result-column { gap: 8px; }
 }

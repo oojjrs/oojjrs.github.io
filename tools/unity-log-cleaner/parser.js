@@ -7,17 +7,38 @@
   const warningPattern = /\b(?:warning|warn|deprecated)\b/i;
   const compilerPattern = /^(?:.+?\(\d+,\d+\):\s*)?(?:error|warning)\s+(?:CS\d+|[A-Z]{2,}\d+):/i;
   const bareIssuePattern = /^(?:Unhandled\s+)?[\w.]+Exception\s*:/;
-  const stackPattern = /^(?:\s+at\s+|\s*\(Filename:|\s*--- End of|\s*Rethrow as|UnityEngine\.[\w.]+:|System\.[\w.]+:|[\w.`+<>/]+:[\w.`+<>/]+\s*\(.*\)(?:\s+\(at\s+.+:\d+\))?$)/;
+  const stackStartPattern = /^(?:\s*at\s+\S|[^\s:]+:[^\s:]+\s*\(.*\)(?:\s+\(at\s+.+:\d+\))?$)/;
+  const stackPattern = /^(?:\s*\(Filename:|\s*--- End of|\s*Rethrow as|\s*at\s+\S|[^\s:]+:[^\s:]+\s*\(.*\)(?:\s+\(at\s+.+:\d+\))?$)/;
 
   function terms(value) {
     return String(value || "").split(",").map(function (term) { return term.trim().toLowerCase(); }).filter(Boolean);
   }
 
-  function kindOf(message) {
+  function kindOf(message, stackKind) {
+    if (stackKind === "error") return "error";
+    if (stackKind === "warning") return "warning";
     if (errorPattern.test(message)) return "error";
     if (warningPattern.test(message)) return "warning";
-    if (appPattern.test(message)) return "app";
+    if (stackKind || appPattern.test(message)) return "app";
     return "system";
+  }
+
+  function stackMessages(lines) {
+    const messages = new Map();
+    for (let index = 1; index < lines.length; index += 1) {
+      const current = lines[index].trim();
+      const previous = lines[index - 1].trim();
+      if (!stackStartPattern.test(current) || !previous || stackPattern.test(previous)) continue;
+      let kind = "app";
+      for (let next = index; next < lines.length && lines[next].trim(); next += 1) {
+        const frame = lines[next].trim();
+        if (!stackPattern.test(frame)) break;
+        if (/\b(?:LogError|LogException|LogAssertion|Assert)\s*\(/.test(frame)) kind = "error";
+        else if (kind !== "error" && /\bLogWarning\s*\(/.test(frame)) kind = "warning";
+      }
+      messages.set(index - 1, kind);
+    }
+    return messages;
   }
 
   function cleanLog(sources, options) {
@@ -34,9 +55,10 @@
     (sources || []).forEach(function (source) {
       const lines = String(source.text || "").split(/\r\n|\n|\r/);
       totalLines += lines.length;
+      const stackAnchors = stackMessages(lines.map(function (line) { return line.replace(/\x1b\[[0-9;]*m/g, ""); }));
       let skipNextToken = false;
 
-      lines.forEach(function (line) {
+      lines.forEach(function (line, index) {
         const plain = line.replace(/\x1b\[[0-9;]*m/g, "");
         const timestampMatch = plain.match(timestampPattern);
         const timestamp = timestampMatch ? timestampMatch[1] : "";
@@ -51,9 +73,9 @@
           return;
         }
         if (stackPattern.test(message)) return;
-        if (!timestampMatch && !compilerPattern.test(message) && !bareIssuePattern.test(message) && !/^warn:\s/i.test(message)) return;
+        if (!stackAnchors.has(index) && !timestampMatch && !compilerPattern.test(message) && !bareIssuePattern.test(message) && !/^warn:\s/i.test(message) && !appPattern.test(message)) return;
 
-        const kind = kindOf(message);
+        const kind = kindOf(message, stackAnchors.get(index));
         candidates += 1;
         if (mode === "focus" && kind === "system") return;
         if (mode === "problems" && kind !== "error" && kind !== "warning") return;
@@ -95,6 +117,12 @@
     const architecture = text.match(/^Process architecture:\s*([^\r\n]+)/im) || text.match(/^System\s+architecture:\s*([^\r\n]+)/im);
     const memory = text.match(/\bPhysical Memory:\s*(\d+\s*MB)\b/i);
     const build = text.match(/\bBuild Type '([^']+)'/i);
+    const hostIp = text.match(/^Found\s+\d+\s+interfaces?\s+on\s+host\s*:\s*\d+\)\s*([^\s\r\n]+)/im);
+    const playerIp = text.match(/Player connection[^\r\n]*\[IP\]\s*([^\s\[\]"']+)/i);
+    const playerPort = text.match(/Player connection[^\r\n]*\[Port\]\s*(\d+)/i);
+    const udpBroadcast = text.match(/Started UDP target info broadcast[^\r\n]*\bon\s*\[([^\]\r\n]+)\]/i);
+    const project = text.match(/Player connection[^\r\n]*\[ProjectName\]\s*([^\s\[\]"']+)/i);
+    const platform = text.match(/Player connection[^\r\n]*\[PackageName\]\s*([^\s\[\]"']+)/i);
     let graphicsApi = "";
     const graphics = {};
     const lines = text.split(/\r\n|\n|\r/);
@@ -121,6 +149,11 @@
     if (graphics.renderer) fields.push({ label: "그래픽카드", value: graphics.renderer.replace(/\s+\(ID=0x[\da-f]+\)$/i, "") });
     if (graphics.vram) fields.push({ label: "VRAM", value: graphics.vram });
     if (graphics.driver) fields.push({ label: "Driver", value: graphics.driver });
+    if (platform) fields.push({ label: "플랫폼", value: platform[1] });
+    if (project) fields.push({ label: "프로젝트", value: project[1] });
+    if (playerIp || hostIp) fields.push({ label: "IP", value: (playerIp || hostIp)[1] });
+    if (playerPort) fields.push({ label: "포트", value: playerPort[1] });
+    if (udpBroadcast) fields.push({ label: "UDP 방송 주소", value: udpBroadcast[1] });
     return fields;
   }
 

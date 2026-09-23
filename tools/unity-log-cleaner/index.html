@@ -6,7 +6,7 @@
   <meta name="description" content="Unity 로그에서 콜스택을 걷어내고 필요한 메시지만 남기는 도구">
   <meta name="theme-color" content="#273746">
   <title>Unity Log 정제기 · OOJJRS</title>
-  <link rel="stylesheet" href="./style.css?v=3">
+  <link rel="stylesheet" href="./style.css?v=4">
 </head>
 <body>
   <header class="toolbar">
@@ -37,14 +37,19 @@
       <div class="pane-bar"><strong id="source-title">원본</strong><span id="source-meta"></span></div>
       <textarea id="source-input" spellcheck="false" aria-label="원본 로그" placeholder="로그를 붙여넣거나 파일을 놓으세요."></textarea>
     </section>
-    <section class="editor-pane" aria-labelledby="output-title">
-      <div class="pane-bar"><strong id="output-title">정제 결과</strong><span id="output-meta"></span></div>
-      <div id="environment" class="environment" hidden></div>
-      <textarea id="output-input" spellcheck="false" aria-label="정제 결과" readonly></textarea>
-    </section>
+    <div class="result-column">
+      <section id="environment-panel" class="environment-panel" aria-labelledby="environment-title" hidden>
+        <div class="pane-bar"><strong id="environment-title">실행 환경</strong></div>
+        <dl id="environment" class="environment-grid"></dl>
+      </section>
+      <section class="editor-pane" aria-labelledby="output-title">
+        <div class="pane-bar"><strong id="output-title">정제 결과</strong><span id="output-meta"></span></div>
+        <textarea id="output-input" spellcheck="false" aria-label="정제 결과" readonly></textarea>
+      </section>
+    </div>
   </main>
   <div id="status" class="visually-hidden" role="status" aria-live="polite"></div>
-  <script src="./parser.js?v=4"></script>
-  <script src="./app.js?v=3"></script>
+  <script src="./parser.js?v=5"></script>
+  <script src="./app.js?v=4"></script>
 </body>
 </html>

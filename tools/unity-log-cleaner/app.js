@@ -10,6 +10,7 @@
   const sourceMeta = document.getElementById("source-meta");
   const outputMeta = document.getElementById("output-meta");
   const status = document.getElementById("status");
+  const environmentPanel = document.getElementById("environment-panel");
   const environment = document.getElementById("environment");
   const modeInput = document.getElementById("mode-input");
   const includeInput = document.getElementById("include-input");
@@ -24,13 +25,15 @@
     const fields = window.UnityLogParser.extractEnvironment(value);
     environment.replaceChildren();
     fields.forEach(function (field) {
-      const item = document.createElement("span");
-      const label = document.createElement("strong");
+      const item = document.createElement("div");
+      const label = document.createElement("dt");
+      const detail = document.createElement("dd");
       label.textContent = field.label;
-      item.append(label, document.createTextNode(field.value));
+      detail.textContent = field.value;
+      item.append(label, detail);
       environment.append(item);
     });
-    environment.hidden = fields.length === 0;
+    environmentPanel.hidden = fields.length === 0;
   }
 
   function applyWrap() {
@@ -47,7 +50,7 @@
       outputMeta.textContent = "";
       outputInput.value = "";
       environment.replaceChildren();
-      environment.hidden = true;
+      environmentPanel.hidden = true;
       copyButton.disabled = true;
       downloadButton.disabled = true;
       status.textContent = "";
