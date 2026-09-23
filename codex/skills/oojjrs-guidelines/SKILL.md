@@ -21,6 +21,8 @@ Write Codex task titles in Korean unless the user explicitly requests another la
 
 Reading the canonical body is a prerequisite, not completion: apply its commit-message and task-title rules at the corresponding action. Before any commit, route through `$oojjrs-project-finish-work` and check the proposed message against the loaded canonical rule. A domain skill, English instructions, or recent agent-written history does not replace the user's message style.
 
+Immediately before the first validation step in a task that changes files or external state or requests validation, load the canonical validation guideline named by the common rules. Treat it as the controlling cross-domain authority for validation scope, execution-surface authority, oracle selection, budget, retries, and reporting. A domain workflow may add only a narrower check or stricter safety limit; it may not replace, skip, weaken, or broaden the validation guideline.
+
 ## Routing
 
 - Apply the canonical workflow only to repository, code, document, asset, Git, validation, maintenance, or deployment work. Load its task-specific references at their stated entry points.

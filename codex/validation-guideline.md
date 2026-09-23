@@ -2,6 +2,12 @@
 
 Use validation to answer a concrete uncertainty about the changed result. Do not turn completion into a general audit.
 
+## Priority And Applicability
+
+1. When the common work rules require this document, it is the controlling cross-domain authority for validation scope, execution-surface authority, oracle selection, budget, retries, and reporting.
+2. Domain workflows may choose a narrower domain check or impose a stricter safety limit, but they must not replace, skip, weaken, or broaden these rules. If workflow text conflicts with this document, follow this document and report any unresolved conflict before validation.
+3. Loading a domain skill does not load this document. Load the canonical URL once, immediately before the first validation step, when a task changes files or external state or requests validation.
+
 ## Routine Finish And Budget
 
 1. Let `E` be task-local implementation or editing time after scope is understood. Routine validation targets `min(E × 25%, 15 seconds)` of agent-controlled wall time.

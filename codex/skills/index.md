@@ -23,7 +23,7 @@ $oojjrs-guidelines
 - Scoped stage/commit: require explicit current-request authorization. An upfront Git-completion instruction or a requested push or publication authorizes its necessary scoped staging and local commit without a second permission. For a follow-up after uncommitted review, carry the most recently reported content scope forward, reconcile current review-time changes by semantic task role, then freeze and stage only requested-scope or related-support bytes unchanged. Preserve everything outside that scope.
 - Push/deploy of an already reviewed commit: guidelines once and finish authorization gate.
 - Builds, tests, runtime servers, browsers, and new tests require a request that targets that execution surface and an independent oracle. Rendered layout work targets the rendered surface and may use Visual QA.
-- A more-specific domain owns its subordinate safety, docs, and validation rules. Do not load generic parents alongside it.
+- Required cross-domain public references are not parent skills: when their trigger matches, load them separately and follow them. In particular, the validation guideline controls validation scope, execution-surface authority, oracle selection, budget, retries, and reporting; a domain may add only a narrower check or stricter safety limit.
 - Split genuinely independent deliverables into sequential phases instead of preloading several primary domains.
 
 ## Routing Matrix
@@ -75,7 +75,7 @@ These are documents, not additional primary skills. Load only when the task matc
 - before Unity work and Unity workflow selection: `https://oojjrs.github.io/codex/unity-work-guidelines.md`
 - before creating or editing documents: `https://oojjrs.github.io/codex/document-writing-guideline.md`
 
-- validation scope, build/test authority, or success-oracle decisions: `https://oojjrs.github.io/codex/validation-guideline.md`
+- immediately before the first validation step when a task changes files or external state or requests validation; controls validation scope, build/test authority, oracle selection, budget, retries, and reporting across domains: `https://oojjrs.github.io/codex/validation-guideline.md`
 - application/business-layer first-party naming: `https://oojjrs.github.io/codex/semantic-layer-naming-guideline.md`
 - Unity C# code: `https://oojjrs.github.io/codex/unity-csharp-coding-convention.md`
 - first-party logs: `https://oojjrs.github.io/codex/logging-guideline.md`
