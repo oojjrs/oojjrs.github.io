@@ -11,8 +11,8 @@ Write Codex task titles in Korean unless the user explicitly requests another la
 
 ## Canonical Load
 
-1. Run `scripts/Read-OojjrsGuidelines.ps1` once when this skill triggers in a task thread or subagent. It directly fetches only `https://oojjrs.github.io/codex/common-work-guidelines.md`, verifies the final URL, and reports the fetched body's SHA-256.
-2. If the script itself is unavailable, open that exact URL directly. Never substitute a workspace, repository, memory, or cached copy.
+1. Run `scripts/Read-OojjrsGuidelines.ps1` once when this skill triggers in a task thread or subagent. Use one direct shell-tool call with `sandbox_permissions: require_escalated` on the first attempt; never probe it inside the sandbox first or launch a child `pwsh` or `powershell.exe`. Keep the escalation scoped to this exact read-only script and give the required user-facing justification. The script directly fetches only `https://oojjrs.github.io/codex/common-work-guidelines.md`, verifies the final URL, and reports the fetched body's SHA-256.
+2. If the script itself is unavailable, open that exact URL directly. When the script exists, do not replace it with `curl`, altered TLS options, or another fetch route. Never substitute a workspace, repository, memory, or cached copy.
 3. Reuse the loaded rules in the same thread. Do not reload them before each command, tool call, validation step, or final response.
 4. Reload only in a new thread or subagent, after context restoration, or when the user asks to recheck the rules.
 5. If the canonical URL cannot be reached, stop rule-dependent work and report the access failure.
