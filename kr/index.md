@@ -82,6 +82,11 @@ alternate_url: /en/
   </section>
 
   <nav class="utility-link-row" aria-label="관리용 문서">
+    <a class="utility-link utility-link-unity" href="{{ "/tools/unity-log-cleaner/" | relative_url }}">
+      <span>WEB TOOL</span>
+      <strong>Unity Log 정제기</strong>
+    </a>
+
     <a class="utility-link utility-link-codex" href="{{ "/codex/common-work-guidelines.md" | relative_url }}">
       <span>CODEX</span>
       <strong>공통 작업 지침</strong>

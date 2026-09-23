@@ -82,6 +82,11 @@ alternate_url: /kr/
   </section>
 
   <nav class="utility-link-row" aria-label="Private reference documents">
+    <a class="utility-link utility-link-unity" href="{{ "/tools/unity-log-cleaner/" | relative_url }}">
+      <span>WEB TOOL</span>
+      <strong>Unity Log Cleaner</strong>
+    </a>
+
     <a class="utility-link utility-link-codex" href="{{ "/codex/common-work-guidelines.md" | relative_url }}">
       <span>CODEX</span>
       <strong>Common Work Guidelines</strong>

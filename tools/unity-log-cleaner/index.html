@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Unity Player.log에서 게임 메시지와 문제만 골라 콜스택 없이 읽는 로컬 웹 도구">
+  <meta name="theme-color" content="#10151c">
+  <title>Unity Log 정제기 · OOJJRS</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <a class="brand" href="/kr/">OOJJRS <span>/ TOOLS</span></a>
+      <span class="local-badge"><span class="badge-dot"></span> 브라우저에서만 처리</span>
+    </header>
+
+    <section class="intro" aria-labelledby="page-title">
+      <p class="eyebrow">UNITY LOG / SIGNAL EXTRACTOR</p>
+      <h1 id="page-title">로그에서<br><em>필요한 말만.</em></h1>
+      <p class="lead">Unity의 긴 Player.log에서 게임 메시지와 오류를 골라 읽습니다. 콜스택과 에디터 잡음은 걷어내고, 시간 흐름은 남깁니다.</p>
+    </section>
+
+    <section class="workspace" aria-label="로그 정제 작업 공간">
+      <div class="input-panel panel">
+        <div class="section-heading"><span class="step">01</span><div><p class="kicker">INPUT</p><h2>로그 넣기</h2></div></div>
+        <label class="drop-zone" id="drop-zone" for="file-input">
+          <span class="drop-icon" aria-hidden="true">↥</span>
+          <strong>파일을 여기에 놓거나 선택하세요</strong>
+          <span>Player.log · Editor.log · .txt · 여러 파일 가능</span>
+          <input id="file-input" type="file" accept=".log,.txt,text/plain" multiple>
+        </label>
+        <div class="input-divider"><span>또는 직접 붙여넣기</span></div>
+        <label class="field-label" for="paste-input">로그 텍스트</label>
+        <textarea id="paste-input" spellcheck="false" placeholder="2026-09-23T05:53:51.286Z|0x77d4|APP STEP : TitleLoading -> Title&#10;UnityEngine.Debug:ExtractStackTraceNoAlloc ..."></textarea>
+        <p class="input-note" id="input-note">파일 내용은 업로드하거나 저장하지 않습니다.</p>
+      </div>
+
+      <div class="settings-panel panel">
+        <div class="section-heading"><span class="step">02</span><div><p class="kicker">FILTER</p><h2>남길 내용</h2></div></div>
+        <fieldset class="mode-list">
+          <legend>정제 범위</legend>
+          <label class="mode-option"><input type="radio" name="mode" value="focus" checked><span><strong>핵심만</strong><small>게임 메시지 + 오류 + 경고</small></span></label>
+          <label class="mode-option"><input type="radio" name="mode" value="problems"><span><strong>문제만</strong><small>오류 + 경고</small></span></label>
+          <label class="mode-option"><input type="radio" name="mode" value="all"><span><strong>전체 메시지</strong><small>타임스탬프가 있는 로그 본문</small></span></label>
+        </fieldset>
+        <div class="settings-fields">
+          <label class="field-label" for="include-input">포함할 단어 <span>선택</span></label>
+          <input id="include-input" type="search" placeholder="예: APP STEP, ReporterException">
+          <label class="field-label" for="exclude-input">제외할 단어 <span>선택</span></label>
+          <input id="exclude-input" type="search" placeholder="예: SINGLETON AWAKE">
+          <p class="field-hint">쉼표로 여러 단어를 구분합니다. 포함 단어는 하나라도 일치하면 남깁니다.</p>
+        </div>
+        <label class="check-option"><input id="group-input" type="checkbox" checked><span>같은 메시지 묶기 <small>반복 횟수 표시</small></span></label>
+        <button class="run-button" id="run-button" type="button">로그 정제하기 <span aria-hidden="true">↗</span></button>
+      </div>
+    </section>
+
+    <section class="results panel" id="results" aria-labelledby="results-title">
+      <div class="results-head">
+        <div class="section-heading"><span class="step">03</span><div><p class="kicker">OUTPUT</p><h2 id="results-title">정제 결과</h2></div></div>
+        <div class="actions"><button id="copy-button" type="button" disabled>복사</button><button id="download-button" type="button" disabled>TXT 저장</button></div>
+      </div>
+      <div class="stats" id="stats" aria-live="polite"><span>로그를 넣고 정제해 보세요.</span></div>
+      <div class="result-list" id="result-list"><div class="empty-state"><span aria-hidden="true">⌁</span><p>필요한 메시지가 여기 모입니다.</p></div></div>
+      <p class="result-note" id="result-note"></p>
+    </section>
+    <footer class="footer"><span>OOJJRS / UNITY LOG CLEANER</span><span>원본 파일과 토큰은 사이트로 전송되지 않습니다.</span></footer>
+  </main>
+  <script src="./parser.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>
