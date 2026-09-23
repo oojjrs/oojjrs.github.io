@@ -72,6 +72,44 @@ function Wait-DebugEndpoint {
     throw "Chrome 디버깅 포트($DebugPort)에 연결하지 못했습니다."
 }
 
+function Assert-DedicatedChromeListener {
+    $listener = Get-NetTCPConnection `
+        -LocalAddress '127.0.0.1' `
+        -LocalPort $DebugPort `
+        -State Listen `
+        -ErrorAction SilentlyContinue |
+        Select-Object -First 1
+    if ($null -eq $listener) {
+        throw "전용 Chrome의 로컬 디버깅 포트($DebugPort)를 확인하지 못했습니다."
+    }
+
+    $browser = Get-CimInstance Win32_Process -Filter "ProcessId=$($listener.OwningProcess)"
+    if ($null -eq $browser) {
+        throw "포트 $DebugPort`의 Chrome 프로세스를 확인하지 못했습니다."
+    }
+    $match = [regex]::Match(
+        [string] $browser.CommandLine,
+        '(?:^|\s)--user-data-dir=(?:"([^"]+)"|(\S+))'
+    )
+    $actualProfile = if ($match.Groups[1].Success) {
+        $match.Groups[1].Value
+    } else {
+        $match.Groups[2].Value
+    }
+    $expectedProfile = [IO.Path]::GetFullPath($ChromeProfile).TrimEnd('\')
+    if (
+        $browser.Name -ne 'chrome.exe' -or
+        -not $match.Success -or
+        -not [string]::Equals(
+            [IO.Path]::GetFullPath($actualProfile).TrimEnd('\'),
+            $expectedProfile,
+            [StringComparison]::OrdinalIgnoreCase
+        )
+    ) {
+        throw "포트 $DebugPort`는 지정한 전용 Chrome 프로필이 아닙니다. 다른 브라우저에 연결하지 않습니다."
+    }
+}
+
 function Connect-Cdp {
     param([Parameter(Mandatory)][string] $WebSocketUrl)
 
@@ -350,6 +388,16 @@ if ($Style.Length -gt 1000) {
 }
 if (
     -not $downloadOnlyMode -and
+    $InputMode -eq 'Description' -and
+    (
+        -not [string]::IsNullOrWhiteSpace($Style) -or
+        -not [string]::IsNullOrWhiteSpace($Title)
+    )
+) {
+    throw 'AI MUSIC> 현재 설명 모드에서는 스타일과 제목 입력칸이 비활성화되어 제출할 수 없습니다. -Style과 -Title을 비우거나 Custom Lyrics 모드를 사용하세요.'
+}
+if (
+    -not $downloadOnlyMode -and
     $InputMode -eq 'InstrumentalSections' -and
     [string]::IsNullOrWhiteSpace($Style)
 ) {
@@ -393,18 +441,29 @@ try {
         $null = Invoke-RestMethod -Uri "$debugUrl/json/version" -TimeoutSec 2
     }
     catch {
+        $occupiedPort = Get-NetTCPConnection `
+            -LocalPort $DebugPort `
+            -State Listen `
+            -ErrorAction SilentlyContinue |
+            Select-Object -First 1
+        if ($null -ne $occupiedPort) {
+            throw "포트 $DebugPort`가 이미 사용 중이지만 Chrome CDP에 연결할 수 없습니다. 새 브라우저를 열지 않습니다."
+        }
         $chrome = Get-ChromePath
         Start-Process `
             -FilePath $chrome `
             -WindowStyle $(if ($ShowChrome) { 'Normal' } else { 'Hidden' }) `
             -ArgumentList @(
+                '--remote-debugging-address=127.0.0.1',
                 "--remote-debugging-port=$DebugPort",
-                "--user-data-dir=$ChromeProfile",
+                "--user-data-dir=`"$ChromeProfile`"",
                 '--no-first-run',
                 $workspaceUrl
             )
         $null = Wait-DebugEndpoint
     }
+
+    Assert-DedicatedChromeListener
 
     $targets = @(Invoke-RestMethod -Uri "$debugUrl/json")
     $target = $targets |
@@ -631,7 +690,10 @@ Boolean(document.querySelector('form[action="/ko/users/sign_out"]'))
   if (instrumental.checked !== mode.instrumental) instrumental.click();
 
   // Use the UI first: changing mode or instrumental can clear the active prompt.
-  for (const name of ['prompt', 'style', 'title']) {
+  const activeFields = config.inputMode === 'Description'
+    ? ['prompt']
+    : ['prompt', 'style', 'title'];
+  for (const name of activeFields) {
     const fields = [...form.querySelectorAll(
       '[name="generation_task[' + name + ']"]'
     )].filter(field => !field.disabled && !field.closest('[hidden]'));
@@ -647,9 +709,16 @@ Boolean(document.querySelector('form[action="/ko/users/sign_out"]'))
     field.dispatchEvent(new Event('change', { bubbles: true }));
   }
   const data = new FormData(form);
-  for (const name of ['prompt', 'style', 'title']) {
+  for (const name of activeFields) {
     if (singleValue(data, name) !== config[name]) {
       throw new Error(`AI MUSIC> SUBMISSION FIELD MISMATCH : ${name}`);
+    }
+  }
+  if (config.inputMode === 'Description') {
+    for (const name of ['style', 'title']) {
+      if (data.getAll('generation_task[' + name + ']').length !== 0) {
+        throw new Error(`AI MUSIC> UNEXPECTED SUBMITTED FIELD : ${name}`);
+      }
     }
   }
   const instrumentalValues = data.getAll('generation_task[instrumental]');

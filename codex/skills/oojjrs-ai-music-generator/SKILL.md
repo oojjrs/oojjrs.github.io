@@ -40,32 +40,40 @@ An audio or melody extension can succeed because of the supplied seed even when 
 
 1. Resolve inputs.
    - Use `-InputMode Description` by default with a music description of 1-3000 characters. Use `-InputMode InstrumentalSections` for a requested Custom Lyrics arrangement experiment, with 1-5000 characters of bracketed section and performance directions.
-   - Accept an optional title of up to 80 characters.
-   - Accept an optional style of up to 1000 characters.
+   - In Custom Lyrics mode, accept an optional title of up to 80 characters and a required style of up to 1000 characters. The current Description form disables Title and Style; leave both empty there rather than claiming they will be submitted.
    - In Description mode, keep the Instrumental checkbox enabled. InstrumentalSections intentionally turns it off because this site hides and disables the lyrics field while Instrumental is enabled. The intended output remains instrumental: require a nonempty Style and bracket-only directions, with no sung lyric lines. Explain the mode change and assess unwanted vocals separately from duration.
    - Description uses `custom_mode=false` and the enabled description textarea. InstrumentalSections uses the Custom Lyrics tab, `custom_mode=true`, and the enabled lyrics textarea. Validate the actual submitted mode, Instrumental flag, and single prompt field; never force a disabled field into the form.
    - Use the requested output directory. Otherwise use `$Trash` in the active workspace.
 
-2. Run one script invocation at a time from PowerShell.
+2. Connect the dedicated Chrome profile.
+   - The browser uses `%LOCALAPPDATA%\AiMusicAutomation\ChromeProfile` and local CDP port `9222`. It has its own persistent cookies; do not assume the user's ordinary Chrome session is shared.
+   - When sign-in is needed and the user wants a visible browser, run the bundled opener once. It opens the AMG workspace in the dedicated profile only if that browser is not already running; it does not submit a generation request. Let the user sign in there, then run the generation script's `-PreflightOnly` check to confirm the workspace account.
 
-```powershell
-pwsh -NoProfile -ExecutionPolicy Bypass -File "<skill-dir>\scripts\Generate-AiMusic-Chrome.ps1" `
-  -Prompt "<description>" `
-  -Title "<title>" `
-  -OutputDirectory "<absolute-output-directory>"
-```
+     ```powershell
+     pwsh -NoProfile -ExecutionPolicy Bypass -File "<skill-dir>\scripts\Open-AiMusic-Chrome.ps1"
+     ```
 
+   - Reuse the running dedicated browser for later work. The opener and generator verify that port `9222` belongs to the configured profile before using it; if another process owns that port, stop instead of attaching to it.
+   - If a dedicated browser is already running but its window is hidden, the opener only reports its status. Let the user reveal that browser for sign-in rather than changing desktop focus on their behalf.
+   - If no dedicated browser is running, the generator can start it hidden with the saved profile. Use the visible opener for sign-in; do not try to control a hidden window with desktop input.
+   - Routine generation runs through background CDP in that dedicated profile. Do not send system mouse or keyboard input, activate windows, or switch the user's ordinary Chrome tabs. Do not use CUA or Windows UI Automation for this workflow unless the user explicitly chooses foreground control.
+   - If the user instead explicitly hands off a signed-in Network request from ordinary Chrome as cURL through the clipboard, `-ImportCookiesFromClipboard` is available once. Never ask the user to paste a Cookie into chat or save it to a repository file.
+   - Keep the dedicated Chrome process running until both results are resolved.
+
+3. Run a preflight, then one paid script invocation at a time from PowerShell.
+
+   - First run the same command with `-PreflightOnly`. It fills and validates the signed-in form without sending a POST or consuming credit. Check `Ready: true`, `PostSent: false`, input mode, Instrumental flag, and active fields. The script preserves the model selected by the site.
+
+   ```powershell
+   pwsh -NoProfile -ExecutionPolicy Bypass -File "<skill-dir>\scripts\Generate-AiMusic-Chrome.ps1" `
+     -Prompt "<description>" `
+     -OutputDirectory "<absolute-output-directory>" `
+     -PreflightOnly
+   ```
+
+   - After a successful preflight, run that command once without `-PreflightOnly` for the requested generation. If the user left the style open, choose one coherent direction from [music-direction.md](references/music-direction.md) and make one prompt; do not spend another credit merely to explore styles.
    - One form POST produces two song versions. "Two results" never means two concurrent generation requests.
    - The script holds a named process lock and calls `requestSubmit()` exactly once outside every polling loop.
-   - Use `-PreflightOnly` to fill and validate the signed-in form without sending a POST or consuming credit. It reports the input mode and Instrumental flag, checks the actual submitted Prompt, Style, and Title, and preserves the model selected by the site.
-
-3. Handle the dedicated Chrome profile.
-   - The script uses a persistent profile under `%LOCALAPPDATA%\AiMusicAutomation\ChromeProfile` and local debugging port `9222`. Reuse a running dedicated browser; launch it hidden by default. Pass `-ShowChrome` only when the user asks for a visible browser, such as for signing in.
-   - Confirm the signed-in workspace account, not merely a username displayed on a public profile. If sign-in is needed, let the user sign in directly in the dedicated profile and then recheck it.
-   - If the user instead signs in through normal Chrome, they can copy the signed-in site's Network request as cURL and tell Codex when it is copied. Use the clipboard import only for that explicit handoff.
-   - Never ask the user to paste a Cookie into chat or save it to a repository file.
-   - Rerun once with `-ImportCookiesFromClipboard`; omit the switch after the dedicated Chrome profile retains the session. If that import fails before submission, the existing dedicated profile may still already be authenticated.
-   - Keep the dedicated Chrome process running until both results are resolved.
 
 4. Wait for both results.
    - The workspace lists each version separately and exposes song IDs even while queued. Capture a baseline before submitting; identify new owned songs whose exact prompt and supplied title match this request, then freeze the two result IDs. Stop on an ambiguous set instead of mixing in other songs.
@@ -87,6 +95,7 @@ pwsh -NoProfile -ExecutionPolicy Bypass -File "<skill-dir>\scripts\Generate-AiMu
 
 5. Report outcome.
    - Link every downloaded MP3 using absolute paths.
+   - Measure each downloaded MP3 with `ffprobe` (or equivalent) and report actual duration, not the arranging page's estimate.
    - Report rejected, failed, canceled, unresolved, and download-failed results distinctly.
    - State whether a real generation credit was consumed.
 
