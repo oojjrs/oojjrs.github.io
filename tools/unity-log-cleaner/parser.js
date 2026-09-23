@@ -95,11 +95,32 @@
     const architecture = text.match(/^Process architecture:\s*([^\r\n]+)/im) || text.match(/^System\s+architecture:\s*([^\r\n]+)/im);
     const memory = text.match(/\bPhysical Memory:\s*(\d+\s*MB)\b/i);
     const build = text.match(/\bBuild Type '([^']+)'/i);
+    let graphicsApi = "";
+    const graphics = {};
+    const lines = text.split(/\r\n|\n|\r/);
+    for (let index = 0; index < lines.length; index += 1) {
+      const heading = (lines[index].match(timestampPattern) || [null, null, lines[index]])[2].trim();
+      const section = heading.match(/^(Direct3D|Vulkan|OpenGL):$/i);
+      if (!section) continue;
+      graphicsApi = section[1];
+      for (let offset = 1; offset <= 7 && index + offset < lines.length; offset += 1) {
+        const line = (lines[index + offset].match(timestampPattern) || [null, null, lines[index + offset]])[2].trim();
+        const detail = line.match(/^(Version|Renderer|Vendor|VRAM|Driver):\s*(.+)$/i);
+        if (!detail) break;
+        graphics[detail[1].toLowerCase()] = detail[2].trim();
+      }
+      break;
+    }
     if (unity) fields.push({ label: "Unity", value: unity[1].trim() });
     if (os) fields.push({ label: "OS", value: os[1].replace(/\s+/g, " ").trim() });
     if (architecture) fields.push({ label: "아키텍처", value: architecture[1].trim() });
     if (memory) fields.push({ label: "메모리", value: memory[1].replace(/\s+/g, " ").trim() });
     if (build) fields.push({ label: "빌드", value: build[1].trim() });
+    if (graphicsApi === "Direct3D") fields.push({ label: "DX", value: graphics.version || graphicsApi });
+    else if (graphicsApi) fields.push({ label: "그래픽 API", value: graphics.version || graphicsApi });
+    if (graphics.renderer) fields.push({ label: "그래픽카드", value: graphics.renderer.replace(/\s+\(ID=0x[\da-f]+\)$/i, "") });
+    if (graphics.vram) fields.push({ label: "VRAM", value: graphics.vram });
+    if (graphics.driver) fields.push({ label: "Driver", value: graphics.driver });
     return fields;
   }
 

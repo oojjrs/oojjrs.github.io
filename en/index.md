@@ -7,14 +7,6 @@ alternate_url: /kr/
 ---
 
 <section class="section document-entry-section" id="notes">
-  <section class="home-document-group home-tool-group" aria-labelledby="tools-heading">
-    <div class="home-section-heading">
-      <p>TOOLS</p>
-      <h2 id="tools-heading">Tools</h2>
-    </div>
-    <a class="home-tool-link" href="{{ "/tools/unity-log-cleaner/" | relative_url }}" target="_blank" rel="noopener noreferrer">Unity Log Cleaner <span aria-hidden="true">↗</span></a>
-  </section>
-
   <section class="home-document-group" aria-labelledby="essay-heading">
     <div class="home-section-heading">
       <p>ESSAYS</p>
