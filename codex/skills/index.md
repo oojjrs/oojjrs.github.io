@@ -65,6 +65,7 @@ $oojjrs-guidelines
 | Domain | `$oojjrs-elevenlabs-sound-effects` | SFX creation or iteration, concrete-source mapping, Korean user explanation, English provider prompting, and delegation to ElevenLabs' official `$sound-effects` skill | An unnumbered create or retry request authorizes one call; preserve generated output untouched and do not preload for broader game-audio work |
 | Domain | `$oojjrs-suno-music` | Suno creation, source upload, Extend and other generated derivatives, result tracking, or Library management | Uses the signed-in browser UI through CUA; local audio processing and game integration stay with game-audio workflow |
 | Domain | `$oojjrs-ai-music-generator` | Explicit paid AI instrumental generation/download phase | Do not preload for a larger integrated game-audio task |
+| Domain | `$oojjrs-bgmstore-workshop-publishing` | Publish existing BgmStore tracks to the private music workshop Site, including catalog, media import, activation, player preferences, and verification | Music generation and game asset integration are separate phases; use Sites hosting during the Site deployment phase |
 | Domain | `$oojjrs-windows-repo-forensics` | Windows path, folder provenance, OneDrive, case, or false-dirty diagnosis | Read-only by default; actual mixed-hunk isolation uses dirty helper |
 
 ## Conditional Public References
@@ -140,6 +141,7 @@ The repository file `codex/common-work-guidelines.md` is the publication source.
 - `oojjrs-elevenlabs-sound-effects`: [웹 보기](https://oojjrs.github.io/codex/skills/oojjrs-elevenlabs-sound-effects/SKILL/) · [원문](https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/oojjrs-elevenlabs-sound-effects/SKILL.md)
 - `oojjrs-suno-music`: [웹 보기](https://oojjrs.github.io/codex/skills/oojjrs-suno-music/SKILL/) · [원문](https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/oojjrs-suno-music/SKILL.md)
 - `oojjrs-ai-music-generator`: [웹 보기](https://oojjrs.github.io/codex/skills/oojjrs-ai-music-generator/SKILL/) · [원문](https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/oojjrs-ai-music-generator/SKILL.md)
+- `oojjrs-bgmstore-workshop-publishing`: [웹 보기](https://oojjrs.github.io/codex/skills/oojjrs-bgmstore-workshop-publishing/SKILL/) · [원문](https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/oojjrs-bgmstore-workshop-publishing/SKILL.md)
 - `oojjrs-windows-repo-forensics`: [웹 보기](https://oojjrs.github.io/codex/skills/oojjrs-windows-repo-forensics/SKILL/) · [원문](https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/oojjrs-windows-repo-forensics/SKILL.md)
 
 - `oojjrs-steam-announcements`: [웹 보기](https://oojjrs.github.io/codex/skills/oojjrs-steam-announcements/SKILL/) · [원문](https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/oojjrs-steam-announcements/SKILL.md)
