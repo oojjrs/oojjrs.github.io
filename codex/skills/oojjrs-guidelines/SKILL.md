@@ -1,13 +1,13 @@
 ---
 name: oojjrs-guidelines
-description: Write Codex task titles in Korean unless the user requests another language, and correct an earlier automatic title at the first opportunity. Load the user's canonical shared Codex rules once per task thread whenever host instructions name $oojjrs-guidelines, including ordinary conversation and factual Q&A. Apply the operational workflow only to repository, code, document, asset, Git, validation, maintenance, or deployment work. Also use when inspecting or refreshing the rules. The canonical URL is the sole authority.
+description: Write accurate Korean Codex task titles unless the user requests another language, and correct an unsuitable automatic title at the first opportunity. Load the user's canonical shared Codex rules once per task thread whenever host instructions name $oojjrs-guidelines, including ordinary conversation and factual Q&A. Apply the operational workflow only to repository, code, document, asset, Git, validation, maintenance, or deployment work. Also use when inspecting or refreshing the rules. The canonical URL is the sole authority.
 ---
 
 # oojjrs Guidelines
 
 ## Immediate Task Title Rule
 
-Write Codex task titles in Korean unless the user explicitly requests another language. Preserve code identifiers, paths, and proper names as needed. Apply this rule as soon as the skill is selected, without waiting for the canonical body to load; if an automatic non-Korean title was already assigned, rename it at the first available opportunity.
+Write Codex task titles in Korean unless the user explicitly requests another language. Preserve code identifiers, paths, and proper names as needed. Apply this rule as soon as the skill is selected, without waiting for the canonical body to load. At the first available opportunity, assess whether the current title accurately describes the concrete task outcome. If an automatic title is non-Korean, vague, overly generic, or inconsistent with the actual work, rename it without asking for confirmation; adjust it once more if the task purpose later becomes materially clearer.
 
 ## Canonical Load
 
