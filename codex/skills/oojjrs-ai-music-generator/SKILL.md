@@ -1,6 +1,6 @@
 ---
 name: oojjrs-ai-music-generator
-description: Generate and download instrumental music from ai-music-generator.ai, including length experiments with description prompts or instrumental section tags in Custom Lyrics, through the dedicated Chrome profile and bundled PowerShell automation. Use when generation/download is the current explicit phase. Do not preload it for a larger game-audio editing, looping, installation, or documentation task; that task uses $oojjrs-game-audio-asset-workflow and routes here only when its paid generation phase begins.
+description: Generate and download instrumental music and game BGM from ai-music-generator.ai, including length experiments with description prompts or instrumental section tags in Custom Lyrics, through the dedicated Chrome profile and bundled PowerShell automation. Use as the default provider skill when paid BGM or instrumental generation/download is the current explicit phase and the user has not named another active provider. Do not preload it for a larger game-audio editing, looping, installation, or documentation task; that task uses $oojjrs-game-audio-asset-workflow and routes here only when its paid generation phase begins.
 ---
 
 # oojjrs AI Music Generator
@@ -9,7 +9,7 @@ Use the bundled `scripts/Generate-AiMusic-Chrome.ps1` with PowerShell 7 (`pwsh`)
 
 ## Prompt Design and Duration Experiments
 
-Before developing or revising music prompts for oojjrs, read [music-direction.md](references/music-direction.md) for the reusable musical brief, reference provenance, and narrative experiments. Preserve an explicitly requested exact input instead of silently applying a different preference preset. This reference guides both AMG and Suno; provider operations remain in their own skills.
+Before developing or revising music prompts for oojjrs, read [music-direction.md](references/music-direction.md) for the reusable musical brief, reference provenance, and narrative experiments. Preserve an explicitly requested exact input instead of silently applying a different preference preset. This reference guides the active AMG workflow; provider-specific historical notes remain provenance rather than routing instructions.
 
 Classify the request before changing the prompt:
 

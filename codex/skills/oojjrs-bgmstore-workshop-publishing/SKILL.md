@@ -29,6 +29,6 @@ Use this skill for the BgmStore repository's hosted music workshop. A track is p
 
 ## Boundaries
 
-- An instruction to publish existing tracks does not authorize another paid generation request. Use `$oojjrs-ai-music-generator` or `$oojjrs-suno-music` only for a separately requested generation phase.
+- An instruction to publish existing tracks does not authorize another paid generation request. Use `$oojjrs-ai-music-generator` only for a separately requested generation phase.
 - Do not use CUA, UIA, foreground browser control, or the user's active desktop. If the Site cannot be reached through background tools or APIs, report the blocker.
 - Do not repeat a Site save/deploy or media upload after an uncertain response without checking the corresponding version, deployment, or storage state first.

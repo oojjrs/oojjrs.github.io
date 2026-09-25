@@ -298,7 +298,7 @@ permalink: /codex/skill-routing-diagram/
       <article class="orphan-card" data-registry-node data-state="conditional"><span class="route-badge status-dormant">unverified</span><h3>Unity Editor 실행</h3><p>Unity 관련 스킬은 모두 읽을 수 있지만 현재 세션에서 Editor executable·project version·license를 확인하지 않았다.</p><small>정적 YAML·C#·asset 검사와 실제 Editor 검증을 같은 증거로 취급하지 않음.</small></article>
       <article class="orphan-card orphan-fixed" data-registry-node data-state="verified"><span class="route-badge status-ready">repaired here</span><h3>기존 SVG의 링크 없는 22개 노드</h3><p>노드에 클릭 가능한 지침 링크가 없고 당시 24개 중 2개가 빠져 직접 확인 경로가 구조적으로 끊겼다.</p><small>이번 HTML registry는 현재 25개 모두 immutable source 링크와 역할 요약을 제공.</small></article>
       <article class="orphan-card orphan-fixed" data-registry-node data-state="verified"><span class="route-badge status-ready">repaired here</span><h3>Steamworks·C# convention 누락</h3><p>각각 2026-08-02, 2026-08-08 추가됐지만 2026-07-03 도식의 skill 집합은 갱신되지 않았다.</p><small>이번 아틀라스와 요약 SVG 양쪽에 추가.</small></article>
-      <article class="orphan-card" data-registry-node data-state="retired"><span class="route-badge status-retired">retired</span><h3>Suno music</h3><p>2026-08-16 추가·보강된 뒤 2026-08-20 롤백으로 제거됐다. 현재 25개 skill 집합에는 없다.</p><small>실행 노드로 되살리지 않고 역사 노드로만 보존.</small></article>
+      <article class="orphan-card" data-registry-node data-state="retired"><span class="route-badge status-retired">disabled</span><h3>Suno music</h3><p>활성 skill과 BGM 라우팅에서 제외됐으며 전체 원본은 <code>codex/skills-disabled</code>에 보존된다.</p><small>명시적으로 재활성화하기 전에는 설치·자동 발견하지 않는다.</small></article>
     </div>
 
     <details class="route-detail tension-detail" open><summary>현재도 판단이 필요한 경계 4개</summary><div class="detail-body tension-grid">
@@ -318,7 +318,7 @@ permalink: /codex/skill-routing-diagram/
       <li><time>2026-08-02</time><div><strong>Steamworks 추가</strong><p>공개 skill 집합은 23개가 됐지만 기존 도식은 22개에 머물렀다.</p><a href="https://github.com/oojjrs/oojjrs.github.io/commit/d83a06b">d83a06b</a></div></li>
       <li><time>2026-08-08</time><div><strong>C# convention maintenance 추가</strong><p>24번째 skill이 추가됐고 board trigger가 좁아졌지만 SVG에는 반영되지 않았다.</p><a href="https://github.com/oojjrs/oojjrs.github.io/commit/5f93ef9">5f93ef9</a></div></li>
       <li><time>2026-08-11</time><div><strong>검증 흐름 전면 개편</strong><p>SVG의 검증 문구는 바뀌었지만 요청 유형·조건부 helper·누락 skill 구조는 그대로였다.</p><a href="https://github.com/oojjrs/oojjrs.github.io/commit/b08c46c">b08c46c</a></div></li>
-      <li><time>2026-08-16 → 20</time><div><strong>Suno 생성과 제거</strong><p>추가·보강·롤백된 skill을 현재 노드로 가장하지 않고 retired 이력으로 남겼다.</p><a href="https://github.com/oojjrs/oojjrs.github.io/commit/f88c191">추가</a> <a href="https://github.com/oojjrs/oojjrs.github.io/commit/72e16d7">제거</a></div></li>
+      <li><time>2026-08-16 → 09-25</time><div><strong>Suno 생성과 비활성화</strong><p>추가·복구된 workflow는 현재 자동 발견 대상에서 제외하고 전체 원본만 비활성 source로 보존한다.</p><a href="https://github.com/oojjrs/oojjrs.github.io/commit/f88c191">추가</a> <a href="https://github.com/oojjrs/oojjrs.github.io/commit/e3faf85">복구</a></div></li>
       <li><time>2026-08-23</time><div><strong>권한·route 정리와 전체 skill 동기화</strong><p><code>247e660</code>에서 board cheap probe·local commit·rendered Visual QA·Mines 경계를 정리했고, <code>527e55f</code>에서 lottery를 포함한 25개 source·index·installer·설치본을 동기화했다.</p><a href="https://github.com/oojjrs/oojjrs.github.io/commit/247e660f79d89f538feb4d65232e7e4302242be7">routing repair</a> <a href="https://github.com/oojjrs/oojjrs.github.io/commit/527e55f33def7d4c20ed9f273e8d496d5cf90304">skill sync</a></div></li>
     </ol>
 

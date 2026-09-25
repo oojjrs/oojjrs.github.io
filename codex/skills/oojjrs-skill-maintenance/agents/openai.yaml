@@ -1,4 +1,4 @@
 interface:
   display_name: "oojjrs Skill Maintenance"
-  short_description: "Synchronize every user-authored skill through GitHub"
-  default_prompt: "Use $oojjrs-skill-maintenance to keep every user-authored oojjrs skill automatically routable and fully synchronized from one GitHub commit."
+  short_description: "Synchronize active and disabled user-authored skills"
+  default_prompt: "Use $oojjrs-skill-maintenance to keep active oojjrs skills routable and synchronized while preserving intentionally disabled skills outside automatic discovery."

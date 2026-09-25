@@ -1,6 +1,6 @@
 # Instrumental Music Direction and Narrative Experiments
 
-Use this shared brief when preparing music for oojjrs through AI Music Generator or Suno. Keep provider controls, generation authority and result tracking in the corresponding provider skill. An explicit current request takes precedence over this brief. Planning or updating this reference does not submit a paid generation.
+Use this shared brief when preparing music for oojjrs through the active AI Music Generator workflow. Keep provider controls, generation authority and result tracking in the provider skill. Suno references below are historical preference and provenance evidence, not an active provider route. An explicit current request takes precedence over this brief. Planning or updating this reference does not submit a paid generation.
 
 ## Musical Direction
 
@@ -162,7 +162,7 @@ These vary the narrative shape: continuous growth, A-B-A-C-A recurrence, short e
 - Generate complete compositions even when an experiment focuses on openings. Retain development of the opening material, thematic returns and a satisfying ending while varying the opening instructions. A promising opening should already belong to a usable full track, without depending on a later extension to complete it.
 - Evaluate seed-based extension separately from fresh text generation. One excellent Seaside extension does not make arbitrary continuation reliable; one excellent Moonlit result does not validate all settings or every tag in its prompt.
 - Structure tags are probabilistic directions. Compare the bodies as whole narrative conditions first. Isolate a single cue in a later test if the purpose becomes explaining why a condition worked.
-- The 2026-09 service comparisons produced usable outputs from both providers, with a subjective preference for AMG overall. A small set does not establish a universal capability ranking or prove hidden prompt rewriting.
+- The 2026-09 service comparisons produced usable outputs from both providers, with a subjective preference for AMG overall. This is historical evidence, not an active Suno route, and a small set does not establish a universal capability ranking or prove hidden prompt rewriting.
 - Report the exact input, title, mode, source, model, exposed settings, actual result IDs and each duration. Keep subjective acceptance separate from technical readiness.
 - Use the provider's one-submission state tracking. Select the next condition within the currently authorized generation scope, and repeat a promising condition before treating it as reliable know-how.
 - Keep generated files under the project's literal `$Trash`. Present the complete generated tracks in embedded audio players, including during opening experiments; make excerpt previews only when requested. Use local files with the app's supported Markdown audio embed or a provider's supported native preview. Usable playback links remain a fallback. Do not download remote media solely to work around display restrictions or consume Suno download allowances merely to make the two providers' delivery formats look identical.

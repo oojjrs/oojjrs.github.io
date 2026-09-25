@@ -63,8 +63,7 @@ $oojjrs-guidelines
 | Domain | `$oojjrs-mines-art-asset-pipeline` | `H:\Mines` art, UI asset, effect, theme, inventory, or Unity asset work | Supersedes generic image and Unity asset domains; only narrow existing Design asset-entry sync, not document structure or audio |
 | Domain | `$oojjrs-game-audio-asset-workflow` | Explicit existing-SFX sourcing and audition, explicitly requested audio processing, project installation, previews, or Design synchronization | Route SFX creation and iteration directly to ElevenLabs; source existing audio only when explicitly requested; never process SFX without a current explicit edit request |
 | Domain | `$oojjrs-elevenlabs-sound-effects` | SFX creation or iteration, concrete-source mapping, Korean user explanation, English provider prompting, and delegation to ElevenLabs' official `$sound-effects` skill | An unnumbered create or retry request authorizes one call; preserve generated output untouched and do not preload for broader game-audio work |
-| Domain | `$oojjrs-suno-music` | Suno creation, source upload, Extend and other generated derivatives, result tracking, or Library management | Uses the signed-in browser UI through CUA; local audio processing and game integration stay with game-audio workflow |
-| Domain | `$oojjrs-ai-music-generator` | Explicit paid AI instrumental generation/download phase | Do not preload for a larger integrated game-audio task |
+| Domain | `$oojjrs-ai-music-generator` | Default explicit paid BGM or instrumental generation/download phase | Do not preload for a larger integrated game-audio task; a user-named active provider takes precedence |
 | Domain | `$oojjrs-bgmstore-workshop-publishing` | Publish existing BgmStore tracks to the private music workshop Site, including catalog, media import, activation, player preferences, and verification | Music generation and game asset integration are separate phases; use Sites hosting during the Site deployment phase |
 | Domain | `$oojjrs-windows-repo-forensics` | Windows path, folder provenance, OneDrive, case, or false-dirty diagnosis | Read-only by default; actual mixed-hunk isolation uses dirty helper |
 
@@ -96,7 +95,7 @@ Invoke-WebRequest -UseBasicParsing -Uri $url -OutFile $path
 powershell -ExecutionPolicy Bypass -File $path -SourceCommit $commit
 ```
 
-Every install or refresh checks the complete official `oojjrs-*` skill set discovered from one pinned GitHub commit. It downloads and writes only missing or changed files, leaves matching files untouched, verifies Git blob hashes, and removes managed stale files and retired `oojjrs-*` skill directories. New or removed skills are discovered automatically rather than maintained in a fixed installer list. Default destination is `$CODEX_HOME/skills`, or `~/.codex/skills` when `$CODEX_HOME` is unset.
+Every install or refresh checks the complete active official `oojjrs-*` skill set discovered under `codex/skills` from one pinned GitHub commit. It downloads and writes only missing or changed files, leaves matching files untouched, verifies Git blob hashes, and removes installed skills disabled or deleted upstream. Preserved disabled sources under `codex/skills-disabled` are not installed or automatically discovered. New, disabled, reactivated, or removed skills are discovered from their source location rather than maintained in a fixed installer list. Default destination is `$CODEX_HOME/skills`, or `~/.codex/skills` when `$CODEX_HOME` is unset.
 
 `oojjrs-guidelines` installs both scripts:
 
@@ -139,9 +138,12 @@ The repository file `codex/common-work-guidelines.md` is the publication source.
 - `oojjrs-mines-art-asset-pipeline`: [웹 보기](https://oojjrs.github.io/codex/skills/oojjrs-mines-art-asset-pipeline/SKILL/) · [원문](https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/oojjrs-mines-art-asset-pipeline/SKILL.md)
 - `oojjrs-game-audio-asset-workflow`: [웹 보기](https://oojjrs.github.io/codex/skills/oojjrs-game-audio-asset-workflow/SKILL/) · [원문](https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/oojjrs-game-audio-asset-workflow/SKILL.md)
 - `oojjrs-elevenlabs-sound-effects`: [웹 보기](https://oojjrs.github.io/codex/skills/oojjrs-elevenlabs-sound-effects/SKILL/) · [원문](https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/oojjrs-elevenlabs-sound-effects/SKILL.md)
-- `oojjrs-suno-music`: [웹 보기](https://oojjrs.github.io/codex/skills/oojjrs-suno-music/SKILL/) · [원문](https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/oojjrs-suno-music/SKILL.md)
 - `oojjrs-ai-music-generator`: [웹 보기](https://oojjrs.github.io/codex/skills/oojjrs-ai-music-generator/SKILL/) · [원문](https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/oojjrs-ai-music-generator/SKILL.md)
 - `oojjrs-bgmstore-workshop-publishing`: [웹 보기](https://oojjrs.github.io/codex/skills/oojjrs-bgmstore-workshop-publishing/SKILL/) · [원문](https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/oojjrs-bgmstore-workshop-publishing/SKILL.md)
 - `oojjrs-windows-repo-forensics`: [웹 보기](https://oojjrs.github.io/codex/skills/oojjrs-windows-repo-forensics/SKILL/) · [원문](https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/oojjrs-windows-repo-forensics/SKILL.md)
 
 - `oojjrs-steam-announcements`: [웹 보기](https://oojjrs.github.io/codex/skills/oojjrs-steam-announcements/SKILL/) · [원문](https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/oojjrs-steam-announcements/SKILL.md)
+
+## Disabled Skill Sources
+
+- `oojjrs-suno-music`: preserved intact under [`codex/skills-disabled/oojjrs-suno-music`](https://github.com/oojjrs/oojjrs.github.io/tree/master/codex/skills-disabled/oojjrs-suno-music), excluded from installation, automatic discovery, and BGM routing until explicitly reactivated.
