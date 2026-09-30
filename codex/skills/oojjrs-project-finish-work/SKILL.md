@@ -11,7 +11,7 @@ Use this lifecycle skill only for Git or publication completion explicitly autho
 
 When Git completion follows review of an uncommitted result in the same Codex task, carry the most recently reported content scope forward as the candidate Git scope unless the latest request changes it. Immediately before staging, take one fresh status snapshot and inspect only the current working-tree, index, and untracked changes needed to account for every candidate or newly appearing path. Classify them against the carried task outcome as requested scope, related support, unrelated existing work, or unknown; classify by semantic role and conversation context, never by whether Codex or the user authored the bytes.
 
-All non-task-owned existing bytes remain protected from Codex content edits. Requested-scope and related-support bytes are eligible to be staged unchanged when the current Git instruction covers that outcome; unrelated and unknown bytes are not. If ownership overlaps, hunks are interleaved, or classification remains uncertain, load `$oojjrs-dirty-worktree-scope-split`. Freeze the final scope only after this reconciliation.
+Preserve existing user code, assets, and unrelated hunks. The current Git instruction permits necessary in-scope maintenance-document and governed version updates before freezing. Requested-scope and related-support bytes are eligible to be staged after those updates when the instruction covers that outcome; unrelated and unknown bytes are not. If ownership overlaps, hunks are interleaved, or classification remains uncertain, load `$oojjrs-dirty-worktree-scope-split`. Freeze the final scope only after this reconciliation.
 
 ## Project Card Reconciliation
 
@@ -21,7 +21,7 @@ After the commit succeeds, finish the board helper's **Commit And Publication Ha
 
 ## Content Freeze
 
-After scope reconciliation, an explicit staging or commit instruction never authorizes content edits. When the task also includes content work, complete every requested content action and required documentation or governed version synchronization first, then freeze the reconciled scope immediately before staging. Leave protected work outside that scope untouched.
+An authorized Git-completion instruction includes the maintenance-document and governed version updates needed by the reconciled task scope without a separate content-change instruction. Apply those updates through their owning domain, complete any other requested content work, then freeze the final scope immediately before staging. Preserve user-authored code, assets, and unrelated hunks; the Git instruction does not authorize unrelated implementation changes or repairs. After freezing, stage the final bytes without further content edits.
 
 An explicitly requested merge, rebase, cherry-pick, or revert may make its normal worktree and index changes and the minimum conflict resolution needed to complete that operation. Re-review the resulting scoped bytes before commit; do not add unrelated repairs.
 
@@ -43,7 +43,7 @@ After pushing, read back the exact remote target and verify that it contains the
 2. Do not start a build, test, server, browser, or new test suite merely because code changed. Follow the execution-surface and independent-oracle rules in the public validation guideline.
 3. Evaluate only conditions that actually trigger. Documentation, Design, asset metadata, publication sync, board work, and versioning belong to their owning domain or current request; do not create or report `not applicable` decisions.
 4. If committing, inspect the exact intended paths for governed versioned units. Read and apply only policies that govern units present in that scope; do not report that unrelated or absent units do not exist.
-5. Stage the exact reconciled, staging-eligible existing bytes without modifying their contents. Review `git diff --cached --name-status`, the staged diff, and `git diff --cached --check` once after staging is final.
+5. Stage the exact reconciled, staging-eligible bytes after permitted maintenance-document and governed version updates are complete; do not modify their contents after freezing. Review `git diff --cached --name-status`, the staged diff, and `git diff --cached --check` once after staging is final.
 6. If staged content changes, re-review only the final staged content and any policy directly affected by that change.
 7. Commit locally only as part of the explicitly authorized Git or publication outcome. Push, deploy, release, publish, or perform destructive Git operations only to the explicitly authorized target. For a branch push or branch-backed publication, follow **Remote Synchronization**; for another external result, read back the resulting state once.
 
