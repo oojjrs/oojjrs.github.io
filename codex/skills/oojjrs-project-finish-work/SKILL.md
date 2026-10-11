@@ -17,7 +17,7 @@ Preserve existing user code, assets, and unrelated hunks. The current Git instru
 
 For every commit request, apply the canonical repository-linked board rule even when earlier work omitted it. Reuse the task's resolved board; otherwise check the resolved repository remote now. When a relevant board exists, use `$oojjrs-github-project-board` and reconcile matching cards with the actual commit scope before staging. Read completion criteria when needed; do not infer completion from a filename or commit message.
 
-After the commit succeeds, finish the board helper's **Commit And Publication Handoff** before reporting completion. Routine card updates are included in the Git-completion request unless the user opts out; they do not require a separate permission question. A local commit does not authorize a push or release.
+After the commit succeeds, finish the board helper's **Commit And Publication Handoff** before reporting completion. Routine card and issue updates use common rule 13's standing authorization unless the user opts out; they do not require a separate permission question and are also authorized during ordinary content work before any Git-completion request. A local commit does not authorize a push or release.
 
 ## Content Freeze
 

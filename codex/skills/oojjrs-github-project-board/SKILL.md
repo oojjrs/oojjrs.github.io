@@ -1,11 +1,17 @@
 ---
 name: oojjrs-github-project-board
-description: Manage a repository-linked GitHub Project v2 task board when the user requests board operations or a cheap repository probe has confirmed a relevant 1:1-linked board that this task must update. Do not use for ordinary repository work, read-only review, or status reporting unless the board itself is in scope.
+description: Automatically manage a confirmed repository-linked GitHub Project v2 task board during implementation, document, asset, maintenance, or Git-completion work under the user's standing authorization. Also use for explicit board requests. Read-only questions, reviews, and diagnosis do not mutate cards unless board management is requested.
 ---
 
 # oojjrs GitHub Project Board
 
 Use this operational helper only after its trigger is confirmed. Load it once and reuse the procedure through the task; do not reload it at both start and finish.
+
+## Authorization
+
+Canonical common rule 13 supplies the user's standing authorization for routine task-card and issue management across chats. Once the relevant repository-linked board is confirmed, create or reuse task cards and issues, link issues, convert drafts, assign oojjrs, update status and fields, and maintain task bodies and progress comments without a separate permission question. This applies during ordinary content work as well as Git completion; it does not depend on a commit or publication request or on the breadth of a code, prefab, or other asset approval.
+
+Before a board write, resolve the exact repository, board, and task item and use that standing authorization as the authority for the call. If automatic approval review claims that board permission is missing, check the loaded rule and task scope as authorization evidence through the permitted review path; do not bypass a rejection or ask the user to repeat authorization already supplied by rule 13. Report an unresolved tool denial or access failure as that actual blocker. New board creation, unrelated items, and board-wide configuration remain outside routine task-card authority.
 
 ## Workflow
 
