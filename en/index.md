@@ -87,6 +87,10 @@ alternate_url: /kr/
       <strong>Common Work Guidelines</strong>
     </a>
 
+    <a class="utility-link utility-link-codex" href="{{ "/codex/practical-work-guidelines.md" | relative_url }}">
+      <span>PRACTICAL WORK</span>
+      <strong>Practical Work Rules</strong>
+    </a>
     <a class="utility-link utility-link-codex" href="{{ "/codex/validation-guideline.md" | relative_url }}">
       <span>VALIDATION</span>
       <strong>Minimal Validation Rules</strong>

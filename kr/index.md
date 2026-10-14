@@ -87,6 +87,10 @@ alternate_url: /en/
       <strong>공통 작업 지침</strong>
     </a>
 
+    <a class="utility-link utility-link-codex" href="{{ "/codex/practical-work-guidelines.md" | relative_url }}">
+      <span>PRACTICAL WORK</span>
+      <strong>실무 작업 지침</strong>
+    </a>
     <a class="utility-link utility-link-codex" href="{{ "/codex/validation-guideline.md" | relative_url }}">
       <span>VALIDATION</span>
       <strong>최소 검증 원칙</strong>

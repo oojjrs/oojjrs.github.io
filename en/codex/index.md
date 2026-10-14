@@ -23,6 +23,12 @@ permalink: /en/codex/
     <span class="card-link">Open note <span aria-hidden="true">→</span></span>
   </a>
 
+  <a class="document-card" href="../../codex/practical-work-guidelines.md">
+    <span class="document-kind">GUIDELINE</span>
+    <h2>Practical Work Rules</h2>
+    <p>Resolve planning decisions, split atomic steps, and maintain the checklist and review boundaries.</p>
+    <span class="card-link">Open note <span aria-hidden="true">→</span></span>
+  </a>
   <a class="document-card" href="../../codex/document-writing-guideline.md">
     <span class="document-kind">GUIDELINE</span>
     <h2>Document Writing Rules</h2>

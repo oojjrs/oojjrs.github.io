@@ -27,6 +27,7 @@ Immediately before the first validation step in a task that changes files or ext
 
 - Apply the canonical workflow only to repository, code, document, asset, Git, validation, maintenance, or deployment work. Load its task-specific references at their stated entry points.
 - Read-only review or diagnosis: use no lifecycle skill. If the scope genuinely spans domains, inspect the smallest non-overlapping set sequentially rather than preloading them.
+- For pre-work planning or step-by-step execution, load the canonical practical-work guideline named by the common rules and follow its decision, atomic-step, checklist and approval boundaries.
 - For local changes, apply the common scope and preservation rules, then use the most-specific domain workflow when needed.
 - Conditional helpers: load board, dirty-worktree, or visual-QA helpers only after their exact trigger is confirmed. A confirmed relevant repository-linked board activates rule 13's standing authorization for routine task-card management; use the board helper without requesting separate permission.
 - After ordinary edits: apply the canonical one-pass text-format and scoped-diff finish, then leave the task's changes unstaged and uncommitted for user review. Do not load `$oojjrs-project-finish-work` merely because a local commit would be safe.

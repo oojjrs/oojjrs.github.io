@@ -98,6 +98,7 @@ An audio or melody extension can succeed because of the supplied seed even when 
    - Measure each downloaded MP3 with `ffprobe` (or equivalent) and report actual duration, not the arranging page's estimate.
    - Report rejected, failed, canceled, unresolved, and download-failed results distinctly.
    - State whether a real generation credit was consumed.
+   - When a local BgmStore listening page is requested, finish the generation/download phase first, then use `$oojjrs-bgmstore-listening-pages` to append the downloaded tracks and measured durations to the requested list.
 
 ## Safety
 

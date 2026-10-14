@@ -23,6 +23,12 @@ permalink: /kr/codex/
     <span class="card-link">문서 열기 <span aria-hidden="true">→</span></span>
   </a>
 
+  <a class="document-card" href="../../codex/practical-work-guidelines.md">
+    <span class="document-kind">GUIDELINE</span>
+    <h2>실무 작업 지침</h2>
+    <p>계획 중 결정 확정, 아토믹 단계 분할, 진행표와 단계별 검토 기준입니다.</p>
+    <span class="card-link">문서 열기 <span aria-hidden="true">→</span></span>
+  </a>
   <a class="document-card" href="../../codex/document-writing-guideline.md">
     <span class="document-kind">GUIDELINE</span>
     <h2>문서 작성 지침</h2>

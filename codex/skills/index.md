@@ -65,6 +65,7 @@ $oojjrs-guidelines
 | Domain | `$oojjrs-game-audio-asset-workflow` | Explicit existing-SFX sourcing and audition, explicitly requested audio processing, project installation, previews, or Design synchronization | Route SFX creation and iteration directly to ElevenLabs; source existing audio only when explicitly requested; never process SFX without a current explicit edit request |
 | Domain | `$oojjrs-elevenlabs-sound-effects` | SFX creation or iteration, concrete-source mapping, Korean user explanation, English provider prompting, and delegation to ElevenLabs' official `$sound-effects` skill | An unnumbered create or retry request authorizes one call; preserve generated output untouched and do not preload for broader game-audio work |
 | Domain | `$oojjrs-ai-music-generator` | Default explicit paid BGM or instrumental generation/download phase | Do not preload for a larger integrated game-audio task; a user-named active provider takes precedence |
+| Domain | `$oojjrs-bgmstore-listening-pages` | Local BgmStore daily or separate-batch listen page creation, appending tracks, index links and saved assessment integration | Reuses the shared player and server; paid generation, audio processing and hosted publication are separate phases |
 | Domain | `$oojjrs-bgmstore-workshop-publishing` | Publish existing BgmStore tracks to the private music workshop Site, including catalog, media import, activation, player preferences, and verification | Music generation and game asset integration are separate phases; use Sites hosting during the Site deployment phase |
 | Domain | `$oojjrs-windows-repo-forensics` | Windows path, folder provenance, OneDrive, case, or false-dirty diagnosis | Read-only by default; actual mixed-hunk isolation uses dirty helper |
 
@@ -74,6 +75,7 @@ These are documents, not additional primary skills. Load only when the task matc
 
 - before Unity work and Unity workflow selection: `https://oojjrs.github.io/codex/unity-work-guidelines.md`
 - before creating or editing documents: `https://oojjrs.github.io/codex/document-writing-guideline.md`
+- before pre-work planning or step-by-step execution: `https://oojjrs.github.io/codex/practical-work-guidelines.md`
 
 - immediately before the first validation step when a task changes files or external state or requests validation; controls validation scope, build/test authority, oracle selection, budget, retries, and reporting across domains: `https://oojjrs.github.io/codex/validation-guideline.md`
 - application/business-layer first-party naming: `https://oojjrs.github.io/codex/semantic-layer-naming-guideline.md`
@@ -140,6 +142,7 @@ The repository file `codex/common-work-guidelines.md` is the publication source.
 - `oojjrs-game-audio-asset-workflow`: [웹 보기](https://oojjrs.github.io/codex/skills/oojjrs-game-audio-asset-workflow/SKILL/) · [원문](https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/oojjrs-game-audio-asset-workflow/SKILL.md)
 - `oojjrs-elevenlabs-sound-effects`: [웹 보기](https://oojjrs.github.io/codex/skills/oojjrs-elevenlabs-sound-effects/SKILL/) · [원문](https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/oojjrs-elevenlabs-sound-effects/SKILL.md)
 - `oojjrs-ai-music-generator`: [웹 보기](https://oojjrs.github.io/codex/skills/oojjrs-ai-music-generator/SKILL/) · [원문](https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/oojjrs-ai-music-generator/SKILL.md)
+- `oojjrs-bgmstore-listening-pages`: [웹 보기](https://oojjrs.github.io/codex/skills/oojjrs-bgmstore-listening-pages/SKILL/) · [원문](https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/oojjrs-bgmstore-listening-pages/SKILL.md)
 - `oojjrs-bgmstore-workshop-publishing`: [웹 보기](https://oojjrs.github.io/codex/skills/oojjrs-bgmstore-workshop-publishing/SKILL/) · [원문](https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/oojjrs-bgmstore-workshop-publishing/SKILL.md)
 - `oojjrs-windows-repo-forensics`: [웹 보기](https://oojjrs.github.io/codex/skills/oojjrs-windows-repo-forensics/SKILL/) · [원문](https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/oojjrs-windows-repo-forensics/SKILL.md)
 
