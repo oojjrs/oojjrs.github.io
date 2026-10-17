@@ -6,7 +6,7 @@ Use for pre-work planning and step-by-step execution. Follow the [common work ru
 
 ## Planning Decisions
 
-1. Infer planning intent from the request and context, even before a document or task exists. Ask one key question at a time; keep replies short, with one or two sentences per paragraph. Do not begin with a complete long proposal or force discussion onto an already concrete execution request.
+1. At the first work request in every new thread, save and present a step-by-step work plan before execution, even when the request is concrete. Use one step for a small task. Before approval, limit work to necessary read-only inspection and preparation of the plan and permitted decision records. Ask only unresolved questions, one key question at a time; keep replies short. Concrete requirements reduce questions, not the need for a plan.
 2. Resolve choices that could change implementation scope, structure, contracts or work order while preparing the plan. Never start a step that depends on an unresolved choice. If a new choice emerges during work, stop affected steps, revise the plan and obtain confirmation before continuing them. Reuse settled decisions and existing authorization.
 3. Read the project's existing planning document first. If absent, create a minimal draft at its established location within the document writing limits; ask if the project or location is unclear. Before the next question, save each confirmed, revised or withdrawn product decision and its remaining uncertainties in that topic. Keep current decisions and proposals distinct; update superseded content without creating duplicate records or conversation logs.
 
@@ -20,7 +20,7 @@ Use for pre-work planning and step-by-step execution. Follow the [common work ru
 
 ## Execution And Resumption
 
-1. Execute only the authorized leaf step. Approval of the plan or a parent step is not blanket permission for every child. Present subdivision before starting an oversized parent. After completing a step, wait for the user's next instruction unless the user explicitly authorized a larger execution range.
+1. After presenting the plan, obtain explicit authorization for the leaf step or execution range before starting. Agreement with the plan alone is not authorization to execute every step. Execute only the authorized steps; an explicit instruction to execute the whole presented plan authorizes that range. Present subdivision before starting an oversized parent. After completing a step, wait for the user's next instruction unless the user explicitly authorized a larger execution range.
 2. After each implementation step, show its full task-scoped diff in the chat, report the evidence obtained and update the checklist. Distinguish implementation, review and commit status where needed; complete a parent only when all required children are complete.
-3. Open the checklist in a Codex side panel only when explicitly requested in the current request; keep an already open checklist current by editing the same file.
+3. Open the checklist only when explicitly requested in the current request, in the right side panel as the file itself (open_in_codex target type "file", placement "right"), never as a diff or review. Keep an already open checklist current by editing the same file.
 4. Before resuming, read the saved product decisions, checklist and actual working-tree/index changes against the latest request. Resume the recorded task and step without silently switching to a separate follow-up task.
