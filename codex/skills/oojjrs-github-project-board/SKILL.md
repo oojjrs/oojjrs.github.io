@@ -1,127 +1,67 @@
 ---
 name: oojjrs-github-project-board
-description: Automatically manage a confirmed repository-linked GitHub Project v2 task board during implementation, document, asset, maintenance, or Git-completion work under the user's standing authorization. Also use for explicit board requests. Read-only questions, reviews, and diagnosis do not mutate cards unless board management is requested.
+description: Manage repository-linked GitHub Projects v2 cards and issues with every GitHub shell request outside the sandbox from its first attempt. Use for explicit board work or a confirmed linked board during implementation, document, asset, maintenance, or Git completion. Routine task-card writes have standing authorization; read-only diagnosis does not authorize card changes.
 ---
 
 # oojjrs GitHub Project Board
 
-Use this operational helper only after its trigger is confirmed. Load it once and reuse the procedure through the task; do not reload it at both start and finish.
+Load once after an explicit board request or confirmation of a relevant repository-linked board. Reuse the resolved targets and results throughout the chat.
+
+## Execution Boundary
+
+1. Run every shell-based GitHub request with `sandbox_permissions: require_escalated` from the first attempt, including authentication checks, board discovery, issue reads, mutations, readback, and GitHub downloads. Do not try the sandbox first, even for read-only requests.
+2. Use a direct shell-tool call with the exact command and a scoped justification. A shell script, child process, or existing command-prefix approval does not replace the tool's execution boundary.
+3. Use the existing GitHub CLI credentials. Do not extract tokens, copy credentials into environment variables or files, log secrets, reinstall CLI/MCP, log out, or start reauthentication to work around a sandbox failure.
+4. Run dependent operations sequentially. Check each native command's exit code and GraphQL `errors` before consuming its result or starting the next mutation; HTTP 200 alone is not success.
+5. Reuse a successful authenticated operation in the same context. Run `gh auth status` outside the sandbox only when an actual authentication or scope failure needs diagnosis.
+6. An approval denial is a tool blocker. Use the permitted review path with existing authorization evidence; never switch execution surfaces to bypass it.
 
 ## Authorization
 
-Canonical common rule 13 supplies the user's standing authorization for routine task-card and issue management across chats. Once the relevant repository-linked board is confirmed, create or reuse task cards and issues, link issues, convert drafts, assign oojjrs, update status and fields, and maintain task bodies and progress comments without a separate permission question. This applies during ordinary content work as well as Git completion; it does not depend on a commit or publication request or on the breadth of a code, prefab, or other asset approval.
+Common rule 13 authorizes task-scoped issue/card creation or reuse, linking, draft conversion, assignment to `oojjrs`, status/field changes, necessary body updates, and progress comments without a new permission question. This applies before and after a commit and during ordinary content work.
 
-Before a board write, resolve the exact repository, board, and task item and use that standing authorization as the authority for the call. If automatic approval review claims that board permission is missing, check the loaded rule and task scope as authorization evidence through the permitted review path; do not bypass a rejection or ask the user to repeat authorization already supplied by rule 13. Report an unresolved tool denial or access failure as that actual blocker. New board creation, unrelated items, and board-wide configuration remain outside routine task-card authority.
+Resolve the exact repository, board, and item before writing. Respect user opt-outs and narrower current instructions. Read-only review or diagnosis does not authorize board writes unless requested. New boards, unrelated items, board-wide configuration, deletion, and archival need authorization for that scope.
 
-## Workflow
+## Resolve And Reuse
 
-1. Resolve the repository from `git remote -v` or the user's URL.
-2. Check linked projects: `gh repo view OWNER/REPO --json projectsV2`.
-3. If there is no linked project, report that no board update was possible.
-4. If there is one linked project, treat it as the task board. If several are linked, choose the obviously relevant open project or ask.
-5. List/search cards before creating anything: `gh project item-list PROJECT_NUMBER --owner OWNER --limit 100 --format json`. Prefer title, linked issue number, and status for identification; read card or issue bodies only when those fields are insufficient or when the body/notes themselves must change.
-6. Reuse the existing matching card when possible. Create a new draft only when the task is clear and no matching card exists: `gh project item-create PROJECT_NUMBER --owner OWNER --title "..." --body "$body" --format json`.
-7. When taking work into In Progress, convert a Draft Issue card to a real issue first, assign it to `oojjrs`, then set status.
-8. Ensure every issue-backed task card is assigned to `oojjrs` unless the user explicitly names a different assignee.
-9. Update project status and relevant fields during work. Use issue comments for ongoing work records, and update issue/card bodies only when the task summary, scope, or completion criteria actually changes. Report when an expected card, field, option, assignee, or permission is missing.
+1. Resolve the repository and host from the task and `git remote -v`; never infer a board from an unrelated checkout or a similar name.
+2. Discover repository-linked Projects v2 once, outside the sandbox. Use the paginated GraphQL query in [commands](references/commands.md); distinguish a successful empty result from a failed or incomplete query.
+3. Select the relevant open linked board. If none is linked, report that fact once and continue the authorized repository work. If several remain ambiguous, ask only for the target board.
+4. Keep repository ID, project owner/number/ID/URL, item/issue IDs, status field/options, and successful writes in chat context. Refresh only missing or stale values; do not rediscover everything at each turn, commit, or publication.
+5. Search existing cards by repository plus issue URL/number, then task meaning. Read bodies only when needed to distinguish scope. Page through candidates before concluding that no match exists; the first 100 items are not proof of absence.
+6. Resolve actual field and option IDs once when needed. Never invent a Status option, assume an English name, or overwrite unrelated fields.
 
-## Draft To Issue
+## Card Lifecycle
 
-Use GraphQL because `gh project` has no dedicated convert subcommand.
+1. Reuse the matching issue-backed card. If a matching repository issue exists without a card, link it to the resolved board.
+2. For new active work, create the repository issue directly with assignee `oojjrs`, then add its returned URL to the board. Do not create a disposable draft just to convert it.
+3. Preserve an existing draft's identity: convert that card to an issue in the resolved repository, read the returned issue identity, assign `oojjrs`, then set its active status. Create a new draft only when the user asks to retain a draft.
+4. Capture each returned issue URL and item ID immediately. If creation succeeds but linking or a later update fails, retain the successful object and resume from the failed operation.
+5. Ensure issue-backed cards are assigned to `oojjrs` unless the user names another assignee. Skip assignment and field writes when the desired value already matches.
+6. Map status to the verified result: active or partial work stays in progress; required review uses the board's review option; completion requires the card's actual criteria. One completed subtask does not complete an umbrella card.
 
-Required IDs:
+## Bodies And Work Records
 
-- draft card item ID: from `gh project item-list` or `gh project item-create`
-- repository node ID: `gh repo view OWNER/REPO --json id --jq .id`
+- Issue body: stable summary, scope, acceptance criteria, and references. Edit only when that meaning changes.
+- Issue comments: concise decisions, material progress, verification, blockers, and handoff. Group minor iterations into a meaningful work boundary; do not post a duplicate or one comment per tool call.
+- Project fields: operational status and other requested metadata.
+- Write multiline issue bodies and comments as UTF-8 files under the project's literal `$Trash`, then use `--body-file`. Use real newlines; never inline complex text into a shell command or post full chats, logs, or transient attempts.
 
-Mutation:
+## Failure Handling
 
-```graphql
-mutation($itemId: ID!, $repositoryId: ID!) {
-  convertProjectV2DraftIssueItemToIssue(input: {itemId: $itemId, repositoryId: $repositoryId}) {
-    item { id }
-  }
-}
-```
-
-Pass variables with `gh api graphql -f itemId=... -f repositoryId=... -f query=...`.
-
-## Assignee
-
-Draft cards cannot have assignees. Convert them to repository issues before moving them to In Progress, then assign the issue to `oojjrs`.
-
-For a converted or existing issue card:
-
-`gh issue edit ISSUE_NUMBER --repo OWNER/REPO --add-assignee oojjrs`
-
-When creating a repository issue directly:
-
-`gh issue create --repo OWNER/REPO --title "..." --body "$body" --assignee oojjrs`
-
-## Status Fields
-
-Use `gh project field-list PROJECT_NUMBER --owner OWNER --format json` to find the Status field and option IDs.
-
-Set a single-select status with:
-
-`gh project item-edit --id ITEM_ID --project-id PROJECT_ID --field-id FIELD_ID --single-select-option-id OPTION_ID`
-
-Get `PROJECT_ID` from:
-
-`gh project view PROJECT_NUMBER --owner OWNER --format json`.
-
-## Issue Body, Comments, And Fields
-
-Use each GitHub surface for its standard role:
-
-- Issue body: task summary, scope, acceptance criteria, and stable references. Update it only when the meaning of the task, its scope, or its completion criteria changes.
-- Issue comments: ongoing work records such as user feedback, decisions, implemented improvements, validation results, remaining risks, and handoff notes. Do not copy full chat transcripts, long command output, or transient trial-and-error.
-- Project fields: operational metadata such as status, priority, assignee, dates, and other board-specific values.
-
-When adding a work record, add an issue comment instead of rewriting the issue body. Draft cards cannot receive issue comments, so convert the draft card to an issue before moving it to In Progress or recording work history.
-
-Use short, append-only comments with real newlines:
-
-```powershell
-$comment = @"
-Work record:
-- User feedback: Track ongoing decisions and improvements as issue comments.
-- Decision: Keep issue bodies focused on summary, scope, and completion criteria.
-- Result: Updated the requested project workflow guidance.
-"@
-gh issue comment ISSUE_NUMBER --repo OWNER/REPO --body $comment
-```
-
-## Card Body Formatting
-
-Use real newlines in card and issue bodies. Never write literal `\n` text.
-
-In PowerShell, prefer a here-string:
-
-```powershell
-$body = @"
-Changes:
-- First item
-- Second item
-
-Outcome:
-- Updated the requested project fields
-"@
-```
+1. Name the exact failed stage: discovery, issue creation, linking, conversion, assignment, field update, comment, or readback. Preserve completed stages.
+2. For 401 or credential errors, confirm the shell call used `require_escalated`. If an earlier attempt ran in the sandbox, repeat only that failed operation outside it. Do not declare the user's login invalid from sandbox output.
+3. If authentication still fails outside the sandbox, inspect `gh auth status` there once and report the account/host/scope result without exposing tokens. Do not alter credentials without an instruction covering that action.
+4. For 403/429, inspect the response message and available rate-limit or retry headers before classifying it as permission, scope, primary quota, or secondary throttling. Do not assume every 403 is a rate limit or every rate limit requires login.
+5. Respect `Retry-After` or the reset time. Retry a safe read once after the indicated delay when practical; if the wait exceeds 60 seconds, report the retry time and continue independent work. Do not poll, loop, or retry unchanged permission/schema errors.
+6. A timeout or lost response after a mutation has an unknown outcome. Read the exact target or search for the returned/recent matching issue, card, or comment before retrying. Never blindly replay a create or comment.
+7. Treat a GraphQL error, inaccessible repository/board, truncated listing, missing field, and absent linked board as distinct results. Report only the proven limitation; CLI/MCP installation is not a remedy for an execution-context failure.
+8. Preserve successful Git or content work when board work fails. Report the remaining board operation separately instead of claiming that the whole publication failed.
 
 ## Commit And Publication Handoff
 
-1. Match the reconciled Git scope to existing task cards, checking issue scope and completion criteria when titles are insufficient. Reuse or create cards through the workflow above; preserve unrelated cards. Update the issue body when the delivered scope, task summary, completion criteria, or stable references have changed; keep ongoing work history in comments. Status, comments, necessary body updates, draft conversion, and assignment are all part of routine card management and do not need separate user requests.
-2. After a successful commit, append a concise issue comment with the commit SHA, implemented result, actual validation, and remaining work. Convert a draft to an assigned issue before recording this work.
-3. Set the board's actual Status option from the verified outcome: completed criteria move to Done/completed; partial implementation remains In Progress; required user review moves to the board's review state. If an unmet push, deployment, release, or validation requirement is part of the card, wait for that result before marking it complete. Do not mark an entire umbrella card complete for one finished subtask.
-4. For a requested push or publication, add the verified remote or deployment result and finalize status after that operation. If the status already matches, retain it and record only the new material result.
-5. Read back the affected card status and new issue comment once. Report missing fields, access failures, or unsuccessful writes as remaining board work, separately from successful Git operations. Do not silently stop at the commit or claim full completion after a failed card update.
-
-## Finish Checklist
-
-- Repo-linked project checked.
-- Matching card found or created; duplicates avoided.
-- Draft card converted before In Progress.
-- Issue-backed card assigned to `oojjrs`.
-- Status and notes/body updated with real newlines.
-- Missing board/card/field/assignee/permission reported.
+1. Reconcile the delivered scope with the existing card and its acceptance criteria before staging; reuse the cached board and item.
+2. After a commit, record its SHA, implemented result, actual verification, and remaining work in one concise comment. For a requested push or deployment, include the verified publication result; combine these into one handoff comment when they belong to the same completion boundary.
+3. Finalize status only after every required publication or verification criterion is met. Keep already-correct fields unchanged.
+4. Read back the affected issue identity, assignment, changed fields, and new comment once, using targeted queries and mutation-returned data where sufficient. Readback failure means unverified state, not proof that the write failed.
+5. Report completed work and any precise remaining blocker in Korean. Include an issue/board link when useful; do not repeat unchanged no-board or access notices at every turn.

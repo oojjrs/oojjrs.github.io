@@ -1,4 +1,4 @@
 interface:
   display_name: "oojjrs GitHub Project Board"
-  short_description: "Manage repo-linked GitHub Project task boards."
-  default_prompt: "Use $oojjrs-github-project-board to inspect or update the confirmed repository-linked task board exactly as authorized."
+  short_description: "Manage GitHub boards outside the sandbox from the first request."
+  default_prompt: "Use $oojjrs-github-project-board to manage the resolved repository-linked board. Run every GitHub shell request with sandbox_permissions: require_escalated from the first attempt, reuse successful results, and report the exact failed stage."
