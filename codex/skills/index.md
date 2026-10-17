@@ -75,7 +75,7 @@ These are documents, not additional primary skills. Load only when the task matc
 
 - before Unity work and Unity workflow selection: `https://oojjrs.github.io/codex/unity-work-guidelines.md`
 - before creating or editing documents: `https://oojjrs.github.io/codex/document-writing-guideline.md`
-- before code-changing work, or when pre-work planning or step-by-step execution is requested or useful: `https://oojjrs.github.io/codex/practical-work-guidelines.md`; plan creation and presentation, a checklist and separate post-plan execution approval are mandatory only for code-changing steps. Non-code work may proceed within existing user authorization without them.
+- before Unity C# code changes, or when pre-work planning or step-by-step execution is requested or useful: `https://oojjrs.github.io/codex/practical-work-guidelines.md`; plan creation and presentation, a checklist and separate post-plan execution approval are mandatory only for Unity C# code changes. Other work, including non-Unity code changes, may proceed within existing user authorization without them.
 
 - immediately before the first validation step when a task changes files or external state or requests validation; controls validation scope, build/test authority, oracle selection, budget, retries, and reporting across domains: `https://oojjrs.github.io/codex/validation-guideline.md`
 - application/business-layer first-party naming: `https://oojjrs.github.io/codex/semantic-layer-naming-guideline.md`
