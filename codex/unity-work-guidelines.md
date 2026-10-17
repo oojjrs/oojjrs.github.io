@@ -17,3 +17,4 @@ Apply these rules to work in Unity projects and packages. Read them before selec
    - Never externally call public UI methods or pass UI parameters, including through Hub wrappers or other UI components.
    - Only the top-level category roots fixed at project creation, such as Title, Ingame, Lobby, and Common, may be opened directly to establish their initial subscriptions. Do not add or remove exception roots or extend this exception to descendants.
    - Keep each UI component normally within 50 physical lines and below 100 lines even when larger.
+8. Before direct Unity gameplay testing, present the target, method, and test scope and obtain the user's explicit prior approval, including when entering Play Mode, launching a player, or sending game input through the CLI or APIs.
