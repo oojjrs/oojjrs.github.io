@@ -276,7 +276,8 @@ if ($Mode -eq 'Preview')
     $previewManifest = [IO.File]::ReadAllText($previewManifestPath).Replace('/', '\')
     foreach ($requiredFile in $RequiredFiles)
     {
-        if ($previewManifest.IndexOf($requiredFile, [StringComparison]::OrdinalIgnoreCase) -lt 0)
+        $manifestRequiredFile = $requiredFile.Replace('/', '\')
+        if ($previewManifest.IndexOf($manifestRequiredFile, [StringComparison]::OrdinalIgnoreCase) -lt 0)
         {
             throw "STEAMPIPE> PREVIEW FILE MISSING : $requiredFile"
         }
@@ -307,7 +308,7 @@ else
     }
 
     $buildMatch = [regex]::Match($appLog, "Successfully finished AppID $AppId build \(BuildID (\d+)\)", 'IgnoreCase')
-    $manifestMatch = [regex]::Match($depotLog, 'Success! New manifestID (\d+) created', 'IgnoreCase')
+    $manifestMatch = [regex]::Match($depotLog, 'Success! (?:New manifestID (\d+) created|Previous manifestID (\d+) reused, no chunks uploaded\.)', 'IgnoreCase')
     if (-not $buildMatch.Success -or -not $manifestMatch.Success)
     {
         throw "STEAMPIPE> BUILD RESULT NOT FOUND : $resolvedBuildOutput"
@@ -315,6 +316,10 @@ else
 
     $result.BuildID = $buildMatch.Groups[1].Value
     $result.ManifestID = $manifestMatch.Groups[1].Value
+    if (-not $manifestMatch.Groups[1].Success)
+    {
+        $result.ManifestID = $manifestMatch.Groups[2].Value
+    }
     Write-SteamPipeLog "UPLOAD VERIFIED : BUILD $($result.BuildID), MANIFEST $($result.ManifestID)"
 }
 

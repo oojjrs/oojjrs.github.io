@@ -7,6 +7,13 @@ description: Create, revise, translate, and publish Steam game update announceme
 
 Use this as the primary domain for Steam announcement content and publication. For a task combining deployment and announcements, complete the Steamworks deployment phase separately, then use this skill. Shared rules and explicitly authorized external completion remain applicable; do not load the whole Steamworks workflow again just to write an announcement.
 
+## Reuse the working publication route
+
+- Before starting a browser or requesting login, inspect available permitted browser sessions for the logged-in Steam Partner/Community account. When the user refers to a previous successful task, read that task's actual tool evidence first and reuse its supported route within current authorization.
+- SteamCMD builder authentication and Partner/Community browser authentication are separate. A logged-out temporary profile does not establish that the user's existing browser is logged out. Do not replace an available authenticated session with a new profile, headless login or QR attempt.
+- Follow current computer-use restrictions. This skill does not grant browser-control permission or authorize extracting cookies, session tokens or hidden application state. If the only usable session is unavailable under the current rules, report that exact blocker without repeated login experiments.
+- For the working dashboard → clone → localized editor → build link → publish sequence, read [the publication procedure](references/browser-publication.md). It includes the reusable localized-input helper and saved-content readback. The helper uses the permitted browser tab supplied by the caller; it never launches a browser, authenticates, saves or publishes.
+
 ## Establish the reference before drafting
 
 - Confirm the game, AppID, intended announcement, target branch and verified BuildID. Never infer that the default branch changed merely because a build was uploaded. Link the announcement to the verified deployed build when appropriate.

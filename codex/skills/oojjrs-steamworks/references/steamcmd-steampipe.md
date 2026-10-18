@@ -20,7 +20,7 @@ output은 공식 문서상 삭제 가능한 디렉터리이므로 정적 검사�
 2. app build·depot VDF 생성: scripts/Publish-SteamPipeBuild.ps1로 구현됨
 3. Preview 빌드 실행과 manifest 검사: scripts/Publish-SteamPipeBuild.ps1로 구현됨
 4. 실제 chunk 업로드와 BuildID 확인: scripts/Publish-SteamPipeBuild.ps1로 구현됨
-5. beta branch 또는 default branch Set Live: Partner 브라우저와 권한 필요
+5. beta branch Set Live: 업로드 스크립트의 `-SetLive -Branch <name>`으로 구현됨. default branch Set Live는 Partner 브라우저와 권한 필요
 
 Preview 구성과 실제 업로드 구성은 별도 실행 단계로 취급한다. Preview 성공을 실제 업로드 성공으로 간주하지 말고, Preview 결과와 output 로그를 검증한 뒤 업로드 동작을 다시 명시적으로 확정한다.
 
@@ -49,3 +49,7 @@ Preview 구성과 실제 업로드 구성은 별도 실행 단계로 취급한�
     powershell.exe -NoProfile -ExecutionPolicy Bypass -File "<skill-dir>\scripts\Publish-SteamPipeBuild.ps1" -AppId <appid> -DepotId <depotid> -ContentRoot "<content>" -SteamCmdPath "<steamcmd.exe>" -BuildOutput "<output>" -SteamUser "<builder>" -Mode Preview -Branch "<beta>" -RequiredFiles @("<exe>")
 
 Preview가 검증된 뒤 같은 입력으로 `-Mode Upload`를 별도 실행한다. 실제 업로드만 하고 브랜치를 바꾸지 않으려면 `-SetLive`를 생략한다. 비밀번호와 Steam Guard 코드는 인자로 전달하지 않는다.
+
+`RequiredFiles`의 상대 경로는 `/`와 `\`를 모두 지원한다. 동일한 콘텐츠를 다시 등록할 때 SteamPipe가 `Previous manifestID ... reused, no chunks uploaded.`를 반환하면 정상 성공으로 처리하고, 이번 실행의 app 로그에서 새 BuildID를 읽는다. 재사용된 ManifestID를 이전 BuildID와 혼동하지 않는다.
+
+실행 결과가 모호하면 같은 업로드나 SetLive를 반복하기 전에 해당 실행의 최신 app/depot 로그와 대상 브랜치를 확인한다. 성공한 BuildID와 ManifestID가 있으면 실패로 단정해 재업로드하지 않는다. SetLive 옵션을 전달한 사실만으로 브랜치 반영을 주장하지 말고, 현재 브랜치의 BuildID를 한 번 읽어 확인한다.
