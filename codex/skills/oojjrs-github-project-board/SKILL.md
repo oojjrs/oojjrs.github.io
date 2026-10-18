@@ -10,7 +10,7 @@ Load once after an explicit board request or confirmation of a relevant reposito
 ## Execution Boundary
 
 1. Run every shell-based GitHub request with `sandbox_permissions: require_escalated` from the first attempt, including authentication checks, board discovery, issue reads, mutations, readback, and GitHub downloads. Do not try the sandbox first, even for read-only requests.
-2. Use a direct shell-tool call with the exact command and a scoped justification. A shell script, child process, or existing command-prefix approval does not replace the tool's execution boundary.
+2. Use a direct shell-tool call with the exact command and a scoped justification. Keep `require_escalated` even when an existing command-prefix rule allows execution without a prompt; escalation selects the execution boundary and is not a request for fresh task authorization. Keep each GitHub command separate from local preparation and result parsing so its actual prefix can be evaluated. If a required command lacks a reusable approval, propose the narrow operation prefix through the tool approval flow; do not disable global approvals or use wrappers to bypass review.
 3. Use the existing GitHub CLI credentials. Do not extract tokens, copy credentials into environment variables or files, log secrets, reinstall CLI/MCP, log out, or start reauthentication to work around a sandbox failure.
 4. Run dependent operations sequentially. Check each native command's exit code and GraphQL `errors` before consuming its result or starting the next mutation; HTTP 200 alone is not success.
 5. Reuse a successful authenticated operation in the same context. Run `gh auth status` outside the sandbox only when an actual authentication or scope failure needs diagnosis.
@@ -18,7 +18,7 @@ Load once after an explicit board request or confirmation of a relevant reposito
 
 ## Authorization
 
-Common rule 13 authorizes task-scoped issue/card creation or reuse, linking, draft conversion, assignment to `oojjrs`, status/field changes, necessary body updates, and progress comments without a new permission question. This applies before and after a commit and during ordinary content work.
+Common rule 13 authorizes task-scoped issue/card creation or reuse, linking, draft conversion, assignment to `oojjrs`, status/field changes, necessary body updates, and progress comments without a new permission question. This applies before and after a commit and during ordinary content work. Proceed without asking whether to record, post, or update the board, and do not add a confirmation pause before an already-authorized operation. If execution approval is required, use the tool approval flow directly and identify it as execution permission, not missing board authorization.
 
 Resolve the exact repository, board, and item before writing. Respect user opt-outs and narrower current instructions. Read-only review or diagnosis does not authorize board writes unless requested. New boards, unrelated items, board-wide configuration, deletion, and archival need authorization for that scope.
 
