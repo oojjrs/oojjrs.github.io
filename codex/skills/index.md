@@ -46,6 +46,7 @@ $oojjrs-guidelines
 | Domain | `$oojjrs-codex-work-incident-forensics` | Reconstructing what Codex was authorized to do and what actually happened across prior tasks | Read-only; corrective edits route later to the applicable maintenance or project workflow |
 | Domain | `$oojjrs-run-dhlottery-buyer` | Preparing, dry-running, explicitly executing, publishing, or scheduling the local DHLottery helper | UI-only purchase flow; never collect credentials or bypass the fresh final confirmation |
 | Domain | `$oojjrs-steamworks` | Steamworks integration, SDK, API, SteamPipe, partner, or operations work | Uses Valve official docs; no generic web research substitute |
+| Domain | `$oojjrs-steam-achievements` | Registering or updating approved achievement definitions, supported-language text, icons, and requested Partner publication | Owns Partner achievement registration; artwork creation, SDK unlock logic, and announcements use their own phases |
 | Domain | `$oojjrs-steam-announcements` | Steam update announcements, patch notes, full-language translation, or announcement publication | Owns prior-announcement reference, fixed localized text, player-facing scope and publication; deployment is a separate Steamworks phase |
 | Domain | `$oojjrs-unity-package-code-change-workflow` | Runtime or Editor C# behavior and public API changes in UnityO-prefixed packages | Fallback only; entity, Steamworks, migration, docs-primary, asset-only, and release-only work use their specific domains |
 | Domain | `$oojjrs-unity-package-docset-maintenance` | Creating, restructuring, updating, or auditing UnityO package `Documentation~`, API docs, or a complete docset | Incidental code-change docs stay with package code change; root README-only uses README generation |
@@ -147,6 +148,8 @@ The repository file `codex/common-work-guidelines.md` is the publication source.
 - `oojjrs-windows-repo-forensics`: [웹 보기](https://oojjrs.github.io/codex/skills/oojjrs-windows-repo-forensics/SKILL/) · [원문](https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/oojjrs-windows-repo-forensics/SKILL.md)
 
 - `oojjrs-steam-announcements`: [웹 보기](https://oojjrs.github.io/codex/skills/oojjrs-steam-announcements/SKILL/) · [원문](https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/oojjrs-steam-announcements/SKILL.md)
+
+- `oojjrs-steam-achievements`: [웹 보기](https://oojjrs.github.io/codex/skills/oojjrs-steam-achievements/SKILL/) · [원문](https://raw.githubusercontent.com/oojjrs/oojjrs.github.io/refs/heads/master/codex/skills/oojjrs-steam-achievements/SKILL.md)
 
 ## Disabled Skill Sources
 

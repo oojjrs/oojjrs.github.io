@@ -1,0 +1,35 @@
+---
+name: oojjrs-steam-achievements
+description: Register or update Steam achievements in the Partner site from approved definitions, full supported-language text, and icons, then publish and reconcile the result when requested. Use for Steam 업적 등록 and achievement metadata operations; SDK unlock logic, new artwork, and announcements use their own workflows.
+---
+
+# Steam 업적 등록
+
+확정한 업적 자료를 Steamworks Partner에 등록하고, 요청된 공개 범위까지 실제 상태로 확인한다. 로컬 준비, Partner 저장, Steam 게시, 게임 내 달성 검증을 구분한다.
+
+## 실행 채널과 범위
+
+- AppID, 프로젝트의 등록 원본, 대상 API 키, 추가·수정 범위, 지원 언어, 승인된 아이콘을 먼저 확인한다. 과거 대화는 빠진 작업 자료와 성공 절차를 복원할 때만 읽는다.
+- 실행 채널은 현재 사용자 지시와 호스트 정책을 따른다. 이 스킬 자체가 브라우저 제어 권한이나 게시 권한을 부여하지 않는다.
+- 사용자가 열어 둔 로그인된 Chrome을 사용하라고 지시했고 브라우저 제어가 허용되면, 브라우저·탭 목록에서 해당 Steamworks 탭을 찾아 재사용한다. 과거 탭 ID·포트·프로필 경로를 고정하지 않는다. 별도 프로필이 로그아웃됐다는 이유로 사용자의 로그인된 탭까지 접근 불가라고 판단하지 않는다.
+- 지원되는 브라우저 도구의 DOM·파일 선택기·다운로드 API를 사용한다. 쿠키·세션·비밀번호·Steam Guard 코드를 추출하거나 저장하지 않는다. 실제 로그인 요구나 인증 요청은 사용자에게 맡긴다.
+- 이름·조건·아이콘의 새 제작이나 재설계는 해당 아트·기획 단계에서 해결한다. 이 단계에서는 확정된 자료를 정확히 등록한다.
+
+## 준비와 등록
+
+1. [Valve 업적 문서](https://partner.steamgames.com/doc/features/achievements?l=english)와 [단계별 안내](https://partner.steamgames.com/doc/features/achievements/ach_guide?l=english)를 열어 현재 규격을 확인한다. SDK 구현까지 요청됐다면 그 단계만 `$oojjrs-steamworks`로 전환한다.
+2. Partner의 기존 업적과 공개 스키마를 기록한다. API 키, 표시 문구, 처리 주체, 숨김·보관·세트·진행 통계, 두 아이콘을 포함한다. 이미 게시 대기 중인 타인·다른 작업의 변경도 확인한다.
+3. 승인된 원본에서 대상 업적만 담은 정의 CSV, 전체 지원 언어의 이름·설명 CSV, 컬러·흑백 아이콘을 준비한다. CSV 헤더는 현재 Partner 내보내기와 대조한다. 구체적인 파일 규약과 UI 절차는 [등록 절차](references/partner-registration.md)를 읽는다.
+4. 현재 AppID를 확인하고 일괄 가져오기에 CSV와 PNG를 함께 올린다. 미리보기에서 대상 추가·수정, 숨김·통계·세트, 번역, 아이콘 연결, 오류를 확인한다. 대상 외 업적 삭제는 선택하지 않는다.
+5. 저장 후 Partner에서 다시 읽는다. 기존 대상 외 행은 기준 기록과 같아야 하고, 대상 업적은 전체 지원 언어의 이름·설명 및 두 아이콘까지 원본과 일치해야 한다.
+6. 실제 할당된 업적 ID와 현지화 토큰을 읽어 보존한다. 토큰 형식이나 연속 번호를 추측하지 않는다. 일부만 저장됐거나 결과가 불명확하면 현재 상태를 먼저 읽고 남은 작업만 처리한다.
+
+## 게시와 마무리
+
+- 사용자가 등록·게시를 이미 요청했다면 같은 범위의 게시 승인을 다시 묻지 않는다. 초안만 요청한 경우에는 저장까지만 수행한다.
+- 게시 도구의 실제 차이를 확인하고 현재 작업 범위만 포함됐을 때 게시한다. 무관한 변경이 섞이면 이를 되돌리거나 함께 게시하지 말고 범위를 보고한다. 이미지가 포함되므로 이미지 없는 라이트 게시를 사용하지 않는다.
+- 게시 응답이 불명확하면 즉시 같은 게시 요청을 반복하지 말고 결과·공개 상태를 먼저 확인한다. 성공 메시지와 공개 업적 수·대상 API 키·숨김 상태·문구·아이콘을 독립적으로 확인한다.
+- 로컬 등록 원본에 실제 토큰·확인 일자·게시 개수를 반영하고 기존 exporter로 CSV·VDF 등을 갱신한다. pending token이나 누락 번역이 남았는지 확인한다. 기존 기획 문서와 작업 카드는 필요한 해당 항목만 갱신한다.
+- 사용자에게 추가·수정 개수, 총 게시 개수, 확인한 언어·아이콘, 스킬·자료 위치를 짧게 알린다. 웹 변경 증거는 브라우저 도구 지침에 맞게 저장·표시한다. 게임을 실행해 해금 판정을 확인하지 않았다면 등록 완료와 런타임 검증 완료를 혼동하지 않는다.
+
+로컬 준비만 끝났거나 Partner에 저장만 됐다면 Steam 게시 완료라고 보고하지 않는다.

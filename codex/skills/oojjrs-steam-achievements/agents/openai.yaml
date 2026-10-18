@@ -1,0 +1,4 @@
+interface:
+  display_name: "Steam 업적 등록"
+  short_description: "확정한 업적·다국어·아이콘을 Steam에 등록하고 게시 결과 검증"
+  default_prompt: "$oojjrs-steam-achievements로 확정한 업적 자료를 Steam에 등록하고 게시 결과를 확인해줘."
