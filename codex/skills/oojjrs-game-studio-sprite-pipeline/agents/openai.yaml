@@ -1,4 +1,4 @@
 interface:
   display_name: "oojjrs Game Studio Sprite Pipeline"
-  short_description: "Game Studio 요청의 애니메이션 프레임을 한 장씩 제작"
-  default_prompt: "$oojjrs-game-studio-sprite-pipeline으로 모든 프레임을 한 장씩 그린 뒤 완성된 개별 프레임으로 시트와 GIF를 조립해 줘."
+  short_description: "참조 기반 포즈 재작화와 일관된 애니메이션 시퀀스 수정"
+  default_prompt: "$oojjrs-game-studio-sprite-pipeline으로 승인 원본과 인접 포즈를 참조해 모든 동작 포즈를 직접 그리고, 합격한 컨셉과 리듬을 유지하며 문제 구간을 수정한 뒤 실제 프레임으로 시트와 GIF를 조립해 줘."

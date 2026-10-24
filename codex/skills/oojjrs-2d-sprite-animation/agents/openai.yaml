@@ -1,4 +1,4 @@
 interface:
   display_name: "oojjrs 2D Sprite Animation"
-  short_description: "Draw every 2D animation frame individually."
-  default_prompt: "Use $oojjrs-2d-sprite-animation to draw every complete animation frame individually with one frame per imagegen call, assemble sheets and previews from accepted frames, then install and configure Unity sprites only through the official CLI with Unity-generated metadata and verified sprite or atlas settings."
+  short_description: "Draw coherent 2D cels and repair failed poses."
+  default_prompt: "Use $oojjrs-2d-sprite-animation to draw every motion pose and in-between from approved references, using single frames or coherent action strips and phases. Repair identified defects while preserving accepted art, rhythm, scale, and anchors; never synthesize motion with transforms, interpolation, fades, or procedural paths. Assemble actual frames into sheets and previews, then use the official Unity CLI for Unity installation and metadata."
