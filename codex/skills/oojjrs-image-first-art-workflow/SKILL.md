@@ -9,7 +9,7 @@ description: Enforce imagegen-first creation or revision of general raster art, 
 
 For any new raster image or visual art asset, create the first aesthetic source with imagegen. This is mandatory for UI art as well as non-UI images.
 
-Exception: do not use imagegen when the task is to make a 2D sprite animation. Animated 2D sprites require frame consistency, pivot stability, timing, hitbox/collision readability, and controllable sprite-sheet layout. Build those with sprite/animation tooling, hand-authored frames, engine timelines, pixel-art tools, or deterministic editing pipelines instead. Imagegen may be used only for separate static concept art if the user asks for it, not for generating the animation frames.
+For 2D sprite animation, route to `$oojjrs-2d-sprite-animation`: draw every frame individually with imagegen using approved visual references, then assemble the accepted individual frames into sheets and previews.
 
 Do not use System.Drawing, PIL, canvas, SVG, HTML/CSS, ImageMagick, procedural shapes, or other deterministic drawing code as the first art pass when the user expects visual quality or art direction.
 
@@ -21,7 +21,7 @@ Preview-only imagegen calls are forbidden. Result previews, contact sheets, Desi
 
 For second-pass raster work, use ImageMagick 7 (`magick.exe`) as the default local editing tool when it is installed. Use it for image inspection, resize/crop/pad/trim, alpha and mask work, compositing, contact sheets, and visual diffs. Use `oxipng.exe` for final PNG optimization after the visual output is approved.
 
-Do not choose System.Drawing for raster editing when `magick.exe` can do the job. Keep System.Drawing only as a last-resort fallback for simple deterministic transforms when ImageMagick is unavailable, or when the project already has a native .NET image-processing path that must be preserved. Treat older skill or guideline wording that recommends System.Drawing for image editing as outdated when it conflicts with this section.
+Do not choose System.Drawing for raster editing when `magick.exe` can do the job. Keep System.Drawing only as a last-resort fallback for simple file preparation when ImageMagick is unavailable, or when the project already has a native .NET image-processing path that must be preserved. Treat older skill or guideline wording that recommends System.Drawing for image editing as outdated when it conflicts with this section.
 
 When this skill is installed through the public `codex/skills/install.ps1` script, the installer attempts to install these workstation tools with `winget`:
 
@@ -46,7 +46,7 @@ For Unity installation, keep candidate generation outside the project until the 
 
 ## Required Sequence
 
-1. Use `$imagegen` / built-in `image_gen` for the first generated image, concept, static sprite, illustration, UI art, object cutout, background, icon-like raster asset, mockup, or visual reference. Do not use imagegen for 2D sprite animation frames.
+1. Use `$imagegen` / built-in `image_gen` for the first generated image, concept, static sprite, illustration, UI art, object cutout, background, icon-like raster asset, mockup, or visual reference. Route 2D sprite animation to `$oojjrs-2d-sprite-animation` so every frame is drawn individually.
 2. Inspect the generated result for style fit, subject clarity, composition, and obvious artifacts.
 3. Iterate with imagegen if the art style is wrong. Do not try to rescue a bad first-pass drawing with System.Drawing or simple code effects.
 4. After the imagegen result is acceptable, use local tools only for deterministic production steps: resize, crop, pad, trim, alpha cleanup, chroma-key removal, format conversion, sprite-sheet packing, atlas layout, file naming, compression, masks, guide overlays, or exact UI-size variants.
@@ -76,19 +76,14 @@ Examples that require imagegen first:
 - product/marketing/hero images
 - visual comparison candidates where the user will judge art direction
 
-## oojjrs 2D Sprite Animation Exception
+## oojjrs 2D Sprite Animation
 
-Do not use imagegen to make 2D sprite animations or animation-frame sheets. This exception overrides the imagegen-first rule.
+Use `$oojjrs-2d-sprite-animation` for all 2D sprite animation artwork, including in-betweens and loop transitions.
 
-For 2D sprite animation, use tools and workflows that preserve deterministic motion and frame-to-frame consistency:
-
-- hand-authored or edited sprite frames
-- pixel-art or sprite animation tools
-- engine animation timelines and flipbooks
-- deterministic frame transforms from an accepted static source
-- local tooling for sprite-sheet layout, pivot guides, onion-skin references, hitbox guides, and timing previews
-
-If the task needs a static style reference for the animated sprite, imagegen can create that separate reference first. Do not turn imagegen output into the animation frame source unless the user explicitly asks for a non-production visual exploration.
+- Draw every complete frame individually with imagegen; each call produces one frame using the approved visual references.
+- Do not create motion by transforming existing artwork, animating separated parts, rigging, tweening, or interpolating frames.
+- Do not generate a full strip, sprite sheet, or multi-frame image in one call.
+- Use deterministic tools only to prepare accepted frame files, pack sheets, and assemble previews from those actual frames.
 
 ## Local Raster Tools And Code Drawing
 

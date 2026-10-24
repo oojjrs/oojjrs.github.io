@@ -1,4 +1,4 @@
 interface:
   display_name: "oojjrs Game Studio Sprite Pipeline"
-  short_description: "Game Studio로 스프라이트를 생성하고 레이어 방식과 품질 비교"
-  default_prompt: "$oojjrs-game-studio-sprite-pipeline으로 생성하고 기존 결과와 비교해 줘."
+  short_description: "Game Studio 요청의 애니메이션 프레임을 한 장씩 제작"
+  default_prompt: "$oojjrs-game-studio-sprite-pipeline으로 모든 프레임을 한 장씩 그린 뒤 완성된 개별 프레임으로 시트와 GIF를 조립해 줘."
