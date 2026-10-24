@@ -1,4 +1,4 @@
 interface:
   display_name: "oojjrs Game Studio Sprite Pipeline"
-  short_description: "참조 기반 포즈 재작화와 일관된 애니메이션 시퀀스 수정"
-  default_prompt: "$oojjrs-game-studio-sprite-pipeline으로 승인 원본과 인접 포즈를 참조해 모든 동작 포즈를 직접 그리고, 합격한 컨셉과 리듬을 유지하며 문제 구간을 수정한 뒤 실제 프레임으로 시트와 GIF를 조립해 줘."
+  short_description: "원본 고정부터 핵심 포즈·인접 프레임·실제 재생 확인"
+  default_prompt: "$oojjrs-game-studio-sprite-pipeline으로 원본을 고정하고 핵심 포즈를 확인한 뒤, 승인 포즈를 유지하며 인접 프레임을 그리고 실제 재생으로 확인해 줘. 스트립을 우선하지 말고 트랜스폼은 완성 원화의 정렬·출력 준비를 보완할 때만 사용해."
