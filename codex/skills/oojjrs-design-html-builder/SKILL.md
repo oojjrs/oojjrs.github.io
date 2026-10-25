@@ -7,11 +7,11 @@ description: Build, rebuild, recover, or substantially update project Design.htm
 
 Use this as the primary domain for substantive `Design.html` creation, recovery, or rebuild work. It owns the planning-document rules needed for that work and supersedes `$oojjrs-project-design-document-router`; do not load both.
 
-For `H:\Mines`, this skill owns substantive document layout or structure work. The Mines art pipeline may run in a separate asset phase and may synchronize only the entries directly affected by its asset changes.
+For `H:\Mines`, this skill owns substantive document layout or structure work. The Mines art pipeline may run in a separate asset phase and may synchronize only the entries directly affected by its asset changes, within the public guideline's document-text approval scope.
 
 ## Required Reads
 
-1. Read `https://oojjrs.github.io/codex/guideline-design-generation.review.md`.
+1. Read and follow `https://oojjrs.github.io/codex/guideline-design-generation.review.md`. Its text-addition approval rule governs every instruction below, including recovery, filename labels, prose, and asset-entry synchronization. Request approval for additional text only when indispensable; otherwise omit it without asking.
 2. Read the current `Design.html` if it exists.
 3. When a referenced model document is named, inspect that live document instead of relying on memory.
 
@@ -31,9 +31,9 @@ Favor:
 
 - fixed or persistent left navigation when the existing style uses it
 - image-forward sections with inspectable previews
-- filename labels directly under image previews when asset identity matters
+- existing filename labels directly under image previews when asset identity matters; new label text requires prior approval under the public guideline
 - collapsible sections for dense inventories
-- minimal prose around visual inventories
+- only user-authorized prose around visual inventories
 - no visible file paths, byte counts, validation logs, or implementation audit metadata unless requested
 
 ## Preview Source Rule

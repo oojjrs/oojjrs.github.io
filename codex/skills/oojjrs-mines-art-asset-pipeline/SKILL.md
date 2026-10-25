@@ -10,7 +10,7 @@ Use this skill for `H:\Mines` art and Unity asset work.
 ## Start
 
 1. Use this as the primary domain for the Mines art and Unity asset phase; it owns the required image-first and Unity metadata rules. Do not stack the generic image or Unity asset domains. Route substantive `Design.html` work and audio work to their own sequential phases.
-2. Read `Design.html` before changing art direction, asset inventory, or planning-visible state.
+2. Read `Design.html` before changing art direction, asset inventory, or planning-visible state. Before updating it, read and follow `https://oojjrs.github.io/codex/guideline-design-generation.review.md`, including its text-addition approval rule. Asset selection or completion does not authorize new document wording. Request additional text only when indispensable; otherwise omit it without asking.
 3. Inspect current assets, dimensions, and naming before generating replacements. Inspect history only when the task is to recover or compare earlier work.
 4. For new or substantially revised raster art, use imagegen for the first aesthetic pass; build previews only from actual candidates or accepted finals. Route true 2D sprite animation to `$oojjrs-2d-sprite-animation` instead.
 5. Check `$Trash` and recent git history when the user asks to find earlier candidates.
@@ -32,8 +32,8 @@ Handle these as first-class repeated workflows:
 2. Promote only the selected final asset into the formal project folder.
 3. Do not create or modify Unity `.meta` files. Preserve or move an existing one with its asset, include a user- or Unity-generated in-scope `.meta` even when untracked, and stop before commit or push if an expected companion is absent.
 4. Preserve existing final names when runtime references already depend on them.
-5. When an asset change affects `Design.html`, update only its existing asset row, preview, name, reference, or completion state while preserving the document structure. Use `$oojjrs-design-html-builder` in a separate phase for layout or structural work.
-6. Keep filenames visible under image previews when the planning doc uses image inventories.
+5. When an asset change affects `Design.html`, update only its existing asset row, preview, name, reference, or completion state within the public guideline's document-text approval scope while preserving the document structure. Use `$oojjrs-design-html-builder` in a separate phase for layout or structural work.
+6. Preserve existing filename labels under image previews when the planning doc uses image inventories. New filename text follows the same prior-approval rule.
 7. Compose reveal previews, treasure previews, comparison boards, and planning-document previews from the actual generated candidates or accepted final files. Do not call imagegen only to create a preview, mockup, contact sheet, or display-only visualization.
 
 ## Validation
