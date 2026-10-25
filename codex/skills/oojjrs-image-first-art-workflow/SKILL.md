@@ -9,7 +9,7 @@ description: Enforce imagegen-first creation or revision of general raster art, 
 
 For any new raster image or visual art asset, create the first aesthetic source with imagegen. This is mandatory for UI art as well as non-UI images.
 
-For 2D sprite animation, route to `$oojjrs-2d-sprite-animation`: lock the original, check key poses, preserve approved poses while drawing adjacent frames, then inspect actual playback. Draw requested poses with imagegen; transforms supplement preparation and registration only. Do not prefer strip generation.
+For 2D sprite animation, route to `$oojjrs-2d-sprite-animation`: lock the original, complete layered parts and hidden surfaces, rig bones and meshes, check key poses and timing, add the drawings the motion needs, then inspect actual playback. That domain owns rigging and rendering accepted art; this static-art workflow does not restrict animation to post-processing or require every frame to be regenerated.
 
 Do not use System.Drawing, PIL, canvas, SVG, HTML/CSS, ImageMagick, procedural shapes, or other deterministic drawing code as the first art pass when the user expects visual quality or art direction.
 
@@ -46,7 +46,7 @@ For Unity installation, keep candidate generation outside the project until the 
 
 ## Required Sequence
 
-1. Use `$imagegen` / built-in `image_gen` for the first generated image, concept, static sprite, illustration, UI art, object cutout, background, icon-like raster asset, mockup, or visual reference. Route 2D sprite animation to `$oojjrs-2d-sprite-animation` for original-reference lock, key-pose checks, adjacent-frame drawing, and actual playback review.
+1. Use `$imagegen` / built-in `image_gen` for the first generated image, concept, static sprite, illustration, UI art, object cutout, background, icon-like raster asset, mockup, or visual reference. Route 2D sprite animation to `$oojjrs-2d-sprite-animation` for complete parts, rigging, key poses and timing, selective redrawing, and actual playback review.
 2. Inspect the generated result for style fit, subject clarity, composition, and obvious artifacts.
 3. Iterate with imagegen if the art style is wrong. Do not try to rescue a bad first-pass drawing with System.Drawing or simple code effects.
 4. After the imagegen result is acceptable, use local tools only for deterministic production steps: resize, crop, pad, trim, alpha cleanup, chroma-key removal, format conversion, sprite-sheet packing, atlas layout, file naming, compression, masks, guide overlays, or exact UI-size variants.
@@ -78,12 +78,12 @@ Examples that require imagegen first:
 
 ## oojjrs 2D Sprite Animation
 
-Use `$oojjrs-2d-sprite-animation` for all 2D sprite animation artwork, including in-betweens and loop transitions.
+Use `$oojjrs-2d-sprite-animation` for 2D sprite animation, including layered rigs, drawn phases, in-betweens, and loop transitions.
 
-- Lock the original → check key poses → preserve approved poses while drawing adjacent frames → inspect actual playback.
+- Lock the original → complete layered parts and hidden surfaces → rig bones and meshes → check key poses and timing → draw what is needed → inspect actual playback.
 - Preserve the current approved version and properties; superseded approval, partial praise, or active rework does not establish a completed animation or a proven generation method.
-- Do not prefer strips or impose a one-call-per-frame rule. Draw every required pose and choose grouping only to serve checked pose continuity.
-- Transforms may supplement completed-art preparation, common scaling, anchor registration, or unchanged stationary-region retention; they must not create the main animation or replace drawn poses through deformation, interpolation, crossfades, or parametric paths.
+- Reuse approved art through part articulation and weighted meshes when suitable; honor explicit drawn-frame requests and add new surfaces, expressions, or shape-changing phases with imagegen.
+- Build previews from actual drawings or rig renders. Check natural motion separately from texture consistency and verify Spine compatibility on the actual target toolchain.
 
 ## Local Raster Tools And Code Drawing
 

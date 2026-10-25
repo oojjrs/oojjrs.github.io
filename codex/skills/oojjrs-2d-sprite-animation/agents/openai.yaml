@@ -1,4 +1,4 @@
 interface:
   display_name: "oojjrs 2D Sprite Animation"
-  short_description: "Lock references, check poses, draw adjacent cels."
-  default_prompt: "Use $oojjrs-2d-sprite-animation to lock the original, check key poses, preserve approved poses while drawing adjacent frames, and inspect actual playback. Do not prefer strips. Draw the required poses first; use transforms only as supplementary preparation or registration, never as the main animation method or a substitute for missing drawings. Use the official Unity CLI for Unity installation and metadata."
+  short_description: "Rig complete parts and redraw only what motion needs."
+  default_prompt: "Use $oojjrs-2d-sprite-animation to lock the original, complete layered parts and hidden surfaces, rig bones and meshes, check key poses and timing, draw replacement surfaces or local phases as needed, and inspect actual playback. Default to reusing approved artwork for suitable motion; honor explicit drawn-frame requests. Verify Spine compatibility on the actual editor or official runtime before claiming it. Use the official Unity CLI for Unity installation and metadata."

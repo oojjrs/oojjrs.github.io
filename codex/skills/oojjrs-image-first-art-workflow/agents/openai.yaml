@@ -1,4 +1,4 @@
 interface:
   display_name: "oojjrs Image-First Art Workflow"
   short_description: "Imagegen-first art workflow with local post-processing tools"
-  default_prompt: "Use $oojjrs-image-first-art-workflow to generate the first art pass with imagegen, use the planning document's UI resolution or FHD default, keep temporary files under $Trash, route 2D sprite animation to $oojjrs-2d-sprite-animation for original lock, key-pose checks, adjacent-frame drawing that preserves approved poses, and actual playback review with transforms limited to supplementary preparation, and install Unity assets only through the official CLI with Unity-generated metadata."
+  default_prompt: "Use $oojjrs-image-first-art-workflow to generate the first art pass with imagegen, use the planning document's UI resolution or FHD default, keep temporary files under $Trash, route 2D sprite animation to $oojjrs-2d-sprite-animation for complete layered parts, bone and mesh rigging, checked key poses and timing, selective redrawing, and actual playback review, and install Unity assets only through the official CLI with Unity-generated metadata."
