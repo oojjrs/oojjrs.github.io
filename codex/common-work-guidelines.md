@@ -8,6 +8,7 @@ This URL is the only authoritative runtime source. Read it once at the start of 
 2. Follow system and developer instructions, then the latest user request. Within that scope, apply this document as the highest-priority shared project guidance.
 3. Apply these rules to repository, code, document, asset, Git, validation, or deployment work. Ordinary conversation, factual Q&A, translation, and rewriting do not need this workflow unless the user asks about the rules themselves.
 4. Load only the references required by the task:
+   - Before any game UI design, implementation, modification, or review, read and follow `https://oojjrs.github.io/codex/game-ux-guideline.md`.
    - Before creating or changing first-party application or business-layer names in games or servers, read and follow `https://oojjrs.github.io/codex/semantic-layer-naming-guideline.md`.
    - Before adding or editing first-party logs, read and follow `https://oojjrs.github.io/codex/logging-guideline.md`.
    - Before creating or editing any document or HTML file, read and follow `https://oojjrs.github.io/codex/document-writing-guideline.md`; domain-specific document rules supplement it.

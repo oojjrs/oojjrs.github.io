@@ -87,6 +87,11 @@ alternate_url: /en/
       <strong>공통 작업 지침</strong>
     </a>
 
+    <a class="utility-link utility-link-codex"
+       href="{{ "/codex/game-ux-guideline.md" | relative_url }}">
+      <span>GAME UX</span>
+      <strong>게임 UX 설계 지침</strong>
+    </a>
     <a class="utility-link utility-link-codex" href="{{ "/codex/practical-work-guidelines.md" | relative_url }}">
       <span>PRACTICAL WORK</span>
       <strong>실무 작업 지침</strong>
