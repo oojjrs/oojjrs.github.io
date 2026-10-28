@@ -5,6 +5,10 @@ description: Create or revise 2D sprite animation by choosing and combining draw
 
 # oojjrs 2D Sprite Animation
 
+## Required Rigging Reference
+
+Before creating or revising any bone/mesh rig, read [the rigging playbook](references/rigging-playbook.md). Follow its concrete part inventory, coordinate/bind-pose example, bone hierarchy, mesh/weight construction, FK/IK, occlusion, hybrid handoff, and defect-repair steps. Apply it only to the phases using rigs; it does not force rigging on drawn-only phases.
+
 ## Core Rule
 
 Follow this sequence: establish the target appearance and motion → divide the action into phases → choose and combine methods per phase and part → construct or redraw the required sources → inspect actual playback → repair until the requested quality is achieved.
