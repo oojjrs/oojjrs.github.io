@@ -1,70 +1,76 @@
 ---
 name: oojjrs-2d-sprite-animation
-description: Create or revise 2D sprite animation with locked artwork, complete layered parts, bone and mesh rigging, checked key poses and timing, selective redrawing, and actual playback review. Use for cutout rigs, sprite poses, in-betweens, sequence repairs, sheets, and preview GIFs. Default to reusing approved art for motion that preserves its structure; draw new surfaces, expressions, and shape-changing effects as needed. Honor explicit drawn-frame requests and verify Spine compatibility before claiming it.
+description: Create or revise 2D sprite animation by choosing and combining drawn frames, complete layered bone/mesh rigs, and corrective compositing per motion phase. Use for key poses, full frame redraws, cutout rigs, hybrid sequences, repairs, sheets, and previews. Use properly separated part rigs for simple articulation; redraw key poses and rig local intervals for complex motion, or redraw every frame when needed. Iterate pixel-level consistency and actual playback quality; do not force one production method.
 ---
 
 # oojjrs 2D Sprite Animation
 
 ## Core Rule
 
-Follow this sequence: lock the original → complete the required layered parts → rig bones and meshes → check key poses and timing → draw what the rig cannot represent → inspect actual playback.
+Follow this sequence: establish the target appearance and motion → divide the action into phases → choose and combine methods per phase and part → construct or redraw the required sources → inspect actual playback → repair until the requested quality is achieved.
 
-For fixed-view motion that preserves the subject's structure, default to reusing approved artwork through local part articulation and weighted meshes. Use `$imagegen` / built-in `image_gen` for new or revised source artwork, hidden surfaces, replacement attachments, and drawn effects. Reuse existing approved art without regenerating every frame. Honor a user's explicit drawing-only or other method requirement.
+Own the production decisions within the authorized scope. Do not ask the user to choose routine technique, part, or phase boundaries. Use `$imagegen` / built-in `image_gen` for new or revised artwork, including complete key poses or every frame when necessary. Reusing original pixels, minimizing redraws, or finishing a rig is not the acceptance criterion; judge the actual appearance and motion. Honor explicit method, budget, and scope constraints.
 
-Choose methods by the actual motion:
+Choose methods by the actual motion and switch when the result warrants it:
 
-- Rigid parts: preserve their shape with translation and rotation around meaningful pivots.
-- Bending ears, leaves, stems, or eyestalks: use suitable bone chains, mesh topology, and weights.
-- Blinks, expressions, newly exposed sides, or large perspective changes: add replacement drawings and key their visibility or draw order.
-- Flowing water, splitting, opening flowers, or other changes the rig cannot represent: draw the necessary local phase; combine it with the stable rig when useful.
+- Simple articulation: build complete separate part layers with meaningful pivots, bone hierarchy, meshes, and weights; use rigid transforms for hard parts and deformation for flexible parts.
+- Complex motion: draw the action-defining key poses first, then build suitable part rigs for individual intervals. Combine rendered rig frames, attachment swaps, and newly drawn transitions in one sequence; a single rig need not cover the whole action.
+- When rigging or local repair cannot reproduce the intended shape, perspective, overlap, or rhythm, redraw the required phase or the entire frame sequence. Do not force the original texture or topology to survive every pose.
+- Use registration, masks, compositing, warping, interpolation, timing edits, and other available production tools where they improve the result. Draw missing surfaces and poses rather than hiding defects with blending; no tool's name establishes quality.
 
-Do not use whole-image wobble, indiscriminate scaling, clipped cutouts, or crossfades to conceal missing articulation or artwork. A bone label, more frames, or baked PNGs does not establish quality or prove how motion was made.
+Whole-image wobble, clipped joints, rubbery rigid objects, doubled outlines, ghosting, and arbitrary scale changes are defects unless explicitly part of the intended action. Treat these as result criteria, not blanket bans on transforms, meshes, drawing, interpolation, or compositing.
 
 ## Workflow
 
-1. Lock the original reference.
+1. Establish the reference and motion contract.
    - Keep the original approved design as the authority for silhouette, anatomy, palette, lighting, outline, camera, and proportions; identify separately which motion, rhythm, or amplitude is currently approved.
    - Preserve frame size, cell geometry, pivots, timing contracts, document previews, and existing Unity references. Declare intentional growth, squash, root motion, or airborne trajectories.
    - Keep the last valid approved version recoverable. A superseded approval or a version under rework is not a validated success or a new design authority.
+   - Preserve the approved design and motion intent, not an obligation to reuse its pixels. Redraw complete assets or all frames when that is needed within the requested revision; keep earlier sources recoverable.
    - Never hand-edit Unity YAML or `.meta` text; use the official Unity CLI and importer for Unity-side changes.
 
-2. Prepare complete parts and their occlusion structure.
-   - Split only at independently moving or occluding units; keep a continuous flexible surface together where a mesh is more suitable than many rigid fragments.
-   - Retain original pixels where possible. Complete each moving part's hidden contour and paint the surface behind it before animation; a crop of the visible fragment is not a complete part.
-   - Provide overlap at joints, clean alpha edges, and sufficient texture padding. Separate foreground occluders and specify draw order, masks or clipping, pivots, and fixed versus moving regions.
-   - Reassemble the neutral pose at the original scale and position. Check that seams, outlines, shading, anatomy, and landmarks match the approved design before adding motion.
+2. Design the phases, key poses, trajectories, and timing.
+   - Establish neutral, anticipation, contact or peak, and return or final poses. For complex actions, draw the necessary complete key poses before deciding how their intervening motion will be produced.
+   - Check silhouettes, anatomy, proportions, joint angles, part lengths, overlaps, and root or foot landmarks. Design motion arcs, acceleration and deceleration, holds, and delayed follow-through.
+   - Choose drawn, rigged, or mixed construction independently for each interval and moving part. Add a new drawing, replacement part set, or local rig whenever the existing source cannot reach the next pose faithfully.
+   - For an unfamiliar motion, establish a short representative interval at the intended display size before producing a batch. Keep confirmed artwork and motion properties recoverable; a checked key pose alone is not approval of the complete sequence.
 
-3. Build a rig that follows the subject's structure.
+3. When using bone/mesh animation, prepare complete layered parts.
+   - Separate all independently articulated or occluding body regions into appropriate source layers and rig attachments, subdividing further wherever the required motion needs separate control. A complete character image on one layer is not a substitute for this part rig.
+   - Keep a flexible surface continuous within its own part where a mesh is appropriate. Draw each part's hidden contour, underside, and the surface behind it; redraw the full part set if clean separation of the original is insufficient.
+   - Provide overlap at joints, clean alpha edges, and sufficient texture padding. Separate foreground occluders and specify draw order, masks or clipping, pivots, and fixed versus moving regions.
+   - Reassemble each rig's reference pose at the required scale and position. Check seams, outlines, shading, anatomy, and landmarks before animating. Texture atlas packing may place multiple parts in one image; their source layers and attachments must remain independently controllable.
+
+4. Rig only the intervals and parts it can represent faithfully.
    - Establish root and parent relationships, joint pivots, bone lengths, local axes, and grounded contacts. Keep hard parts rigid; put bending controls and mesh vertices along the intended curvature.
    - Bind weights to the intended parts and test the required extreme poses. Correct texture stretch, collapsing volume, disconnected joints, unintended influence on fixed areas, and occlusion errors before expanding the animation.
-   - A single textured mesh can serve subtle continuous deformation; use separate parts when motion exposes hidden surfaces or changes overlap. Do not describe a whole-image mesh as a completed layered cutout rig.
+   - A single mesh may deform one continuous part; build separate attachments and occlusion structure for independently moving regions. Do not describe a whole-image mesh as a completed layered cutout rig.
    - Keep rig controls, textures, weights, and timelines editable. Check available authoring/export tools before choosing Spine or another format; do not assume the editor or runtime is installed.
+   - Sample the local rig into as many frames as the motion requires. A generated key drawing may supply a rigged interval, followed by another drawn pose or interval with different sources; do not require one unchanged rig for the entire animation.
 
-4. Check key poses, trajectories, and timing on a short representative action.
-   - Establish neutral, anticipation, contact or peak, and return or final poses. Check silhouettes, anatomy, joint angles, part lengths, overlaps, and root or foot landmarks.
-   - Design motion arcs, acceleration and deceleration, holds, and delayed follow-through. Bone interpolation is allowed; equal frame durations, slow playback, and high frame counts do not themselves create natural motion.
-   - Keep the exact approved pose artwork and confirmed motion properties. For an unfamiliar rig or motion, demonstrate one short action at its intended display size before producing a batch; do not call the method proven until its actual result supports that claim.
-
-5. Add only the artwork the motion requires.
-   - Draw complete exposed surfaces, changed expressions, alternate views, or effect phases the rig cannot represent. Use attachment swaps, draw-order changes, or a locally drawn sequence as appropriate.
+5. Draw and combine as much artwork as the result needs.
+   - Use imagegen for complete key poses, replacement parts, expressions, alternate views, newly exposed surfaces, or full drawn sequences. There is no limit to local redrawing when full-frame or whole-sequence reconstruction is needed within the authorized scope.
    - For drawn sequences, supply the locked original and nearest accepted poses on both sides; preserve accepted files and draw the missing local interval. Choose individual frames or small groups for continuity without imposing a strip preference or one-call-per-frame rule.
-   - Fix design drift in source artwork and mechanical defects in the rig or timing. Preserve accepted concept, palette, rhythm, amplitude, endpoints, and unaffected phases instead of regenerating the whole subject.
+   - Match the scale, landmarks, contours, palette, shading, camera, and occlusion at every drawn/rigged handoff. Draw bridge poses or rebuild the local rig when a swap pops; do not conceal incompatible poses with a crossfade.
+   - Fix design drift in artwork and mechanical defects in rigging or timing. Keep the accepted concept, rhythm, amplitude, and endpoints while replacing whatever source material is necessary to meet them.
 
 6. Inspect actual playback and repair the demonstrated defect.
    - Play the actual rig or exported sequence at intended size and speed, then inspect enlarged joints and phase boundaries. Check loop continuity, scale, anchors, contacts, silhouettes, palette, seams, clipping, and attachment visibility.
    - Separate source-art, part extraction, rig/weight, timing, export, and encoding defects. Repair the responsible layer; a fixed-region pixel check alone does not prove natural movement or correct occlusion.
    - Use common output scaling and fixed canvas/pivot registration. Do not fit each frame to its own tight bounds, stretch rigid parts to hide drift, or pin intentional airborne motion to the ground.
-   - Regions declared stationary must retain the same source pixels and placement except for intentional occlusion. Preserve the last valid version until comparison shows improvement; do not call a sequence complete while its latest playback needs rework.
+   - Compare source-resolution overlays and landmarks when unintended size, contour, or placement differences remain. Repeat drawing, registration, part/weight correction, and compositing until required pixel-level consistency is achieved; intentional pose, perspective, growth, or squash must remain intact.
+   - Stationary reused regions may retain identical pixels; redrawn regions must match the required appearance and registration, not an unrelated byte-identity target. Preserve the last valid version until comparison shows improvement.
+   - Do not accept visible defects because a method was followed, a frame count was reached, or more drawing would take effort. Switch or combine methods when the current approach stalls; if an explicit budget or tool limit prevents completion, report the remaining defect instead of calling it complete.
 
 ## Spine And Tool Verification
 
 - For Spine meshes, weights, attachments, and export behavior, use the current official [meshes](https://esotericsoftware.com/spine-meshes), [weights](https://esotericsoftware.com/spine-weights), [attachments](https://esotericsoftware.com/spine-attachments), and [export](https://esotericsoftware.com/spine-export) documentation.
-- Keep the authoring source or importable rig, source parts, and timelines. Verify the actual target editor or official runtime can load and play the data, and match export/runtime versions when using Spine data.
+- When Spine data is part of the deliverable or Spine compatibility is claimed, keep the authoring source or importable rig, source parts, and timelines; verify loading and playback with the target editor or official runtime and match export/runtime versions.
 - Hand-authored Spine-style JSON and a custom renderer are not evidence of Spine import or runtime compatibility. Report each verified surface precisely; do not silently replace unavailable authoring tools with an unverified compatibility claim.
 
 ## Output Preparation
 
-- Deliver the editable rig and parts or the accepted drawings, plus the runtime output required by the existing project. Baking a rig to a PNG/WebP sequence or sheet is allowed; describe it as rendered rig animation.
+- Deliver the source drawings, layered parts, and local rigs actually used, plus the runtime output required by the project. Baking rigged intervals and combining them with drawn frames in a PNG/WebP sequence or sheet is allowed; describe the hybrid construction accurately.
 - Build contact sheets and previews from the actual source drawings or rendered rig frames. No preview-only imagegen calls; use a stable GIF palette and compare with PNG/WebP if encoding appears to flicker.
 - Preserve the runtime contract for canvas, pivots, timing, transparency, and sheet geometry. Verify exported output as well as the authoring preview when export can change the result.
 
@@ -79,13 +85,13 @@ Do not use whole-image wobble, indiscriminate scaling, clipped cutouts, or cross
 
 ## Validation
 
-- Identify the original, source parts and hidden-surface drawings, rig/weights, key poses, timelines, and any drawn phases actually used. Check only the artifacts required by the chosen method; metadata labels do not prove the method.
+- Identify the reference, redrawn poses, layered parts and hidden surfaces, local rigs/weights, and timelines actually used. Check only artifacts required by the chosen methods, including boundaries where methods or sources change; metadata labels do not prove the method.
 - Inspect actual playback against the current accepted reference, including motion readability, phase and loop boundaries, contacts, scale, palette, occlusion, clipping, and joint continuity. A static sheet or superseded approval does not establish success.
 - Check dimensions, frame count, sheet layout, transparency, and timing against the runtime contract. Verify fixed regions only where declared and editor/runtime compatibility only on the actual target toolchain.
 - For Unity installation, read back importer mode, compression, sprite rects/internal IDs, atlas settings, generated `.meta` GUID, and animation references through Unity; stop Git completion if an expected companion is absent.
 
 ## Quality Rules
 
-- Reuse approved artwork where the motion permits it; complete parts before rigging and draw what cannot be represented faithfully by the rig.
+- Choose and combine methods autonomously by visual outcome; simple articulation uses proper part rigs, complex motion can combine newly drawn keys and local rigs, and all frames may be redrawn when necessary.
 - Judge appearance consistency and motion quality separately. A stable texture, more bones, more frames, or more generation calls does not establish natural animation.
 - Use only currently valid approval evidence for the same version and property; preserve explicitly retained design or rhythm without presenting an unfinished animation as a proven workflow.

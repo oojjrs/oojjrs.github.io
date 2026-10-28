@@ -1,4 +1,4 @@
 interface:
   display_name: "oojjrs 2D Sprite Animation"
-  short_description: "Rig complete parts and redraw only what motion needs."
-  default_prompt: "Use $oojjrs-2d-sprite-animation to lock the original, complete layered parts and hidden surfaces, rig bones and meshes, check key poses and timing, draw replacement surfaces or local phases as needed, and inspect actual playback. Default to reusing approved artwork for suitable motion; honor explicit drawn-frame requests. Verify Spine compatibility on the actual editor or official runtime before claiming it. Use the official Unity CLI for Unity installation and metadata."
+  short_description: "Mix drawn frames and part rigs until motion is consistent."
+  default_prompt: "Use $oojjrs-2d-sprite-animation to choose and combine methods per phase and body part. Use complete separate layered bone/mesh rigs for simple articulation; draw complex key poses with imagegen and rig local intervals, or redraw every frame when needed. Iterate pixel-level scale, contour, palette, anchor, and handoff consistency against the intended motion and actual playback. Make routine production choices autonomously within the authorized scope. Verify Spine compatibility when delivering or claiming it, and use the official Unity CLI for Unity installation."

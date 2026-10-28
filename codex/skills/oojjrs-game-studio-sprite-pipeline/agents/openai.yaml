@@ -1,4 +1,4 @@
 interface:
   display_name: "oojjrs Game Studio Sprite Pipeline"
-  short_description: "파츠 완성·본과 메시 리깅·부분 작화·실제 재생 확인"
-  default_prompt: "$oojjrs-game-studio-sprite-pipeline으로 원본을 고정하고 가려진 면까지 파츠를 완성한 뒤, 본·메시 리깅과 핵심 자세·타이밍을 확인해 줘. 동작에 맞춰 원화를 재사용하고 필요한 표정·면·구간만 추가로 그려 줘. 직접 작화 요청을 존중하며 실제 재생과 Spine 호환성을 각각 확인해 줘."
+  short_description: "구간별 작화·파츠 리깅 혼합과 전면 재작화·픽셀 일관성 확인"
+  default_prompt: "$oojjrs-game-studio-sprite-pipeline으로 동작 구간과 부위에 맞는 제작 기법을 알아서 조합해 줘. 단순 동작은 부위별 레이어와 본·메시를 제대로 구성하고, 복잡한 동작은 새 핵심 포즈와 구간별 리그를 혼합해 줘. 필요하면 전 프레임을 새로 그리며 크기·윤곽·색·기준점과 구간 연결이 맞을 때까지 반복하고 실제 재생으로 확인해 줘."
