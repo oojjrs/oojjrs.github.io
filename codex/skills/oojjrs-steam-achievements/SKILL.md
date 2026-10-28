@@ -14,7 +14,7 @@ description: Register or update Steam achievements in the Partner site from appr
 - 사용자가 열어 둔 로그인된 Chrome을 사용하라고 지시했고 브라우저 제어가 허용되면, 브라우저·탭 목록에서 해당 Steamworks 탭을 찾아 재사용한다. 과거 탭 ID·포트·프로필 경로를 고정하지 않는다. 별도 프로필이 로그아웃됐다는 이유로 사용자의 로그인된 탭까지 접근 불가라고 판단하지 않는다.
 - 지원되는 브라우저 도구의 DOM·파일 선택기·다운로드 API를 사용한다. 쿠키·세션·비밀번호·Steam Guard 코드를 추출하거나 저장하지 않는다. 실제 로그인 요구나 인증 요청은 사용자에게 맡긴다.
 - 이름·조건·아이콘의 새 제작이나 재설계는 해당 아트·기획 단계에서 해결한다. 이 단계에서는 확정된 자료를 정확히 등록한다.
-- 기획문서를 갱신하기 전에 [기획서 작성 지침](https://oojjrs.github.io/codex/guideline-design-generation.review.md)을 읽고 텍스트 추가 사전 허가 규칙을 따른다. 업적 등록·게시 승인을 기획문서의 새 문구 추가 허가로 간주하지 않는다. 추가 텍스트는 반드시 필요한 경우에만 허가를 요청하고, 그 외에는 추가하거나 묻지 않는다.
+- 모든 문서와 HTML 파일의 작성·갱신 전에 [공통 문서 작성 지침](https://oojjrs.github.io/codex/document-writing-guideline.md)을 읽고 텍스트 추가 사전 허가 규칙을 우선 적용한다. 기획문서는 [기획서 작성 지침](https://oojjrs.github.io/codex/guideline-design-generation.review.md)도 따른다. 업적 등록·게시 승인을 새 문서 문구 추가 허가로 간주하지 않는다. 추가 텍스트는 반드시 필요한 경우에만 허가를 요청하고, 그 외에는 추가하거나 묻지 않는다.
 
 ## 준비와 등록
 

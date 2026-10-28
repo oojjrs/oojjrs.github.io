@@ -5,6 +5,8 @@ description: Create, restructure, update, or audit UnityO package Documentation~
 
 # Oojjrs Unity Package Docset Maintenance
 
+Before creating or editing any document or HTML file, read and follow `https://oojjrs.github.io/codex/document-writing-guideline.md`. Its text-addition approval rule takes precedence over this skill's writing, content, and synchronization instructions.
+
 Use this skill when UnityO package documentation is the primary deliverable, whether the request targets focused `Documentation~` or API material or a comprehensive set across documentation layers. It owns the package-documentation rules and any directly required package or repository entry-point synchronization for that phase; do not stack a standalone README workflow.
 
 ## Scope Gate

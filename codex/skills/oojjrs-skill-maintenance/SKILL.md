@@ -5,6 +5,8 @@ description: Maintain and synchronize user-authored oojjrs-* Codex skills throug
 
 # oojjrs Skill Maintenance
 
+Before creating or editing any document or HTML file, read and follow `https://oojjrs.github.io/codex/document-writing-guideline.md`. Its text-addition approval rule takes precedence over this skill's writing, content, and synchronization instructions.
+
 Maintain the GitHub repository's `codex/skills` tree as the source of truth for the user's shared Codex skills.
 
 For authorized commits and publication, use `$oojjrs-project-finish-work`, including its pre-commit check against the canonical commit-message rule. Skill maintenance does not define a separate message language or template.

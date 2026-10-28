@@ -21,7 +21,7 @@ After the commit succeeds, finish the board helper's **Commit And Publication Ha
 
 ## Content Freeze
 
-An authorized Git-completion instruction includes the maintenance-document and governed version updates needed by the reconciled task scope without a separate content-change instruction. Apply those updates through their owning domain, complete any other requested content work, then freeze the final scope immediately before staging. Preserve user-authored code, assets, and unrelated hunks; the Git instruction does not authorize unrelated implementation changes or repairs. After freezing, stage the final bytes without further content edits.
+An authorized Git-completion instruction includes the maintenance-document and governed version updates needed by the reconciled task scope without a separate content-change instruction, within the text-addition approval scope of `https://oojjrs.github.io/codex/document-writing-guideline.md`. Read and follow that rule before any document or HTML edit; it takes precedence over this skill's maintenance-document instructions. Git-completion authorization alone does not approve new document wording. Apply those updates through their owning domain, complete any other requested content work, then freeze the final scope immediately before staging. Preserve user-authored code, assets, and unrelated hunks; the Git instruction does not authorize unrelated implementation changes or repairs. After freezing, stage the final bytes without further content edits.
 
 An explicitly requested merge, rebase, cherry-pick, or revert may make its normal worktree and index changes and the minimum conflict resolution needed to complete that operation. Re-review the resulting scoped bytes before commit; do not add unrelated repairs.
 

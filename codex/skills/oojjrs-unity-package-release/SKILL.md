@@ -22,7 +22,7 @@ Judge consumer use by whether they directly attach, create, reference, or call t
 
 Normally include one version change per atomic commit. For ordered commits, apply each bump from the version produced by the preceding commit; the highest change within one commit wins.
 
-If a version or install-path change makes an existing README reference stale, update only that direct reference in the same task. The standalone README skill is not required for this incidental synchronization.
+Before any document or HTML edit, read and follow `https://oojjrs.github.io/codex/document-writing-guideline.md`; its text-addition approval rule takes precedence over release-driven documentation synchronization. If a version or install-path change makes an existing README reference stale, update only that direct reference in the same task within the approved document-text scope. The standalone README skill is not required for this incidental synchronization.
 
 ## Release Evidence
 

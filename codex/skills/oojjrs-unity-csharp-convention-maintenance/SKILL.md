@@ -5,6 +5,8 @@ description: Maintain and synchronize the public Unity C# coding-convention docu
 
 # oojjrs Unity C# Convention Maintenance
 
+Before creating or editing any document or HTML file, read and follow `https://oojjrs.github.io/codex/document-writing-guideline.md`. Its text-addition approval rule takes precedence over this skill's writing, content, and synchronization instructions.
+
 Treat the Unity C# convention as one document set:
 
 - `codex/unity-csharp-coding-convention.md`: concise agent-facing copy containing every rule and decision criterion

@@ -1,4 +1,4 @@
 interface:
   display_name: "oojjrs Design.html Builder"
   short_description: "Build image-heavy Design.html docs"
-  default_prompt: "Use $oojjrs-design-html-builder for substantive Design.html creation, recovery, layout conversion, or rebuild in any project including H:\\Mines; apply the public Design guideline text-addition approval rule to all document wording, keep asset-entry sync within that scope, request extra text only when indispensable, and never make preview-only imagegen calls."
+  default_prompt: "Use $oojjrs-design-html-builder for substantive Design.html creation, recovery, layout conversion, or rebuild in any project including H:\\Mines; apply the common document writing guideline text-addition approval rule to all document wording, keep asset-entry sync within that scope, request extra text only when indispensable, and never make preview-only imagegen calls."

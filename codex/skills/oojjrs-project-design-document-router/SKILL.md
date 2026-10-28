@@ -9,7 +9,7 @@ Use this skill as the primary domain for focused project planning-document work.
 
 ## Required Reference
 
-Before reviewing or editing a project `Design.html`, open and follow `https://oojjrs.github.io/codex/guideline-design-generation.review.md`. The lifecycle router already loaded the common rules.
+Before any document or HTML edit, read and follow `https://oojjrs.github.io/codex/document-writing-guideline.md`; its text-addition approval rule takes precedence over this skill's writing and synchronization instructions. Before reviewing or editing a project `Design.html`, also follow `https://oojjrs.github.io/codex/guideline-design-generation.review.md`. The lifecycle router already loaded the common rules.
 
 ## Workflow
 

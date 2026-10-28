@@ -11,7 +11,7 @@ For `H:\Mines`, this skill owns substantive document layout or structure work. T
 
 ## Required Reads
 
-1. Read and follow `https://oojjrs.github.io/codex/guideline-design-generation.review.md`. Its text-addition approval rule governs every instruction below, including recovery, filename labels, prose, and asset-entry synchronization. Request approval for additional text only when indispensable; otherwise omit it without asking.
+1. Read and follow `https://oojjrs.github.io/codex/document-writing-guideline.md` for every document or HTML edit, and `https://oojjrs.github.io/codex/guideline-design-generation.review.md` for Design-specific requirements. The common document text-addition approval rule governs every instruction below, including recovery, filename labels, prose, and asset-entry synchronization. Request approval for additional text only when indispensable; otherwise omit it without asking.
 2. Read the current `Design.html` if it exists.
 3. When a referenced model document is named, inspect that live document instead of relying on memory.
 

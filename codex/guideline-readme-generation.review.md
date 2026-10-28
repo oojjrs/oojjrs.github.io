@@ -1,6 +1,6 @@
 # GitHub README.md Rules
 
-Read this only for GitHub-facing `README.md` creation, review, cleanup, or update. Keep it tiny.
+Read this only for GitHub-facing `README.md` creation, review, cleanup, or update. Keep it tiny. The text-addition approval rule in the [document writing rules](https://oojjrs.github.io/codex/document-writing-guideline.md) takes precedence over every content or synchronization instruction below.
 
 1. Write a `README.md` only when the repository needs a public-style entry point.
 2. Keep it short. No filler, long introductions, marketing copy, or copied chat/planning text.

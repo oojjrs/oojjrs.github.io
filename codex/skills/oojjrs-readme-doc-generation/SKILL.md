@@ -11,7 +11,7 @@ This boundary prevents duplicate workflow loading, not README edits. Package mig
 
 ## Source Rules
 
-1. Read `https://oojjrs.github.io/codex/guideline-readme-generation.review.md` before editing `README.md`.
+1. Before editing any document or HTML file, read and follow `https://oojjrs.github.io/codex/document-writing-guideline.md`; its text-addition approval rule takes precedence over every writing and synchronization instruction below. For `README.md`, also read `https://oojjrs.github.io/codex/guideline-readme-generation.review.md`.
 2. Use live code, package metadata, project files, and existing docs as the source of truth.
 3. Do not invent install methods, package names, version numbers, or feature claims.
 4. Keep public docs concise and practical; avoid marketing filler unless the user asks.

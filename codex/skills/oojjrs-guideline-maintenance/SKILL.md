@@ -5,6 +5,8 @@ description: Maintain shared oojjrs workflow guidance and public guideline docum
 
 # oojjrs Guideline Maintenance
 
+Before creating or editing any document or HTML file, read and follow `https://oojjrs.github.io/codex/document-writing-guideline.md`. Its text-addition approval rule takes precedence over this skill's writing, content, and synchronization instructions.
+
 Use this skill when durable public guidance must change.
 
 ## Authority And Publication

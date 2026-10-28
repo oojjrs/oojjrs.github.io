@@ -41,7 +41,7 @@ Before editing an observable API, behavior, dependency, lifetime, failure, or th
 
 ## Synchronize Directly Affected Surfaces
 
-- Update only documentation statements and existing CHANGELOG entries that the code change makes stale or incomplete. Match the repository's current location and style; do not create a documentation hierarchy or a CHANGELOG solely for this task.
+- Before any document or HTML edit, read and follow `https://oojjrs.github.io/codex/document-writing-guideline.md`; its text-addition approval rule takes precedence over code-driven documentation synchronization. Within that approved scope, update only documentation statements and existing CHANGELOG entries that the code change makes stale or incomplete. Match the repository's current location and style; do not create a documentation hierarchy or a CHANGELOG solely for this task.
 - Recheck the affected consumers and search for obsolete public names, signatures, assembly references, or call patterns after the final edit.
 - Do not decide or apply the package version in this phase. Record the observable behavior and consumer impact needed by `$oojjrs-unity-package-release`, then hand off to it before any commit containing the package change.
 - Leave staging, commit, push, deployment, and publication to `$oojjrs-project-finish-work` after the release decision.
