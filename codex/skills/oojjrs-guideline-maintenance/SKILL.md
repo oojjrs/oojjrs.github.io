@@ -5,7 +5,7 @@ description: Maintain shared oojjrs workflow guidance and public guideline docum
 
 # oojjrs Guideline Maintenance
 
-Before creating or editing any document or HTML file, read and follow `https://oojjrs.github.io/codex/document-writing-guideline.md`. Its text-addition approval rule takes precedence over this skill's writing, content, and synchronization instructions.
+Before creating or editing any document or HTML file, read and follow `https://oojjrs.github.io/codex/document-writing-guideline.md`. Its text-addition approval rule takes precedence over this skill's writing, content, and synchronization instructions. Document/page creation, code changes, synchronization, translation, and publication do not approve text. Require separate prior approval of exact new or replacement wording and placement, including headings, table columns, examples, translations, and generated output. Assume 99% refusal: ask only when omission makes the requested result impossible; otherwise omit without asking. Present indispensable wording, placement, and reason in chat and wait for explicit approval; never prefill drafts or placeholders.
 
 Use this skill when durable public guidance must change.
 
@@ -30,7 +30,7 @@ Use this skill when durable public guidance must change.
 1. Keep the change narrow and remove superseded or duplicated wording rather than layering another exception on top.
 2. Validate only changed guidance semantics and affected references against independent source material.
 3. If guidance alignment requires a public skill artifact change, finish the independent guidance phase and route the aligned skill phase to `$oojjrs-skill-maintenance`; do not load both for the same phase.
-4. When adding, moving, or publishing a public document, add a discoverable site-root navigation path and verify it when deployment is in scope.
+4. When adding, moving, or publishing a public document, preserve or update its site-root navigation only within separately approved exact link labels and placement, and verify changed navigation when deployment is in scope. Discoverability does not authorize a new heading, description, or link label.
 5. Parse only changed structured content and resolve only changed links. Do not add a second generic format, diff, build, or test pass in this domain.
 
 After a requested publication, compare only the changed canonical body or page with the intended source and report a mismatch or material GitHub Pages/raw-content delay.

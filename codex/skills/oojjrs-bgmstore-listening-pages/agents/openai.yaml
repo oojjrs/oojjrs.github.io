@@ -1,4 +1,4 @@
 interface:
   display_name: "BgmStore 청음 페이지"
   short_description: "Maintain BgmStore listening pages and saved ratings"
-  default_prompt: "Use $oojjrs-bgmstore-listening-pages to create or append tracks to the requested local listening page, preserving the shared player and saved assessments."
+  default_prompt: "Use $oojjrs-bgmstore-listening-pages to create or append tracks to the requested local listening page, preserving the shared player and saved assessments. Apply the document-writing rule to every document/HTML output: separately approve exact new or replacement text and placement, including generated labels, examples, and translations. Document/page creation, code changes, synchronization, and publication are not wording approval. Assume 99% refusal; ask only if omission makes the requested result impossible, otherwise omit without asking. Never prefill unapproved drafts or placeholders."

@@ -1,6 +1,6 @@
 interface:
   display_name: "oojjrs Steam 공지 작성"
   short_description: "이전 공지의 고정 안내와 지원 언어를 유지하는 Steam 공지 작성"
-  default_prompt: "Use $oojjrs-steam-announcements to prepare this Steam announcement from verified player-visible changes, reuse the previous announcement's localized fixed text, complete every supported language, and publish when authorized."
+  default_prompt: "Use $oojjrs-steam-announcements to prepare this Steam announcement from verified player-visible changes and reference announcements. Propose exact wording and translations in chat, save only separately approved text for every included language, and publish only within publication authorization. Apply the document-writing rule to every document/HTML output: separately approve exact new or replacement text and placement, including generated labels, examples, and translations. Document/page creation, code changes, synchronization, and publication are not wording approval. Assume 99% refusal; ask only if omission makes the requested result impossible, otherwise omit without asking. Never prefill unapproved drafts or placeholders."
 policy:
   allow_implicit_invocation: true

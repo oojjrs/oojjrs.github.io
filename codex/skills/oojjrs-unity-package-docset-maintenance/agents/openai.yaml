@@ -1,4 +1,4 @@
 interface:
   display_name: "UnityO Package Docset Maintenance"
   short_description: "Build and audit complete UnityO package docsets"
-  default_prompt: "Use $oojjrs-unity-package-docset-maintenance to rebuild and audit this UnityO package documentation set, letting Unity generate any required package-root metadata through the official CLI."
+  default_prompt: "Use $oojjrs-unity-package-docset-maintenance to rebuild and audit this UnityO package documentation set, letting Unity generate any required package-root metadata through the official CLI. Apply the document-writing rule to every document/HTML output: separately approve exact new or replacement text and placement, including generated labels, examples, and translations. Document/page creation, code changes, synchronization, and publication are not wording approval. Assume 99% refusal; ask only if omission makes the requested result impossible, otherwise omit without asking. Never prefill unapproved drafts or placeholders."

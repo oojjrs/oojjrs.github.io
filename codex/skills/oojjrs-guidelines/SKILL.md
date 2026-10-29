@@ -19,7 +19,7 @@ Write Codex task titles in Korean unless the user explicitly requests another la
 
 ## Apply Loaded Rules
 
-Before creating or editing any document or HTML file, read and follow `https://oojjrs.github.io/codex/document-writing-guideline.md`. Its text-addition approval rule takes precedence over this skill's writing, content, and synchronization instructions.
+Before creating or editing any document or HTML file, read and follow `https://oojjrs.github.io/codex/document-writing-guideline.md`. Its text-addition approval rule takes precedence over this skill's writing, content, and synchronization instructions. Document/page creation, code changes, synchronization, translation, and publication do not approve text. Require separate prior approval of exact new or replacement wording and placement, including headings, table columns, examples, translations, and generated output. Assume 99% refusal: ask only when omission makes the requested result impossible; otherwise omit without asking. Present indispensable wording, placement, and reason in chat and wait for explicit approval; never prefill drafts or placeholders.
 
 Reading the canonical body is a prerequisite, not completion: apply its commit-message and task-title rules at the corresponding action. Before any commit, route through `$oojjrs-project-finish-work` and check the proposed message against the loaded canonical rule. A domain skill, English instructions, or recent agent-written history does not replace the user's message style.
 

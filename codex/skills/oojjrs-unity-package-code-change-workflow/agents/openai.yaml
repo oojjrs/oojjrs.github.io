@@ -1,4 +1,4 @@
 interface:
   display_name: "UnityO Package Code Changes"
   short_description: "Safely change UnityO package code and public APIs"
-  default_prompt: "Use $oojjrs-unity-package-code-change-workflow to implement this UnityO Runtime or Editor C# change, assess its API impact, use text tools without Unity CLI or Editor for `.cs`-only changes, and use Unity CLI only for separately required Unity asset operations."
+  default_prompt: "Use $oojjrs-unity-package-code-change-workflow to implement this UnityO Runtime or Editor C# change, assess its API impact, use text tools without Unity CLI or Editor for `.cs`-only changes, and use Unity CLI only for separately required Unity asset operations. Apply the document-writing rule to every document/HTML output: separately approve exact new or replacement text and placement, including generated labels, examples, and translations. Document/page creation, code changes, synchronization, and publication are not wording approval. Assume 99% refusal; ask only if omission makes the requested result impossible, otherwise omit without asking. Never prefill unapproved drafts or placeholders."

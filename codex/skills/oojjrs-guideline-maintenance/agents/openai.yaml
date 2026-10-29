@@ -1,4 +1,4 @@
 interface:
   display_name: "oojjrs Guideline Maintenance"
   short_description: "Maintain focused public workflow guidance"
-  default_prompt: "Use $oojjrs-guideline-maintenance to place a reusable rule in the smallest durable public source when no skill artifact changes, and route any aligned SKILL/YAML/index/installer phase to $oojjrs-skill-maintenance."
+  default_prompt: "Use $oojjrs-guideline-maintenance to place a reusable rule in the smallest durable public source when no skill artifact changes, and route any aligned SKILL/YAML/index/installer phase to $oojjrs-skill-maintenance. Apply the document-writing rule to every document/HTML output: separately approve exact new or replacement text and placement, including generated labels, examples, and translations. Document/page creation, code changes, synchronization, and publication are not wording approval. Assume 99% refusal; ask only if omission makes the requested result impossible, otherwise omit without asking. Never prefill unapproved drafts or placeholders."

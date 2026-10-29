@@ -7,18 +7,18 @@ description: Create or update standalone GitHub-facing README and entry document
 
 Use this skill for GitHub-facing README and repository entry docs.
 
-This boundary prevents duplicate workflow loading, not README edits. Package migration, release, or another primary domain may update README as part of its own scoped work.
+This boundary prevents duplicate workflow loading, not README edits. Package migration, release, or another primary domain may update README only within separately approved exact wording and placement; the primary task does not itself approve README text.
 
 ## Source Rules
 
-1. Before editing any document or HTML file, read and follow `https://oojjrs.github.io/codex/document-writing-guideline.md`; its text-addition approval rule takes precedence over every writing and synchronization instruction below. For `README.md`, also read `https://oojjrs.github.io/codex/guideline-readme-generation.review.md`.
+1. Before editing any document or HTML file, read and follow `https://oojjrs.github.io/codex/document-writing-guideline.md`; its text-addition approval rule takes precedence over every writing and synchronization instruction below. Document/page creation, code changes, synchronization, translation, and publication do not approve text. Require separate prior approval of exact new or replacement wording and placement, including headings, table columns, examples, translations, and generated output. Assume 99% refusal: ask only when omission makes the requested result impossible; otherwise omit without asking. Present indispensable wording, placement, and reason in chat and wait for explicit approval; never prefill drafts or placeholders. For `README.md`, also read `https://oojjrs.github.io/codex/guideline-readme-generation.review.md`.
 2. Use live code, package metadata, project files, and existing docs as the source of truth.
 3. Do not invent install methods, package names, version numbers, or feature claims.
 4. Keep public docs concise and practical; avoid marketing filler unless the user asks.
 
 ## Structure
 
-Prefer:
+The following are optional content choices within separately approved exact-text scope. Do not fill missing headings, examples, tables, or sections merely to match this list:
 
 - what the project/package is
 - install or open instructions

@@ -1,4 +1,4 @@
 interface:
   display_name: "oojjrs Skill Maintenance"
   short_description: "Synchronize active and disabled user-authored skills"
-  default_prompt: "Use $oojjrs-skill-maintenance to keep active oojjrs skills routable and synchronized while preserving intentionally disabled skills outside automatic discovery."
+  default_prompt: "Use $oojjrs-skill-maintenance to keep active oojjrs skills routable and synchronized while preserving intentionally disabled skills outside automatic discovery. Apply the document-writing rule to every document/HTML output: separately approve exact new or replacement text and placement, including generated labels, examples, and translations. Document/page creation, code changes, synchronization, and publication are not wording approval. Assume 99% refusal; ask only if omission makes the requested result impossible, otherwise omit without asking. Never prefill unapproved drafts or placeholders."

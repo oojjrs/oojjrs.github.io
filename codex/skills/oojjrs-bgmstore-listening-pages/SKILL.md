@@ -5,6 +5,8 @@ description: Create or update local BgmStore daily and separate-batch listen pag
 
 # BgmStore Listening Pages
 
+Read and follow https://oojjrs.github.io/codex/document-writing-guideline.md before any document or HTML output. Document/page creation, code changes, synchronization, translation, and publication do not approve text. Require separate prior approval of exact new or replacement wording and placement, including headings, table columns, examples, translations, and generated output. Assume 99% refusal: ask only when omission makes the requested result impossible; otherwise omit without asking. Present indispensable wording, placement, and reason in chat and wait for explicit approval; never prefill drafts or placeholders. Inspect the builder's emitted wording before execution; do not run a build that writes unapproved titles, prompts, navigation/index labels, Markdown track links, or fallback content. Preserve existing wording in its approved scope.
+
 Own local listening pages after audio exists. Resolve the BgmStore checkout from the project context; its usual Windows path is `H:\BgmStore`.
 
 ## Choose the Requested List
@@ -17,17 +19,17 @@ Own local listening pages after audio exists. Resolve the BgmStore checkout from
 
 Read [listening-contract.md](references/listening-contract.md) when creating or extending batch records. Reuse the checkout's `scripts/Build-DailyListening.ps1` and `scripts/ListenerTrackNumbers.ps1`; do not copy their implementations into the skill.
 
-1. Preserve provider IDs, version pairing, actual model, submitted mode, Instrumental flag and exact submitted text. Keep original Prompt and Style distinct from the actual submitted prompt; page text must describe what was sent. Record generation counts and credits only from confirmed provider results.
-2. Add a new condition with an unused round number. Retain existing conditions and audio. Give the condition a concise distinguishing title, without redundant `후보 1` or `후보 2` suffixes; the player already supplies track numbers and A/B sections.
+1. Preserve provider IDs, version pairing, actual model, submitted mode, Instrumental flag and exact submitted text. Keep original Prompt and Style distinct from the actual submitted prompt; record what was actually sent, but display it as page text only after separate approval of the exact wording and placement. Record generation counts and credits only from confirmed provider results.
+2. Add a new condition with an unused round number. Retain existing conditions and audio. Use only a separately approved exact display title for the condition; do not invent a distinguishing label or add redundant `후보 1` or `후보 2` suffixes; the player already supplies track numbers and A/B sections.
 3. Keep listening audio in its batch outside `$Trash`, using the repository's local-audio ignore policy. Download logs, authentication data and task tooling stay in `$Trash`. Do not process or replace audio just to create a page.
 4. Measure every new audio file by decoding its audio frames. Sum `nb_samples` and divide by the audio stream's sample rate; store `MeasuredDurationSeconds` and the sample-count provenance. AMG's arranging estimate and ffprobe's container `format.duration` can be inaccurate. Reuse unchanged files' existing decoded measurements.
 5. Preserve failures and unresolved versions in the result record. Include only downloaded, playable tracks. Do not mark a partial or unresolved round complete or invent a missing sibling; the current builder skips incomplete rounds. Report that limitation if partial delivery is required.
 
 ## Build and Connect
 
-- Run the existing builder with the resolved batch directory, requested date and desired listen path. It maintains `results.json`, `playlist.m3u8`, `track-links.md`, the page and stable numbers in `data/listener-track-numbers.json`.
+- Run the existing builder with the resolved batch directory, requested date and desired listen path only after every new or replacement document/HTML phrase it will emit is separately approved. It maintains `results.json`, `playlist.m3u8`, `track-links.md`, the page and stable numbers in `data/listener-track-numbers.json`.
 - Use shared `player/listen.css` and `player/listen.js`. Preserve their playback controls, seeking, votes, five verdicts and actual listening-time tracking. Playback counts increase after 30 seconds of listening; paused time and seeking do not count. Initial volume is 100%, and one-track repeat starts off where supported.
-- Every listen page has one navigation link labeled `청음 목록`, pointing to the same `player/index.html` through the correct relative path. Add the new page to that index, including its static fallback list; retain existing links.
+- Preserve an existing page's approved navigation wording. For a new page, separately approve the exact navigation label before adding the reference link labeled `청음 목록`, pointing to the same `player/index.html` through the correct relative path. Add the new page to that index and its static fallback list only with separately approved exact labels; retain existing links. Required builder output does not waive text approval.
 - Root date pages with matching date-suffixed batch IDs are discovered by the existing server. Register a separate nested page in `data/listener-batches.json` so `/api/listener-votes/<batchId>` resolves it. Preserve existing registrations.
 - Keep `batchId`, rating key and song IDs stable across rebuilds. Preserve `data/listener-votes/`, `player/mines-statuses.json`, votes, verdicts and play counts; saved user verdicts take precedence over generated defaults.
 - Reuse `음악 작업실.bat` and the existing player server. Do not add another launcher or a separate server for a new list. If starting the requested listening service is necessary, use `player/start-player.ps1 -NoOpen` or `player/start-listener.ps1 -NoOpen` and use the origin it returns. Do not assume a port or open a browser or panel without a current request.

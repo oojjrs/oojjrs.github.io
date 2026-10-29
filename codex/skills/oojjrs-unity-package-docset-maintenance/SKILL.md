@@ -5,7 +5,7 @@ description: Create, restructure, update, or audit UnityO package Documentation~
 
 # Oojjrs Unity Package Docset Maintenance
 
-Before creating or editing any document or HTML file, read and follow `https://oojjrs.github.io/codex/document-writing-guideline.md`. Its text-addition approval rule takes precedence over this skill's writing, content, and synchronization instructions.
+Before creating or editing any document or HTML file, read and follow `https://oojjrs.github.io/codex/document-writing-guideline.md`. Its text-addition approval rule takes precedence over this skill's writing, content, and synchronization instructions. Document/page creation, code changes, synchronization, translation, and publication do not approve text. Require separate prior approval of exact new or replacement wording and placement, including headings, table columns, examples, translations, and generated output. Assume 99% refusal: ask only when omission makes the requested result impossible; otherwise omit without asking. Present indispensable wording, placement, and reason in chat and wait for explicit approval; never prefill drafts or placeholders.
 
 Use this skill when UnityO package documentation is the primary deliverable, whether the request targets focused `Documentation~` or API material or a comprehensive set across documentation layers. It owns the package-documentation rules and any directly required package or repository entry-point synchronization for that phase; do not stack a standalone README workflow.
 
@@ -18,7 +18,7 @@ The possible documentation surfaces are:
 - `Packages/src/Documentation~/index.md`
 - focused API contract documents under `Packages/src/Documentation~`
 
-Use only the surfaces required by the request. For a comprehensive creation or restructuring task, cover every applicable role; for a focused guide or API task, preserve navigation and synchronize only directly stale entry points. Map these roles to an already established equivalent layout when necessary, but do not move the package, rename source paths, or perform an `Assets`-to-`Packages/src` migration as part of documentation work.
+Use only the surfaces required by the request. For a comprehensive creation or restructuring task, consider each role only as a possible home for separately approved text; do not create or populate missing layers merely to complete this list. For a focused guide or API task, preserve navigation and change directly stale entry points only within separately approved exact wording and placement. Map these roles to an already established equivalent layout when necessary, but do not move the package, rename source paths, or perform an `Assets`-to-`Packages/src` migration as part of documentation work.
 
 Route other work to its owning phase:
 
@@ -33,12 +33,12 @@ Route other work to its owning phase:
 1. Read the live `package.json`, asmdefs, public Runtime and Editor code, platform-specific implementations, samples, tests, existing docs, and repository entry points that bear on documented claims.
 2. Derive package identifiers, Unity compatibility, dependencies, install paths, namespaces, API signatures, lifecycle, error behavior, and platform support from those sources. Do not invent or preserve a claim merely because an older document states it.
 3. Use current official primary documentation for upstream Unity or platform contracts when local evidence is insufficient. Clearly distinguish an upstream guarantee from package behavior inferred from implementation.
-4. Preserve the requested or established audience and language. Mark genuinely unresolved behavior instead of presenting it as a contract.
+4. Preserve the requested or established audience and language. Report genuinely unresolved behavior in chat; add document labels or explanations only within separately approved exact wording and placement.
 5. Consult Git history only when recovery, provenance, or an explicitly historical explanation requires it.
 
 ## Information Architecture
 
-Give each fact one authoritative home and link to it from shallower layers instead of copying long sections.
+Use the following roles only to place already approved content. They do not require new files, headings, examples, prose, or links. Give each approved fact one authoritative home and link to it only within separately approved wording and placement.
 
 - **Root README:** repository identity, package purpose and location, concise capabilities, verified entry path, and links into package documentation.
 - **Package README:** consumer-facing requirements, verified installation or inclusion method, smallest useful example, important constraints, and links to the full guide and API contracts.
@@ -52,7 +52,7 @@ Do not turn API documentation into an inventory of private implementation detail
 1. Inventory the current documentation files, audiences, links, duplication, contradictions, and missing layers.
 2. Inventory the current public package surface and material behavioral contracts. Trace every changed factual claim to live code, metadata, a sample, a test with independent contract value, or official upstream documentation.
 3. Choose a coherent navigation and document split that fits the package rather than forcing every package into identical filenames beyond the four documentation roles above.
-4. Create or revise only the documentation required for the requested scope, including directly stale navigation or entry points. Do not change implementation, package structure, metadata, versions, or changelogs to make a document claim true; report those mismatches for a separately authorized phase.
+4. Create or revise only the requested documentation structure and separately approved exact text, including any approved navigation or entry-point wording. Do not change implementation, package structure, metadata, versions, or changelogs to make a document claim true; report those mismatches for a separately authorized phase.
 5. Preserve existing documentation `.meta` files. Do not fabricate or hand-edit `.meta` files for Markdown; `Documentation~` intentionally does not require them. If repository policy requires metadata for new package-root Markdown, use `$unity-cli` to import/save it and let Unity generate the companion before publication.
 6. Remove stale duplication only within the requested documentation scope. Preserve useful historical or migration material unless the user requested its reorganization and its new home is clear.
 
@@ -62,8 +62,8 @@ Verify the completed documentation scope against independent sources:
 
 - every changed local link and heading target resolves with correct path casing
 - package IDs, versions, Unity requirements, dependencies, commands, paths, namespaces, signatures, and examples match live sources
-- each documentation layer has its assigned role and navigation reaches the deeper material
-- repeated claims do not conflict and unsupported claims are removed or labeled
+- each included documentation layer contains only approved wording and its changed navigation reaches the intended material; missing optional layers do not require new text
+- repeated claims do not conflict; unsupported claims are handled only within the requested content scope, and any replacement wording or label was separately approved
 - API contracts cover only behavior the implementation or an authoritative source establishes
 
 Do not use a package build or broad test suite as a proxy for documentation accuracy. Run code or snippet validation only when the request authorizes it and it materially verifies a changed example. Report any unresolved source-versus-document conflict without silently editing source code.
