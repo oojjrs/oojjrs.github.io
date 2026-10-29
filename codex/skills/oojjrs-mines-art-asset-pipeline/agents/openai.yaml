@@ -1,4 +1,4 @@
 interface:
   display_name: "oojjrs Mines Art Asset Pipeline"
   short_description: "Ship Mines art assets safely"
-  default_prompt: "Use $oojjrs-mines-art-asset-pipeline for Mines art and Unity asset work, synchronize only directly affected Design.html asset entries within the common document writing guideline text-addition approval scope, request extra wording only when indispensable, preserve document structure, route audio or substantive document work to separate domains, and never make preview-only imagegen calls."
+  default_prompt: "Use $oojjrs-mines-art-asset-pipeline for Mines art and Unity asset work; synchronize affected Design.html references while preserving visible wording and document structure. Asset or page approval does not authorize new or replacement text. Require separate prior approval of exact wording and placement; assume 99% refusal and ask only when omission makes the requested result impossible, otherwise omit without asking. Route audio and substantive document work to separate phases and build previews only from actual assets."

@@ -11,13 +11,13 @@ For `H:\Mines`, this skill owns substantive document layout or structure work. T
 
 ## Required Reads
 
-1. Read and follow `https://oojjrs.github.io/codex/document-writing-guideline.md` for every document or HTML edit, and `https://oojjrs.github.io/codex/guideline-design-generation.review.md` for Design-specific requirements. The common document text-addition approval rule governs every instruction below, including recovery, filename labels, prose, and asset-entry synchronization. Request approval for additional text only when indispensable; otherwise omit it without asking.
+1. Read and follow `https://oojjrs.github.io/codex/document-writing-guideline.md` for every document or HTML edit, and `https://oojjrs.github.io/codex/guideline-design-generation.review.md` for Design-specific requirements. The common document text-addition approval rule governs every instruction below, including recovery, filename labels, prose, and asset-entry synchronization. Creating or recovering a document or page does not authorize text. New or replacement wording, including headings, navigation, filenames, captions, status labels, tooltips, and generated text, requires separate prior approval of its exact wording and placement. Assume 99% of text requests are refused: ask only when omitting the text would make the requested result impossible; otherwise omit it without asking. Present the exact wording, placement, and necessity in chat and wait for explicit approval before writing, including drafts and placeholders.
 2. Read the current `Design.html` if it exists.
 3. When a referenced model document is named, inspect that live document instead of relying on memory.
 
 ## Source Priority
 
-Use this order:
+Use this order to establish facts. A source supplies evidence, not permission to copy, restore, or rewrite its text in the planning document; apply the separate text-approval gate before doing so:
 
 1. live code, assets, prefabs, package metadata, and current project files
 2. existing `Design.html`
@@ -31,9 +31,9 @@ Favor:
 
 - fixed or persistent left navigation when the existing style uses it
 - image-forward sections with inspectable previews
-- existing filename labels directly under image previews when asset identity matters; new label text requires prior approval under the public guideline
+- preserve existing filename labels in their current approved scope; new or replacement label text requires separate prior approval of its exact wording and placement
 - collapsible sections for dense inventories
-- only user-authorized prose around visual inventories
+- only separately approved text around visual inventories; do not automatically fill headings, captions, status labels, or placeholders
 - no visible file paths, byte counts, validation logs, or implementation audit metadata unless requested
 
 ## Preview Source Rule
