@@ -13,7 +13,7 @@
 
 `scripts/sync-announcement-locales.mjs`는 CUA가 제공하는 `tab.playwright`와 `tab.getAXState`만 사용한다. 새 브라우저 실행, 로그인, 직접 HTTP 요청, 숨겨진 앱 상태 접근, 저장·게시 기능은 없다. `Apply`는 입력 후 대조하고 `Verify`는 언어를 전환하며 현재 입력값만 대조한다. 불일치가 있으면 즉시 중단하고 현재 언어를 남긴다. 수정·재시도 전 현재 화면을 다시 확인한다.
 
-입력은 다음 세 가지이며, 프로젝트별 ID·이벤트·번역을 스크립트에 하드코딩하지 않는다.
+아래 입력 자료와 별도 승인 기록을 준비하며, 프로젝트별 ID·이벤트·번역을 스크립트에 하드코딩하지 않는다. Apply의 마지막 인자인 textApproval에는 실제 사용자의 허가 지시 원문 userInstruction, 대상 editorUrl, 정확히 승인받은 localizations, 해당 언어의 languageValues와 입력 위치 bindings를 담는다. bindings의 languageSelect·languageIndex·title·summary·body가 승인 기록과 같아야 한다. 사용자의 실제 허가 후에만 이 기록을 도구 메모리에 만들며, 레코드나 플래그를 스스로 채우는 것으로 허가를 대신하지 않는다. 하나라도 누락되거나 문구·언어·위치·현재 편집기 주소가 다르면 Apply는 입력하지 않는다. Verify에는 승인 기록이 필요 없고 문구를 채우지 않는다. 선택적인 summary는 빈 문자열로 둘 수 있으며, 검사를 통과시키려고 요약 문구를 추가하지 않는다.
 
 - 각 언어의 정확한 문구와 위치를 별도로 사전 승인받은 `localizations`: 각 항목에 `language`, `title`, `summary`, `body`가 있는 배열. 공지마다 지원 언어 전체를 포함한다.
 - `languageValues`: 현재 편집기의 실제 언어 옵션 값과 locale 이름의 대응표. 이전 이벤트의 값은 참고로만 사용한다.
@@ -32,7 +32,7 @@ var bindings = {
   titleLimit: 80,
   summaryLimit: 180
 };
-var result = await localeSync.syncAnnouncementLocales(tab, draft.localizations, languageValues, bindings, 'Apply');
+var result = await localeSync.syncAnnouncementLocales(tab, draft.localizations, languageValues, bindings, 'Apply', draft.textApproval);
 nodeRepl.write(result.map(x => x.language));
 ```
 
