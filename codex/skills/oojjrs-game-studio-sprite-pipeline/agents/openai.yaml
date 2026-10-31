@@ -1,4 +1,4 @@
 interface:
   display_name: "oojjrs Game Studio Sprite Pipeline"
-  short_description: "구간별 작화·파츠 리깅 혼합과 전면 재작화·픽셀 일관성 확인"
-  default_prompt: "$oojjrs-game-studio-sprite-pipeline으로 동작 구간과 부위에 맞는 제작 기법을 알아서 조합해 줘. 본·메시 제작 전 $oojjrs-2d-sprite-animation의 references/rigging-playbook.md를 읽고 파츠·좌표·바인드 포즈·본 계층·메시·가중치·FK/IK·가림 절차를 적용해 줘. 캐릭터·파츠·포즈의 페이드 교체로 동작을 대신하지 말고, 광원·발광 등 효과용 불투명도 애니메이션은 허용하며, 픽셀 일관성과 실제 재생으로 확인해 줘."
+  short_description: "키프레임 사용자 확인 후 리깅·대표 구간·중간 프레임 제작"
+  default_prompt: "$oojjrs-game-studio-sprite-pipeline으로 필요한 키프레임을 개수 고정 없이 먼저 만들어 보여주고, 내가 확인하기 전에는 파츠 분리·리깅·중간 프레임 보간·후속 전체 제작으로 넘어가지 마. 확인 후 대표 구간을 재생해 연결을 확인하고 전체 제작으로 확대해 줘. 본·메시 제작 전 $oojjrs-2d-sprite-animation의 references/rigging-playbook.md를 읽고 파츠·좌표·바인드 포즈·본 계층·메시·가중치·FK/IK·가림 절차를 적용해 줘. 캐릭터·파츠·포즈의 페이드 교체로 동작을 대신하지 말고, 광원·발광 등 효과용 불투명도 애니메이션은 허용하며, 픽셀 일관성과 실제 재생으로 확인해 줘."

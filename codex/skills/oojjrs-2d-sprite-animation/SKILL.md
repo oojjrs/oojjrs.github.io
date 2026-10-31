@@ -1,11 +1,11 @@
 ---
 name: oojjrs-2d-sprite-animation
-description: 2D 스프라이트 애니 제작·재작업·보정. 대기/idle·이동·공격·사망·성장/변태, 키포즈·프레임·시트·루프, 흔들림·찢어짐·파츠 분리 요청에 사용한다. Unity 클립/컨트롤러 설정, 3D·영상·CSS 애니는 제외한다.
+description: 2D 스프라이트 애니 제작·재작업·보정. 개수를 고정하지 않은 작화 키프레임을 먼저 사용자에게 확인받은 뒤 후속 제작한다. 대기/idle·이동·공격·사망·성장/변태, 키포즈·프레임·시트·루프, 흔들림·찢어짐·파츠 분리 요청에 사용한다. Unity 클립/컨트롤러 설정, 3D·영상·CSS 애니는 제외한다.
 ---
 
 # oojjrs 2D Sprite Animation
 
-계획·원화 생성·애니메이션 및 보정 코드 작성 전에 이 본문 전체를 읽고 적용한다. 현재 작업에서 이미 읽은 내용은 재사용하고, 새 대화·문맥 복구·지침 갱신 후에는 다시 읽는다. 설명 목록·호출 프롬프트·이전 결과만으로 본문을 읽었다고 판단하지 않는다. 작화 수와 구간별 기법, 파츠·기준점·검증 경로를 이번 동작에 맞춰 정한 뒤 제작하며, 같은 애니메이션의 후속 수정에도 본 스킬을 제작 기준으로 유지한다.
+계획·원화 생성·애니메이션 및 보정 코드 작성 전에 이 본문 전체를 읽고 적용한다. 현재 작업에서 이미 읽은 내용은 재사용하고, 새 대화·문맥 복구·지침 갱신 후에는 다시 읽는다. 설명 목록·호출 프롬프트·이전 결과만으로 본문을 읽었다고 판단하지 않는다. 작화 수와 구간별 기법을 정해 필요한 키프레임을 먼저 제시하고, 사용자 확인 전에는 파츠 분리·리깅·중간 프레임 보간·후속 전체 제작으로 넘어가지 않는다. 같은 애니메이션의 후속 수정에도 본 스킬을 제작 기준으로 유지한다.
 
 ## Required Rigging Reference
 
@@ -13,7 +13,9 @@ Before creating or revising any bone/mesh rig, read [the rigging playbook](refer
 
 ## Core Rule
 
-Follow this sequence: establish the target appearance and motion → divide the action into phases → choose and combine methods per phase and part → construct or redraw the required sources → inspect actual playback → repair until the requested quality is achieved.
+제작 순서: 목표 동작과 리깅 가능 범위 판단 → 필요한 작화 키프레임 제작·사용자 확인 → 승인된 키프레임의 파츠 분리·리깅 → 핵심 구간 재생 확인 → 중간 프레임 보간·추가 작화·전체 제작 → 최종 재생 검사.
+
+키프레임의 외형·실루엣·크기·기준점·동작 방향을 실제 사용할 그림으로 먼저 보여주고 사용자의 명시적 확인을 기다린다. 확인 전에는 파츠 분리·리깅·중간 프레임 보간·후속 전체 제작을 진행하지 않는다. 개수는 1장부터 전 프레임까지 동작에 맞춰 정하며, 기준 원화 한 장이면 그 한 장을 확인받고 전 프레임 작화면 확인 후 리깅·보간을 생략할 수 있다. 기존 디자인 승인이나 무응답을 이번 동작 키프레임의 확인으로 간주하지 않는다. 승인 후 외형·실루엣·크기·기준점·동작 방향이 바뀌거나 새 키프레임이 필요하면 변경된 그림을 다시 확인받은 뒤 해당 후속 제작을 재개한다.
 
 Own the production decisions within the authorized scope. Do not ask the user to choose routine technique, part, or phase boundaries. Use `$imagegen` / built-in `image_gen` for new or revised artwork, including complete key poses or every frame when necessary. Reusing original pixels, minimizing redraws, or finishing a rig is not the acceptance criterion; judge the actual appearance and motion. Honor explicit method, budget, and scope constraints.
 
@@ -44,13 +46,13 @@ Whole-image wobble, clipped joints, rubbery rigid objects, doubled outlines, gho
    - Preserve the approved design and motion intent, not an obligation to reuse its pixels. Redraw complete assets or all frames when that is needed within the requested revision; keep earlier sources recoverable.
    - Never hand-edit Unity YAML or `.meta` text; use the official Unity CLI and importer for Unity-side changes.
 
-2. Design the phases, key poses, trajectories, and timing.
+2. Design the phases, key poses, trajectories, and timing; present the required drawn keyframes for user approval.
    - Establish neutral, anticipation, contact or peak, and return or final poses.
    - Check silhouettes, anatomy, proportions, joint angles, part lengths, overlaps, and root or foot landmarks. Design motion arcs, acceleration and deceleration, holds, and delayed follow-through.
-   - Choose drawn, rigged, or mixed construction independently for each interval and moving part. Add a new drawing, replacement part set, or local rig whenever the existing source cannot reach the next pose faithfully.
-   - For an unfamiliar motion, establish a short representative interval at the intended display size before producing a batch. Keep confirmed artwork and motion properties recoverable; a checked key pose alone is not approval of the complete sequence.
+   - Assess drawn, rigged, or mixed construction independently for each interval and moving part. Identify the drawings, replacement parts, or local rigs needed when the existing source cannot reach the next pose faithfully; construct parts and rigs only after user approval of the keyframes.
+   - Show the actual keyframe drawings and wait for the user to explicitly confirm their appearance, silhouettes, size, landmarks, and motion direction before part extraction, rigging, in-between interpolation, or subsequent full production. Choose the drawing count by the motion, from one base drawing to every frame; never impose a preset count.
 
-3. When using bone/mesh animation, prepare complete layered parts.
+3. After keyframe approval, prepare complete layered parts when using bone/mesh animation.
    - Separate all independently articulated or occluding body regions into appropriate source layers and rig attachments, subdividing further wherever the required motion needs separate control. A complete character image on one layer is not a substitute for this part rig.
    - Keep a flexible surface continuous within its own part where a mesh is appropriate. Draw each part's hidden contour, underside, and the surface behind it; redraw the full part set if clean separation of the original is insufficient.
    - Provide overlap at joints, clean alpha edges, and sufficient texture padding. Separate foreground occluders and specify draw order, masks or clipping, pivots, and fixed versus moving regions.
@@ -62,6 +64,7 @@ Whole-image wobble, clipped joints, rubbery rigid objects, doubled outlines, gho
    - A single mesh may deform one continuous part; build separate attachments and occlusion structure for independently moving regions. Do not describe a whole-image mesh as a completed layered cutout rig.
    - Keep rig controls, textures, weights, and timelines editable. Check available authoring/export tools before choosing Spine or another format; do not assume the editor or runtime is installed.
    - Sample the local rig into as many frames as the motion requires. A generated key drawing may supply a rigged interval, followed by another drawn pose or interval with different sources; do not require one unchanged rig for the entire animation.
+   - After keyframe approval, play a short representative interval at the intended size and speed. Resolve seams, clipping, anchor drift, and unnatural motion before expanding the full sequence. User approval of static keyframes does not establish playback quality; fully drawn sequences may skip rigging and interpolation.
 
 5. Draw and combine as much artwork as the result needs.
    - Use imagegen for complete key poses, replacement parts, expressions, alternate views, newly exposed surfaces, or full drawn sequences. There is no limit to local redrawing when full-frame or whole-sequence reconstruction is needed within the authorized scope.
@@ -99,6 +102,8 @@ Whole-image wobble, clipped joints, rubbery rigid objects, doubled outlines, gho
 6. Route `.anim`, AnimatorController, override-controller, curve, state, transition, or binding work to `$oojjrs-unity-animation-asset-workflow` as a separate phase. Do not hand-author those YAML files.
 
 ## Validation
+
+- 실제 사용한 키프레임의 버전·동작에 대한 사용자 확인과, 확인 후 후속 제작을 진행한 순서를 확인한다. 키프레임 수를 고정하지 않았는지, 대표 구간의 실제 재생을 확인한 뒤 전체 제작으로 확대했는지도 확인한다.
 
 - 최종 재생과 사용한 리그·합성 설정에서 캐릭터·파츠·포즈를 페이드나 시간 가중 알파 혼합으로 교체해 동작을 대신하는 구간이 없는지 확인한다. 그런 결과는 완료로 인정하지 않으며, 광원·발광 등 효과용 불투명도 애니메이션은 유지할 수 있다.
 
