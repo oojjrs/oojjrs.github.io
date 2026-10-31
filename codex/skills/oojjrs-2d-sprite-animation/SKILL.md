@@ -1,9 +1,11 @@
 ---
 name: oojjrs-2d-sprite-animation
-description: Create or revise 2D sprite animation by choosing and combining drawn frames, complete layered bone/mesh rigs, and corrective compositing per motion phase. Use for key poses, full frame redraws, cutout rigs, hybrid sequences, repairs, sheets, and previews. Use properly separated part rigs for simple articulation; redraw key poses and rig local intervals for complex motion, or redraw every frame when needed. Iterate pixel-level consistency and actual playback quality; do not force one production method.
+description: 2D 스프라이트 애니 제작·재작업·보정. 대기/idle·이동·공격·사망·성장/변태, 키포즈·프레임·시트·루프, 흔들림·찢어짐·파츠 분리 요청에 사용한다. Unity 클립/컨트롤러 설정, 3D·영상·CSS 애니는 제외한다.
 ---
 
 # oojjrs 2D Sprite Animation
+
+계획·원화 생성·애니메이션 및 보정 코드 작성 전에 이 본문 전체를 읽고 적용한다. 현재 작업에서 이미 읽은 내용은 재사용하고, 새 대화·문맥 복구·지침 갱신 후에는 다시 읽는다. 설명 목록·호출 프롬프트·이전 결과만으로 본문을 읽었다고 판단하지 않는다. 작화 수와 구간별 기법, 파츠·기준점·검증 경로를 이번 동작에 맞춰 정한 뒤 제작하며, 같은 애니메이션의 후속 수정에도 본 스킬을 제작 기준으로 유지한다.
 
 ## Required Rigging Reference
 
@@ -15,10 +17,17 @@ Follow this sequence: establish the target appearance and motion → divide the 
 
 Own the production decisions within the authorized scope. Do not ask the user to choose routine technique, part, or phase boundaries. Use `$imagegen` / built-in `image_gen` for new or revised artwork, including complete key poses or every frame when necessary. Reusing original pixels, minimizing redraws, or finishing a rig is not the acceptance criterion; judge the actual appearance and motion. Honor explicit method, budget, and scope constraints.
 
+1. 작화 키프레임은 목표 동작에 필요한 자세·시점·형태를 그림으로 확보하기 위해 사용한다. 기준 원화 한 장과 리깅으로 전체 동작을 표현할 수 있으면, 작화 키프레임 한 장으로 모든 애니메이션 프레임을 만든다. 필요한 경우에는 모든 프레임을 직접 그리며, 이때는 전체 프레임이 작화 키프레임이 된다. 그 사이에서는 구간·부위별로 새 작화와 리깅을 자유롭게 조합한다. 작화 수와 제작 방법은 미리 고정하지 않고, 목표 동작의 자연스러움과 외형 일관성을 기준으로 결정한다.
+2. 최신 승인 원화와 현재 적용 경로를 먼저 확인한다. 재작업 대상과 승인된 외형·동작을 구분하고, 이미 통과한 부분을 임의로 다시 만들지 않는다.
+3. 공통 캔버스·배율·피벗으로 프레임을 대조한다. 전체 위치뿐 아니라 몸통의 크기·윤곽·질감과 부위별 기준점도 확인하며, 형태가 흔들리는 원화를 위치 보정만으로 통과시키지 않는다.
+4. 움직이는 파츠에서 주변 고정 픽셀을 분리하고, 가려진 면·관절 겹침·앞뒤 순서를 완성한다. 들리는 귀·갓·꼬리와 몸통의 연결을 동작 전 구간에서 확인한다.
+5. 동작은 대상의 구조와 기능에 맞춰 설계한다. 전용 공격·사망·변태를 기본 동작 복제나 단순 확대·교체로 대신하지 않으며, 효과만 요청한 경우 몸체 변형을 추가하지 않는다.
+6. 반복된 결함은 대표 구간에서 먼저 해결한 뒤 나머지로 확대한다. 성장·변태는 정해진 중심·단계·시간을 유지하고, 단계 사이의 중간 자세를 자연스럽게 연결한다.
+7. 제작 시험과 완성본을 구분한다. 실제 출력의 전체 구간을 재생하고 원본과 인코딩 결함을 분리하며, 게임 적용을 요청받았다면 실제 사용 경로와 요청된 선택·속성 조합까지 확인한다. 새 원화는 내장 imagegen을 사용하고 외부 생성기로 임의 전환하지 않는다.
+
 Choose methods by the actual motion and switch when the result warrants it:
 
 - Simple articulation: build complete separate part layers with meaningful pivots, bone hierarchy, meshes, and weights; use rigid transforms for hard parts and deformation for flexible parts.
-- Complex motion: draw the action-defining key poses first, then build suitable part rigs for individual intervals. Combine rendered rig frames, attachment swaps, and newly drawn transitions in one sequence; a single rig need not cover the whole action.
 - When rigging or local repair cannot reproduce the intended shape, perspective, overlap, or rhythm, redraw the required phase or the entire frame sequence. Do not force the original texture or topology to survive every pose.
 - Use registration, masks, compositing, warping, interpolation, timing edits, and other available production tools where they improve the result. Draw missing surfaces and poses rather than hiding defects with blending; no tool's name establishes quality.
 
@@ -34,7 +43,7 @@ Whole-image wobble, clipped joints, rubbery rigid objects, doubled outlines, gho
    - Never hand-edit Unity YAML or `.meta` text; use the official Unity CLI and importer for Unity-side changes.
 
 2. Design the phases, key poses, trajectories, and timing.
-   - Establish neutral, anticipation, contact or peak, and return or final poses. For complex actions, draw the necessary complete key poses before deciding how their intervening motion will be produced.
+   - Establish neutral, anticipation, contact or peak, and return or final poses.
    - Check silhouettes, anatomy, proportions, joint angles, part lengths, overlaps, and root or foot landmarks. Design motion arcs, acceleration and deceleration, holds, and delayed follow-through.
    - Choose drawn, rigged, or mixed construction independently for each interval and moving part. Add a new drawing, replacement part set, or local rig whenever the existing source cannot reach the next pose faithfully.
    - For an unfamiliar motion, establish a short representative interval at the intended display size before producing a batch. Keep confirmed artwork and motion properties recoverable; a checked key pose alone is not approval of the complete sequence.
