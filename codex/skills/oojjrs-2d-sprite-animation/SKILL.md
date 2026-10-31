@@ -25,6 +25,8 @@ Own the production decisions within the authorized scope. Do not ask the user to
 6. 반복된 결함은 대표 구간에서 먼저 해결한 뒤 나머지로 확대한다. 성장·변태는 정해진 중심·단계·시간을 유지하고, 단계 사이의 중간 자세를 자연스럽게 연결한다.
 7. 제작 시험과 완성본을 구분한다. 실제 출력의 전체 구간을 재생하고 원본과 인코딩 결함을 분리하며, 게임 적용을 요청받았다면 실제 사용 경로와 요청된 선택·속성 조합까지 확인한다. 새 원화는 내장 imagegen을 사용하고 외부 생성기로 임의 전환하지 않는다.
 
+8. 페이드인·페이드아웃·크로스페이드는 절대 사용하지 않는다. 캐릭터·파츠·레이어의 불투명도를 시간에 따라 바꾸거나 서로 다른 자세를 알파 혼합해 등장·퇴장·성장·변태·포즈 전환을 처리하는 방식도 금지한다. 필요한 변화는 실제 작화·파츠 움직임·리깅으로 표현한다. 정적인 투명 배경·안티앨리어싱·가림 마스크를 처리하는 알파와 시간에 따른 페이드 효과를 구분한다.
+
 Choose methods by the actual motion and switch when the result warrants it:
 
 - Simple articulation: build complete separate part layers with meaningful pivots, bone hierarchy, meshes, and weights; use rigid transforms for hard parts and deformation for flexible parts.
@@ -64,7 +66,7 @@ Whole-image wobble, clipped joints, rubbery rigid objects, doubled outlines, gho
 5. Draw and combine as much artwork as the result needs.
    - Use imagegen for complete key poses, replacement parts, expressions, alternate views, newly exposed surfaces, or full drawn sequences. There is no limit to local redrawing when full-frame or whole-sequence reconstruction is needed within the authorized scope.
    - For drawn sequences, supply the locked original and nearest accepted poses on both sides; preserve accepted files and draw the missing local interval. Choose individual frames or small groups for continuity without imposing a strip preference or one-call-per-frame rule.
-   - Match the scale, landmarks, contours, palette, shading, camera, and occlusion at every drawn/rigged handoff. Draw bridge poses or rebuild the local rig when a swap pops; do not conceal incompatible poses with a crossfade.
+   - Match the scale, landmarks, contours, palette, shading, camera, and occlusion at every drawn/rigged handoff. Draw bridge poses or rebuild the local rig when a swap pops. Fade-in, fade-out, crossfades, and animated opacity are prohibited for all animation, including pose handoffs.
    - Fix design drift in artwork and mechanical defects in rigging or timing. Keep the accepted concept, rhythm, amplitude, and endpoints while replacing whatever source material is necessary to meet them.
 
 6. Inspect actual playback and repair the demonstrated defect.
@@ -97,6 +99,8 @@ Whole-image wobble, clipped joints, rubbery rigid objects, doubled outlines, gho
 6. Route `.anim`, AnimatorController, override-controller, curve, state, transition, or binding work to `$oojjrs-unity-animation-asset-workflow` as a separate phase. Do not hand-author those YAML files.
 
 ## Validation
+
+- 최종 재생과 사용한 리그·합성 설정에서 페이드인·페이드아웃·크로스페이드·불투명도 애니메이션이 없는지 확인한다. 페이드나 시간 가중 알파 혼합으로 동작을 대신한 결과는 완료로 인정하지 않는다.
 
 - Identify the reference, redrawn poses, layered parts and hidden surfaces, local rigs/weights, and timelines actually used. Check only artifacts required by the chosen methods, including boundaries where methods or sources change; metadata labels do not prove the method.
 - Inspect actual playback against the current accepted reference, including motion readability, phase and loop boundaries, contacts, scale, palette, occlusion, clipping, and joint continuity. A static sheet or superseded approval does not establish success.
