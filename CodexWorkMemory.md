@@ -1,12 +1,12 @@
 # Codex work memory — oojjrs.github.io
 
-## Current summary — 2026-11-01T21:41:36+09:00
+## Current summary — 2026-11-01T21:46:50+09:00
 
 - Project history reconstruction: complete content for 203 visible project-associated chats / 1,423 turns / 8,834 user-agent message associations; collected 2026-11-01T12:20:18Z. Start with Project memory digest and the use-date index below, then search only the relevant thread/record.
 - Record provenance distinguishes user words, Codex statements/decisions and verified tool observations. Writing time, source thread/turn dates and source-storage time are separate; missing exact event time is unknown. Explicit corrections and current evidence govern supersession, not a newer import timestamp.
 - Prior user-directed public source exclusions remain effective; restricted bodies/identifiers are withheld with source IDs preserved. Shared inherited records are referenced once instead of losing their source associations.
 - Last verified reconstruction publication: c3a16048b9de9bf7c0e934dfaf9f2ad7a5cd6ef2; origin/master and initiating local master matched at readback. Observed by 2026-11-01T12:30:37Z; source: successful exec output chunk 9fd4f6. Reconstruction and requested push are complete; the separate completion observation below is also preserved for later PCs.
-- Current task complete as observed at 2026-11-01T12:41:36Z: common/document/practical rules and core/finish skills published in b7e8a3861c999de16cd28ce164ea7b7568ecc4c1; exact remote/local tips matched, Pages run 41307397241 succeeded, live common/document/practical rules matched the new policy, and the pinned installer checked 39 skills / 101 files (4 updated, 97 unchanged). Related completion evidence is appended below. The 203-thread reconstruction remains complete; pre-existing music-generator source edits remain excluded and protected.
+- Current authorized task as of 2026-11-01T12:46:50Z: add shared missing-memory initialization from all accessible related active/archived project user chats, with actual conversation pages, dates/provenance, summary/source index and explicit coverage/gaps/resumption. Commit/push only this task and synchronize the complete managed installed set from the pushed immutable source. Prior provenance-policy publication/sync and the 203-thread reconstruction remain complete. Preserve/exclude the pre-existing music-generator source edits; the current new policy publication is not yet verified.
 - Collector: Codex /root, OOJJRS-PC; source chat 01a196e0-b9a2-7ae1-b752-d4cece7f4de3 (source title at history reconstruction: 프로젝트 전체 스레드 작업 메모리 복원 및 게시).
 
 ## Record index
@@ -61788,3 +61788,17 @@ Public-exclusion handling: prior explicit source-removal requests remain effecti
 - event_time: exact per-action event times were not collected; recorded_at is the completion-observation writing time, not a guessed commit/push/installation timestamp.
 - supersedes: the in-progress summary and pending-status entry for policy-user-01a19719-4550-7b50-bc97-7036e075da70. Earlier raw records remain historical evidence; this observation records the confirmed result.
 - follow-up bookkeeping: publishing this observation changes only CodexWorkMemory.md. The installed managed skill source tree remains the verified pinned source above; do not repeat installation solely for a memory-only bookkeeping commit.
+
+## Shared missing-memory initialization — 2026-11-01T21:46:50+09:00
+
+- record_id: bootstrap-user-01a19723-ba92-7622-9bcd-7cea1ed2df95
+- recorded_at_utc: 2026-11-01T12:46:50Z; recorded_at_local: 2026-11-01T21:46:50+09:00 (Asia/Seoul)
+- recorder: Codex /root; recorder_machine: OOJJRS-PC; source_kind: user_instruction; speaker: user; decision_owner: user
+- source_thread_id: 01a196e0-b9a2-7ae1-b752-d4cece7f4de3; source_thread_link: codex://threads/01a196e0-b9a2-7ae1-b752-d4cece7f4de3; source_host: local
+- source_turn_id: 01a19723-99ca-73b3-95e4-545ad56bfab8; source_item_id: 01a19723-ba92-7622-9bcd-7cea1ed2df95; source_turn_started_at_utc: 2026-11-01T12:44:15Z; exact_utterance_time: unknown
+> 다른 프로젝트에서도 메모리가 없으면 기존 스레드들을 날짜·출처까지 확인해서 초기 메모리를 만들도록 공통 지침과 스킬에 넣어. 이번 변경만 커밋 푸시하고 설치본도 동기화해.
+
+- authorized scope: shared guideline/skill changes, this task's scoped commit/push and full-set installed-skill synchronization. This request changes the startup policy for other projects; it does not request creating memory files in every other project right now.
+- implementation_judgment / decision_owner=Codex: distinguish absent/explicitly unfinished initialization from normal retrieval. Enumerate all accessible related active/archive user chats and read every conversation page; retain dates/actors/source IDs, summary/source index and cutoff/read coverage/gaps/continuation. Never satisfy bootstrap with an empty/current-request-only file or claim unavailable history was read.
+- no-history handling: preserve verified current context and explicit limits; do not fabricate dates or decisions. Finished projects reuse normal targeted retrieval instead of repeatedly rebuilding history.
+- pending at this writing: scoped source checks/staged review, publication readback, complete pinned installation and online canonical verification; no success is prewritten.
