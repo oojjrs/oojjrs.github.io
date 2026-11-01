@@ -1,5 +1,25 @@
 # Codex work memory — oojjrs.github.io
 
+## Current summary — 2026-11-01 Asia/Seoul
+
+- Current authorized outcome: add memory reading/search/summary-index management and optional task-related memory commit inclusion to public rules and skill sources, commit only these edits, push origin/master, then sync all active managed installed skills from the pushed immutable commit.
+- Memory operation: summary/progress first on start/resumption; search relevant topic/file/term history when a request depends on past decisions; reuse already-read unchanged content; verify uncertain recollection against memory and the current project.
+- Codex maintains summary/index as records grow and preserves original records. Users do not manage retrieval.
+- Task commit authorization also covers useful task-related memory changes without separate inclusion permission. Inclusion is optional; unrelated/unknown hunks remain excluded.
+- Design.html promotion still requires separate prior approval of exact wording and placement. Memory does not grant execution or publication authority.
+- Previous memory-rule publication: c347cccc5dbc57ad1358578352f59d4adfff3da3; origin/master readback matched; installer checked 39 skills / 101 files, updated 4 and left 97 unchanged.
+- Current source baseline: 9e77680acd4eea99cec7b63cabb40bec0e45dcf5 (includes the subsequent Spawner original asset commit). Local master equaled fetched origin/master before editing.
+- Preserve and exclude the pre-existing music-generator SKILL.md and agents/openai.yaml changes. Their recorded SHA-256 values remain 99B8DC4959E1B1C3E023EDE1D71BD69105BB7401C8FC0147C3B875A38BE16884 and 58C692B69986CECC42403A44923591B857ABB2CE718B776997866DB8AB28846E.
+- Current phase: source edits prepared for format checks and staged review. Planned subject: 프로젝트 작업 메모리 탐색과 커밋 규칙 추가. Read final tool output for publication and installer results; no content edits after freezing the commit.
+
+## Record index
+
+- Initial rationale, original user wording and storage correction: `durable project work memory rules` below.
+- Initial local verification: `Local finish evidence` below.
+- First authorized publication: `authorized publication follow-up` below; completed result summarized above.
+- Retrieval behavior and optional commit inclusion: `retrieval management and commit inclusion` below.
+- Find detailed records with topic/file/term searches and read the relevant section; historical pending states below describe their original phase and are superseded by this summary and later records.
+
 ## 2026-11-01 Asia/Seoul — durable project work memory rules
 
 Current task: add a Codex-only project work memory exception to public document rules and skill sources. This is a local content edit. No staging, commit, push, publication, or installed-skill refresh has been requested.
@@ -65,3 +85,23 @@ This instruction supersedes the earlier local-only finish state. It authorizes c
 - After push, read back origin/master and require equality with the initiating checkout's committed tip.
 - Download and verify codex/skills/install.ps1 from the pushed commit, then run its complete active-set synchronization into D:\.codex\skills. Matching files remain untouched; only changed or missing files transfer.
 - Do not append content after freezing this commit's scope. The resulting commit, remote-readback and installer counts will be in this task's closing tool results and final reply; read current Git and installed state when resuming.
+
+## 2026-11-01 — retrieval management and commit inclusion
+
+User messages since the first publication:
+> 그럼 이제 다른 프로젝트에서도 작업 시작할 때 CodexWorkMemory.md를 읽고, 없으면 알아서 만들어서 기록하는 거지?
+> 내가 뭐 시키면 알아서 필요 시 메모리 뒤져보나? 매번 읽으면 그것도 문젠데 필요한 내용을 못 읽으면 그것도 문제고
+> 어차피 너한테 필요한 거지 나한테 필요한 것들이 아니거든?
+> 방금 말한 메모리 읽기·검색·요약 관리 방식도 지침과 스킬에 반영해줘. 이번 변경만 커밋하고 푸시한 다음 설치본도 동기화하고.
+> 작업 커밋할 때 기획서도 보통 같이 하는 것처럼, 니 메모리도 필요하면 같이 커밋해도 돼 (연관된 내용일테니까) 그것도 명시해놔야할 것 같은데?
+
+Approved behavior:
+- Read current summary and progress on start/resumption.
+- For new requests involving prior decisions, search relevant topic/file/term records and read needed sections.
+- Reuse already-read unchanged content instead of rereading everything.
+- When recollection is uncertain, check memory and current project facts before judging or asking for already-settled context.
+- Codex manages current summary and index as records grow, preserves original records, and does not require the user to direct retrieval.
+- A requested task commit may include useful memory changes related to the same task without separate memory inclusion approval. It is optional and does not include unrelated/unknown records or grant new Git/publication authority.
+
+Implementation scope: document-writing and common rules; practical decision/resumption references; core guideline skill/prompt; focused Design router and builder; finish skill/prompt; this memory's summary/index and appended history. No installer algorithm changes are needed.
+Publication authorization is current and explicit. Prior board lookup found no repository-linked boards; pre-existing source edits remain protected.

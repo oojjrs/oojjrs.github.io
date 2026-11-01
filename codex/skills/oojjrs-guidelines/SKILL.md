@@ -23,7 +23,15 @@ Before creating or editing any document or HTML file, read and follow `https://o
 
 프로젝트 작업의 기록·재개에는 문서 작성 지침의 CodexWorkMemory.md 예외를 적용한다. 이 예외는 읽기 전용 작업의 메모리 갱신과 기존 작업 기록 저장 금지·$Trash 한정 규정보다 우선하며, 다른 파일 수정이나 작업 실행·승인 권한은 늘리지 않는다.
 
-For project work, read the document-writing guideline and the project-root CodexWorkMemory.md at the start or resumption, create the memory file when needed, and update it during the task. Apply its free-writing exception even when another skill states a blanket document-text approval rule. Keep the exception limited to that memory file; promotion to Design.html or other documents still requires separate prior approval of exact wording and placement.
+For project work, read the document-writing guideline and start with the current summary and task status in the project-root CodexWorkMemory.md. Create the memory file when absent and update it during the task. Apply its free-writing exception even when another skill states a blanket document-text approval rule. Keep the exception limited to that memory file; promotion to Design.html or other documents still requires separate prior approval of exact wording and placement.
+
+- At task start or resumption, read the current summary and progress first.
+- When a new request depends on prior decisions, search the relevant topic, file or term and read the needed records.
+- Reuse already-read unchanged content; do not reread the entire memory for every request.
+- When recollection is uncertain, inspect memory and current project evidence before deciding or asking the user to repeat settled context.
+- As records grow, maintain a useful current summary and index while preserving the original records. Codex owns this organization and retrieval; do not require the user to specify where or when to read.
+
+An authorized task commit may include useful task-related memory changes without separate permission to include that file. This is optional and does not cover unrelated or unknown memory hunks or authorize an otherwise unrequested commit or push.
 
 Reading the canonical body is a prerequisite, not completion: apply its commit-message and task-title rules at the corresponding action. Before any commit, route through `$oojjrs-project-finish-work` and check the proposed message against the loaded canonical rule. A domain skill, English instructions, or recent agent-written history does not replace the user's message style.
 

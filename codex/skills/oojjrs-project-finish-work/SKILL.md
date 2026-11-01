@@ -11,6 +11,8 @@ Use this lifecycle skill only for Git or publication completion explicitly autho
 
 When Git completion follows review of an uncommitted result in the same Codex task, carry the most recently reported content scope forward as the candidate Git scope unless the latest request changes it. Immediately before staging, take one fresh status snapshot and inspect only the current working-tree, index, and untracked changes needed to account for every candidate or newly appearing path. Classify them against the carried task outcome as requested scope, related support, unrelated existing work, or unknown; classify by semantic role and conversation context, never by whether Codex or the user authored the bytes.
 
+An authorized task commit also permits including useful CodexWorkMemory.md updates related to that task without a separate request to include the memory file. Treat those hunks as related support during reconciliation; inclusion is optional, and unrelated or unknown memory records remain excluded. This standing inclusion authority does not authorize a commit, push or publication that the task has not requested.
+
 Preserve existing user code, assets, and unrelated hunks. The current Git instruction permits necessary in-scope maintenance-document and governed version updates before freezing. Requested-scope and related-support bytes are eligible to be staged after those updates when the instruction covers that outcome; unrelated and unknown bytes are not. If ownership overlaps, hunks are interleaved, or classification remains uncertain, load `$oojjrs-dirty-worktree-scope-split`. Freeze the final scope only after this reconciliation.
 
 ## Project Card Reconciliation
