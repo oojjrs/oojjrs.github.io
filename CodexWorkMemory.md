@@ -1,12 +1,12 @@
 # Codex work memory — oojjrs.github.io
 
-## Current summary — 2026-11-01T21:46:50+09:00
+## Current summary — 2026-11-01T21:52:16+09:00
 
 - Project history reconstruction: complete content for 203 visible project-associated chats / 1,423 turns / 8,834 user-agent message associations; collected 2026-11-01T12:20:18Z. Start with Project memory digest and the use-date index below, then search only the relevant thread/record.
 - Record provenance distinguishes user words, Codex statements/decisions and verified tool observations. Writing time, source thread/turn dates and source-storage time are separate; missing exact event time is unknown. Explicit corrections and current evidence govern supersession, not a newer import timestamp.
 - Prior user-directed public source exclusions remain effective; restricted bodies/identifiers are withheld with source IDs preserved. Shared inherited records are referenced once instead of losing their source associations.
 - Last verified reconstruction publication: c3a16048b9de9bf7c0e934dfaf9f2ad7a5cd6ef2; origin/master and initiating local master matched at readback. Observed by 2026-11-01T12:30:37Z; source: successful exec output chunk 9fd4f6. Reconstruction and requested push are complete; the separate completion observation below is also preserved for later PCs.
-- Current authorized task as of 2026-11-01T12:46:50Z: add shared missing-memory initialization from all accessible related active/archived project user chats, with actual conversation pages, dates/provenance, summary/source index and explicit coverage/gaps/resumption. Commit/push only this task and synchronize the complete managed installed set from the pushed immutable source. Prior provenance-policy publication/sync and the 203-thread reconstruction remain complete. Preserve/exclude the pre-existing music-generator source edits; the current new policy publication is not yet verified.
+- Current task complete as observed at 2026-11-01T12:52:16Z: shared missing-memory initialization published in 4ce9f62db0cdfe03f32ced93c0bdda95d39df565; exact remote/local tips matched, Pages run 41308217566 succeeded and live common/document/practical rules were verified. The pinned full installer checked 39 skills / 101 files (4 updated, 97 unchanged). The policy now requires all accessible related active/archive user-chat messages and dates/provenance, source/read coverage and resumable partial initialization, with verified-current-context limits when no history is available. Prior reconstruction/provenance work remains complete; pre-existing music-generator edits remain protected and excluded.
 - Collector: Codex /root, OOJJRS-PC; source chat 01a196e0-b9a2-7ae1-b752-d4cece7f4de3 (source title at history reconstruction: 프로젝트 전체 스레드 작업 메모리 복원 및 게시).
 
 ## Record index
@@ -61802,3 +61802,22 @@ Public-exclusion handling: prior explicit source-removal requests remain effecti
 - implementation_judgment / decision_owner=Codex: distinguish absent/explicitly unfinished initialization from normal retrieval. Enumerate all accessible related active/archive user chats and read every conversation page; retain dates/actors/source IDs, summary/source index and cutoff/read coverage/gaps/continuation. Never satisfy bootstrap with an empty/current-request-only file or claim unavailable history was read.
 - no-history handling: preserve verified current context and explicit limits; do not fabricate dates or decisions. Finished projects reuse normal targeted retrieval instead of repeatedly rebuilding history.
 - pending at this writing: scoped source checks/staged review, publication readback, complete pinned installation and online canonical verification; no success is prewritten.
+
+## Verified missing-memory initialization policy publication — 2026-11-01T21:52:16+09:00
+
+- record_id: observation-bootstrap-4ce9f62db0cdfe03f32ced93c0bdda95d39df565
+- recorded_at_utc: 2026-11-01T12:52:16Z; recorded_at_local: 2026-11-01T21:52:16+09:00 (Asia/Seoul)
+- recorder: Codex /root; recorder_machine: OOJJRS-PC; source_kind: tool_observation; speaker: tool results; decision_owner: not_applicable_to_observation
+- authorization_source_record: bootstrap-user-01a19723-ba92-7622-9bcd-7cea1ed2df95
+- source_thread_id: 01a196e0-b9a2-7ae1-b752-d4cece7f4de3; source_thread_link: codex://threads/01a196e0-b9a2-7ae1-b752-d4cece7f4de3; source_host: local; source_turn_id: 01a19723-99ca-73b3-95e4-545ad56bfab8
+- verified_source_commit: 4ce9f62db0cdfe03f32ced93c0bdda95d39df565; source_evidence: successful commit/push/installer exec output chunk 88dd69, Pages run 41308217566 successful watch exit, and live canonical/doc/practical readback.
+- exact_remote_readback: origin/master and initiating local master matched that pushed policy commit.
+- installer_source_commit: 4ce9f62db0cdfe03f32ced93c0bdda95d39df565; destination: D:\.codex\skills; 39 skills / 101 files checked; 4 updated, 97 unchanged; stale-file/skill removals 0.
+- live_common_canonical_sha256: f5864c7cac04afd265f3ae96505c80ab2f4b2a081b140578bb2033cc916b59c2
+- verified_online_sources: https://oojjrs.github.io/codex/common-work-guidelines.md; https://oojjrs.github.io/codex/document-writing-guideline.md; https://oojjrs.github.io/codex/practical-work-guidelines.md
+- confirmed_behavior: absent project memory initializes from all accessible confirmed project-related active/archive user chats, all listing and conversation pages, source dates and attribution, with summary/source index and coverage/gaps/continuation. Empty/current-request-only files or partial scans cannot be called completed initialization. Explicitly unfinished work resumes; completed unchanged history is reused.
+- no_history_limits: verified current context and source gaps are recorded without invented dates/decisions or a claim to have read unavailable history. This task did not initialize other project files now.
+- checks: exact-file encoding/EOL checks, core prompt quoted-value parse/required initialization conditions, final staged whitespace/diff review, protected source hashes, exact remote readback, complete pinned installation and online Pages/text verification.
+- event_time: exact per-action acceptance times are not supplied; recorded_at is the finish-observation writing time.
+- supersedes: pending status in bootstrap-user-01a19723-ba92-7622-9bcd-7cea1ed2df95 and the preceding in-progress summary. Raw historical records are retained.
+- bookkeeping: this finish observation changes only the project memory; the managed installed skill source tree stays identical to the verified pinned policy commit above.
