@@ -12,7 +12,7 @@ For `H:\Mines`, this skill owns substantive document layout or structure work. T
 ## Required Reads
 
 1. Read and follow `https://oojjrs.github.io/codex/document-writing-guideline.md` for every document or HTML edit, and `https://oojjrs.github.io/codex/guideline-design-generation.review.md` for Design-specific requirements. The common document text-addition approval rule governs every instruction below, including recovery, filename labels, prose, and asset-entry synchronization. Creating or recovering a document or page does not authorize text. New or replacement wording, including headings, navigation, filenames, captions, status labels, tooltips, and generated text, requires separate prior approval of its exact wording and placement. Assume 99% of text requests are refused: ask only when omitting the text would make the requested result impossible; otherwise omit it without asking. Present the exact wording, placement, and necessity in chat and wait for explicit approval before writing, including drafts and placeholders.
-2. Read the current `Design.html` if it exists.
+2. Read the project-root `CodexWorkMemory.md` for working context, then the current `Design.html` if it exists. Create and maintain only the memory file under the public document-writing free-writing exception; its records do not authorize text in `Design.html`.
 3. When a referenced model document is named, inspect that live document instead of relying on memory.
 
 ## Source Priority
@@ -23,7 +23,7 @@ Use this order to establish facts. A source supplies evidence, not permission to
 2. existing `Design.html`
 3. git history for missing or accidentally removed planning content
 4. original PDFs or source docs when rebuilding
-5. memory only as a clue for where to look
+5. `CodexWorkMemory.md` for prior user statements, decisions, rationale, work state and evidence pointers; distinguish past context from current facts and verify current project state before using it
 
 ## Document Shape
 
