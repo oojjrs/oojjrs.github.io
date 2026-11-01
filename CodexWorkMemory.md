@@ -1,13 +1,13 @@
 # Codex work memory — oojjrs.github.io
 
-## Current summary — 2026-11-01T21:36:32+09:00
+## Current summary — 2026-11-01T21:41:36+09:00
 
 - Project history reconstruction: complete content for 203 visible project-associated chats / 1,423 turns / 8,834 user-agent message associations; collected 2026-11-01T12:20:18Z. Start with Project memory digest and the use-date index below, then search only the relevant thread/record.
 - Record provenance distinguishes user words, Codex statements/decisions and verified tool observations. Writing time, source thread/turn dates and source-storage time are separate; missing exact event time is unknown. Explicit corrections and current evidence govern supersession, not a newer import timestamp.
 - Prior user-directed public source exclusions remain effective; restricted bodies/identifiers are withheld with source IDs preserved. Shared inherited records are referenced once instead of losing their source associations.
 - Last verified reconstruction publication: c3a16048b9de9bf7c0e934dfaf9f2ad7a5cd6ef2; origin/master and initiating local master matched at readback. Observed by 2026-11-01T12:30:37Z; source: successful exec output chunk 9fd4f6. Reconstruction and requested push are complete; the separate completion observation below is also preserved for later PCs.
-- Current authorized task: generalize second-resolution timestamps, speaker/decision-owner and thread provenance, revision/conflict handling and evidence-dated summaries into common/document rules and core/finish skills; commit/push only this task, then synchronize the full installed managed set from the pushed immutable commit. Preserve/exclude the pre-existing music-generator source edits. The preceding 203-thread reconstruction remains complete; this new publication/synchronization is in progress as of the summary time.
-- Collector: Codex /root, OOJJRS-PC; source chat 01a196e0-b9a2-7ae1-b752-d4cece7f4de3 (current title: 프로젝트 전체 스레드 작업 메모리 복원 및 게시).
+- Current task complete as observed at 2026-11-01T12:41:36Z: common/document/practical rules and core/finish skills published in b7e8a3861c999de16cd28ce164ea7b7568ecc4c1; exact remote/local tips matched, Pages run 41307397241 succeeded, live common/document/practical rules matched the new policy, and the pinned installer checked 39 skills / 101 files (4 updated, 97 unchanged). Related completion evidence is appended below. The 203-thread reconstruction remains complete; pre-existing music-generator source edits remain excluded and protected.
+- Collector: Codex /root, OOJJRS-PC; source chat 01a196e0-b9a2-7ae1-b752-d4cece7f4de3 (source title at history reconstruction: 프로젝트 전체 스레드 작업 메모리 복원 및 게시).
 
 ## Record index
 
@@ -61770,3 +61770,21 @@ Public-exclusion handling: prior explicit source-removal requests remain effecti
 - implementation_judgment / decision_owner=Codex: keep language and general memory layout free while making minimum provenance/time distinctions and correction/status references mandatory. Existing public exclusions and original records remain protected; no historical times are invented.
 - source changes: document-writing guideline; common rule 8; practical resumption; core guideline SKILL/default prompt; finish SKILL/default prompt; this task memory record. No new standalone skill or installer algorithm is needed.
 - pending at this observation: scoped format/staged review, authorized publication, exact remote readback, pinned full-set installed synchronization. A later verified finish observation must replace the in-progress summary; no success is recorded in advance.
+
+## Verified common provenance policy publication — 2026-11-01T21:41:36+09:00
+
+- record_id: observation-policy-b7e8a3861c999de16cd28ce164ea7b7568ecc4c1
+- recorded_at_utc: 2026-11-01T12:41:36Z; recorded_at_local: 2026-11-01T21:41:36+09:00 (Asia/Seoul)
+- recorder: Codex /root; recorder_machine: OOJJRS-PC; source_kind: tool_observation; speaker: tool results; decision_owner: not_applicable_to_observation
+- authorization_source_record: policy-user-01a19719-4550-7b50-bc97-7036e075da70
+- source_thread_id: 01a196e0-b9a2-7ae1-b752-d4cece7f4de3; source_thread_link: codex://threads/01a196e0-b9a2-7ae1-b752-d4cece7f4de3; source_host: local; source_turn_id: 01a19719-3cd0-7540-bafc-e0bce03b28b0
+- source_evidence: successful commit/push/installer exec output chunk d1372e, Pages run 41307397241 successful watch exit, and successful live canonical/doc/practical-rule readback.
+- verified_source_commit: b7e8a3861c999de16cd28ce164ea7b7568ecc4c1; verified_remote: origin/master matched initiating local master after that push.
+- installer_source_commit: b7e8a3861c999de16cd28ce164ea7b7568ecc4c1; destination: D:\.codex\skills; complete managed set: 39 skills / 101 files; updated 4, unchanged 97, stale-file/skill removals 0.
+- verified_online_sources: https://oojjrs.github.io/codex/common-work-guidelines.md; https://oojjrs.github.io/codex/document-writing-guideline.md; https://oojjrs.github.io/codex/practical-work-guidelines.md
+- common_canonical_readback_sha256: e96af5a22c73a435f8fa2319754af0ea352d7b3ed53b777c4a506ce6a9a6d94e
+- result_scope: second-resolution timezone-qualified writing times; separate speaker/decision-owner/provenance and record kinds; separate event/thread/storage/import times; explicit unknowns; linked corrections/supersession and unresolved conflicts; current-evidence comparisons; evidence-dated summaries updated from real outcomes.
+- checks: exact touched-file UTF-8 no BOM / CRLF preservation, two prompt quoted-value parses, final staged whitespace/diff review, protected music-source hashes, exact remote readback, full pinned installed-set verification, Pages deployment and actual canonical text readback.
+- event_time: exact per-action event times were not collected; recorded_at is the completion-observation writing time, not a guessed commit/push/installation timestamp.
+- supersedes: the in-progress summary and pending-status entry for policy-user-01a19719-4550-7b50-bc97-7036e075da70. Earlier raw records remain historical evidence; this observation records the confirmed result.
+- follow-up bookkeeping: publishing this observation changes only CodexWorkMemory.md. The installed managed skill source tree remains the verified pinned source above; do not repeat installation solely for a memory-only bookkeeping commit.
