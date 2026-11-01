@@ -1,12 +1,14 @@
 # Codex work memory — oojjrs.github.io
 
-## Current summary — 2026-11-01T21:52:16+09:00
+## Current summary — 2026-11-01T22:29:31+09:00
+
+- Active task: shared decision/end checkpoints and finish-skill atomic inclusion source edits are complete; scoped staged review, commit/push, Pages and installed-skill synchronization are pending. See memory-checkpoints-01a19748-5bb8-7901-9857-6a17bbbcec39 and checkpoint-pre-freeze below.
 
 - Project history reconstruction: complete content for 203 visible project-associated chats / 1,423 turns / 8,834 user-agent message associations; collected 2026-11-01T12:20:18Z. Start with Project memory digest and the use-date index below, then search only the relevant thread/record.
 - Record provenance distinguishes user words, Codex statements/decisions and verified tool observations. Writing time, source thread/turn dates and source-storage time are separate; missing exact event time is unknown. Explicit corrections and current evidence govern supersession, not a newer import timestamp.
 - Prior user-directed public source exclusions remain effective; restricted bodies/identifiers are withheld with source IDs preserved. Shared inherited records are referenced once instead of losing their source associations.
 - Last verified reconstruction publication: c3a16048b9de9bf7c0e934dfaf9f2ad7a5cd6ef2; origin/master and initiating local master matched at readback. Observed by 2026-11-01T12:30:37Z; source: successful exec output chunk 9fd4f6. Reconstruction and requested push are complete; the separate completion observation below is also preserved for later PCs.
-- Current task complete as observed at 2026-11-01T12:52:16Z: shared missing-memory initialization published in 4ce9f62db0cdfe03f32ced93c0bdda95d39df565; exact remote/local tips matched, Pages run 41308217566 succeeded and live common/document/practical rules were verified. The pinned full installer checked 39 skills / 101 files (4 updated, 97 unchanged). The policy now requires all accessible related active/archive user-chat messages and dates/provenance, source/read coverage and resumable partial initialization, with verified-current-context limits when no history is available. Prior reconstruction/provenance work remains complete; pre-existing music-generator edits remain protected and excluded.
+- Previous task complete as observed at 2026-11-01T12:52:16Z: shared missing-memory initialization published in 4ce9f62db0cdfe03f32ced93c0bdda95d39df565; exact remote/local tips matched, Pages run 41308217566 succeeded and live common/document/practical rules were verified. The pinned full installer checked 39 skills / 101 files (4 updated, 97 unchanged). The policy now requires all accessible related active/archive user-chat messages and dates/provenance, source/read coverage and resumable partial initialization, with verified-current-context limits when no history is available. Prior reconstruction/provenance work remains complete; pre-existing music-generator edits remain protected and excluded.
 - Collector: Codex /root, OOJJRS-PC; source chat 01a196e0-b9a2-7ae1-b752-d4cece7f4de3 (source title at history reconstruction: 프로젝트 전체 스레드 작업 메모리 복원 및 게시).
 
 ## Record index
@@ -61821,3 +61823,46 @@ Public-exclusion handling: prior explicit source-removal requests remain effecti
 - event_time: exact per-action acceptance times are not supplied; recorded_at is the finish-observation writing time.
 - supersedes: pending status in bootstrap-user-01a19723-ba92-7622-9bcd-7cea1ed2df95 and the preceding in-progress summary. Raw historical records are retained.
 - bookkeeping: this finish observation changes only the project memory; the managed installed skill source tree stays identical to the verified pinned policy commit above.
+
+## Memory-write consistency review — 2026-11-01T22:22:36+09:00
+
+- record_id: review-write-consistency-01a19745-4619-79c1-8028-452cf72d5e79
+- recorded_at_utc: 2026-11-01T13:22:36Z; recorded_at_local: 2026-11-01T22:22:36+09:00 (Asia/Seoul)
+- recorder: Codex /root; recorder_machine: OOJJRS-PC
+- source_thread_id: 01a196e0-b9a2-7ae1-b752-d4cece7f4de3; source_thread_link: codex://threads/01a196e0-b9a2-7ae1-b752-d4cece7f4de3; source_turn_id: 01a19745-29bb-73a2-ad5b-ec4aa46c103a; source_item_id: 01a19745-4619-79c1-8028-452cf72d5e79
+- source_kind: user_question/observation; speaker: user; decision_owner: not_applicable_to_question; exact_utterance_time: unknown
+> -_- 작업 시킬 때마다 딱히 메모리에 뭐 기록하는 것 같지 않은데, 쓸 게 없어서 안 쓰는 걸까 몰라서 안 쓰는 걸까?
+
+- tool_observation / evidence: read-only file/log inspection in this turn found this project's memory last written at 2026-11-01T12:52:17Z and included in the five latest memory-path commits: 8002750, 4ce9f62, 7c34c83, b7e8a38 and f9d04ab. This demonstrates writes for this chat's recent work, not for every other project.
+- verified_rule_text: the shared rules require keeping memory current during work and recording decisions/results, but do not explicitly enumerate event-time write checkpoints or a final memory-omission check. The finish skill's result-recording clause is conditional on updating memory; optional commit inclusion is a separate permission.
+- agent_assessment / decision_owner=Codex: a task with a new requirement, decision, changed rationale, verified outcome, blocker or next step has relevant memory content. If those are absent from memory, that is a recording/application omission, not evidence that there was nothing worth recording.
+- uncertainty: other project chats/files have not been inspected in this review, so neither their omission rate nor the specific cause is established. The weak write-checkpoint wording is an identified policy gap, not a proven cause for an uninspected chat.
+- this review records the user's concern and the supported findings only; no new shared-rule edit or Git publication was requested in this question.
+
+## Memory checkpoints and atomic task commits — 2026-11-01T22:28:19+09:00
+
+- record_id: memory-checkpoints-01a19748-5bb8-7901-9857-6a17bbbcec39
+- recorded_at_utc: 2026-11-01T13:28:19Z; recorded_at_local: 2026-11-01T22:28:19+09:00 (Asia/Seoul)
+- recorder: Codex /root; recorder_machine: OOJJRS-PC
+- source_thread_id: 01a196e0-b9a2-7ae1-b752-d4cece7f4de3; source_thread_link: codex://threads/01a196e0-b9a2-7ae1-b752-d4cece7f4de3; source_turn_id: 01a19748-52df-7151-8e2f-65a1042e571c
+- source_kind: explicit_user_instruction; speaker: user; decision_owner: user; exact_utterance_times: unknown
+- source_item_id: 01a19748-5bb8-7901-9857-6a17bbbcec39
+> 그럼 결정 직후랑 작업 종료 전에 메모리를 갱신하고 누락까지 점검하도록 공통 지침과 스킬에 명시해. 기록이 필요없을 수도 있지만, 하면 커밋도 작업들하고 아토믹하게 엮어서 같이 해야지. 이번 변경만 커밋 푸시하고 설치본도 동기화해.
+- source_item_id: 01a1974b-362e-7a91-b6af-f359b61c6641
+> 커밋하는 건 딱히 내 스킬 쓰는 거 아니지? 뭔가 내 스킬 중에 태스크 마감하는 스킬이 있으면 거기에 같이 기록해두면 되는 거 아님?
+
+- current_user_decision: record decisions immediately and inspect omissions before task completion; no filler record is required if there is no new meaningful information. When task-related memory changes exist and a task commit is authorized, include them atomically with the work rather than treating inclusion as optional.
+- routing / tool_observation: oojjrs-guidelines already routes every authorized commit through oojjrs-project-finish-work; put the pre-freeze memory check and atomic inclusion procedure there, with shared decision/end checkpoints in common rules and the base skill. Update conflicting optional-inclusion wording.
+- supersedes: optional inclusion in retrieval management and commit inclusion and the prior consistency review's description of that old policy. The review remains valid evidence of the wording before this instruction.
+- current_status: source edits, scoped review, commit/push and installed-skill synchronization are authorized and pending. Preserve the two unrelated music-generator source changes.
+
+## Checkpoint policy pre-freeze record — 2026-11-01T22:29:31+09:00
+
+- record_id: checkpoint-pre-freeze-01a19748-52df-7151-8e2f-65a1042e571c
+- recorded_at_utc: 2026-11-01T13:29:31Z; recorded_at_local: 2026-11-01T22:29:31+09:00 (Asia/Seoul)
+- recorder: Codex /root; recorder_machine: OOJJRS-PC; speaker: Codex; decision_owner: Codex for procedure placement, user for requested behavior
+- source_thread_id: 01a196e0-b9a2-7ae1-b752-d4cece7f4de3; source_thread_link: codex://threads/01a196e0-b9a2-7ae1-b752-d4cece7f4de3; source_turn_id: 01a19748-52df-7151-8e2f-65a1042e571c; user_source_items: 01a19748-5bb8-7901-9857-6a17bbbcec39, 01a1974b-362e-7a91-b6af-f359b61c6641; exact_utterance_times: unknown
+- tool_observation: source-edit command 88ae35 updated common/document/practical rules and the base/finish SKILL.md plus their default prompts. Current Git fetch c9fae5 found local master and origin/master equal at 80027503fa8a67faad72bf214e6a98914cc8cdbf; resolved root and origin match this project's dedicated repository.
+- agent_judgment / implementation: immediate decision recording is shared; pre-freeze omission comparison and required same-commit inclusion live in oojjrs-project-finish-work. Final comparison covers only meaningful new facts. No new information requires no filler edit, but never skips the check. Post-commit-only verified outcomes are written locally and carried into a later authorized related commit rather than causing repeated bookkeeping-only commits or published-history rewriting; a requested standalone memory task can have its own commit.
+- omission_check: current request, decision/rationale, changes, evidence already observed, scope exclusions and next steps are represented in this record and its referenced decision/consistency-review records. Relevant source files and this memory are one atomic task scope. The previous uncommitted consistency review is related diagnostic support; two music-generator changes are unrelated and excluded.
+- pending: scoped staged review and format/YAML checks, commit/push remote readback, full pinned installed-skill synchronization and Pages/live readback. No future success is asserted; meaningful new outcomes will be recorded after observation before the final response.
