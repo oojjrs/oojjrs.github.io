@@ -1,11 +1,11 @@
 # Codex work memory — oojjrs.github.io
 
-## Current summary — 2026-11-01T12:27:34Z
+## Current summary — 2026-11-01T21:30:37+09:00
 
 - Project history reconstruction: complete content for 203 visible project-associated chats / 1,423 turns / 8,834 user-agent message associations; collected 2026-11-01T12:20:18Z. Start with Project memory digest and the use-date index below, then search only the relevant thread/record.
 - Record provenance distinguishes user words, Codex statements/decisions and verified tool observations. Writing time, source thread/turn dates and source-storage time are separate; missing exact event time is unknown. Explicit corrections and current evidence govern supersession, not a newer import timestamp.
 - Prior user-directed public source exclusions remain effective; restricted bodies/identifiers are withheld with source IDs preserved. Shared inherited records are referenced once instead of losing their source associations.
-- Last earlier verified publication: 21914ec88e36031b5ae34fed78cb9cafddf8f857; installed skills 39 / files 101, with 6 updated and 95 unchanged. The current corpus publication has not yet been observed at this writing time; a later finish observation will supersede this status.
+- Last verified reconstruction publication: c3a16048b9de9bf7c0e934dfaf9f2ad7a5cd6ef2; origin/master and initiating local master matched at readback. Observed by 2026-11-01T12:30:37Z; source: successful exec output chunk 9fd4f6. Reconstruction and requested push are complete; the separate completion observation below is also preserved for later PCs.
 - Current content scope is CodexWorkMemory.md only. Preserve/exclude the pre-existing music-generator SKILL.md and agents/openai.yaml edits. No new public-rule or installed-skill change is part of this reconstruction.
 - Collector: Codex /root, OOJJRS-PC; source chat 01a196e0-b9a2-7ae1-b752-d4cece7f4de3 (current title: 프로젝트 전체 스레드 작업 메모리 복원 및 게시).
 
@@ -61738,3 +61738,18 @@ Public-exclusion handling: prior explicit source-removal requests remain effecti
 - Every inventoried thread has metadata and turns. Restricted-body exclusions are documented in place, not silently omitted.
 - Source database reads were read-only. No historical decision was executed, and no other project source file or installed skill was changed by this reconstruction.
 - Text/coverage checks and publication are reported by later explicitly attributed finish observations; this compiled snapshot does not fabricate future push success.
+
+## Verified reconstruction publication — 2026-11-01T21:30:37+09:00
+
+- record_id: publication-c3a16048b9de9bf7c0e934dfaf9f2ad7a5cd6ef2
+- recorded_at_utc: 2026-11-01T12:30:37Z; recorded_at_local: 2026-11-01T21:30:37+09:00 (Asia/Seoul)
+- recorder: Codex /root; collection machine: OOJJRS-PC
+- source_kind: tool_observation; source_thread_id: 01a196e0-b9a2-7ae1-b752-d4cece7f4de3; source_thread_link: codex://threads/01a196e0-b9a2-7ae1-b752-d4cece7f4de3
+- evidence: completed exec output chunk 9fd4f6; commit and push succeeded and exact remote/local tips were read back.
+- verified_commit: c3a16048b9de9bf7c0e934dfaf9f2ad7a5cd6ef2; branch: origin/master
+- result: reconstructed 203 visible project-associated chats, 1,423 turns and 8,834 source-message associations, with use dates, per-record speakers/source IDs and topic/index navigation.
+- checks: UTF-8 no BOM / CRLF preserved; all 203 thread anchors and 8,834 record IDs accounted for; public-exclusion scan passed; staged whitespace check passed after display-only trailing-space cleanup.
+- exclusions: 203 restricted bodies intentionally withheld under earlier explicit public source-removal instructions; 960 duplicate inherited bodies retain references. This is not a claim that those sources were unread.
+- preserved unrelated work: the two pre-existing music-generator source edits remain unstaged and uncommitted.
+- event_time: exact server acceptance time is not supplied; recorded_at is the observation-writing time, not an invented push event timestamp.
+- supersedes: the earlier summary that said the corpus publication had not yet been observed. This is evidence about the verified content-publication commit; publishing this observation may create a later bookkeeping commit without changing that completed result.
