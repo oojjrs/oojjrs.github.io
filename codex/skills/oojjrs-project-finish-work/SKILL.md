@@ -49,7 +49,7 @@ After pushing, read back the exact remote target and verify that it contains the
 6. If staged content changes, re-review only the final staged content and any policy directly affected by that change.
 7. Commit locally only as part of the explicitly authorized Git or publication outcome. Push, deploy, release, publish, or perform destructive Git operations only to the explicitly authorized target. For a branch push or branch-backed publication, follow **Remote Synchronization**; for another external result, read back the resulting state once.
 
-8. Reconcile project card status and work records with the verified result through **Project Card Reconciliation**. Report any failed board update as unfinished work even when Git succeeded.
+8. Reconcile project card status and work records with the verified result through **Project Card Reconciliation**. When updating CodexWorkMemory.md, apply the document-writing guideline's provenance/freshness policy: record the actual observed result with second-resolution timezone-qualified writing time, actor/decision-owner and source references; update the summary's evidence time and link superseded status. Do not prewrite push, publication, installation or other success from a plan or an agent report. Report any failed board update as unfinished work even when Git succeeded.
 
 ## Text Format
 

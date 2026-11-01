@@ -1,12 +1,12 @@
 # Codex work memory — oojjrs.github.io
 
-## Current summary — 2026-11-01T21:30:37+09:00
+## Current summary — 2026-11-01T21:36:32+09:00
 
 - Project history reconstruction: complete content for 203 visible project-associated chats / 1,423 turns / 8,834 user-agent message associations; collected 2026-11-01T12:20:18Z. Start with Project memory digest and the use-date index below, then search only the relevant thread/record.
 - Record provenance distinguishes user words, Codex statements/decisions and verified tool observations. Writing time, source thread/turn dates and source-storage time are separate; missing exact event time is unknown. Explicit corrections and current evidence govern supersession, not a newer import timestamp.
 - Prior user-directed public source exclusions remain effective; restricted bodies/identifiers are withheld with source IDs preserved. Shared inherited records are referenced once instead of losing their source associations.
 - Last verified reconstruction publication: c3a16048b9de9bf7c0e934dfaf9f2ad7a5cd6ef2; origin/master and initiating local master matched at readback. Observed by 2026-11-01T12:30:37Z; source: successful exec output chunk 9fd4f6. Reconstruction and requested push are complete; the separate completion observation below is also preserved for later PCs.
-- Current content scope is CodexWorkMemory.md only. Preserve/exclude the pre-existing music-generator SKILL.md and agents/openai.yaml edits. No new public-rule or installed-skill change is part of this reconstruction.
+- Current authorized task: generalize second-resolution timestamps, speaker/decision-owner and thread provenance, revision/conflict handling and evidence-dated summaries into common/document rules and core/finish skills; commit/push only this task, then synchronize the full installed managed set from the pushed immutable commit. Preserve/exclude the pre-existing music-generator source edits. The preceding 203-thread reconstruction remains complete; this new publication/synchronization is in progress as of the summary time.
 - Collector: Codex /root, OOJJRS-PC; source chat 01a196e0-b9a2-7ae1-b752-d4cece7f4de3 (current title: 프로젝트 전체 스레드 작업 메모리 복원 및 게시).
 
 ## Record index
@@ -61753,3 +61753,20 @@ Public-exclusion handling: prior explicit source-removal requests remain effecti
 - preserved unrelated work: the two pre-existing music-generator source edits remain unstaged and uncommitted.
 - event_time: exact server acceptance time is not supplied; recorded_at is the observation-writing time, not an invented push event timestamp.
 - supersedes: the earlier summary that said the corpus publication had not yet been observed. This is evidence about the verified content-publication commit; publishing this observation may create a later bookkeeping commit without changing that completed result.
+
+## Common provenance and freshness policy — 2026-11-01T21:36:32+09:00
+
+- record_id: policy-user-01a19719-4550-7b50-bc97-7036e075da70
+- recorded_at_utc: 2026-11-01T12:36:32Z; recorded_at_local: 2026-11-01T21:36:32+09:00 (Asia/Seoul)
+- source_observed_at_utc: 2026-11-01T12:34:32Z
+- recorder: Codex /root; machine: OOJJRS-PC
+- source_kind: user_instruction; speaker: user; decision_owner: user
+- source_thread_id: 01a196e0-b9a2-7ae1-b752-d4cece7f4de3; source_thread_link: codex://threads/01a196e0-b9a2-7ae1-b752-d4cece7f4de3; source_host: local
+- source_turn_id: 01a19719-3cd0-7540-bafc-e0bce03b28b0; source_item_id: 01a19719-4550-7b50-bc97-7036e075da70
+- source_turn_started_at_utc: 2026-11-01T12:32:56Z; exact_utterance_time: unknown (the turn timestamp is labelled separately)
+> 시분초·발언자·결정 주체·스레드 출처를 남기고 최신 내용을 구분하는 방식도 공통 지침이랑 스킬에 반영해. 다른 프로젝트에서도 똑같이 쓰도록 커밋 푸시하고 설치본도 동기화해.
+
+- authorization: explicitly includes the common-guideline and skill edits, task-scoped commit/push, and complete managed installed-set synchronization. This supersedes the earlier reconstruction-only content scope.
+- implementation_judgment / decision_owner=Codex: keep language and general memory layout free while making minimum provenance/time distinctions and correction/status references mandatory. Existing public exclusions and original records remain protected; no historical times are invented.
+- source changes: document-writing guideline; common rule 8; practical resumption; core guideline SKILL/default prompt; finish SKILL/default prompt; this task memory record. No new standalone skill or installer algorithm is needed.
+- pending at this observation: scoped format/staged review, authorized publication, exact remote readback, pinned full-set installed synchronization. A later verified finish observation must replace the in-progress summary; no success is recorded in advance.
