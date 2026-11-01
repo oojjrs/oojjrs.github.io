@@ -1,0 +1,117 @@
+{
+  "schemaVersion": 1,
+  "tribe": "spring",
+  "label": "샘방울",
+  "palette": "teal and mint",
+  "createdDate": "2026-10-23",
+  "assetCount": 11,
+  "newlyGeneratedSourceCount": 10,
+  "reusedApprovedCount": 1,
+  "mounting": {
+    "coordinateSpace": "alpha-trimmed starter content bounds",
+    "origin": "top-left",
+    "center": "normalized body bounds",
+    "width": "ratio of trimmed body width",
+    "previewBodyBox": {
+      "x": 95,
+      "y": 100,
+      "width": 250,
+      "height": 262
+    },
+    "note": "Mounts are authored static composition coordinates; runtime integration should use the same trimmed coordinate space."
+  },
+  "assets": [
+    {
+      "id": "starter",
+      "kind": "starter",
+      "source": "DesignAssets/TribeConcepts/base-water-droplet-teal-v2.png",
+      "reusedApproved": true,
+      "path": "DesignAssets/Tribes/spring/starter.png",
+      "width": 115,
+      "height": 115,
+      "channels": "srgba 4.0",
+      "meanAlpha": 0.362141,
+      "alphaBounds10Percent": "79x103+23+13"
+    },
+    {
+      "id": "nest-stage-01",
+      "kind": "nest",
+      "stage": 1,
+      "source": "DesignAssets/TribeConcepts/Nests/nest-stage-01-spring-teal-v2.png",
+      "reusedApproved": false,
+      "path": "DesignAssets/Tribes/spring/Nests/nest-stage-01.png",
+      "width": 657,
+      "height": 328,
+      "channels": "srgba 4.0",
+      "meanAlpha": 0.379672,
+      "alphaBounds10Percent": "594x234+57+74",
+      "revision": 2
+    },
+    {
+      "id": "nest-ground",
+      "kind": "terrain",
+      "path": "DesignAssets/Tribes/spring/Terrain/nest-ground.png",
+      "width": 768,
+      "height": 768,
+      "channels": "srgba 4.0",
+      "meanAlpha": 0.608926,
+      "alphaBounds10Percent": "730x696+19+36"
+    },
+    {
+      "id": "shell-1",
+      "kind": "part",
+      "stage": 1,
+      "mount": {
+        "center": [
+          0.5,
+          0.8
+        ],
+        "width": 1.37,
+        "layer": "front"
+      },
+      "path": "DesignAssets/Tribes/spring/Units/Parts/shell-1.png",
+      "width": 766,
+      "height": 502,
+      "channels": "srgba 4.0",
+      "meanAlpha": 0.328032,
+      "alphaBounds10Percent": "755x413+6+75"
+    },
+    {
+      "id": "shell-2",
+      "kind": "part",
+      "stage": 2,
+      "mount": {
+        "center": [
+          0.5,
+          0.79
+        ],
+        "width": 1.48,
+        "layer": "front"
+      },
+      "path": "DesignAssets/Tribes/spring/Units/Parts/shell-2.png",
+      "width": 767,
+      "height": 579,
+      "channels": "srgba 4.0",
+      "meanAlpha": 0.449425,
+      "alphaBounds10Percent": "758x518+5+39"
+    }
+  ],
+  "previews": {
+    "equipped": "DesignAssets/Tribes/spring/Previews/parts-equipped.png",
+    "isolated": "DesignAssets/Tribes/spring/Previews/parts-isolated.png"
+  },
+  "generationPrompts": "DesignAssets/Tribes/spring/generation-prompts.json",
+  "postprocess": {
+    "alphaCleaned": [
+      "strength-2",
+      "antenna-1"
+    ],
+    "operation": "65% alpha threshold and alpha-only 0.35 pixel soft edge; generated RGB art unchanged"
+  },
+  "nestRevision": {
+    "version": 2,
+    "design": "비대칭 샘과 계단식 수면, 중앙 물방울 제거",
+    "prompts": "DesignAssets/Tribes/spring/nest-revision-v2-prompts.json"
+  },
+  "parts": {}
+}

@@ -1,0 +1,98 @@
+{
+  "id": "spore",
+  "name": "포자버섯",
+  "status": "art-ready",
+  "coordinateSpace": {
+    "width": 1254,
+    "height": 1254,
+    "origin": "top-left of approved starter canvas",
+    "partSource": "alpha-trim before uniform width resize",
+    "mount": "x/y top-left in starter canvas; artwork aspect ratio preserved"
+  },
+  "starter": "DesignAssets/Tribes/spore/starter.png",
+  "parts": {
+    "shell-1": "DesignAssets/Tribes/spore/Parts/shell-1.png",
+    "shell-2": "DesignAssets/Tribes/spore/Parts/shell-2.png"
+  },
+  "nests": [
+    "DesignAssets/Tribes/spore/Nests/nest-stage-01.png"
+  ],
+  "ground": "DesignAssets/Tribes/spore/Terrain/nest-ground.png",
+  "assets": [
+    {
+      "path": "DesignAssets/Tribes/spore/starter.png",
+      "width": 87,
+      "height": 87,
+      "channels": "srgba 4.0",
+      "hasTransparency": true,
+      "alphaBoundsThreshold10": "1220x863+17+235",
+      "bytes": 881085
+    },
+    {
+      "path": "DesignAssets/Tribes/spore/Parts/shell-1.png",
+      "width": 144,
+      "height": 94,
+      "channels": "srgba 4.0",
+      "hasTransparency": true,
+      "alphaBoundsThreshold10": "1550x1010+0+3",
+      "bytes": 1210804,
+      "mount": {
+        "x": 232,
+        "y": 605,
+        "width": 790,
+        "layer": "front",
+        "height": 515
+      }
+    },
+    {
+      "path": "DesignAssets/Tribes/spore/Parts/shell-2.png",
+      "width": 144,
+      "height": 108,
+      "channels": "srgba 4.0",
+      "hasTransparency": true,
+      "alphaBoundsThreshold10": "1441x1089+2+0",
+      "bytes": 1372797,
+      "mount": {
+        "x": 212,
+        "y": 540,
+        "width": 830,
+        "layer": "front",
+        "height": 627
+      }
+    },
+    {
+      "path": "DesignAssets/Tribes/spore/Nests/nest-stage-01.png",
+      "width": 589,
+      "height": 589,
+      "channels": "srgba 4.0",
+      "hasTransparency": true,
+      "alphaBoundsThreshold10": "1177x790+38+231",
+      "bytes": 924139
+    },
+    {
+      "path": "DesignAssets/Tribes/spore/Terrain/nest-ground.png",
+      "width": 768,
+      "height": 768,
+      "channels": "srgba 4.0",
+      "hasTransparency": true,
+      "alphaBoundsThreshold10": "1231x1026+16+115",
+      "bytes": 1283134
+    }
+  ],
+  "approved": [
+    {
+      "path": "DesignAssets/Tribes/spore/starter.png",
+      "approvedSource": "DesignAssets/TribeConcepts/base-spore-mushroom-coral-v2.png",
+      "byteIdenticalToApproved": true
+    },
+    {
+      "path": "DesignAssets/Tribes/spore/Nests/nest-stage-01.png",
+      "approvedSource": "DesignAssets/TribeConcepts/Nests/nest-stage-01-spore-coral-v1.png",
+      "byteIdenticalToApproved": true
+    }
+  ],
+  "previews": [
+    "DesignAssets/Tribes/spore/Previews/parts-equipped.png",
+    "DesignAssets/Tribes/spore/Previews/parts-isolated.png"
+  ]
+}

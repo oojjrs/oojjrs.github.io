@@ -1,0 +1,105 @@
+{
+  "tribe": "pebble",
+  "label": "몽돌",
+  "staticSources": [
+    {
+      "file": "starter.png",
+      "kind": "starter",
+      "reusedFrom": "DesignAssets/TribeConcepts/base-river-pebble-ochre-v2.png",
+      "path": "DesignAssets/Tribes/pebble/starter.png",
+      "width": 101,
+      "height": 101,
+      "channels": "srgba 4.0",
+      "alpha": true,
+      "alphaBoundsThreshold10": "1135x838+60+242",
+      "bytes": 1025979,
+      "byteIdenticalToApproved": true
+    },
+    {
+      "file": "Nests/nest-stage-01.png",
+      "kind": "nest",
+      "level": 1,
+      "reusedFrom": "DesignAssets/TribeConcepts/Nests/nest-stage-01-pebble-den-v2.png",
+      "path": "DesignAssets/Tribes/pebble/Nests/nest-stage-01.png",
+      "width": 654,
+      "height": 654,
+      "channels": "srgba 4.0",
+      "alpha": true,
+      "alphaBoundsThreshold10": "1138x607+61+417",
+      "bytes": 853161,
+      "byteIdenticalToApproved": true
+    },
+    {
+      "file": "Terrain/nest-soil-ground.png",
+      "kind": "ground",
+      "path": "DesignAssets/Tribes/pebble/Terrain/nest-soil-ground.png",
+      "width": 768,
+      "height": 512,
+      "channels": "srgba 4.0",
+      "alpha": true,
+      "alphaBoundsThreshold10": "1412x523+65+266",
+      "bytes": 1301601
+    },
+    {
+      "file": "Parts/shell-1.png",
+      "kind": "part",
+      "type": "shell",
+      "level": 1,
+      "path": "DesignAssets/Tribes/pebble/Parts/shell-1.png",
+      "width": 144,
+      "height": 144,
+      "channels": "srgba 4.0",
+      "alpha": true,
+      "alphaBoundsThreshold10": "1212x735+21+298",
+      "bytes": 658661,
+      "mount": {
+        "center": [
+          0.5,
+          0.55
+        ],
+        "widthRatio": 1.29,
+        "partPivot": [
+          0.5,
+          0.5
+        ],
+        "layer": "front"
+      }
+    },
+    {
+      "file": "Parts/shell-2.png",
+      "kind": "part",
+      "type": "shell",
+      "level": 2,
+      "path": "DesignAssets/Tribes/pebble/Parts/shell-2.png",
+      "width": 144,
+      "height": 144,
+      "channels": "srgba 4.0",
+      "alpha": true,
+      "alphaBoundsThreshold10": "1136x780+59+259",
+      "bytes": 801197,
+      "mount": {
+        "center": [
+          0.5,
+          0.55
+        ],
+        "widthRatio": 1.29,
+        "partPivot": [
+          0.5,
+          0.5
+        ],
+        "layer": "front"
+      }
+    }
+  ],
+  "mountSpace": {
+    "origin": "top-left of alpha-trimmed starter",
+    "baseWidth": 1,
+    "baseHeight": 1,
+    "center": "normalized x/y against starter alpha bounds",
+    "widthRatio": "trimmed part width / trimmed starter width",
+    "partPivot": "normalized within alpha-trimmed part"
+  },
+  "previews": [
+    "DesignAssets/Tribes/pebble/Previews/parts-contact.png"
+  ]
+}
