@@ -31,3 +31,4 @@ This URL is the only authoritative runtime source. Read it once at the start of 
 17. Parameter default values and named arguments are prohibited by default; obtain the user's explicit approval before using either syntax in code.
 18. Run every shell-based GitHub request outside the sandbox from the first attempt with `sandbox_permissions: require_escalated`, including authentication checks, `gh` reads and writes, GitHub REST/GraphQL calls, Git network operations, and GitHub downloads or installers. Never probe GitHub inside the sandbox first or treat a sandbox credential failure as a reason to reauthenticate or alter stored credentials.
 19. 단일 작업은 메인이 직접 수행하고 검수한다. 병렬 분담이 필요한 독립 작업이 여러 개일 때만 현재 메인과 동일한 모델과 추론 강도의 서브에이전트에 맡긴다. 각 서브에이전트는 맡은 작업과 자체 검수를 완료하고, 메인은 작업 분배·조율·결과 취합을 담당한다. 메인의 모델과 추론 강도는 사용자가 명시적으로 요청하지 않는 한 변경하지 않는다.
+20. 허가 없이 브랜치 만들지 말 것.

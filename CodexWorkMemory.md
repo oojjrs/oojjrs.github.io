@@ -1,5 +1,9 @@
 # Codex work memory — oojjrs.github.io
 
+## Current task — 2026-11-06T05:15:27+09:00
+
+- Publication in progress: the user authorized 배포하고 푸시해. Common rule 20 remains exactly 허가 없이 브랜치 만들지 말 것. Initiating master has been fast-forwarded to origin/master 8034097da6bf9f1f241985a8f8815cc21f947c4b; all four dirty files and the empty index were restored and verified. Freeze only the common rule and related task-memory hunks; scoped commit/push and Pages/canonical readback remain pending. Evidence: branch-permission-publication-01a1ad53-d810-7db2-8086-1441b0786a44.
+
 ## Current summary — 2026-11-04T21:20:10+09:00
 
 - Current task: same-model/same-effort rule 19 is locally complete and the user authorized commit, push, public publication and pinned-chat propagation. Scoped staging/publication/propagation are pending; protected unrelated memory and skill hunks remain excluded. Evidence: same-effort-publication-01a1a5ff-ed77-76f3-b2e0-bd14e0cbae38.
@@ -13,6 +17,7 @@
 
 ## Record index
 
+- Branch creation requires user permission: branch-permission-01a1ad53-d810-7db2-8086-1441b0786a44.
 - Same-model/same-effort orchestration revision: see orchestration-same-level-revision-01a1a5ff-ed77-76f3-b2e0-bd14e0cbae38; the prior low-only rule 19 is superseded locally.
 - Complete reconstruction: Project memory digest / Thread use-date and source index / Attributed project thread records below.
 - Current provenance, completion correction, and project-history reconstruction: see Provenance correction below.
@@ -21,6 +26,30 @@
 - First authorized publication: `authorized publication follow-up` below; completed result summarized above.
 - Retrieval behavior and optional commit inclusion: `retrieval management and commit inclusion` below.
 - Find detailed records with topic/file/term searches and read the relevant section; historical pending states below describe their original phase and are superseded by this summary and later records.
+
+## 2026-11-06T05:10:10+09:00 — branch creation permission
+
+- record_id: branch-permission-01a1ad53-d810-7db2-8086-1441b0786a44
+- recorded_at: 2026-11-06T05:10:10+09:00; recorder: Codex /root; machine: OOJJRS-PC.
+- source_thread_id: 01a1ad53-d810-7db2-8086-1441b0786a44; source_deep_link and turn/item IDs: unavailable in the current context; individual utterance time: unknown.
+- original_speaker and decision_owner: user; type: explicit instruction; status: current.
+- User wording: 작업 지침에 추가해. 허가 없이 브랜치 만들지 말 것.
+- Codex placement decision: append common rule 20 in codex/common-work-guidelines.md using the exact requested phrase, without expanding its wording. The request explicitly specifies text for the work rules; no additional wording approval is needed.
+- Verified starting state: branch master; dedicated origin https://github.com/oojjrs/oojjrs.github.io.git; the target guideline source is clean. Pre-existing memory and two music-generator source changes are protected. Repository-linked Projects query returned no boards.
+- Scope: local common guideline and related task-memory edits. No branch creation, staging, commit, push, publication or installed-skill change is authorized by this request.
+- Completion observed at 2026-11-06T05:11:11+09:00: rule 20 was added and its exact user wording was read back successfully. The closing tool output supplies the final shared format and scoped diff results. No branch, staging, commit, push or publication was performed; the public canonical rules remain unchanged until separately authorized publication.
+
+## 2026-11-06T05:13:51+09:00 — authorized branch-rule publication
+
+- record_id: branch-permission-publication-01a1ad53-d810-7db2-8086-1441b0786a44
+- recorded_at: 2026-11-06T05:13:51+09:00; recorder: Codex /root; machine: OOJJRS-PC; source_thread_id: 01a1ad53-d810-7db2-8086-1441b0786a44. Turn/item IDs and deep link unavailable in current context; exact utterance time unknown.
+- original_speaker and decision_owner: user; explicit instruction: 배포하고 푸시해.
+- Supersedes the earlier local-only authorization state in branch-permission-01a1ad53-d810-7db2-8086-1441b0786a44. Authorizes necessary scoped staging/commit, origin/master push and public GitHub Pages deployment. Rule 20 wording remains exactly approved; branch creation remains unauthorized.
+- Verified starting facts: initiating H:/oojjrs.github.io master is 5d7244c5624da6c7f1c619b01f2aedf3ca6366f6; index empty; fetched origin/master is 8034097da6bf9f1f241985a8f8815cc21f947c4b with divergence 0/3. Pages publishes master root through legacy builds. Reuse this task's no-linked-board result.
+- Codex decision: preserve all dirty/index/untracked state before fast-forward and restore it before staging. Include only common rule 20 and this task's memory summary/index/decision/publication records; preserve unrelated prior memory and music-generator edits unstaged. No new branch or isolated publication branch is needed.
+- Existing validation evidence: exact rule wording and shared UTF8NoBom/CRLF checks passed during the local-edit phase (a4d77b; rule-order correction and final source check 0305ae). Public deployment and push are pending; do not infer success from this record.
+
+- Pre-freeze observation at 2026-11-06T05:15:27+09:00: fast-forward and restoration completed (976609), including exact SHA256 equality for every preserved dirty file and an empty restored index. Retained preservation stash 8543b307d76038bede497bdd9a0a2e6429df1a8d; upstream commits added only Spawner image assets. Current user instruction, exact rule text, reasons, previous successful checks, scope exclusions and pending publication are represented in the task records. Stage only rule 20 and this task summary/index/two decision records; no unrelated historical memory hunks. Final staged review and changed-memory format check precede commit.
 
 ## 2026-11-01 Asia/Seoul — durable project work memory rules
 
