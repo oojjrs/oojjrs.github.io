@@ -1,5 +1,32 @@
 # Codex work memory — oojjrs.github.io
 
+## Current task — 2026-11-06T21:43:48+09:00
+
+- Local edit complete: common rule 21 now requires a status check and user report every minute while long-running work continues, including subworkers and external processes. Source: long-task-status-01a1b0e1-849b-7880-a842-ca82ccbb5049.
+- Current authorization: publish codex/common-work-guidelines.md rule 21 and related task memory, then install safely. Preserve all pre-existing sprite-deprecation, catalog, installer and music-generator changes; installation scope conflict is pending a user decision.
+
+## 2026-11-06T21:43:48+09:00 — long-running task status reporting
+
+- record_id: long-task-status-01a1b0e1-849b-7880-a842-ca82ccbb5049
+- recorded_at: 2026-11-06T21:43:48+09:00; recorder: Codex /root; machine: OOJJRS-PC; source_host: local.
+- source_thread_id: 01a1b0e1-849b-7880-a842-ca82ccbb5049; source_thread_title: 장시간 작업의 1분 상태 확인·보고 지침 추가; source_deep_link: unavailable; source_turn_id and source_user_item_id: unavailable; exact utterance time: unknown.
+- original_speaker and decision_owner: user; type: explicit instruction to add a shared work rule; status: current.
+- User wording: 작업 지침에 추가해라. 서브워커든 외부 프로세스든 시간이 오래 걸리는 작업을 시작하면, 1분 단위로 현재 상태를 확인해서 보고하도록 하라고
+- Codex placement judgment: append one concise rule 21 to the canonical publication source. The user directly supplied the rule content and requested its addition; only the closing imperative is normalized to the document style. Do not add unrelated policy wording or modify skill artifacts.
+- Starting evidence: canonical common rules end at rule 20; target source has no pre-existing diff. Existing project memory is initialized; earlier records remain intact. Remote: https://github.com/oojjrs/oojjrs.github.io.git.
+- execution_state: local rule 21 insertion complete. Verified at 2026-11-06T21:44:50+09:00: source bytes equal the saved baseline plus exactly the single requested rule; earlier memory body is preserved unchanged. No linked Projects board was found (nodes empty; hasNextPage false). No stage, commit or publication requested or performed.
+- finish_evidence: the closing tool output contains the shared text-format check on both changed files and the task-only source/memory diff; no links or structured artifacts changed. Remote canonical publication remains pending and unrequested.
+
+## 2026-11-06T21:47:58+09:00 — authorized publication and installation follow-up
+
+- record_id: long-task-status-publish-01a1b0e1-849b-7880-a842-ca82ccbb5049
+- recorded_at: 2026-11-06T21:47:58+09:00; recorder: Codex /root; machine: OOJJRS-PC; source_host: local; source_thread_id: 01a1b0e1-849b-7880-a842-ca82ccbb5049; source_deep_link, source_turn_id and source_user_item_id: unavailable; exact utterance time: unknown.
+- original_speaker and decision_owner: user; type: explicit Git/publication and installation instruction; status: current. User wording: 설치 푸시 배포해
+- Authorized carried scope: rule 21 and this task's related memory; preserve unrelated pending sprite-skill deprecation and music-generator edits. Git root H:/oojjrs.github.io; dedicated origin https://github.com/oojjrs/oojjrs.github.io.git; initiating master fd7ed6798047cd760fe6b8a64726b2fd66cd1439 equals fetched origin/master. No new branch needed. Previously resolved repository-linked board has no nodes.
+- Installation conflict observed: the published full-set installer would restore 5 files in the two intentionally removed sprite skills and overwrite 5 locally adjusted routing files. Those unpublished deprecation changes are outside the carried rule-only publication scope. Obtain a scope decision before applying an installation that would reverse them; continue the independent rule publication.
+- Memory isolation judgment: commit this task's new memory prefix against the Git HEAD body; leave all prior unpublished records as working-tree changes. No unrelated source bytes are staging-eligible.
+- execution_state: rule publication and full-set installation remain pending; installation scope clarification is required by the concrete protected-state conflict, not a routine extra approval gate.
+
 ## Current task — 2026-11-06T05:15:27+09:00
 
 - Publication in progress: the user authorized 배포하고 푸시해. Common rule 20 remains exactly 허가 없이 브랜치 만들지 말 것. Initiating master has been fast-forwarded to origin/master 8034097da6bf9f1f241985a8f8815cc21f947c4b; all four dirty files and the empty index were restored and verified. Freeze only the common rule and related task-memory hunks; scoped commit/push and Pages/canonical readback remain pending. Evidence: branch-permission-publication-01a1ad53-d810-7db2-8086-1441b0786a44.
