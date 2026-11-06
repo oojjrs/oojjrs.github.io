@@ -1,9 +1,18 @@
 # Codex work memory — oojjrs.github.io
 
+## 2026-11-06T21:50:08+09:00 — sprite skills permanent removal authorized
+
+- record_id: sprite-delete-01a1b0e1-849b-7880-a842-ca82ccbb5049
+- recorded_at: 2026-11-06T21:50:08+09:00; recorder: Codex /root; machine: OOJJRS-PC; source_host: local; source_thread_id: 01a1b0e1-849b-7880-a842-ca82ccbb5049; source_deep_link, source_turn_id and source_user_item_id: unavailable; exact utterance time: unknown.
+- original_speaker and decision_owner: user; type: explicit deletion instruction in response to the installation conflict; status: current. User wording: 뭔 소리야? 스프라이트스킬은 아예 그럼 삭제해버려 이새끼야
+- Current decision supersedes archive preservation in sprite-deprecation-01a1b098-b8ff-73e3-af77-162540d5a2ad: delete both oojjrs-2d-sprite-animation and its delegating oojjrs-game-studio-sprite-pipeline from active and disabled publication sources and installations. Publish the existing related routing/catalog/installer removals; keep unrelated music-generator changes excluded. The earlier install/push/deploy instruction remains active.
+- Verified prior outcome: rule 21 and its task memory were pushed as 704a4ef5c91b9d720d8f921a02b4d2994505b669; exact remote master matched. Pages was observed building; deployed rule readback and complete installation remain pending.
+- execution_state: both disabled-source directories are deleted and the active sources were already removed. All full skill-name routing references are absent; the obsolete diagram precedence and sprite-phase hints are also removed. Related source changes are ready for scoped publication; complete-set installation and Pages readback follow the push. Pages build for 704a4ef5c91b9d720d8f921a02b4d2994505b669 is built with no error; local master and fetched origin/master match before the expanded commit.
+
 ## Current task — 2026-11-06T21:43:48+09:00
 
 - Local edit complete: common rule 21 now requires a status check and user report every minute while long-running work continues, including subworkers and external processes. Source: long-task-status-01a1b0e1-849b-7880-a842-ca82ccbb5049.
-- Current authorization: publish codex/common-work-guidelines.md rule 21 and related task memory, then install safely. Preserve all pre-existing sprite-deprecation, catalog, installer and music-generator changes; installation scope conflict is pending a user decision.
+- Current authorization: rule 21 is pushed; delete both sprite skills including disabled source copies, publish the related removals, complete full-set installation and verify Pages. Preserve unrelated music-generator changes; the user explicitly resolved the installation conflict by ordering deletion.
 
 ## 2026-11-06T21:43:48+09:00 — long-running task status reporting
 
@@ -26,6 +35,27 @@
 - Installation conflict observed: the published full-set installer would restore 5 files in the two intentionally removed sprite skills and overwrite 5 locally adjusted routing files. Those unpublished deprecation changes are outside the carried rule-only publication scope. Obtain a scope decision before applying an installation that would reverse them; continue the independent rule publication.
 - Memory isolation judgment: commit this task's new memory prefix against the Git HEAD body; leave all prior unpublished records as working-tree changes. No unrelated source bytes are staging-eligible.
 - execution_state: rule publication and full-set installation remain pending; installation scope clarification is required by the concrete protected-state conflict, not a routine extra approval gate.
+
+## Superseded archive-only task — 2026-11-06T21:33:09+09:00
+
+- Complete locally as observed at 2026-11-06T21:35:22+09:00: both sprite-animation skills are absent from active sources/installations and preserved under codex/skills-disabled; catalogs and forced routes are removed. Remote publication remains unrequested and pending. Evidence: sprite-deprecation-01a1b098-b8ff-73e3-af77-162540d5a2ad.
+- Scope: remove their installed active folders, preserve complete sources under codex/skills-disabled, and delete active catalog/routing references. Preserve unrelated dirty music-generator files and all earlier memory records.
+- Publication state: no staging, commit, push, or full skill refresh was requested. The remote installer remains on its published commit until separately authorized publication.
+
+## 2026-11-06T21:33:09+09:00 — sprite animation skill deprecation
+
+- record_id: sprite-deprecation-01a1b098-b8ff-73e3-af77-162540d5a2ad
+- recorded_at: 2026-11-06T21:33:09+09:00; recorder: Codex /root; machine: OOJJRS-PC; source_host: local.
+- source_thread_id: 01a1b098-b8ff-73e3-af77-162540d5a2ad; source_thread_title: 2D 스프라이트 애니 스킬 비활성화; source_turn_id: 01a1b0d0-8033-7fd0-a52c-58b2df74661b; source_user_item_id: 01a1b0d0-864c-7261-834a-00e4e059f5ae; source_deep_link: unavailable.
+- source_turn_started_at: 2026-11-06T21:23:36+09:00; exact individual utterance time: unknown. Writing time is separate from the source turn time.
+- original_speaker and decision_owner: user; type: explicit decision and content-change instruction; status: current.
+- User wording: 흠. deprecated 시키자. 없는 게 더 도움이 될 것 같다. 스킬도 삭제하고, 설치 목록에서도 빼버려
+- Context: the user reviewed generated slime, fox-swordsman and dragon animation comparisons and chose removal. This is the user decision; the comparisons do not establish a controlled causal quality result.
+- Codex scope judgment: retire oojjrs-2d-sprite-animation together with oojjrs-game-studio-sprite-pipeline because the latter delegates production to the former. Remove their forced routes in guidelines, image-first art, Mines art, Unity animation assets and public catalogs. Remove the installer canonical alias mapping while retaining legacy-folder cleanup.
+- Verified starting state: H:/oojjrs.github.io, master at fd7ed6798047cd760fe6b8a64726b2fd66cd1439; origin is https://github.com/oojjrs/oojjrs.github.io.git. Existing dirty memory and two music-generator files are protected; the index was empty. The repository-linked Projects query returned no boards.
+- Preservation: complete source directories stay intact in codex/skills-disabled; installed-byte backups and the exact mutation manifest stay outside discovery under the current task workspace $Trash/skill-deprecation. Existing memory content is preserved.
+- execution_state: local source moves, installed-folder removal and all 13 targeted routing/catalog/installer file edits completed; exact resulting bytes, all 5 archived source-file hashes, installed backups/removal and both protected music-file hashes verified.
+- final_checks: verified at 2026-11-06T21:35:22+09:00; 13 source/archive UTF-8/CRLF checks passed, installer AST has no parse errors, active retired-skill references are zero, scoped source diff whitespace check passed, and both protected music files retain their original hashes. Five installed edits retain their original UTF-8/no-BOM/LF format; the shared checker labels those untracked existing files NewFile and expects CRLF, so its fallback mismatch was resolved against the recorded actual pre-edit baseline without normalization. The closing tool result supplies the final memory-only format/whitespace check and complete scoped diff review.
 
 ## Current task — 2026-11-06T05:15:27+09:00
 

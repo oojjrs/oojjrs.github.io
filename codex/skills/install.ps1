@@ -13,7 +13,6 @@ $LegacyAliases = @{
     "project-finish-work" = "oojjrs-project-finish-work"
     "project-design-document-router" = "oojjrs-project-design-document-router"
     "unity-package-src-migration" = "oojjrs-unity-package-src-migration"
-    "2d-sprite-animation" = "oojjrs-2d-sprite-animation"
     "image-first-art-workflow" = "oojjrs-image-first-art-workflow"
     "unity-prefab-guid-usage-lookup" = "oojjrs-unity-prefab-guid-usage-lookup"
     "run-dhlottery-buyer" = "oojjrs-run-dhlottery-buyer"
@@ -391,7 +390,7 @@ foreach ($skillName in $manifest.Skills) {
 }
 
 $staleSkillCount = 0
-foreach ($legacyName in $LegacyAliases.Keys) {
+foreach ($legacyName in (@($LegacyAliases.Keys) + @("2d-sprite-animation"))) {
     $legacyDir = Get-ContainedPath -RootPrefix $destinationRoot -Candidate (Join-Path $Destination $legacyName) -Operation "remove a retired skill alias"
     if (Test-Path -LiteralPath $legacyDir) {
         Remove-Item -LiteralPath $legacyDir -Recurse -Force

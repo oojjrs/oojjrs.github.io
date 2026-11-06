@@ -5,7 +5,7 @@ description: Create, revise, or repair Unity AnimationClips, AnimatorControllers
 
 # oojjrs Unity Animation Asset Workflow
 
-Use this as the primary domain for Unity animation assets. Route frame or sprite-sheet artwork to `$oojjrs-2d-sprite-animation`, Animator-related C# implementation to the applicable code workflow, and every prefab mutation to `$oojjrs-unity-prefab-edit-workflow` as a separate approved phase.
+Use this as the primary domain for Unity animation assets. Route Animator-related C# implementation to the applicable code workflow, and every prefab mutation to `$oojjrs-unity-prefab-edit-workflow` as a separate approved phase.
 
 ## Official Editor Path
 

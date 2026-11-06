@@ -9,8 +9,6 @@ description: Enforce imagegen-first creation or revision of general raster art, 
 
 For any new raster image or visual art asset, create the first aesthetic source with imagegen. This is mandatory for UI art as well as non-UI images.
 
-For 2D sprite animation, route to `$oojjrs-2d-sprite-animation` for autonomous method selection per phase and part: new key drawings, complete layered rigs, rendered intervals, compositing, or full frame-by-frame redrawing as needed. That domain owns animation production and correction; the static-art restrictions below do not limit animation to post-processing or impose a mandatory rig-first sequence.
-
 Do not use System.Drawing, PIL, canvas, SVG, HTML/CSS, ImageMagick, procedural shapes, or other deterministic drawing code as the first art pass when the user expects visual quality or art direction.
 
 Local/code tools are allowed only after imagegen has established the art style, subject, and overall visual quality. Use those tools only to make the accepted imagegen output production-ready: exact sizing, slicing, padding, alpha cleanup, format conversion, state variants, atlas packing, masks, guides, or other deterministic post-processing.
@@ -46,7 +44,7 @@ For Unity installation, keep candidate generation outside the project until the 
 
 ## Required Sequence
 
-1. Use `$imagegen` / built-in `image_gen` for the first generated image, concept, static sprite, illustration, UI art, object cutout, background, icon-like raster asset, mockup, or visual reference. Route 2D sprite animation to `$oojjrs-2d-sprite-animation` for phase-specific drawing/rigging hybrids, complete part layers, full redrawing when needed, and actual playback review.
+1. Use `$imagegen` / built-in `image_gen` for the first generated image, concept, static sprite, illustration, UI art, object cutout, background, icon-like raster asset, mockup, or visual reference.
 2. Inspect the generated result for style fit, subject clarity, composition, and obvious artifacts.
 3. Iterate with imagegen if the art style is wrong. Do not try to rescue a bad first-pass drawing with System.Drawing or simple code effects.
 4. After the imagegen result is acceptable, use local tools only for deterministic production steps: resize, crop, pad, trim, alpha cleanup, chroma-key removal, format conversion, sprite-sheet packing, atlas layout, file naming, compression, masks, guide overlays, or exact UI-size variants.
@@ -75,15 +73,6 @@ Examples that require imagegen first:
 - document/reference images for `Design.html`
 - product/marketing/hero images
 - visual comparison candidates where the user will judge art direction
-
-## oojjrs 2D Sprite Animation
-
-Use `$oojjrs-2d-sprite-animation` for 2D sprite animation, including layered rigs, drawn phases, in-betweens, and loop transitions.
-
-- Establish appearance and motion → choose methods per phase and part → draw, rig, and combine the necessary sources → inspect actual playback and repair.
-- Preserve the current approved version and properties; superseded approval, partial praise, or active rework does not establish a completed animation or a proven generation method.
-- Simple articulation uses complete separate part rigs; complex motion can use newly drawn key poses and local rigs, and all frames may be redrawn with imagegen when necessary. Reusing original pixels is not a quality requirement.
-- Iterate scale, contours, palette, anchors, and transitions to the required pixel-level consistency. Build previews from actual drawings or rig renders and verify Spine compatibility when delivering or claiming it.
 
 ## Local Raster Tools And Code Drawing
 
