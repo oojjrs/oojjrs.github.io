@@ -1,5 +1,99 @@
 # Codex work memory — oojjrs.github.io
 
+## Current task — 2026-11-07T11:13:43+09:00
+
+- Authorized publication in progress: commit and push the approved Design file/hierarchy/navigation rules with related memory, verify GitHub Pages, synchronize all active installed oojjrs skills from the pushed commit, and propagate the rules to the eight pinned Codex project chats. Evidence: design-publish-01a1b3b5-9122-7193-a5db-a3713d9feaad.
+
+## 2026-11-07T11:13:43+09:00 — Design guideline publication, installation and propagation authorized
+
+- record_id: design-publish-01a1b3b5-9122-7193-a5db-a3713d9feaad; recorded_at: 2026-11-07T11:13:43+09:00; recorder: Codex /root; machine: OOJJRS-PC; source_host: local; source_thread_id: 01a1b3b5-9122-7193-a5db-a3713d9feaad; source_deep_link, source_turn_id, source_user_item_id and exact utterance time: unavailable.
+- original_speaker and decision_owner: user; type: explicit Git, deployment, installation and propagation instruction; user wording: 설치 배포 푸시 전파까지 ㄱ. This supersedes the previously unrequested publication status of design-flat-approved-01a1b3b5-9122-7193-a5db-a3713d9feaad.
+- Carried content scope: codex/guideline-design-generation.review.md and task-related memory from the Design discussion, including the observed same-topic source record from thread 01a1b3b5-9121-7c40-912e-a2a139095cd8. Earlier unrelated records and both music-generator edits remain local and excluded. The exact new rule text was approved in this chat and is already applied.
+- Verified starting Git state: initiating checkout H:/oojjrs.github.io, branch master, dedicated origin https://github.com/oojjrs/oojjrs.github.io.git. Exact origin/master fetch found local and fetched tips equal at 76ecb81a2103fad84bd843f1fc1e63f5896e9d4e, ahead/behind 0/0. No branch creation or history rewrite is needed. The task's repository-linked Projects query found no board.
+- Installation preflight: every installed managed file matches the fetched commit's unchanged skill tree: 37 skills, 96 files, zero differing files and zero unexpected managed skill directories; ImageMagick and oxipng are present. After publication, download and verify the installer from the exact pushed commit and run its complete-set synchronization into D:/.codex/skills.
+- Propagation judgment: use the current eight pinned Codex project chats (three Mines and five Spawner); send the canonical Design guideline URL, immutable publication commit and the precise approved rule summary. This is a rule-reload notification for their existing task scopes, not an instruction to migrate all projects or publish unrelated work. Unrelated pinned ChatGPT chats are outside this Design-project notification scope.
+- Propagation targets: 01a12357-1354-7a52-987b-e3dcff23bcc1; 01a1235d-5d1d-7591-a1a4-4eb4e81b69de; 01a0d302-ad8a-75b3-9088-280dcee817a8; 01a1a5fd-bf0b-70a3-abf8-267f88676072; 01a1b349-c2f5-7410-817c-1a43af3819a8; 01a1a10e-176c-7cb3-a1cf-2ad477deffc4; 01a1b3b0-9441-7b80-95cc-d96d61056d49; 01a1b3ae-373e-7252-9b7a-e090c61ff64b.
+- Pre-freeze checkpoint: approved text, three-level hierarchy, page-only menus, automatic section composition and nested-section prohibition match the actual source edits. Shared text-format checks and task-only source/memory diff reviews passed in closing outputs 5ced6a and 08d508; source bytes are unchanged since. Only the task-related memory prefix is staging-eligible. Publication, installation and message delivery results remain pending and must be recorded from actual readback.
+
+## Current task — 2026-11-07T11:10:45+09:00
+
+- Approved: page-only menus, automatic section composition and the strict Design.html → page → section hierarchy. The approved wording and removal of the nested-details preservation exception are applied locally. Earlier mandatory file separation remains; changes are unstaged and unpublished. Evidence: design-flat-approved-01a1b3b5-9122-7193-a5db-a3713d9feaad.
+
+## 2026-11-07T11:10:45+09:00 — approved page menus and flat section hierarchy
+
+- record_id: design-flat-approved-01a1b3b5-9122-7193-a5db-a3713d9feaad; recorded_at: 2026-11-07T11:10:45+09:00; recorder: Codex /root; machine: OOJJRS-PC; source_host: local; source_thread_id: 01a1b3b5-9122-7193-a5db-a3713d9feaad; source_deep_link, source_turn_id, source_user_item_id and exact utterance time: unavailable.
+- original_speaker and decision_owner: user; type: explicit wording/placement approval; user wording: ㅇ. The approval applies to the preceding assistant proposal: two section 1 rules, one section 4 rule and removal of the nested-details template-preservation item.
+- Supersession: this resolves the pending wording approval in design-page-menu-flat-01a1b3b5-9122-7193-a5db-a3713d9feaad. The resulting rules refine the earlier approved local file-separation change; preserve prior records rather than rewriting their historical pending states.
+- Approved semantics: root Design.html stays minimal; every page and section retains a separate file regardless of size. Only pages have menu entries. A page combines its section files in body order as one continuous document. Intermediate headings and details summaries identify sections; section files contain their heading and body. The hierarchy ends at section, with no subsections, additional intermediate headers or nested details inside it.
+- Scope: replace the section 1 composition bullet with the two exact approved bullets; remove only the nested-details phrase from the old-template rule; replace section 4's second bullet with the approved page-only menu/composition wording. Preserve other source bytes and the two unrelated music-generator edits. No skill artifacts or project Design.html files are in this change.
+- execution_state: the approved edits are applied. The end checkpoint reconciles this approval, final source scope, preserved prior changes and unpublished status; the closing tool output supplies the required shared-format and task-only diff evidence. The prior no-linked-Projects result remains applicable. No staging, commit or publication is authorized.
+
+## Current task — 2026-11-07T11:08:31+09:00
+
+- New user clarification: the hierarchy ends at Design.html → page → section. Menus list pages only; each page automatically combines its section files in body order. A section starts at an intermediate heading or details summary; no nested section is permitted. The earlier approved file-separation edits remain local. Exact clarification wording is prepared for approval. Evidence: design-page-menu-flat-01a1b3b5-9122-7193-a5db-a3713d9feaad.
+
+## 2026-11-07T11:08:31+09:00 — page-only menus and terminal sections
+
+- record_id: design-page-menu-flat-01a1b3b5-9122-7193-a5db-a3713d9feaad; recorded_at: 2026-11-07T11:08:31+09:00; recorder: Codex /root; machine: OOJJRS-PC; source_host: local; source_thread_id: 01a1b3b5-9122-7193-a5db-a3713d9feaad; source_deep_link, source_turn_id, source_user_item_id and exact utterance times: unavailable.
+- original_speaker and decision_owner: user; type: explicit successive clarification; status: current user requirements, exact new publication wording awaiting approval.
+- User instruction 1: Design.html에 메뉴는 페이지 단위로만 존재, 섹션은 메뉴 없고 자기가 소속된 페이지에 걍 알아서 붙여서 나오게 해. 마치 한 파일인 것처럼
+- User instruction 2: 섹션은 주로 내가 details로 접힐 수 있게 만드니까, 중간 헤더가 들어가면 섹션이라고 보면 되지 않겠나
+- User instruction 3: 섹션 안에 또 섹션이 있을 순 없다. 구조는 무조건 Design.html - 페이지 - 섹션이 끝이고, 섹션 안에 다른 하위 섹션이 들어갈 수 없어, 절대
+- Codex interpretation: retain mandatory separate files regardless of size. Source-file separation does not create section navigation. The user explicitly forbids any level below section; intermediate headings and nested details cannot create subsections. Details remains an allowed section wrapper, not a requirement for every section. These requirements refine design-split-approved-01a1b3b5-9122-7193-a5db-a3713d9feaad; prior records remain preserved.
+- Proposed section 1 replacement for the existing file-composition bullet: (1) 문서 계층은 `Design.html → 페이지 → 섹션`의 세 단계로 고정한다. 섹션 내부에 하위 섹션, 추가 중간 헤더 또는 중첩 `<details>`를 두지 않는다. (2) 페이지 제목 아래의 중간 헤더로 시작하는 내용 묶음을 섹션으로 본다. `<details>`에서는 `<summary>`가 섹션 헤더이며, 헤더와 본문을 하나의 섹션 파일에 둔다.
+- Proposed section 4 second-bullet replacement: `Design.html`의 메뉴에는 페이지 항목만 둔다. 페이지는 소속 섹션 파일을 본문 순서대로 자동으로 합쳐 한 파일처럼 표시하며, 섹션 메뉴는 만들지 않는다.
+- Necessary alignment: remove the phrase , 중첩된 `<details>` from section 1's old-template rule so template preservation cannot exempt nested sections. Retain the other template names and existing navigation/anchor rules. All proposed wording and placement will be presented together for approval under document-writing rule 6 and the guideline-maintenance skill.
+- End checkpoint: the three user messages, hierarchy prohibition, section definition, page composition, exact proposal and affected existing exception are recorded. This clarification turn changes only the memory prefix; the Design guideline still contains the earlier approved four-sentence change. Final tool output supplies the shared text-format and task-only diff evidence. No Git completion or publication is authorized.
+
+## Current task — 2026-11-07T11:04:38+09:00
+
+- Local edit complete: the approved thin-root and mandatory page/section file rules are applied to the Design guideline. All earlier memory and unrelated music-generator edits are preserved; changes remain unstaged and unpublished. Evidence: design-split-approved-01a1b3b5-9122-7193-a5db-a3713d9feaad.
+
+## 2026-11-07T11:04:38+09:00 — approved Design file separation rule
+
+- record_id: design-split-approved-01a1b3b5-9122-7193-a5db-a3713d9feaad; recorded_at: 2026-11-07T11:04:38+09:00; recorder: Codex /root; machine: OOJJRS-PC; source_host: local; source_thread_id: 01a1b3b5-9122-7193-a5db-a3713d9feaad; source_deep_link, source_turn_id, source_user_item_id and exact utterance time: unavailable.
+- original_speaker and decision_owner: user; type: explicit approval; user wording: 해. This approves the four exact guideline sentences and placement in the preceding assistant response. It supersedes the pending-approval status of design-sections-required-01a1b3b5-9122-7193-a5db-a3713d9feaad; original records remain preserved.
+- Authorized change: section 1 receives the thin-root rule, mandatory independent files for every child page and section regardless of size, and logical composition of same-topic sections into one visible page. Section 4's second bullet is replaced with file-based navigation wiring. Purpose: support separate chats editing separate section files.
+- Scope and starting evidence: guideline source has no existing diff; memory and two music-generator source files already have protected changes. The previously checked repository has no linked Projects board. No Git completion or publication is authorized.
+- execution_state: all four approved sentences are applied at the approved locations. No project Design.html files or skill artifacts were changed. End checkpoint reconciles the user approval, resulting source edits and retained publication boundary; the closing tool result supplies the shared format and scoped-diff evidence.
+
+## Current task — 2026-11-07T11:00:58+09:00
+
+- User direction confirmed: every Design.html child page and section must have its own file regardless of size, because separate chats often edit separate sections. Root Design.html contains links and minimal shared layout. Exact guideline wording remains pending approval; the guideline source is unchanged. Evidence: design-sections-required-01a1b3b5-9122-7193-a5db-a3713d9feaad.
+
+## 2026-11-07T11:00:58+09:00 — mandatory section file separation
+
+- record_id: design-sections-required-01a1b3b5-9122-7193-a5db-a3713d9feaad; recorded_at: 2026-11-07T11:00:58+09:00; recorder: Codex /root; machine: OOJJRS-PC; source_host: local; source_thread_id: 01a1b3b5-9122-7193-a5db-a3713d9feaad; source_deep_link, source_turn_id, source_user_item_id and exact utterance time: unavailable.
+- original_speaker and decision_owner: user; type: explicit clarification and resume instruction; status: current direction, exact document wording awaiting approval.
+- User clarification: 글쎄, 섹션 별로 스레드 하나씩 들러붙어서 수정할 일이 많은데, 무조건 섹션별로 나누는게 좋아보임
+- Subsequent user messages asked whether that instruction was received and requested resumption. Both retain the original guideline-maintenance objective; this task acknowledges mandatory splitting with no size-based exception.
+- Related pre-existing record: design-file-split-01a1b3b5-9121-7c40-912e-a2a139095cd8. It was observed in the current file under a different source thread ID and is preserved. Its presence is not evidence of separate wording approval.
+- Codex placement proposal: add root-shell, mandatory-file-separation and logical-page-composition rules in guideline-design-generation.review.md section 1 after the new-document/full-restructure bullet; replace section 4's second bullet with file-based navigation wiring. Physical section files do not create extra reader-facing pages. Preserve existing page selection, direct entry and anchor behavior.
+- Exact proposed additions, pending approval: (1) 최상위 `Design.html`에는 목차·링크와 최소한의 공통 레이아웃만 두고, 기획 본문은 넣지 않는다. (2) 하위 페이지와 모든 섹션의 본문은 분량과 관계없이 반드시 각각 별도 파일로 분리하고, 최상위 파일에 중복 저장하지 않는다. (3) 파일 분리는 저장 구조의 기준이다. 같은 주제의 섹션은 화면에서 한 페이지로 이어서 보여 준다.
+- Exact proposed replacement, pending approval: 최상위 `Design.html`의 목차와 본문 표시 영역을 별도 본문 파일에 연결한다. 페이지·섹션 링크와 기존 앵커는 같은 탐색 규칙으로 동작하게 한다.
+- Authority: canonical document-writing rule 6 and oojjrs-guideline-maintenance/SKILL.md explicitly require separate prior approval of exact new wording and placement. The project-memory exception permits this proposal record. None of these proposed lines has been inserted into the guideline source.
+- Observed state: H:/oojjrs.github.io, origin https://github.com/oojjrs/oojjrs.github.io.git; target guideline diff is empty. The repository-linked Projects query returned no nodes, hasNextPage false. Existing memory and both music-generator source edits remain protected.
+- End checkpoint: request, mandatory scope correction, purpose, exact proposal and placement, unchanged guideline and next approval step are recorded. Only this task's memory prefix is added; the closing tool output provides the required format and task-only diff evidence. No staging, commit or publication is requested or performed.
+
+## Current task — 2026-11-07T10:57:54+09:00
+
+- Pending exact wording approval: thin root Design.html and separate files for every child page and section. The public Design guideline remains unchanged; no staging, commit or publication is authorized. Evidence: design-file-split-01a1b3b5-9121-7c40-912e-a2a139095cd8.
+
+## 2026-11-07T10:57:54+09:00 — Design planning-document file separation
+
+- record_id: design-file-split-01a1b3b5-9121-7c40-912e-a2a139095cd8; recorded_at: 2026-11-07T10:57:54+09:00; recorder: Codex /root; machine: OOJJRS-PC; source_host: local; source_thread_id: 01a1b3b5-9121-7c40-912e-a2a139095cd8; source_deep_link, source_turn_id, source_user_item_id and exact utterance time: unavailable.
+- original_speaker and decision_owner: user; type: request to establish a durable Design.html rule; status: requested direction, exact publication wording awaiting approval.
+- User wording: 기획문서(Design.html) 작업할 때, 최상위 페이지(Design.html)는 링크랑 최소한의 레이아웃 같은 것만 갖고, 하위 페이지랑 섹션 별로 전부 다 파일을 쪼개서 놓는 게 낫지? 그렇게 지침을 정하자
+- Codex judgment/proposal: keep physical file separation distinct from the reader-facing page. Every child page and section gets its own body file; related sections still appear together in one logical page. This avoids conflicting with document-writing rule 7. The initial commentary's optional section-granularity suggestion is not the user's decision and is not carried into the proposed rule.
+- Placement: add the following three bullets in codex/guideline-design-generation.review.md section 1 after the new-document/full-restructure bullet; replace section 4's second bullet with the fourth sentence below. The existing single-document structural requirement must be replaced rather than left contradictory.
+  1. 최상위 `Design.html`에는 목차·링크와 최소한의 공통 레이아웃만 두고, 기획 본문은 넣지 않는다.
+  2. 하위 페이지와 각 섹션의 본문은 각각 별도 파일로 분리하고, 최상위 파일에 중복 저장하지 않는다.
+  3. 파일 분리는 저장 구조의 기준이다. 같은 주제의 섹션은 화면에서 한 페이지로 이어서 보여 준다.
+  4. 최상위 `Design.html`의 목차와 본문 표시 영역을 별도 본문 파일에 연결한다. 페이지·섹션 링크와 기존 앵커는 같은 탐색 규칙으로 동작하게 한다.
+- Authority/gate: oojjrs-guideline-maintenance/SKILL.md and canonical document-writing rule 6 require separate prior approval of exact wording and placement; none of the four proposed sentences has been inserted into the public guideline. Existing section 1 already limits structural conversion to new documents/full restructures, preserving partial-update scope.
+- Observed scope: dedicated checkout H:/oojjrs.github.io, origin https://github.com/oojjrs/oojjrs.github.io.git. Target guideline has no pre-existing diff. Existing memory and the two music-generator source edits are protected. Repository-linked Projects query returned no nodes and hasNextPage false; no board was changed.
+- End checkpoint: current request, user direction, Codex proposal, exact placement, unchanged guideline and pending approval were reconciled before the response. Only this memory prefix is written. Next action after explicit wording approval: apply the four sentences narrowly, then perform the required format/scoped-diff finish; leave changes uncommitted unless Git completion is requested.
+
 ## 2026-11-06T21:50:08+09:00 — sprite skills permanent removal authorized
 
 - record_id: sprite-delete-01a1b0e1-849b-7880-a842-ca82ccbb5049
