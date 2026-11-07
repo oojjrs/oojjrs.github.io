@@ -1,5 +1,36 @@
 # Codex work memory — oojjrs.github.io
 
+## Current task — 2026-11-07T19:42:19+09:00
+
+- 2026-11-07T19:44:19+09:00 확인: 승인한 두 문장을 여섯 지침·스킬 소스에 반영하고 충돌하는 사후 기록 허용을 제거했다. 여섯 파일의 형식·공백 검사와 승인 문구 일치 검사가 통과했다. 근거: memory-boundary-result-01a1b597-ac0f-7810-a5ca-52433543ebc1.
+
+## 2026-11-07T19:49:39+09:00 — 배포와 설치 용어 구분
+
+- record_id: skill-delivery-terms-01a1b597-ac0f-7810-a5ca-52433543ebc1; recorded_at: 2026-11-07T19:49:39+09:00; recorder: Codex /root; machine: OOJJRS-PC; source_thread_id: 01a1b597-ac0f-7810-a5ca-52433543ebc1; source_deep_link, source_turn_id, source_user_item_id, exact_utterance_time: unavailable.
+- original_speaker: user; type: terminology question. 사용자는 배포와 설치가 같은 일로 보인다며 Codex가 두 용어를 어떻게 구분하는지 물었다. 별도 정책 변경을 확정한 것은 아니다.
+- speaker and explanation_owner: Codex. 이 저장소에서 배포는 GitHub Pages의 공개 지침·스킬 원본 반영과 URL 확인, 설치는 그 원본을 현재 PC의 D:/.codex/skills에 동기화하여 Codex가 사용하는 스킬을 갱신하는 뜻으로 구분한다고 답했다.
+
+## 2026-11-07T19:44:19+09:00 — 메모리 기록 제한 소스 정비 결과
+
+- record_id: memory-boundary-result-01a1b597-ac0f-7810-a5ca-52433543ebc1; recorded_at: 2026-11-07T19:44:19+09:00; recorder and observer: Codex /root; machine: OOJJRS-PC; original_speaker and decision_owner for approved wording: user; source_thread_id: 01a1b597-ac0f-7810-a5ca-52433543ebc1; source_deep_link, source_turn_id, source_user_item_id, exact_utterance_time: unavailable.
+- Actual change: codex/document-writing-guideline.md 5번, codex/common-work-guidelines.md 8번, guidelines와 finish-work의 SKILL.md 및 agents/openai.yaml에 승인 문구를 각각 한 번 반영했다. 문서 5번과 두 스킬·시작 문구의 사후 기록 허용을 제거했다. 기존 범위 확정·스테이징 전 점검과 관련 메모리의 동일 커밋 포함 규칙은 유지한다.
+- Verified checks: 여섯 소스 파일은 기존 UTF8NoBom/CRLF를 보존하며 공통 형식 검사와 git diff --check를 통과했다. 각 파일에 승인한 두 문장이 정확히 한 번 있고 대상 사후 기록 허용 문구는 제거된 것을 확인했다. 소스 변경은 승인 문구 삽입과 충돌 조항 삭제에 한정된다.
+- Supersedes: memory-boundary-approved-01a1b597-ac0f-7810-a5ca-52433543ebc1의 소스 반영 대기 상태. 현재 요청, 축약 승인, 변경 위치, 검사 근거와 기존 기록 보존을 대조했다. 이 마지막 메모리 변경의 형식 및 작업 범위 차이는 종료 도구 출력으로 확인한다.
+
+## 2026-11-07T19:43:08+09:00 — 축약 문구 승인
+
+- record_id: memory-boundary-approved-01a1b597-ac0f-7810-a5ca-52433543ebc1; recorded_at: 2026-11-07T19:43:08+09:00; recorder: Codex /root; machine: OOJJRS-PC; original_speaker and decision_owner: user; source_thread_id: 01a1b597-ac0f-7810-a5ca-52433543ebc1; source_deep_link, source_turn_id, source_user_item_id, exact_utterance_time: unavailable.
+- type: explicit wording and placement approval; user reply: '이 문구로 반영'. Approved wording: 메모리는 반드시 푸시 전에 기록하고, 푸시 후 추가·수정을 절대 금지한다. 푸시 관련 정보는 메모리에 일절 기록하지 않는다.
+- Approved placement: 문서 작성 지침 메모리 규칙, 공통 지침 8번, guidelines와 finish-work 스킬 및 두 스킬의 시작 문구. 충돌하는 사후 기록 조항은 삭제한다. 첫 제안과 축약안 대기 상태를 대체한다.
+
+## 2026-11-07T19:42:19+09:00 — 메모리 기록 제한 교정 요청
+
+- record_id: memory-boundary-01a1b597-ac0f-7810-a5ca-52433543ebc1; recorded_at: 2026-11-07T19:42:19+09:00; recorder: Codex /root; machine: OOJJRS-PC; source_thread_id: 01a1b597-ac0f-7810-a5ca-52433543ebc1; source_deep_link, source_turn_id, source_user_item_id, exact_utterance_time: unavailable.
+- original_speaker and decision_owner: user; type: explicit rule-change instruction. 메모리는 반드시 푸시 전에 기록하고, 푸시 후 기록과 푸시 상황에 관한 모든 기록을 절대 금지하도록 요청했다. 이 항목은 규칙 변경 결정이며 작업의 푸시 상황을 기록한 것이 아니다.
+- User wording preference: 첫 다섯 문장 제안에 '더 짧게 수정'을 선택했다. 첫 제안은 승인되지 않았으며 새로운 짧은 문구의 별도 확인이 필요하다.
+- Codex observation: 문서 작성 지침 5번, guidelines 스킬, finish-work 완료 8번과 두 스킬의 default_prompt에 사후 결과 기록 허용이 있다. 공통 지침 8번의 종료 전 점검과 함께 제한을 맞춰야 한다. 기존 지침을 읽은 근거로 확인한 문구 충돌이며 실행 이력 전체를 조사한 결론은 아니다.
+- Scope and next step: 문서 작성 지침·공통 지침·두 스킬 및 그 시작 문구의 동일 정책을 좁게 정렬한다. 정확한 축약 문구 승인을 받기 전 지침 파일은 수정하지 않는다. 기존 메모리와 음악 스킬 변경은 보존한다. 저장소 연결 보드 조회는 빈 목록을 반환했다.
+
 ## Current task — 2026-11-07T11:34:11+09:00
 
 - Authorized: add the user-supplied DesignAssets location rule, commit/push the guideline with related memory, verify public deployment, and synchronize all active installed oojjrs skills. Propagation is cancelled by the latest user reply; send no follow-up messages in this phase. Evidence: design-assets-publish-01a1b3b5-9122-7193-a5db-a3713d9feaad.
