@@ -11,7 +11,7 @@ For `H:\Mines`, this skill owns substantive document layout or structure work. T
 
 ## Required Reads
 
-1. Read and follow `https://oojjrs.github.io/codex/document-writing-guideline.md` for every document or HTML edit, and `https://oojjrs.github.io/codex/guideline-design-generation.review.md` for Design-specific requirements. The common document text-addition approval rule governs every instruction below, including recovery, filename labels, prose, and asset-entry synchronization. Creating or recovering a document or page does not authorize text. New or replacement wording, including headings, navigation, filenames, captions, status labels, tooltips, and generated text, requires separate prior approval of its exact wording and placement. Assume 99% of text requests are refused: ask only when omitting the text would make the requested result impossible; otherwise omit it without asking. Present the exact wording, placement, and necessity in chat and wait for explicit approval before writing, including drafts and placeholders.
+1. Read and follow `https://oojjrs.github.io/codex/document-writing-guideline.md` for every document or HTML edit, and `https://oojjrs.github.io/codex/guideline-design-generation.review.md` for Design-specific requirements. The common document text-addition approval rule governs every instruction below, including recovery, filename labels, prose, and asset-entry synchronization.
 2. 메모리의 초기화·기록·정리·재개는 [문서 작성 지침 4·5번](https://oojjrs.github.io/codex/document-writing-guideline.md)을 따른다. Read the current `Design.html` if it exists.
 3. When a referenced model document is named, inspect that live document instead of relying on memory.
 

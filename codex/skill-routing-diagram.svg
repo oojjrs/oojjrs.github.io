@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1600" height="1180" viewBox="0 0 1600 1180" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1600" height="520" viewBox="0 0 1600 520" role="img" aria-labelledby="title desc">
   <title id="title">oojjrs Codex 작업 지침 라우팅 감사 요약</title>
-  <desc id="desc">요청 분류, 권한, 도구, 공개 스킬 25개, 추가 런타임 스킬 24개, 미설치 플러그인 49개와 고아 노드 상태를 한 장에 요약한 그래프</desc>
+  <desc id="desc">요청 분류, 권한, 도구를 한 장에 요약한 그래프</desc>
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="#07111b"/>
@@ -23,18 +23,12 @@
     </style>
   </defs>
 
-  <rect width="1600" height="1180" fill="url(#bg)"/>
-  <rect width="1600" height="1180" fill="url(#grid)"/>
+  <rect width="1600" height="520" fill="url(#bg)"/>
+  <rect width="1600" height="520" fill="url(#grid)"/>
 
   <rect x="38" y="32" width="1524" height="150" rx="16" fill="url(#hero)" stroke="#3e6279"/>
-  <text x="70" y="66" class="kicker">ROUTING AUDIT · 2026-08-23 KST</text>
   <text x="70" y="112" class="title">작업 지침 라우팅 — 실제 도달 가능성 지도</text>
   <text x="70" y="143" class="sub">존재하는 규칙, 실제 실행 경로, 조건부 진입, 무시·누락·도구 부재를 분리한다.</text>
-  <g transform="translate(1045 58)">
-    <rect width="148" height="82" rx="10" class="pill"/><text x="18" y="35" class="count">25</text><text x="18" y="58" class="small">공개 oojjrs 스킬</text>
-    <rect x="158" width="148" height="82" rx="10" class="pill"/><text x="176" y="35" class="count">24</text><text x="176" y="58" class="small">추가 런타임 스킬</text>
-    <rect x="316" width="148" height="82" rx="10" class="pill"/><text x="334" y="35" class="count">49</text><text x="334" y="58" class="small">미설치 플러그인</text>
-  </g>
 
   <text x="48" y="220" class="kicker">01 · MASTER ROUTE</text>
   <text x="48" y="250" class="section">모든 요청의 기본 흐름</text>
@@ -55,123 +49,13 @@
   <g transform="translate(48 374)">
     <rect width="364" height="78" rx="9" class="panel2"/><circle cx="22" cy="23" r="5" fill="#71e6a3"/><text x="36" y="28" class="label">대화·안정 사실·번역</text><text x="20" y="52" class="small">즉시 답변 → lifecycle/domain 없음</text>
     <rect x="384" width="364" height="78" rx="9" class="panel2"/><circle cx="406" cy="23" r="5" fill="#70e5ff"/><text x="420" y="28" class="label">검토·진단·설명·계획</text><text x="404" y="52" class="small">최소 읽기 → 보고 → mutation 없음</text>
-    <rect x="768" width="364" height="78" rx="9" class="panel2"/><circle cx="790" cy="23" r="5" fill="#ffc06a"/><text x="804" y="28" class="label">코드·문서·에셋 수정</text><text x="788" y="52" class="small">start → primary → check → 미커밋 검토</text>
-    <rect x="1152" width="376" height="78" rx="9" class="panel2"/><circle cx="1174" cy="23" r="5" fill="#ff7474"/><text x="1188" y="28" class="label">push·배포·삭제·유료·외부 기록</text><text x="1172" y="52" class="small">명시 권한 + 정확한 target + readback</text>
+    <rect x="768" width="364" height="78" rx="9" class="panel2"/><circle cx="790" cy="23" r="5" fill="#ffc06a"/><text x="804" y="28" class="label">코드·문서·에셋 수정</text><text x="788" y="52" class="small">primary → check → 미커밋 검토</text>
   </g>
 
-  <g transform="translate(48 482)">
-    <rect width="932" height="398" rx="14" class="panel"/>
-    <text x="24" y="34" class="kicker">02 · PUBLIC SKILL TREE</text>
-    <text x="24" y="66" class="section">oojjrs 공개 스킬 25개 · 모두 source 연결</text>
-
-    <g transform="translate(24 88)">
-      <a href="https://oojjrs.github.io/codex/skills/" target="_blank" rel="noopener noreferrer">
-        <rect width="428" height="128" rx="9" class="panel2"/>
-        <text x="16" y="26" class="mono">CORE / LIFECYCLE / HELPER · 6</text>
-        <text x="16" y="50" class="small">guidelines · project-start · project-finish</text>
-        <text x="16" y="70" class="small">dirty-worktree-scope-split · github-project-board</text>
-        <text x="16" y="90" class="small">visual-qa</text>
-        <text x="16" y="113" class="tiny link">공개 routing index 열기 ↗</text>
-      </a>
-      <a href="https://oojjrs.github.io/codex/skills/" target="_blank" rel="noopener noreferrer" transform="translate(452)">
-        <rect width="428" height="128" rx="9" class="panel2"/>
-        <text x="16" y="26" class="mono">DOCUMENT / MAINTENANCE · 6</text>
-        <text x="16" y="50" class="small">Design router · Design builder · README</text>
-        <text x="16" y="70" class="small">guideline maintenance · C# convention maintenance</text>
-        <text x="16" y="90" class="small">skill maintenance</text>
-        <text x="16" y="113" class="tiny link">각 SKILL.md 링크는 상세 HTML에 수록 ↗</text>
-      </a>
-      <a href="https://oojjrs.github.io/codex/skills/" target="_blank" rel="noopener noreferrer" transform="translate(0 148)">
-        <rect width="428" height="128" rx="9" class="panel2"/>
-        <text x="16" y="26" class="mono">STEAM / UNITY · 6</text>
-        <text x="16" y="50" class="small">Steamworks · package src migration · package release</text>
-        <text x="16" y="70" class="small">Unity asset safety · C# entity workflow</text>
-        <text x="16" y="90" class="small">prefab GUID usage lookup</text>
-        <text x="16" y="113" class="tiny link">Steam·Unity domain source ↗</text>
-      </a>
-      <a href="https://oojjrs.github.io/codex/skills/" target="_blank" rel="noopener noreferrer" transform="translate(452 148)">
-        <rect width="428" height="128" rx="9" class="panel2"/>
-        <text x="16" y="26" class="mono">ART / AUDIO / FORENSICS · 6</text>
-        <text x="16" y="50" class="small">2D sprite · image-first · Mines art pipeline</text>
-        <text x="16" y="70" class="small">game audio · AI music generator</text>
-        <text x="16" y="90" class="small">Windows repo forensics</text>
-        <text x="16" y="113" class="tiny link">전문 domain이 generic parent를 대체 ↗</text>
-      </a>
-    </g>
-    <text x="24" y="382" class="tiny">+ controlled local: run-dhlottery-buyer · 기본 조합: guidelines → start? → primary 0–1 → helper? → finish?</text>
-
-    <rect x="954" width="570" height="398" rx="14" class="panel"/>
-    <text x="978" y="34" class="kicker">03 · SESSION RUNTIME &amp; PARKING</text>
-    <text x="978" y="66" class="section">추가 런타임 24 + 미설치 49</text>
-    <g transform="translate(978 88)">
-      <rect width="254" height="104" rx="9" class="panel2"/>
-      <text x="15" y="26" class="mono">PLATFORM · 9</text>
-      <text x="15" y="49" class="small">imagegen · OpenAI docs · skill/plugin creator</text>
-      <text x="15" y="68" class="small">browser · Chrome · visualize · installer</text>
-      <text x="15" y="89" class="tiny red">plugin general search는 runtime-orphan</text>
-      <rect x="274" width="248" height="104" rx="9" class="panel2"/>
-      <text x="289" y="26" class="mono">ARTIFACTS · 8</text>
-      <text x="289" y="49" class="small">DOCX · PDF · slides · spreadsheet</text>
-      <text x="289" y="68" class="small">template · Sites build / hosting</text>
-      <text x="289" y="89" class="tiny amber">Excel live는 session-gated</text>
-
-      <rect y="122" width="254" height="104" rx="9" class="panel2"/>
-      <text x="15" y="148" class="mono">HIGGSFIELD · 7</text>
-      <text x="15" y="171" class="small">game · media · marketplace · product</text>
-      <text x="15" y="190" class="small">Soul · explainer · website</text>
-      <text x="15" y="211" class="tiny amber">CLI 있음 · auth/credit 미확인</text>
-      <rect x="274" y="122" width="248" height="104" rx="9" class="panel2"/>
-      <text x="289" y="148" class="mono">PUBLISHED TRANSITION</text>
-      <text x="289" y="171" class="small">DHLottery buyer → public 25th</text>
-      <text x="289" y="190" class="small">session-start alias는 snapshot</text>
-      <text x="289" y="211" class="tiny green">527e55f에서 source·index·install 동기화</text>
-
-      <rect y="244" width="522" height="88" rx="9" fill="#111c2a" stroke="#5271a1"/>
-      <text x="15" y="270" class="mono">PLUGIN PARKING · 49 CATALOG-ONLY</text>
-      <text x="15" y="293" class="small">설치 목록 ≠ 호출 가능 · 특정 plugin 명시 + 탐색 소진 + 추천 목록 일치</text>
-      <text x="15" y="314" class="tiny">GitHub/Higgsfield는 CLI 우회 채널 있음 · 사설 Drive/Calendar 데이터는 연결 전 대체 불가</text>
-    </g>
-  </g>
-
-  <g transform="translate(48 904)">
-    <rect width="1524" height="208" rx="14" fill="#1b1721" stroke="#70424c"/>
-    <text x="24" y="34" class="kicker red">04 · ORPHAN / CONFLICT AUDIT</text>
-    <text x="24" y="65" class="section">‘있다’와 ‘작동한다’를 분리</text>
-    <g transform="translate(24 84)">
-      <rect width="510" height="98" rx="9" fill="#261921" stroke="#8c4e59"/>
-      <text x="16" y="24" class="label">Project board 자동 route · 관측된 과거 고아</text>
-      <text x="16" y="48" class="tiny red">cd7678b: “이미 confirmed?” → cheap probe → board skill</text>
-      <text x="16" y="67" class="tiny green">247e660: repo 작업 → cheap 1:1 probe → 관련 board면 helper</text>
-      <text x="16" y="86" class="tiny muted">현재 repo: linked Project 0 → state-terminated (도구 고장 아님)</text>
-
-      <rect x="530" width="300" height="98" rx="9" class="panel2"/>
-      <text x="546" y="24" class="label">현재 runtime 고아</text>
-      <text x="546" y="47" class="tiny">plugin 일반 search/suggest 도구 누락</text>
-      <text x="546" y="65" class="tiny">Excel connected session 0 · SteamCMD exec 없음</text>
-      <text x="546" y="83" class="tiny">Unity Editor 실행 상태 미검증</text>
-
-      <rect x="850" width="300" height="98" rx="9" class="panel2"/>
-      <text x="866" y="24" class="label">이번에 복구한 도식 고아</text>
-      <text x="866" y="47" class="tiny">기존 SVG 22/24 · source href 0</text>
-      <text x="866" y="65" class="tiny">Steamworks · C# convention node 누락</text>
-      <text x="866" y="83" class="tiny green">HTML registry 25/25 + immutable links</text>
-
-      <rect x="1170" width="306" height="98" rx="9" class="panel2"/>
-      <text x="1186" y="24" class="label">역사·경계</text>
-      <text x="1186" y="47" class="tiny purple">Suno: source preserved → disabled</text>
-      <text x="1186" y="65" class="tiny">prefab lookup 뒤 mutation owner 명시 부족</text>
-      <text x="1186" y="83" class="tiny green">lottery draft → 527e55f public skill</text>
-    </g>
-  </g>
-
-  <g transform="translate(48 1132)">
-    <circle cx="7" cy="7" r="5" fill="#71e6a3"/><text x="19" y="11" class="tiny">verified / ready</text>
-    <circle cx="145" cy="7" r="5" fill="#ffc06a"/><text x="157" y="11" class="tiny">conditional / dormant</text>
-    <circle cx="324" cy="7" r="5" fill="#ff7474"/><text x="336" y="11" class="tiny">orphan / blocked</text>
-    <circle cx="475" cy="7" r="5" fill="#c6a8ff"/><text x="487" y="11" class="tiny">shadowed / retired</text>
+  <g transform="translate(48 479)">
     <a href="https://oojjrs.github.io/codex/skill-routing-diagram/" target="_blank" rel="noopener noreferrer">
       <rect x="1060" y="-11" width="464" height="38" rx="8" fill="#15303d" stroke="#70e5ff"/>
-      <text x="1292" y="12" class="label link" text-anchor="middle">세부 흐름·109개 감사 노드·근거 링크 열기 ↗</text>
+      <text x="1292" y="12" class="label link" text-anchor="middle">세부 흐름·근거 링크 열기 ↗</text>
     </a>
   </g>
 </svg>

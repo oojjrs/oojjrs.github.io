@@ -10,7 +10,7 @@ Use this skill for `H:\Mines` art and Unity asset work.
 ## Start
 
 1. Use this as the primary domain for the Mines art and Unity asset phase; it owns the required image-first and Unity metadata rules. Do not stack the generic image or Unity asset domains. Route substantive `Design.html` work and audio work to their own sequential phases.
-2. Read `Design.html` before changing art direction, asset inventory, or planning-visible state. Before any document or HTML edit, read and follow `https://oojjrs.github.io/codex/document-writing-guideline.md`; its text-addition approval rule governs every document synchronization instruction below. For Design-specific requirements, also follow `https://oojjrs.github.io/codex/guideline-design-generation.review.md`. Asset selection, completion, or document/page creation does not authorize new or replacement document wording. Headings, captions, filenames, status labels, tooltips, and generated phrases require separate prior approval of exact wording and placement. Assume 99% of text requests are refused: ask only when omission makes the requested result impossible; otherwise omit the text without asking. For indispensable text, present the exact wording, placement, and necessity in chat and wait for explicit approval before writing any draft or placeholder.
+2. Read `Design.html` before changing art direction, asset inventory, or planning-visible state. Before any document or HTML edit, read and follow `https://oojjrs.github.io/codex/document-writing-guideline.md`; its text-addition approval rule governs every document synchronization instruction below. For Design-specific requirements, also follow `https://oojjrs.github.io/codex/guideline-design-generation.review.md`.
 3. Inspect current assets, dimensions, and naming before generating replacements. Inspect history only when the task is to recover or compare earlier work.
 4. For new or substantially revised raster art, use imagegen for the first aesthetic pass; build previews only from actual candidates or accepted finals.
 5. Check `$Trash` and recent git history when the user asks to find earlier candidates.
@@ -30,7 +30,7 @@ Handle these as first-class repeated workflows:
 
 1. Keep candidates and rejected variants under `$Trash`.
 2. Promote only the selected final asset into the formal project folder.
-3. Do not create or modify Unity `.meta` files. Preserve or move an existing one with its asset, include a user- or Unity-generated in-scope `.meta` even when untracked, and stop before commit or push if an expected companion is absent.
+3. Use the official Unity CLI for asset import, move, and rename. Let Unity manage the associated .meta files, include in-scope metadata, and stop before commit or push if an expected companion is still missing after import.
 4. Preserve existing final names when runtime references already depend on them.
 5. When an asset change affects `Design.html`, synchronize only the affected existing previews and references while preserving visible text and document structure. Changing a name, filename label, completion-state text, or any other wording requires the separate exact-text approval above; an asset or page approval is insufficient. Use `$oojjrs-design-html-builder` in a separate phase for layout or structural work.
 6. Preserve existing filename labels under image previews when the planning doc uses image inventories. New or replacement filename text requires separate prior approval of its exact wording and placement.
@@ -42,4 +42,4 @@ Check only changed asset properties:
 
 - image dimensions and frame counts when sheets or GIFs changed
 - changed file references from `Design.html`
-- no Codex-created or modified `.meta` files, and every in-scope asset has its existing or user/Unity-generated companion when expected
+- Unity-generated metadata is present for the changed assets and existing GUIDs are preserved.

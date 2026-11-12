@@ -46,4 +46,4 @@ Read back the requested action and bindings after import and verify:
 - Unity console ground truth reports no current compilation failure;
 - the scoped diff and text-format checks contain only the requested files and necessary generated or consumer changes.
 
-Use a full project build or runtime input test only when requested or when the applicable validation rules identify it as the necessary independent oracle.
+Follow the [validation rules](https://oojjrs.github.io/codex/validation-guideline.md) for builds and runtime tests, and the [Unity work rules](https://oojjrs.github.io/codex/unity-work-guidelines.md) for gameplay testing.

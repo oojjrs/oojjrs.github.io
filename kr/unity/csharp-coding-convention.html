@@ -486,7 +486,7 @@
           <div class="example-pair">
             <div class="example good">
               <div class="example-label">올바른 사용</div>
-              <pre><code>private Dictionary&lt;string, Item&gt; items = new(StringComparer.Ordinal);
+              <pre><code>private Dictionary&lt;string, Item&gt; _items = new(StringComparer.Ordinal);
 
 private void ApplyReward(int rewardCount, RewardTypeEnum rewardType, bool isBonus, Action onComplete)
 {
@@ -503,7 +503,7 @@ private void GrantReward()
             </div>
             <div class="example bad">
               <div class="example-label">잘못된 사용</div>
-              <pre><code>private Dictionary&lt;string, Item&gt; items =
+              <pre><code>private Dictionary&lt;string, Item&gt; _items =
     new(StringComparer.Ordinal);
 
 private void ApplyReward(
@@ -599,14 +599,14 @@ foreach (var index in Indexes)
               <div class="example-label">올바른 사용</div>
               <pre><code>[Header("Settings")]
 [SerializeField]
-private int count;</code></pre>
+private int _count;</code></pre>
             </div>
             <div class="example bad">
               <div class="example-label">잘못된 사용</div>
               <pre><code>[Header("Settings"), SerializeField]
-private int count;
+private int _count;
 
-[SerializeField] private int index;</code></pre>
+[SerializeField] private int _index;</code></pre>
             </div>
           </div>
         </div>
@@ -772,7 +772,7 @@ private void SetTargetFallback(Transform fallback)
 {
 }
 
-private FunctionInterface function;
+private FunctionInterface _function;
 
 public class Some
 {
@@ -984,7 +984,7 @@ public string Description { get; }</code></pre>
 {
 }
 
-private ItemGroupEnum itemGroup;</code></pre>
+private ItemGroupEnum _itemGroup;</code></pre>
             </div>
             <div class="example bad">
               <div class="example-label">잘못된 사용</div>
@@ -1184,6 +1184,7 @@ Class: BagPanel</code></pre>
         <div class="rule-index">22</div>
         <div class="rule-body">
           <h3>PascalCase 경계는 의미 계층을 나타낸다</h3>
+          <p>의미 계층의 적용 범위와 제외 대상은 <a href="https://oojjrs.github.io/codex/semantic-layer-naming-guideline.md">의미 계층 명명 지침</a>을 따른다.</p>
           <p>의미 계층 규칙의 적용 범위와 별개로, 모든 직접 작성한 식별자에서 약어는 하나의 단어로 취급한다. PascalCase에서는 <code>Html</code>, <code>Rgb</code>, <code>Rgba</code>, <code>Hsv</code>, <code>Ui</code>, <code>Id</code>로 쓰고, <code>HTML</code>, <code>RGB</code>, <code>RGBA</code>, <code>HSV</code>, <code>UI</code>, <code>ID</code>처럼 전부 대문자로 쓰지 않는다. 두 글자 약어도 예외가 아니다. camelCase의 첫 단어는 <code>html</code>, <code>rgb</code>, <code>ui</code>, <code>id</code>처럼 소문자로 쓰고, 뒤에 오는 약어는 <code>Html</code>, <code>Rgb</code>, <code>Ui</code>, <code>Id</code>로 쓴다.</p>
           <p>올바른 예: <code>ToHtmlStringRgb</code>, <code>ToHsv</code>, <code>UiPanel</code>, <code>userId</code>. 잘못된 예: <code>ToHTMLStringRGB</code>, <code>ToHSV</code>, <code>UIPanel</code>, <code>userID</code>. 외부 API의 고정된 이름과 재정의·인터페이스 구현에 필요한 멤버 이름은 유지한다.</p>
           <div class="example-pair">
@@ -1272,7 +1273,7 @@ RewardBucket</code></pre>
               <div class="example-label">올바른 사용</div>
               <pre><code>public sealed class Inventory
 {
-    private Dictionary&lt;string, Item&gt; items = new(StringComparer.Ordinal);
+    private Dictionary&lt;string, Item&gt; _items = new(StringComparer.Ordinal);
 
     public List&lt;Item&gt; Items { get; } = new();
 
@@ -1286,7 +1287,7 @@ RewardBucket</code></pre>
               <div class="example-label">잘못된 사용</div>
               <pre><code>public sealed class Inventory
 {
-    private Dictionary&lt;string, Item&gt; items = new Dictionary&lt;string, Item&gt;(StringComparer.Ordinal);
+    private Dictionary&lt;string, Item&gt; _items = new Dictionary&lt;string, Item&gt;(StringComparer.Ordinal);
 
     public List&lt;Item&gt; Items { get; } = new List&lt;Item&gt;();
 
@@ -1389,9 +1390,9 @@ private enum StateEnum { }</code></pre>
           <div class="example-pair">
             <div class="example good">
               <div class="example-label">올바른 사용</div>
-              <pre><code>private int alphaCount;
-private int betaCount;
-private int rewardCount;
+              <pre><code>private int _alphaCount;
+private int _betaCount;
+private int _rewardCount;
 
 public bool IsActive { get; }
 public int RewardCount { get; }
@@ -1410,8 +1411,8 @@ public void RefreshTooltip()
             </div>
             <div class="example bad">
               <div class="example-label">잘못된 사용</div>
-              <pre><code>private int rewardCount;
-private int alphaCount;
+              <pre><code>private int _rewardCount;
+private int _alphaCount;
 public void ApplyReward()
 {
 }
@@ -1430,6 +1431,7 @@ public void RefreshTooltip()
         <div class="rule-index">31</div>
         <div class="rule-body">
           <h3>변수·속성·함수는 static, 상속 구현, 자기 것 순서로 둔다</h3>
+          <p>타입이 소유하는 멤버에만 static을 쓰고 상태의 수명·리셋·정리·동시성을 정의한다. Instance·Current·서비스 접근은 기술 부채로 본다.</p>
           <div class="example-pair">
             <div class="example good">
               <div class="example-label">올바른 사용</div>
@@ -1437,10 +1439,10 @@ public void RefreshTooltip()
 {
     private static int __rewardTypeCount;
 
-    private int buttonIndex;
-    private int clickableCount;
-    private int tooltipCount;
-    private int rewardCount;
+    private int _buttonIndex;
+    private int _clickableCount;
+    private int _tooltipCount;
+    private int _rewardCount;
 
     public static int RewardTypeCount { get; }
 
@@ -1490,10 +1492,10 @@ public void RefreshTooltip()
               <div class="example-label">잘못된 사용</div>
               <pre><code>public sealed class RewardButton : ButtonBase, TooltipInterface, ClickableInterface
 {
-    private int rewardCount;
+    private int _rewardCount;
     private static int __rewardTypeCount;
-    private int tooltipCount;
-    private int buttonIndex;
+    private int _tooltipCount;
+    private int _buttonIndex;
 
     public int RewardCount { get; }
     public static int RewardTypeCount { get; }
@@ -1527,12 +1529,13 @@ public void RefreshTooltip()
         <div class="rule-index">32</div>
         <div class="rule-body">
           <h3>불필요한 함수를 만들지 않는다</h3>
+          <p>재사용, 독립된 책임이나 계약, 더 명확한 경계가 있을 때만 함수를 추출한다. 진입점·재정의·명시적 인터페이스 구현·콜백은 예외다. 지역 함수는 호출자 안의 재사용, 의존 코루틴, 또는 접을 수 있는 긴 블록에만 쓴다.</p>
           <div class="example-pair">
             <div class="example good">
               <div class="example-label">올바른 사용</div>
               <pre><code>private void ApplyReward()
 {
-    rewardCount += bonusCount;
+    _rewardCount += bonusCount;
     RefreshTooltip();
 }</code></pre>
             </div>
@@ -1540,7 +1543,7 @@ public void RefreshTooltip()
               <div class="example-label">잘못된 사용</div>
               <pre><code>private void AddBonus()
 {
-    rewardCount += bonusCount;
+    _rewardCount += bonusCount;
 }
 
 private void ApplyReward()
@@ -1732,6 +1735,7 @@ else
         <div class="rule-index">40</div>
         <div class="rule-body">
           <h3>한 번만 쓰는 값은 지역 변수로 이름 붙이지 않는다</h3>
+          <p>지역 변수는 두 번 이상 쓰거나 구문·실행 의미에 필요한 경우에 둔다. 그 외에는 값을 인라인한다.</p>
           <div class="example-pair">
             <div class="example good">
               <div class="example-label">올바른 사용</div>
@@ -1798,11 +1802,11 @@ private void ApplyAndLog()
           <div class="example-pair">
             <div class="example good">
               <div class="example-label">올바른 사용</div>
-              <pre><code>public int RewardCount =&gt; rewardCount;
+              <pre><code>public int RewardCount =&gt; _rewardCount;
 
 private int GetRewardCount()
 {
-    return rewardCount;
+    return _rewardCount;
 }
 
 private void RefreshReward()
@@ -1816,11 +1820,11 @@ private void RefreshReward()
 {
     get
     {
-        return rewardCount;
+        return _rewardCount;
     }
 }
 
-private int GetRewardCount() =&gt; rewardCount;
+private int GetRewardCount() =&gt; _rewardCount;
 
 private void RefreshReward() =&gt; ApplyReward();</code></pre>
             </div>

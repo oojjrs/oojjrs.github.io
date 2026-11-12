@@ -5,7 +5,7 @@ description: Create or update local BgmStore daily and separate-batch listen pag
 
 # BgmStore Listening Pages
 
-Read and follow https://oojjrs.github.io/codex/document-writing-guideline.md before any document or HTML output. Document/page creation, code changes, synchronization, translation, and publication do not approve text. Require separate prior approval of exact new or replacement wording and placement, including headings, table columns, examples, translations, and generated output. Assume 99% refusal: ask only when omission makes the requested result impossible; otherwise omit without asking. Present indispensable wording, placement, and reason in chat and wait for explicit approval; never prefill drafts or placeholders. Inspect the builder's emitted wording before execution; do not run a build that writes unapproved titles, prompts, navigation/index labels, Markdown track links, or fallback content. Preserve existing wording in its approved scope.
+Read and follow https://oojjrs.github.io/codex/document-writing-guideline.md before any document or HTML output. Inspect the builder's emitted wording before execution; do not run a build that writes unapproved titles, prompts, navigation/index labels, Markdown track links, or fallback content. Preserve existing wording in its approved scope.
 
 Own local listening pages after audio exists. Resolve the BgmStore checkout from the project context; its usual Windows path is `H:\BgmStore`.
 

@@ -2,7 +2,7 @@
 
 ## 상태 축
 
-상태를 하나의 완료 값으로 합치지 않는다. 다음 축은 대화 보고나 작업 데이터에서 구분한다. 이 표를 문서·HTML·상태 설명문으로 자동 저장하지 않는다. 문서로 옮길 새 문구나 교체 문구는 공통 문서 작성 지침에 따라 정확한 문구와 위치를 별도로 사전 허가받는다. 허가는 99% 거절된다고 전제하고, 생략하면 요청한 결과를 완성할 수 없는 경우에만 먼저 물으며 나머지는 질문 없이 생략한다.
+상태를 하나의 완료 값으로 합치지 않는다. 다음 축은 대화 보고나 작업 데이터에서 구분한다. 이 표를 문서·HTML·상태 설명문으로 자동 저장하지 않는다.
 
 - documentation: documented 또는 unknown
 - verification.documentation: verified_current 또는 unverified_current
@@ -30,7 +30,8 @@ availability는 동시에 존재하는 차단 조건을 모두 기록할 수 있
 | steampipe.build-files | PowerShell·VDF | documented | unverified_current | implemented | verified | unverified | input_required |
 | steampipe.preview | SteamCMD | documented | unverified_current | implemented | verified | unverified | input_required + permission_required |
 | steampipe.upload | SteamCMD | documented | unverified_current | implemented | verified | unverified | input_required + permission_required |
-| steampipe.branch.set-live | Partner 브라우저 | documented | unverified_current | project_specific | unverified | unverified | input_required + permission_required |
+| steampipe.branch.set-live.beta | SteamCMD | documented | unverified_current | implemented | unverified | unverified | input_required + permission_required |
+| steampipe.branch.set-live.default | Partner 브라우저 | documented | unverified_current | project_specific | unverified | unverified | input_required + permission_required |
 | sdk.client-feature | SDK·프로젝트 코드 | documented | unverified_current | project_specific | unverified | unverified | input_required |
 | sdk.game-server | SDK·서버 코드 | documented | unverified_current | project_specific | unverified | unverified | input_required |
 | webapi.request | 보안 서버·HTTP | documented | unverified_current | project_specific | unverified | unverified | input_required |

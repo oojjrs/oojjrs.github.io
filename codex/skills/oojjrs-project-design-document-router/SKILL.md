@@ -9,7 +9,7 @@ Use this skill as the primary domain for focused project planning-document work.
 
 ## Required Reference
 
-Before any document or HTML edit, read and follow `https://oojjrs.github.io/codex/document-writing-guideline.md`; its text-addition approval rule takes precedence over every writing and synchronization instruction here. Document or page creation and agreement on planning decisions do not authorize text. Every new or replacement heading, navigation item, table label, caption, filename, status label, tooltip, or generated phrase requires separate prior approval of its exact wording and placement. Assume 99% of text requests are refused: ask only when omission makes the requested result impossible; otherwise omit the text without asking. For indispensable text, show its exact wording, placement, and necessity in chat and wait for explicit approval before writing any draft or placeholder. Before reviewing or editing a project `Design.html`, also follow `https://oojjrs.github.io/codex/guideline-design-generation.review.md`. The lifecycle router already loaded the common rules.
+Before any document or HTML edit, read and follow `https://oojjrs.github.io/codex/document-writing-guideline.md`; its text-addition approval rule takes precedence over every writing and synchronization instruction here. Before reviewing or editing a project `Design.html`, also follow `https://oojjrs.github.io/codex/guideline-design-generation.review.md`. The lifecycle router already loaded the common rules.
 
 ## Workflow
 

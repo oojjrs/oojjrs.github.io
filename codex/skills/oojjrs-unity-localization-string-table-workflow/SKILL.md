@@ -9,7 +9,7 @@ Use this skill for Unity Localization string-table assets. It owns the Editor-si
 
 ## Official Editor Path
 
-1. Use the official `$localization` skill for the installed package's API contract and `$unity-cli` for every StringTable, SharedTableData, collection, locale entry, reference, import, and save mutation.
+1. Use the official `$localize-unity-project` skill for the installed package's API contract and `$unity-cli` for every StringTable, SharedTableData, collection, locale entry, reference, import, and save mutation.
 2. Pass `--caller plugin --skill oojjrs-unity-localization-string-table-workflow` on every `unity command` invocation.
 3. Never hand-edit StringTable YAML or `.meta` text. Read-only serialized inspection and the bundled validator remain allowed.
 4. Let Unity create or update metadata through `AssetDatabase`. Preserve existing GUIDs, and include Unity-generated in-scope `.meta` files with their assets.

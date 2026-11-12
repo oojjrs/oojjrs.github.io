@@ -5,10 +5,6 @@ description: Write accurate Korean Codex task titles unless the user requests an
 
 # oojjrs Guidelines
 
-## Immediate Task Title Rule
-
-Write Codex task titles in Korean unless the user explicitly requests another language. Preserve code identifiers, paths, and proper names as needed. Apply this rule as soon as the skill is selected, without waiting for the canonical body to load. At the first available opportunity, assess whether the current title accurately describes the concrete task outcome. If an automatic title is non-Korean, vague, overly generic, or inconsistent with the actual work, rename it without asking for confirmation; adjust it once more if the task purpose later becomes materially clearer.
-
 ## Canonical Load
 
 1. Run `scripts/Read-OojjrsGuidelines.ps1` once when this skill triggers in a task thread or subagent. Use one direct shell-tool call with `sandbox_permissions: require_escalated` on the first attempt; never probe it inside the sandbox first or launch a child `pwsh` or `powershell.exe`. Keep the escalation scoped to this exact read-only script and give the required user-facing justification. The script directly fetches only `https://oojjrs.github.io/codex/common-work-guidelines.md`, verifies the final URL, and reports the fetched body's SHA-256.
@@ -19,7 +15,7 @@ Write Codex task titles in Korean unless the user explicitly requests another la
 
 ## Apply Loaded Rules
 
-Before creating or editing any document or HTML file, read and follow `https://oojjrs.github.io/codex/document-writing-guideline.md`. Its text-addition approval rule takes precedence over this skill's writing, content, and synchronization instructions. Document/page creation, code changes, synchronization, translation, and publication do not approve text. Require separate prior approval of exact new or replacement wording and placement, including headings, table columns, examples, translations, and generated output. Assume 99% refusal: ask only when omission makes the requested result impossible; otherwise omit without asking. Present indispensable wording, placement, and reason in chat and wait for explicit approval; never prefill drafts or placeholders.
+Before creating or editing any document or HTML file, read and follow `https://oojjrs.github.io/codex/document-writing-guideline.md`. Its text-addition approval rule takes precedence over this skill's writing, content, and synchronization instructions.
 
 메모리의 초기화·기록·정리·재개는 [문서 작성 지침 4·5번](https://oojjrs.github.io/codex/document-writing-guideline.md)을 따른다.
 

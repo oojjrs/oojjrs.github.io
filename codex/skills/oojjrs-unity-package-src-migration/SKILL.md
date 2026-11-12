@@ -5,7 +5,7 @@ description: Assets 아래 Unity 패키지를 Packages/src 루트로 실제 구�
 
 # oojjrs Unity Package Src Migration
 
-모든 문서와 HTML 파일의 작성·갱신 전에 [공통 문서 작성 지침](https://oojjrs.github.io/codex/document-writing-guideline.md)을 읽고 텍스트 추가 사전 허가 규칙을 우선 적용한다. 이관에 필요한 README 동기화는 그 허가 범위 안에서 이 스킬이 직접 수행하고, README 자체가 별도 주 산출물인 전면 개편만 이관 단계가 끝난 뒤 `$oojjrs-readme-doc-generation`의 독립 단계로 진행한다. 이관·문서 생성·동기화·배포 지시를 새 문구나 교체 문구의 허가로 간주하지 않는다. 제목·표 컬럼·설치 경로·예시·번역·자동 생성 문구도 정확한 문구와 위치를 별도로 사전 허가받는다. 허가는 99% 거절된다고 전제하고, 문구를 생략하면 요청한 결과를 완성할 수 없는 경우에만 정확한 문구·위치·이유를 대화로 먼저 제시해 묻는다. 그 외에는 질문 없이 생략하며 허가 전에 초안이나 임시 문구를 쓰지 않는다.
+모든 문서와 HTML 파일의 작성·갱신 전에 [공통 문서 작성 지침](https://oojjrs.github.io/codex/document-writing-guideline.md)을 읽고 텍스트 추가 사전 허가 규칙을 우선 적용한다. 이관에 필요한 README 동기화는 그 허가 범위 안에서 이 스킬이 직접 수행하고, README 자체가 별도 주 산출물인 전면 개편만 이관 단계가 끝난 뒤 `$oojjrs-readme-doc-generation`의 독립 단계로 진행한다.
 
 ## Text File Discipline
 

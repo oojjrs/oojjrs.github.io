@@ -5,7 +5,7 @@ description: Implement C# Runtime or Editor features, bug fixes, behavior change
 
 # oojjrs Unity Package Code Change Workflow
 
-Use this as the fallback implementation domain for first-party C# under a `UnityO...` library package's `Runtime` or `Editor` surface. Assume the common lifecycle and project-start gate already own authorization, protected work, and the Unity C# convention preflight; do not duplicate them here.
+Use this as the fallback implementation domain for first-party C# under a `UnityO...` library package's `Runtime` or `Editor` surface. Assume the common lifecycle already own authorization, protected work, and the Unity C# convention preflight; do not duplicate them here.
 
 ## Scope Boundary
 
@@ -41,7 +41,7 @@ Before editing an observable API, behavior, dependency, lifetime, failure, or th
 
 ## Synchronize Directly Affected Surfaces
 
-- Before any document or HTML edit, read and follow `https://oojjrs.github.io/codex/document-writing-guideline.md`; its text-addition approval rule takes precedence over code-driven documentation synchronization. Document/page creation, code changes, synchronization, translation, and publication do not approve text. Require separate prior approval of exact new or replacement wording and placement, including headings, table columns, examples, translations, and generated output. Assume 99% refusal: ask only when omission makes the requested result impossible; otherwise omit without asking. Present indispensable wording, placement, and reason in chat and wait for explicit approval; never prefill drafts or placeholders. Within separately approved exact wording and placement, update only documentation statements and existing CHANGELOG entries that the code change makes stale or incomplete; implementation approval alone does not authorize these edits. Match the repository's current location and style; do not create a documentation hierarchy or a CHANGELOG solely for this task.
+- Before any document or HTML edit, read and follow `https://oojjrs.github.io/codex/document-writing-guideline.md`; its text-addition approval rule takes precedence over code-driven documentation synchronization. Within separately approved exact wording and placement, update only documentation statements and existing CHANGELOG entries that the code change makes stale or incomplete; implementation approval alone does not authorize these edits. Match the repository's current location and style; do not create a documentation hierarchy or a CHANGELOG solely for this task.
 - Recheck the affected consumers and search for obsolete public names, signatures, assembly references, or call patterns after the final edit.
 - Do not decide or apply the package version in this phase. Record the observable behavior and consumer impact needed by `$oojjrs-unity-package-release`, then hand off to it before any commit containing the package change.
 - Leave staging, commit, push, deployment, and publication to `$oojjrs-project-finish-work` after the release decision.

@@ -36,7 +36,7 @@ Build a message-by-message timeline for every material action. For each action, 
 - whether a higher-priority instruction narrowed or prohibited it
 - whether the action needed separate file-content, Git-completion, destructive, paid, or external-mutation authority
 
-Judge authority from the instructions available at that time. Later approval, dissatisfaction, or newer guidance is not retroactive evidence. Separate an authorized outcome from an unauthorized method, and never treat permission for commit, push, or deployment as permission to change file contents.
+Judge authority from the instructions available at that time. Later approval, dissatisfaction, or newer guidance is not retroactive evidence. Separate an authorized outcome from an unauthorized method.
 
 ## Cause Classification
 

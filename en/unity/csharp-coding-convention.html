@@ -58,7 +58,7 @@ A `switch` expression is an exception to the one-line layout rule. Even in a `re
 Correct:
 
 ```csharp
-private Dictionary<string, Item> items = new(StringComparer.Ordinal);
+private Dictionary<string, Item> _items = new(StringComparer.Ordinal);
 
 private void ApplyReward(int rewardCount, RewardTypeEnum rewardType, bool isBonus, Action onComplete)
 {
@@ -77,7 +77,7 @@ private void GrantReward()
 Incorrect:
 
 ```csharp
-private Dictionary<string, Item> items =
+private Dictionary<string, Item> _items =
     new(StringComparer.Ordinal);
 
 private void ApplyReward(
@@ -180,16 +180,16 @@ Correct:
 ```csharp
 [Header("Settings")]
 [SerializeField]
-private int count;
+private int _count;
 ```
 
 Incorrect:
 
 ```csharp
 [Header("Settings"), SerializeField]
-private int count;
+private int _count;
 
-[SerializeField] private int index;
+[SerializeField] private int _index;
 ```
 
 ### 04. Use one completely empty blank line
@@ -342,7 +342,7 @@ public interface FunctionInterface
 {
 }
 
-private FunctionInterface function;
+private FunctionInterface _function;
 
 public class Some
 {
@@ -553,7 +553,7 @@ public enum ItemGroupEnum
 {
 }
 
-private ItemGroupEnum itemGroup;
+private ItemGroupEnum _itemGroup;
 ```
 
 Incorrect:
@@ -736,6 +736,8 @@ Class: BagPanel
 
 ### 22. PascalCase boundaries represent semantic layers
 
+Follow the [Semantic Layer Naming Guideline](https://oojjrs.github.io/codex/semantic-layer-naming-guideline.md) for the scope and exclusions of semantic naming.
+
 Independently of the semantic-layer rule's scope, treat each acronym as one word in all first-party identifiers. In PascalCase, use `Html`, `Rgb`, `Rgba`, `Hsv`, `Ui`, and `Id`, not `HTML`, `RGB`, `RGBA`, `HSV`, `UI`, or `ID`. Two-letter acronyms have no exception. In camelCase, use lowercase for the first word (`html`, `rgb`, `ui`, `id`) and title case for later acronyms (`Html`, `Rgb`, `Ui`, `Id`).
 
 Correct: `ToHtmlStringRgb`, `ToHsv`, `UiPanel`, `userId`. Incorrect: `ToHTMLStringRGB`, `ToHSV`, `UIPanel`, `userID`. Preserve fixed external API names and member names required by overrides or interface implementations.
@@ -817,7 +819,7 @@ Correct:
 ```csharp
 public sealed class Inventory
 {
-    private Dictionary<string, Item> items = new(StringComparer.Ordinal);
+    private Dictionary<string, Item> _items = new(StringComparer.Ordinal);
 
     public List<Item> Items { get; } = new();
 
@@ -833,7 +835,7 @@ Incorrect:
 ```csharp
 public sealed class Inventory
 {
-    private Dictionary<string, Item> items = new Dictionary<string, Item>(StringComparer.Ordinal);
+    private Dictionary<string, Item> _items = new Dictionary<string, Item>(StringComparer.Ordinal);
 
     public List<Item> Items { get; } = new List<Item>();
 
@@ -931,9 +933,9 @@ private enum StateEnum { }
 Correct:
 
 ```csharp
-private int alphaCount;
-private int betaCount;
-private int rewardCount;
+private int _alphaCount;
+private int _betaCount;
+private int _rewardCount;
 
 public bool IsActive { get; }
 public int RewardCount { get; }
@@ -954,8 +956,8 @@ public void RefreshTooltip()
 Incorrect:
 
 ```csharp
-private int rewardCount;
-private int alphaCount;
+private int _rewardCount;
+private int _alphaCount;
 public void ApplyReward()
 {
 }
@@ -971,6 +973,8 @@ public void RefreshTooltip()
 
 ### 31. Order variables, properties, and functions as static, inherited, then local
 
+Use static only for type-owned members. Define state lifetime, reset, cleanup, and concurrency. Treat Instance, Current, and service access as technical debt.
+
 Correct:
 
 ```csharp
@@ -978,10 +982,10 @@ public sealed class RewardButton : ButtonBase, ClickableInterface, TooltipInterf
 {
     private static int __rewardTypeCount;
 
-    private int buttonIndex;
-    private int clickableCount;
-    private int tooltipCount;
-    private int rewardCount;
+    private int _buttonIndex;
+    private int _clickableCount;
+    private int _tooltipCount;
+    private int _rewardCount;
 
     public static int RewardTypeCount { get; }
 
@@ -1033,10 +1037,10 @@ Incorrect:
 ```csharp
 public sealed class RewardButton : ButtonBase, TooltipInterface, ClickableInterface
 {
-    private int rewardCount;
+    private int _rewardCount;
     private static int __rewardTypeCount;
-    private int tooltipCount;
-    private int buttonIndex;
+    private int _tooltipCount;
+    private int _buttonIndex;
 
     public int RewardCount { get; }
     public static int RewardTypeCount { get; }
@@ -1068,12 +1072,14 @@ public sealed class RewardButton : ButtonBase, TooltipInterface, ClickableInterf
 
 ### 32. Do not create unnecessary functions
 
+Extract functions only for reuse, independent responsibility or contracts, or clearer boundaries. Entry points, overrides, explicit interface implementations, and callbacks are exempt. Use local functions only for caller-local reuse, dependent coroutines, or long foldable blocks.
+
 Correct:
 
 ```csharp
 private void ApplyReward()
 {
-    rewardCount += bonusCount;
+    _rewardCount += bonusCount;
     RefreshTooltip();
 }
 ```
@@ -1083,7 +1089,7 @@ Incorrect:
 ```csharp
 private void AddBonus()
 {
-    rewardCount += bonusCount;
+    _rewardCount += bonusCount;
 }
 
 private void ApplyReward()
@@ -1262,6 +1268,8 @@ else
 
 ### 40. Inline values that a local variable would use only once
 
+Keep a local variable when it is used at least twice or required for syntax or execution semantics. Otherwise, inline the value.
+
 Correct:
 
 ```csharp
@@ -1326,11 +1334,11 @@ When a property can be expressed as one expression, use an expression body (`=>`
 Correct:
 
 ```csharp
-public int RewardCount => rewardCount;
+public int RewardCount => _rewardCount;
 
 private int GetRewardCount()
 {
-    return rewardCount;
+    return _rewardCount;
 }
 
 private void RefreshReward()
@@ -1346,11 +1354,11 @@ public int RewardCount
 {
     get
     {
-        return rewardCount;
+        return _rewardCount;
     }
 }
 
-private int GetRewardCount() => rewardCount;
+private int GetRewardCount() => _rewardCount;
 
 private void RefreshReward() => ApplyReward();
 ```

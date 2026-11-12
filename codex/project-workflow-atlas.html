@@ -1249,7 +1249,7 @@ html&gt;body{padding:0}&lt;/style&gt;
               { label: &#x27;영향 있음&#x27;, text: &#x27;그 참조와 항목까지 동기화&#x27; },
               { label: &#x27;영향 없음&#x27;, text: &#x27;스크립트 밖으로 범위를 넓히지 않음&#x27; }
             ] },
-            { kind: &#x27;node&#x27;, text: &#x27;정적 검사 → compile/build → 가능한 런타임 시나리오 검증&#x27; },
+            { kind: &#x27;node&#x27;, text: &#x27;정적 검사&#x27; },
             { kind: &#x27;finish&#x27;, text: &#x27;최종 미커밋 diff 보고 → 사용자 검토 대기&#x27; }
           ],
           guards: [
@@ -1324,7 +1324,7 @@ html&gt;body{padding:0}&lt;/style&gt;
             { kind: &#x27;node&#x27;, text: &#x27;Rename·move 순서를 정하고 의미 보존 수정&#x27; },
             { kind: &#x27;gate&#x27;, text: &#x27;.meta·GUID·fileID·직렬화 필드·평가 시점 보존&#x27; },
             { kind: &#x27;node&#x27;, text: &#x27;이전 이름·누락 참조·의도치 않은 동작 변화 전수 검색&#x27; },
-            { kind: &#x27;node&#x27;, text: &#x27;형식·정적 검사·compile/build·필요한 회귀 검증&#x27; },
+            { kind: &#x27;node&#x27;, text: &#x27;형식·정적 검사&#x27; },
             { kind: &#x27;finish&#x27;, text: &#x27;요청 hunk의 미커밋 diff 보고 → 사용자 검토 대기&#x27; }
           ],
           guards: [
@@ -1350,7 +1350,7 @@ html&gt;body{padding:0}&lt;/style&gt;
               { label: &#x27;예&#x27;, text: &#x27;기존 방식으로 최소 동기화&#x27; },
               { label: &#x27;아니오&#x27;, text: &#x27;부수 산출물을 만들지 않음&#x27; }
             ] },
-            { kind: &#x27;finish&#x27;, text: &#x27;빌드·회귀 검증 → 기능·문서·버전의 미커밋 diff 보고&#x27; }
+            { kind: &#x27;finish&#x27;, text: &#x27;기능·문서·버전의 미커밋 diff 보고&#x27; }
           ],
           guards: [
             &#x27;방어적이라는 이유만으로 포맷·lock·추상화 계층을 늘리지 않는다.&#x27;,
@@ -1371,7 +1371,7 @@ html&gt;body{padding:0}&lt;/style&gt;
               { label: &#x27;연결 변경&#x27;, text: &#x27;Prefab/Scene 참조와 import 상태까지 동기화&#x27; }
             ] },
             { kind: &#x27;gate&#x27;, text: &#x27;GUID·fileID·기존 .meta·사용자 재직렬화 변경 보호&#x27; },
-            { kind: &#x27;node&#x27;, text: &#x27;compile → 실제 화면·입력·해상도·상태 전이 확인&#x27; },
+
             { kind: &#x27;node&#x27;, text: &#x27;시각 변경이면 렌더 기반 Visual QA&#x27; },
             { kind: &#x27;finish&#x27;, text: &#x27;스크립트와 직접 영향 Prefab의 미커밋 diff 보고&#x27; }
           ],
@@ -1515,7 +1515,7 @@ html&gt;body{padding:0}&lt;/style&gt;
               { label: &#x27;예&#x27;, text: &#x27;공개 API·동작 변화로 버전 bump 여부 판정&#x27; },
               { label: &#x27;아니오&#x27;, text: &#x27;해당 프로젝트 버전 정책만 적용&#x27; }
             ] },
-            { kind: &#x27;node&#x27;, text: &#x27;필요한 빌드·형식·문서·버전 일치 검증&#x27; },
+            { kind: &#x27;node&#x27;, text: &#x27;형식·문서·버전 일치 검증&#x27; },
             { kind: &#x27;node&#x27;, text: &#x27;확정된 파일만 스테이징하고 staged diff 재확인&#x27; },
             { kind: &#x27;node&#x27;, text: &#x27;의미가 드러나는 로컬 커밋 생성&#x27; },
             { kind: &#x27;decision&#x27;, text: &#x27;Push·배포·릴리스가 명시됐는가?&#x27;, branches: [
@@ -1564,7 +1564,7 @@ html&gt;body{padding:0}&lt;/style&gt;
             { kind: &#x27;start&#x27;, text: &#x27;대상 저장소와 패키지 의존 방향을 그래프로 확정&#x27; },
             { kind: &#x27;node&#x27;, text: &#x27;각 저장소의 dirty 상태·브랜치·현재 버전 별도 확인&#x27; },
             { kind: &#x27;node&#x27;, text: &#x27;가장 아래 패키지의 API·저장 형식부터 구현&#x27; },
-            { kind: &#x27;node&#x27;, text: &#x27;저장소별 build/test·README·버전 판정·미커밋 diff 보고&#x27; },
+            { kind: &#x27;node&#x27;, text: &#x27;저장소별 README·버전 판정·미커밋 diff 보고&#x27; },
             { kind: &#x27;node&#x27;, text: &#x27;상위 패키지와 게임이 확정된 하위 버전을 참조하도록 연결&#x27; },
             { kind: &#x27;decision&#x27;, text: &#x27;모든 저장소의 계약과 검증이 완료됐는가?&#x27;, branches: [
               { label: &#x27;아니오&#x27;, text: &#x27;미완성 저장소와 남은 검증을 표시하고 원격 작업 중단&#x27; },

@@ -5,41 +5,33 @@ description: Complete explicitly authorized local staging, commit, push, deploy,
 
 # oojjrs Project Finish Work
 
-Use this lifecycle skill only for Git or publication completion explicitly authorized by the current request. A change or fix request alone does not authorize staging or committing; an upfront Git-completion instruction or a requested push or publication authorizes its necessary scoped staging and local commit. Ordinary edits remain unstaged and uncommitted for user review and finish under the canonical one-pass text-format and scoped-diff rule without this skill.
+Use this lifecycle skill only for Git or publication completion explicitly authorized by the current request. Follow the [common work rules](https://oojjrs.github.io/codex/common-work-guidelines.md) for Git authorization, scope, synchronization, and commit messages.
 
 ## Scope Reconciliation
 
-When Git completion follows review of an uncommitted result in the same Codex task, carry the most recently reported content scope forward as the candidate Git scope unless the latest request changes it. Immediately before staging, take one fresh status snapshot and inspect only the current working-tree, index, and untracked changes needed to account for every candidate or newly appearing path. Classify them against the carried task outcome as requested scope, related support, unrelated existing work, or unknown; classify by semantic role and conversation context, never by whether Codex or the user authored the bytes.
+Immediately before staging, take one fresh status snapshot and inspect only the current working-tree, index, and untracked changes needed to account for every candidate or newly appearing path. Classify them against the carried task outcome as requested scope, related support, unrelated existing work, or unknown; classify by semantic role and conversation context, never by whether Codex or the user authored the bytes.
 
-When a task commit is authorized and related CodexWorkMemory.md updates exist, treat those hunks as related support and include them atomically in the same commit as the associated work without a separate inclusion request. Complete the memory check below before freezing; do not defer existing task records to a separate memory-only follow-up commit. If no new meaningful record is needed, do not manufacture memory edits. Unrelated or unknown records remain excluded. This does not authorize an otherwise unrequested commit, push or publication.
-
-Preserve existing user code, assets, and unrelated hunks. The current Git instruction permits necessary in-scope maintenance-document and governed version updates before freezing. Requested-scope and related-support bytes are eligible to be staged after those updates when the instruction covers that outcome; unrelated and unknown bytes are not. If ownership overlaps, hunks are interleaved, or classification remains uncertain, load `$oojjrs-dirty-worktree-scope-split`. Freeze the final scope only after this reconciliation.
+If ownership overlaps, hunks are interleaved, or classification remains uncertain, load `$oojjrs-dirty-worktree-scope-split`. Freeze the final scope only after this reconciliation.
 
 ## Project Card Reconciliation
 
 For every commit request, apply the canonical repository-linked board rule even when earlier work omitted it. Reuse the task's resolved board; otherwise check the resolved repository remote now. When a relevant board exists, use `$oojjrs-github-project-board` and reconcile matching cards with the actual commit scope before staging. Read completion criteria when needed; do not infer completion from a filename or commit message.
 
-After the commit succeeds, finish the board helper's **Commit And Publication Handoff** before reporting completion. Routine card and issue updates use common rule 13's standing authorization unless the user opts out; they do not require a separate permission question and are also authorized during ordinary content work before any Git-completion request. A local commit does not authorize a push or release.
+After the commit succeeds, finish the board helper's **Commit And Publication Handoff** before reporting completion.
 
 ## Content Freeze
 
 메모리의 초기화·기록·정리·재개는 [문서 작성 지침 4·5번](https://oojjrs.github.io/codex/document-writing-guideline.md)을 따른다.
 
-An authorized Git-completion instruction includes the maintenance-document and governed version updates needed by the reconciled task scope without a separate content-change instruction, within the text-addition approval scope of `https://oojjrs.github.io/codex/document-writing-guideline.md`. Read and follow that rule before any document or HTML edit; it takes precedence over this skill's maintenance-document instructions. Git-completion authorization alone does not approve new document wording. Apply those updates through their owning domain, complete any other requested content work, then freeze the final scope immediately before staging. Preserve user-authored code, assets, and unrelated hunks; the Git instruction does not authorize unrelated implementation changes or repairs. After freezing, stage the final bytes without further content edits.
-
-An explicitly requested merge, rebase, cherry-pick, or revert may make its normal worktree and index changes and the minimum conflict resolution needed to complete that operation. Re-review the resulting scoped bytes before commit; do not add unrelated repairs.
+An authorized Git-completion instruction includes the maintenance-document and governed version updates needed by the reconciled task scope without a separate content-change instruction, within the text-addition approval scope of `https://oojjrs.github.io/codex/document-writing-guideline.md`. Read and follow that rule before any document or HTML edit; it takes precedence over this skill's maintenance-document instructions. Git-completion authorization alone does not approve new document wording. Apply those updates through their owning domain, complete any other requested content work, then freeze the final scope immediately before staging. After freezing, stage the final bytes without further content edits.
 
 ## Remote Synchronization
 
-For every requested branch push or branch-backed publication, record the initiating checkout, its local target branch, and that branch's tip before creating or using an isolated or detached worktree. Immediately before the push sequence, fetch the exact target remote and branch and compare the local and fetched tips.
-
-1. If the tips are equal or only the local side has commits, leave the local branch unchanged.
-2. If only the fetched target has commits, recoverably preserve the checkout whose branch will move, including its index, unstaged changes, and untracked paths; fast-forward the local target branch; then restore that state.
-3. If both sides have commits, preserve the same state, rebase the local commits onto the fetched target unless the user explicitly chose a merge, and restore that state before staging, committing, or pushing.
+For every requested branch push or branch-backed publication, record the initiating checkout, its local target branch, and that branch's tip before creating or using an isolated or detached worktree.
 
 Keep every preservation reference until restoration is verified. Resolve a rebase or restore conflict only within the frozen task scope; otherwise stop and report it. Dirty state is not a reason to publish from a stale alternate base.
 
-After pushing, read back the exact remote target and verify that it contains the pushed commit. Before reporting completion, reconcile the initiating checkout's local target branch to the verified remote tip and restore its preserved index, unstaged changes, and untracked paths. Fast-forward when the initiating tip is an ancestor. When an isolated-worktree rebase rewrote the recorded initiating tip, keep a recoverable backup of that tip and move the initiating branch only after verifying that it has not advanced independently and that every old local commit is represented in the pushed history. If the initiating branch contains independent commits or restoration conflicts, retain the preservation and report the exact blocker; do not claim completion while that checkout remains behind.
+Fast-forward when the initiating tip is an ancestor. When an isolated-worktree rebase rewrote the recorded initiating tip, keep a recoverable backup of that tip and move the initiating branch only after verifying that it has not advanced independently and that every old local commit is represented in the pushed history. If the initiating branch contains independent commits or restoration conflicts, retain the preservation and report the exact blocker; do not claim completion while that checkout remains behind.
 
 ## One-Pass Completion
 
@@ -49,7 +41,7 @@ After pushing, read back the exact remote target and verify that it contains the
 4. If committing, inspect the exact intended paths for governed versioned units. Read and apply only policies that govern units present in that scope; do not report that unrelated or absent units do not exist.
 5. Stage the exact reconciled, staging-eligible bytes after permitted maintenance-document and governed version updates are complete; do not modify their contents after freezing. Review `git diff --cached --name-status`, the staged diff, and `git diff --cached --check` once after staging is final.
 6. If staged content changes, re-review only the final staged content and any policy directly affected by that change.
-7. Commit locally only as part of the explicitly authorized Git or publication outcome. Push, deploy, release, publish, or perform destructive Git operations only to the explicitly authorized target. For a branch push or branch-backed publication, follow **Remote Synchronization**; for another external result, read back the resulting state once.
+7. For a branch push or branch-backed publication, follow **Remote Synchronization**; for another external result, read back the resulting state once.
 
 8. Reconcile project card status and work records with the verified result through **Project Card Reconciliation**. Do not prewrite push, publication, installation or other success from a plan or an agent report. An explicitly requested standalone memory task may have its own commit. Report any failed board update as unfinished work even when Git succeeded.
 
@@ -62,10 +54,6 @@ powershell -ExecutionPolicy Bypass -File <oojjrs-guidelines-skill-dir>\scripts\T
 ```
 
 Never use `-Fix` outside the current task's content scope. Correct an in-scope mismatch before freezing the final bytes; otherwise leave it untouched and report it. The checker's `-Fix` path verifies its write, so do not add an unconditional second run.
-
-## Commit Message
-
-Before every commit, apply the commit-message rule in the canonical common guidelines loaded through `$oojjrs-guidelines`. If it has not been loaded in this task, load it before proceeding. Draft the subject and any body in the required Korean style, then check them against the final staged changes before invoking Git. English wording in this skill, recent agent commits, or Git defaults does not override that rule. Keep the message policy in the canonical guidelines rather than inventing a separate template here.
 
 ## Commit Boundary
 

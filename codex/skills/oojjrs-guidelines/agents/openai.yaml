@@ -1,4 +1,4 @@
 interface:
   display_name: "oojjrs Guidelines"
   short_description: "Load canonical shared rules once per task thread"
-  default_prompt: "Use $oojjrs-guidelines to read the canonical shared rules once, load the references required by the task, and route only the workflow skills it needs. Apply the document-writing rule to every document/HTML output: separately approve exact new or replacement text and placement, including generated labels, examples, and translations. Document/page creation, code changes, synchronization, and publication are not wording approval. Assume 99% refusal; ask only if omission makes the requested result impossible, otherwise omit without asking. Never prefill unapproved drafts or placeholders. 메모리의 초기화·기록·정리·재개는 [문서 작성 지침 4·5번](https://oojjrs.github.io/codex/document-writing-guideline.md)을 따른다."
+  default_prompt: "Use $oojjrs-guidelines to read the canonical shared rules once, load the references required by the task, and route only the workflow skills it needs. 메모리의 초기화·기록·정리·재개는 [문서 작성 지침 4·5번](https://oojjrs.github.io/codex/document-writing-guideline.md)을 따른다."
