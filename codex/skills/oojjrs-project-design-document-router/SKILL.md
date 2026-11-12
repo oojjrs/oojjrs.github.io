@@ -13,9 +13,9 @@ Before any document or HTML edit, read and follow `https://oojjrs.github.io/code
 
 ## Workflow
 
-1. Start with the current summary and progress in the project-root `CodexWorkMemory.md`, search and read relevant working records as needed under the public document-writing retrieval policy, then read the live project `Design.html` if it exists. Reuse already-read unchanged memory content. If memory is absent, initialize it from the project's existing active/archived user chats with dates and provenance under the public initialization policy; do not substitute an empty file, a current-request-only note or a partial scan. Resume explicitly unfinished reconstruction from its recorded coverage. The public free-writing exception applies only to the memory file; its wording does not need separate approval.
+1. 메모리의 초기화·기록·정리·재개는 [문서 작성 지침 4·5번](https://oojjrs.github.io/codex/document-writing-guideline.md)을 따른다. Read the live project `Design.html` if it exists.
 2. Treat `Design.html` as product/game planning: final decisions, implementation criteria, UX rationale, current state, and unresolved items. These categories do not require filling new prose, headings, or unresolved-item labels.
-3. Keep operational workflow, queue, validation, GitHub Project board, approval, and commit rules out of `Design.html`; preserve working records in the project-root `CodexWorkMemory.md`. A memory record never authorizes promotion into `Design.html`.
+3. Keep operational workflow, queue, validation, GitHub Project board, approval, and commit rules out of `Design.html`. A memory record never authorizes promotion into `Design.html`.
 4. Do not add shared guideline links to the `Design.html` header; Codex reads public Markdown rules from user-level work rules.
 5. Use current code and assets to verify planning facts against user intent. Reconciliation does not authorize rewriting document text; make wording changes only within separately approved exact wording and placement.
 6. Keep assets in live runtime paths or `DesignAssets/...`; temporary material belongs in `$Trash`.

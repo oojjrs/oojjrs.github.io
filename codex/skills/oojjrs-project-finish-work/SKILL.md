@@ -23,7 +23,7 @@ After the commit succeeds, finish the board helper's **Commit And Publication Ha
 
 ## Content Freeze
 
-Before freezing and staging, compare the current request, confirmed/revised/withdrawn decisions and reasons, actual changes and verification results, blockers and next steps with the relevant CodexWorkMemory.md records and current summary. Fill missing records and refresh status, summary and index as needed under the document-writing guideline's provenance/freshness policy. Check even if the result is no new meaningful information; do not add filler, reread the full history or run extra validation merely for this check. Include the resulting task-related memory hunks with the work in the same atomic commit.
+메모리의 초기화·기록·정리·재개는 [문서 작성 지침 4·5번](https://oojjrs.github.io/codex/document-writing-guideline.md)을 따른다.
 
 An authorized Git-completion instruction includes the maintenance-document and governed version updates needed by the reconciled task scope without a separate content-change instruction, within the text-addition approval scope of `https://oojjrs.github.io/codex/document-writing-guideline.md`. Read and follow that rule before any document or HTML edit; it takes precedence over this skill's maintenance-document instructions. Git-completion authorization alone does not approve new document wording. Apply those updates through their owning domain, complete any other requested content work, then freeze the final scope immediately before staging. Preserve user-authored code, assets, and unrelated hunks; the Git instruction does not authorize unrelated implementation changes or repairs. After freezing, stage the final bytes without further content edits.
 
@@ -51,7 +51,7 @@ After pushing, read back the exact remote target and verify that it contains the
 6. If staged content changes, re-review only the final staged content and any policy directly affected by that change.
 7. Commit locally only as part of the explicitly authorized Git or publication outcome. Push, deploy, release, publish, or perform destructive Git operations only to the explicitly authorized target. For a branch push or branch-backed publication, follow **Remote Synchronization**; for another external result, read back the resulting state once.
 
-8. Reconcile project card status and work records with the verified result through **Project Card Reconciliation**. 메모리는 반드시 푸시 전에 기록하고, 푸시 후 추가·수정을 절대 금지한다. 푸시 관련 정보는 메모리에 일절 기록하지 않는다. Do not prewrite push, publication, installation or other success from a plan or an agent report. An explicitly requested standalone memory task may have its own commit. Report any failed board update as unfinished work even when Git succeeded.
+8. Reconcile project card status and work records with the verified result through **Project Card Reconciliation**. Do not prewrite push, publication, installation or other success from a plan or an agent report. An explicitly requested standalone memory task may have its own commit. Report any failed board update as unfinished work even when Git succeeded.
 
 ## Text Format
 
