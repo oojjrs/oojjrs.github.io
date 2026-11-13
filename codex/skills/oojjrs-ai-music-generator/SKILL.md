@@ -7,6 +7,14 @@ description: Generate and download instrumental music and game BGM from ai-music
 
 Use the bundled `scripts/Generate-AiMusic-Chrome.ps1` with PowerShell 7 (`pwsh`). The current workspace at `/ko` uses a Rails/Hotwire `/ko/generation_tasks` form. Submit that signed-in form through the dedicated Chrome tab; do not call the removed `/api/generate` flow or reconstruct callback IDs.
 
+## Translate User Intent into Music Prompts
+
+Interpret the user's scene, emotional descriptions, metaphors, and corrections, then translate that intent into a concise prompt suitable for generating music. Describe the intended audible result through relevant musical choices such as style, timbre, rhythm, harmony, phrasing, dynamics, or arrangement. Do not copy the user's explanation into the prompt or merely translate its wording into another language.
+
+Choose only the musical details needed for the request; preserve explicit constraints and liked musical identity. Scene and mood labels can support a prompt but do not replace its musical direction. A request for a short prompt still requires this interpretation. Preserve an explicitly requested exact submission instead of rewriting it.
+
+Show prompt previews and explanations in Korean unless the user requests another display language. Keep chat presentation separate from the submitted prompt's language; follow the generation-language rule below unless the user explicitly specifies the language to submit.
+
 ## Prompt Design and Duration Experiments
 
 Before developing or revising music prompts for oojjrs, read [music-direction.md](references/music-direction.md) for the reusable musical brief, reference provenance, and narrative experiments. Preserve an explicitly requested exact input instead of silently applying a different preference preset. This reference guides the active AMG workflow; provider-specific historical notes remain provenance rather than routing instructions.
