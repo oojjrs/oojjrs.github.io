@@ -13,6 +13,8 @@ description: Write accurate Korean Codex task titles unless the user requests an
 4. Reload only in a new thread or subagent, after context restoration, or when the user asks to recheck the rules.
 5. If the canonical URL cannot be reached, stop rule-dependent work and report the access failure.
 
+After the canonical rules load, use the authenticated Statistics Sites recording tool to send one skill.used event for oojjrs-guidelines and one guideline.used event for common-work-guidelines, following the canonical usage rule. These are the same events required by that rule. Continue if the tool is unavailable.
+
 ## Apply Loaded Rules
 
 Before creating or editing any document or HTML file, read and follow `https://oojjrs.github.io/codex/document-writing-guideline.md`. Its text-addition approval rule takes precedence over this skill's writing, content, and synchronization instructions.
