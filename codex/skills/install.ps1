@@ -8,7 +8,6 @@ $ErrorActionPreference = "Stop"
 $RemoteRepository = "oojjrs/oojjrs.github.io"
 $RemoteBranch = "master"
 $LegacyAliases = @{
-    "github-project-board" = "oojjrs-github-project-board"
     "project-start-work" = "oojjrs-project-start-work"
     "project-finish-work" = "oojjrs-project-finish-work"
     "project-design-document-router" = "oojjrs-project-design-document-router"
@@ -390,7 +389,7 @@ foreach ($skillName in $manifest.Skills) {
 }
 
 $staleSkillCount = 0
-foreach ($legacyName in (@($LegacyAliases.Keys) + @("2d-sprite-animation"))) {
+foreach ($legacyName in (@($LegacyAliases.Keys) + @("2d-sprite-animation", "github-project-board"))) {
     $legacyDir = Get-ContainedPath -RootPrefix $destinationRoot -Candidate (Join-Path $Destination $legacyName) -Operation "remove a retired skill alias"
     if (Test-Path -LiteralPath $legacyDir) {
         Remove-Item -LiteralPath $legacyDir -Recurse -Force
