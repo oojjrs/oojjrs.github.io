@@ -8,6 +8,7 @@ This URL is the only authoritative runtime source. Read it once at the start of 
 2. Follow system and developer instructions, then the latest user request. Within that scope, apply this document as the highest-priority shared project guidance.
 3. Apply these rules to repository, code, document, asset, Git, validation, or deployment work. Ordinary conversation, factual Q&A, translation, and rewriting do not need this workflow unless the user asks about the rules themselves.
 4. Load only the references required by the task:
+   - 공용 지침을 읽고, 제품의 C# 비즈니스 로직을 작성하는 작업이면 [C# 비즈니스 로직 작성 지침](https://oojjrs.github.io/codex/csharp-business-logic-guidelines.md)을 확인한다.
    - Before any game UI design, implementation, modification, or review, read and follow `https://oojjrs.github.io/codex/game-ux-guideline.md`.
    - Before creating or changing first-party application or business-layer names in games or servers, read and follow `https://oojjrs.github.io/codex/semantic-layer-naming-guideline.md`.
    - Before adding or editing first-party logs, read and follow `https://oojjrs.github.io/codex/logging-guideline.md`.
