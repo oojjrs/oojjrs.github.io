@@ -6,9 +6,11 @@ category: "PERSONAL NOTES"
 description: "마타스튜디오 C10의 이전 설정 복기, 거리·EQ·음색 비교와 Windows 통신용 소음 억제 검증을 정리한 기록."
 permalink: /kr/notes/mata-studio-c10/
 status: "APO 제거 완료 · Windows 기본 입력 유지"
-last_updated: "2026-09-06"
+last_updated: "2026-11-21"
 summary: "Equalizer APO·RNNoise를 C10에 실제 연결했지만, 동일 녹음 비교에서 유지할 만큼의 이득을 입증하지 못했다. 새 모델은 키보드를 줄이는 대신 목소리를 먹먹하게 만들어 제외했다. 2026-09-06 22:16에 Equalizer APO를 제거하고 오디오 서비스를 재시작했다. C10 입력·Razer 출력의 기본 장치 선택과 음량은 보존했으며, 아래 설정과 녹음 비교는 실험 이력이다."
 toc_items:
+  - id: obs-game-recording
+    label: "OBS 게임 녹화 설정"
   - id: current-state
     label: "현재 상태"
   - id: current-profile
@@ -36,6 +38,14 @@ toc_items:
   - id: resumed-session
     label: "설정 재개와 통신용 녹음"
 ---
+
+## OBS 게임 녹화 설정 {#obs-game-recording}
+
+- **녹화**　OBS Studio 33.0.1에서 캔버스와 출력을 모두 3840×2160, 60fps로 맞췄다. 녹화 인코더는 NVIDIA NVENC H.264, 품질은 CQP 20·P5, 저장 형식은 하이브리드 MP4다.
+- **조작**　게임 창에서 `Ctrl+Alt+R`을 누르면 해당 게임의 화면·커서·소리를 녹화한다. 다시 누르면 종료하고, `Ctrl+Alt+E`로 일시정지·재개한다. `Ctrl+Alt+G`로 현재 OBS 출력 화면 한 장을 PNG로 저장한다. 저장 위치는 `G:\Videos\게임 녹화`다.
+- **오디오 트랙**　1번은 전체 믹스, 2번은 게임, 3번은 내 C10, 4번은 디스코드 상대 음성이다. 녹화 믹서는 게임 −6dB, C10과 디스코드 각각 0dB다. 스피커로 듣는 음량은 별도로 조절한다.
+- **C10 실시간 필터**　Windows 입력은 100%다. OBS 마이크에 NVIDIA Audio Effects SDK 1.6.1.2 소음 제거 100% → 게인 +2dB → EQ 저음 −1·중음 +1.5·고음 0dB → 컴프레서 −16dB·2:1·출력 +2dB → 익스팬더 −38dB·2:1·출력 +4dB → 리미터 −2dB 순으로 적용했다. 이 필터는 OBS 녹음에 적용된다.
+- **녹화 확인 · 2026-11-21**　게임 내 음량 50%에서 스피커 20·30으로 비교했다. 스피커 20의 21~23초에는 마이크가 게임 트랙보다 평균 약 41dB 작았고, 스피커 30의 17~20초에는 게임음이 계속되는 동안 마이크 트랙이 무음이었다. 말과 타건이 겹칠 때 남는 키보드 소리와 디스코드 송신 음질은 이 비교에서 따로 측정하지 않았다.
 
 ## 현재 상태 {#current-state}
 
