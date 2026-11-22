@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
+         xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
+         xmlns:uap3="http://schemas.microsoft.com/appx/manifest/uap/windows10/3"
+         IgnorableNamespaces="uap uap3">
+  <Identity Name="OOJJRS.ObsFps" Publisher="CN=OOJJRS, OID.2.25.311729368913984317654407730594956997722=1" Version="1.0.5.0" ProcessorArchitecture="x64"/>
+  <Properties>
+    <DisplayName>OBS FPS</DisplayName><PublisherDisplayName>OOJJRS</PublisherDisplayName><Logo>Assets\Store.png</Logo>
+  </Properties>
+  <Dependencies>
+    <TargetDeviceFamily Name="Windows.Desktop" MinVersion="10.0.22000.0" MaxVersionTested="10.0.26100.0"/>
+    <PackageDependency Name="Microsoft.VCLibs.140.00" Publisher="CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US" MinVersion="14.0.0.0"/>
+  </Dependencies>
+  <Resources><Resource Language="ko-kr"/></Resources>
+  <Applications>
+    <Application Id="App" Executable="Widget.exe" EntryPoint="OOJJRS.ObsFps.App">
+      <uap:VisualElements DisplayName="OBS FPS" Description="OBS FPS" BackgroundColor="transparent" Square44x44Logo="Assets\Small.png" Square150x150Logo="Assets\Tile.png">
+        <uap:SplashScreen Image="Assets\Splash.png"/>
+      </uap:VisualElements>
+      <Extensions>
+        <uap3:Extension Category="windows.appExtension">
+          <uap3:AppExtension Name="microsoft.gameBarUIExtension" Id="Fps" DisplayName="OBS FPS" Description="OBS FPS" PublicFolder="GameBar">
+            <uap3:Properties><GameBarWidget Type="Standard">
+              <HomeMenuVisible>true</HomeMenuVisible><PinningSupported>true</PinningSupported>
+              <Window>
+                <Size><Height>56</Height><Width>96</Width><MinHeight>40</MinHeight><MinWidth>68</MinWidth><MaxHeight>120</MaxHeight><MaxWidth>240</MaxWidth></Size>
+                <ResizeSupported><Horizontal>true</Horizontal><Vertical>true</Vertical></ResizeSupported>
+              </Window>
+            </GameBarWidget></uap3:Properties>
+          </uap3:AppExtension>
+        </uap3:Extension>
+      </Extensions>
+    </Application>
+  </Applications>
+  <Extensions>
+    <Extension Category="windows.activatableClass.inProcessServer">
+      <InProcessServer>
+        <Path>Microsoft.Gaming.XboxGameBar.dll</Path>
+        <ActivatableClass ActivatableClassId="Microsoft.Gaming.XboxGameBar.XboxGameBarWidget" ThreadingModel="both"/>
+        <ActivatableClass ActivatableClassId="Microsoft.Gaming.XboxGameBar.XboxGameBarAppTargetTracker" ThreadingModel="both"/>
+      </InProcessServer>
+    </Extension>
+  </Extensions>
+</Package>
